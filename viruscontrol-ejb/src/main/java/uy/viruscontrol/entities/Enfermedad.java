@@ -21,7 +21,7 @@ public class Enfermedad {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idEnfermedad;
+	private int id;
 	private String nombre;
 	private boolean aprobada;
 	@Column(name="\"nombre_agente\"")
@@ -32,38 +32,70 @@ public class Enfermedad {
 	private TipoEnfermedad tipoEnfermedad;
 	
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "enfermedad_sintoma", 
-             joinColumns = { @JoinColumn(name = "idEnfermedad") }, 
-             inverseJoinColumns = { @JoinColumn(name = "idSintoma") })
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "enfermedad_sintoma",
+    joinColumns = {
+	        @JoinColumn(
+	            name = "id_Enfermedad",
+	            referencedColumnName = "id"
+	        )
+	    },
+	    inverseJoinColumns = {
+	        @JoinColumn(
+	            name = "id_Sintoma",
+	            referencedColumnName = "id"
+	        )
+	    }
+	)
 	private List<Sintoma> sintomas;
 
-
+	
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "enfermedad_recurso",
+    joinColumns = {
+	        @JoinColumn(
+	            name = "id_Enfermedad",
+	            referencedColumnName = "id"
+	        )
+	    },
+	    inverseJoinColumns = {
+	        @JoinColumn(
+	            name = "id_Recurso",
+	            referencedColumnName = "id"
+	        )
+	    }
+	)
+	private List<Recurso> recursos;
+	
 	public Enfermedad() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public Enfermedad(int idEnfermedad, String nombre, boolean aprobada, String nombreAgente,
-			TipoEnfermedad tipoEnfermedad, List<Sintoma> sintomas) {
+	
+
+
+	public Enfermedad(int id, String nombre, boolean aprobada, String nombreAgente,
+			TipoEnfermedad tipoEnfermedad, List<Sintoma> sintomas, List<Recurso> recursos) {
 		super();
-		this.idEnfermedad = idEnfermedad;
+		this.id = id;
 		this.nombre = nombre;
 		this.aprobada = aprobada;
 		this.nombreAgente = nombreAgente;
 		this.tipoEnfermedad = tipoEnfermedad;
 		this.sintomas = sintomas;
+		this.recursos = recursos;
 	}
 
 
 	public int getIdEnfermedad() {
-		return idEnfermedad;
+		return id;
 	}
 
 
-	public void setIdEnfermedad(int idEnfermedad) {
-		this.idEnfermedad = idEnfermedad;
+	public void setIdEnfermedad(int id) {
+		this.id = id;
 	}
 
 
@@ -115,6 +147,26 @@ public class Enfermedad {
 	public void setSintomas(List<Sintoma> sintomas) {
 		this.sintomas = sintomas;
 	}
+
+
+	public List<Recurso> getRecursos() {
+		return recursos;
+	}
+
+
+	public void setRecursos(List<Recurso> recursos) {
+		this.recursos = recursos;
+	}
 	
+	//Operación agregarRecursoRecomendado(boolean, boolean, Recurso) se crea unicamente pasando el recurso
+	//Se modificará a futuro de ser necesario
+	
+	public void agregarRecursoRecomendado(Recurso recurso) {
+		
+		this.recursos.add(recurso);
+		recurso.getEnfermedades().add(this);
+		
+		
+	}
 	
 }
