@@ -12,7 +12,7 @@ public class Sintoma {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idSintoma;
+	private int id;
 	private String nombre;
 	
 	
@@ -22,18 +22,18 @@ public class Sintoma {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Sintoma(int idSintoma, String nombre) {
+	public Sintoma(int id, String nombre) {
 		super();
-		this.idSintoma = idSintoma;
+		this.id = id;
 		this.nombre = nombre;
 	}
 	
-	public int getidSintoma() {
-		return idSintoma;
+	public int getid() {
+		return id;
 	}
 	
-	public void setId(int idSintoma) {
-		this.idSintoma = idSintoma;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getNombre() {
