@@ -12,7 +12,7 @@ public class TipoEnfermedad {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idTipoEnfermedad;
+	private int id;
 	private String nombre;
 	
 	
@@ -22,20 +22,20 @@ public class TipoEnfermedad {
 	}
 
 
-	public TipoEnfermedad(int idTipoEnfermedad, String nombre) {
+	public TipoEnfermedad(int id, String nombre) {
 		super();
-		this.idTipoEnfermedad = idTipoEnfermedad;
+		this.id = id;
 		this.nombre = nombre;
 	}
 
 
-	public int getidTipoEnfermedad() {
-		return idTipoEnfermedad;
+	public int getid() {
+		return id;
 	}
 
 
-	public void setidTipoEnfermedad(int idTipoEnfermedad) {
-		this.idTipoEnfermedad = idTipoEnfermedad;
+	public void setid(int id) {
+		this.id = id;
 	}
 
 
