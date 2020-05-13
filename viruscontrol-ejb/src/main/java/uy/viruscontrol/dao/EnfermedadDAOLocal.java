@@ -9,12 +9,14 @@ import uy.viruscontrol.entities.Enfermedad;
 @Local
 public interface EnfermedadDAOLocal  {
 	
-	public void persist(Enfermedad entidad);
+	void persist(Enfermedad enfermedad);
 	
-	public void merge(Enfermedad entidad);
+	void merge(Enfermedad enfermedad);
 	
-	public List<Enfermedad> findAll();
+	List<Enfermedad> findAll();
 	
-	public Enfermedad findById(Integer id);
+	Enfermedad findById(Integer id);
+	
+	void delete(Enfermedad enfermedad);
 
 }
