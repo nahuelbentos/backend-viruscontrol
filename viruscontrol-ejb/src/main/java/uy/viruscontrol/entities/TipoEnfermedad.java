@@ -51,5 +51,12 @@ public class TipoEnfermedad implements Serializable{
 		this.nombre = nombre;
 	}
 
+
+	@Override
+	public String toString() {
+		return "TipoEnfermedad [id=" + id + ", nombre=" + nombre + "]";
+	}
+
+	
 	
 }

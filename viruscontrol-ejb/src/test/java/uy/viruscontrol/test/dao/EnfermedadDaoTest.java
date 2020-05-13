@@ -1,12 +1,17 @@
 package uy.viruscontrol.test.dao;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 
+
 import org.junit.Test;
 
+import org.junit.Assert;
 import uy.viruscontrol.dao.EnfermedadDAOLocal;
 import uy.viruscontrol.entities.Enfermedad;
+
 
 @ApplicationScoped
 public class EnfermedadDaoTest {
@@ -16,10 +21,27 @@ public class EnfermedadDaoTest {
 	
 	@Test
 	public void persistir() {
+		
 		Enfermedad e = new Enfermedad();
-		e.setNombre("prueba");
+		e.setNombre("Prueba");
+		e.setAprobada(false);
+		e.setNombreAgente("Agente Test");
 		
 		dao.persist(e);
+		
+		List<Enfermedad> enfermedades = dao.findAll();
+		Assert.assertEquals(e.getNombre(), enfermedades.get(0).getNombre());
 	}
+	
+	/*
+	 * 
+	private String nombre;
+	private boolean aprobada;
+	private String nombreAgente;
+	private TipoEnfermedad tipoEnfermedad;
+	private List<Sintoma> sintomas;
+	private List<Recurso> recursos;
+	 * 
+	 * */
 	
 }
