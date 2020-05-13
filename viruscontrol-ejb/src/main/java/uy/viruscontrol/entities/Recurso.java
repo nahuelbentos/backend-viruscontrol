@@ -1,5 +1,6 @@
 package uy.viruscontrol.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="recurso")
-public class Recurso {
+public class Recurso implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
