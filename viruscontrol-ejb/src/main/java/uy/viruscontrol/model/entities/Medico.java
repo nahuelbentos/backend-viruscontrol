@@ -1,4 +1,4 @@
-package uy.viruscontrol.entities;
+package uy.viruscontrol.model.entities;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

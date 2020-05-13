@@ -1,10 +1,10 @@
-package uy.viruscontrol.dao;
+package uy.viruscontrol.model.dao.interfaces;
 
 import java.util.List;
 
 import javax.ejb.Local;
 
-import uy.viruscontrol.entities.TipoEnfermedad;
+import uy.viruscontrol.model.entities.TipoEnfermedad;
 
 @Local
 public interface TipoEnfermedadDAOLocal {

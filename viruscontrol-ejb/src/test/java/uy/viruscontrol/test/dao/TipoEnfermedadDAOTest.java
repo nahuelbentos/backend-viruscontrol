@@ -12,9 +12,9 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import uy.viruscontrol.dao.TipoEnfermedadDAO;
-import uy.viruscontrol.dao.TipoEnfermedadDAOLocal;
-import uy.viruscontrol.entities.TipoEnfermedad;
+import uy.viruscontrol.model.dao.impl.TipoEnfermedadDAO;
+import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
+import uy.viruscontrol.model.entities.TipoEnfermedad;
 
 
 @RunWith(Arquillian.class)

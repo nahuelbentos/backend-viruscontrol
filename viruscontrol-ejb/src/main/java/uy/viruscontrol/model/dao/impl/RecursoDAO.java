@@ -1,4 +1,4 @@
-package uy.viruscontrol.dao;
+package uy.viruscontrol.model.dao.impl;
 
 import java.util.List;
 
@@ -8,7 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import uy.viruscontrol.entities.Recurso;
+import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
+import uy.viruscontrol.model.entities.Recurso;
 
 /**
  * Session Bean implementation class RecursoDAO

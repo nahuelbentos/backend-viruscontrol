@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import uy.viruscontrol.dao.TipoEnfermedadDAOLocal;
-import uy.viruscontrol.entities.TipoEnfermedad;
+import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
+import uy.viruscontrol.model.entities.TipoEnfermedad;
 
 /**
  * Servlet implementation class TipoEnfermedadTest

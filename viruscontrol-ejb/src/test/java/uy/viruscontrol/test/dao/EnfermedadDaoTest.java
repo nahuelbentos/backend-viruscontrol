@@ -9,8 +9,9 @@ import javax.enterprise.context.ApplicationScoped;
 import org.junit.Test;
 
 import org.junit.Assert;
-import uy.viruscontrol.dao.EnfermedadDAOLocal;
-import uy.viruscontrol.entities.Enfermedad;
+
+import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
+import uy.viruscontrol.model.entities.Enfermedad;
 
 
 @ApplicationScoped

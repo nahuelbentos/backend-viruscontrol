@@ -1,18 +1,16 @@
-package uy.viruscontrol.entities;
+package uy.viruscontrol.model.entities;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("ciudadano")
-public class Ciudadano extends Usuario {
+@DiscriminatorValue("gerente")
+public class Gerente extends Usuario {
 
 	private static final long serialVersionUID = 1L;
 
-	public Ciudadano() {
+	public Gerente() {
 		super();
 	}
-	
-	
 	
 }

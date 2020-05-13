@@ -1,4 +1,4 @@
-package uy.viruscontrol.entities;
+package uy.viruscontrol.model.entities;
 
 public enum EstadoExamen {
 	PENDIENTE,
