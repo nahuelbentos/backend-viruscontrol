@@ -29,8 +29,10 @@ public class RecursoProveedor implements Serializable {
 		super();
 	}
 
-	public RecursoProveedor(int cantidad) {
+	public RecursoProveedor(Recurso recurso, ProveedorRecursos proveedor, int cantidad) {
 		super();
+		this.recurso = recurso;
+		this.proveedor = proveedor;
 		this.cantidad = cantidad;
 	}
 
@@ -40,6 +42,22 @@ public class RecursoProveedor implements Serializable {
 
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	public Recurso getRecurso() {
+		return recurso;
+	}
+
+	public void setRecurso(Recurso recurso) {
+		this.recurso = recurso;
+	}
+
+	public ProveedorRecursos getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(ProveedorRecursos proveedor) {
+		this.proveedor = proveedor;
 	}
 
 }
