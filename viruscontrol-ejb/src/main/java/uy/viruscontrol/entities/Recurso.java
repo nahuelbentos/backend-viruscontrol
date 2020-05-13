@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="recurso")
 public class Recurso implements Serializable {
+	private static final long serialVersionUID = 4911353386206429832L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

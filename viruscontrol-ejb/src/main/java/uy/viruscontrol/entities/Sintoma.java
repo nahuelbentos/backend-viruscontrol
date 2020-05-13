@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sintoma")
 public class Sintoma implements Serializable {
+	private static final long serialVersionUID = -5167520845419981780L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

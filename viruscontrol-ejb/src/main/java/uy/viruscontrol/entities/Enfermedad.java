@@ -19,7 +19,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "enfermedad")
 public class Enfermedad implements Serializable{
-
+	private static final long serialVersionUID = 1224835107241516313L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
