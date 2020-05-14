@@ -2,6 +2,7 @@ package uy.viruscontrol.model.dao.impl;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,6 +22,12 @@ public class SintomaDAO implements SintomaDAOLocal {
 	@PersistenceContext(unitName = "viruscontrolPersistenceUnit")
     protected EntityManager em;
 
+	public SintomaDAO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	@Override
 	public void persist(Sintoma sintoma) {
 		

@@ -2,6 +2,7 @@ package uy.viruscontrol.model.dao.impl;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,7 +28,7 @@ public class RecursoDAO implements RecursoDAOLocal {
     public RecursoDAO() {
         // TODO Auto-generated constructor stub
     }
-
+   
 	@Override
 	public void persist(Recurso recurso) {
 	
