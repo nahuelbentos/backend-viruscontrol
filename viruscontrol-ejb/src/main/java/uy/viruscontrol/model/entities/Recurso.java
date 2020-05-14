@@ -20,6 +20,8 @@ public class Recurso implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String nombre;
+	boolean tratamiento;
+	boolean prevencion;
 	
 	@ManyToMany(mappedBy = "recursos", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Enfermedad> enfermedades;
@@ -29,12 +31,18 @@ public class Recurso implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Recurso(int id, String nombre, List<Enfermedad> enfermedades) {
+	
+
+	public Recurso(int id, String nombre, boolean tratamiento, boolean prevencion, List<Enfermedad> enfermedades) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.tratamiento = tratamiento;
+		this.prevencion = prevencion;
 		this.enfermedades = enfermedades;
 	}
+
+
 
 	public int getIdRecurso() {
 		return id;
@@ -59,6 +67,31 @@ public class Recurso implements Serializable {
 	public void setEnfermedades(List<Enfermedad> enfermedades) {
 		this.enfermedades = enfermedades;
 	}
+
+
+
+	public boolean isTratamiento() {
+		return tratamiento;
+	}
+
+
+
+	public void setTratamiento(boolean tratamiento) {
+		this.tratamiento = tratamiento;
+	}
+
+
+
+	public boolean isPrevencion() {
+		return prevencion;
+	}
+
+
+
+	public void setPrevencion(boolean prevencion) {
+		this.prevencion = prevencion;
+	}
+	
 	
 	
 	//Se deja comentado dado que estar actualizando en ambas entidades puede causar errores 
