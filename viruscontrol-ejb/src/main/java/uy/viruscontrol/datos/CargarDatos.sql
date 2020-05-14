@@ -1,7 +1,7 @@
 ---Recurso
-insert into public.recurso(id, nombre) values (1, 'Ibuprofeno');
-insert into public.recurso(id, nombre) values (2, 'Alcohol en Gel');
-insert into public.recurso(id, nombre) values (3, 'Tapabocas');
+insert into public.recurso(id, nombre, prevencion, tratamiento) values (1, 'Ibuprofeno',false, true);
+insert into public.recurso(id, nombre, prevencion, tratamiento) values (2, 'Alcohol en Gel', true, false);
+insert into public.recurso(id, nombre, prevencion, tratamiento) values (3, 'Tapabocas', true, false);
 
 --TipoEnfermedad
 insert into public.tipoenfermedad(id,nombre) values (1, 'Virus');
