@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAORemote;
 import uy.viruscontrol.model.entities.TipoEnfermedad;
 
 /**
@@ -17,7 +18,7 @@ import uy.viruscontrol.model.entities.TipoEnfermedad;
  */
 @Stateless
 @LocalBean
-public class TipoEnfermedadDAO implements TipoEnfermedadDAOLocal {
+public class TipoEnfermedadDAO implements TipoEnfermedadDAOLocal, TipoEnfermedadDAORemote {
 
 	
 	@PersistenceContext(unitName = "viruscontrolPersistenceUnit")

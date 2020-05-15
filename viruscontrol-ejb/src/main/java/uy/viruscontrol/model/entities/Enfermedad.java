@@ -168,7 +168,6 @@ public class Enfermedad implements Serializable{
 		this.recursos.add(recurso);
 		recurso.getEnfermedades().add(this);
 		
-		
 	}
 	
 }
