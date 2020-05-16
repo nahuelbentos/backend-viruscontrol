@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -52,7 +53,7 @@ public class Enfermedad implements Serializable{
 	private List<Sintoma> sintomas;
 
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	/*@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "enfermedad_recurso",
     joinColumns = {
 	        @JoinColumn(
@@ -66,7 +67,8 @@ public class Enfermedad implements Serializable{
 	            referencedColumnName = "id"
 	        )
 	    }
-	)
+	)*/
+	@Transient
 	private List<Recurso> recursos;
 	
 	public Enfermedad() {
@@ -74,12 +76,10 @@ public class Enfermedad implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-
 	
 
-
-	public Enfermedad(int id, String nombre, boolean aprobada, String nombreAgente,
-			TipoEnfermedad tipoEnfermedad, List<Sintoma> sintomas, List<Recurso> recursos) {
+	public Enfermedad(int id, String nombre, boolean aprobada, String nombreAgente, TipoEnfermedad tipoEnfermedad,
+			List<Sintoma> sintomas, List<Recurso> recursos) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -91,77 +91,65 @@ public class Enfermedad implements Serializable{
 	}
 
 
-	public int getIdEnfermedad() {
+
+	public int getId() {
 		return id;
 	}
 
-
-	public void setIdEnfermedad(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public boolean isAprobada() {
 		return aprobada;
 	}
 
-
 	public void setAprobada(boolean aprobada) {
 		this.aprobada = aprobada;
 	}
-
 
 	public String getNombreAgente() {
 		return nombreAgente;
 	}
 
-
 	public void setNombreAgente(String nombreAgente) {
 		this.nombreAgente = nombreAgente;
 	}
-
 
 	public TipoEnfermedad getTipoEnfermedad() {
 		return tipoEnfermedad;
 	}
 
-
 	public void setTipoEnfermedad(TipoEnfermedad tipoEnfermedad) {
 		this.tipoEnfermedad = tipoEnfermedad;
 	}
-
 
 	public List<Sintoma> getSintomas() {
 		return sintomas;
 	}
 
-
 	public void setSintomas(List<Sintoma> sintomas) {
 		this.sintomas = sintomas;
 	}
 
-
 	public List<Recurso> getRecursos() {
 		return recursos;
 	}
-
-
 	public void setRecursos(List<Recurso> recursos) {
 		this.recursos = recursos;
 	}
 	
 	
-	public void agregarRecursoRecomendado(Recurso recurso) {
+	
+	public void agregarRecursoRecomendado(Recurso recurso, boolean recursoTrata, boolean recursoPreviene) {
 		
 		this.recursos.add(recurso);
 		recurso.getEnfermedades().add(this);
