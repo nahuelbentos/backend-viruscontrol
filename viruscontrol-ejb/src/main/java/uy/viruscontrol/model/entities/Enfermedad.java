@@ -149,10 +149,9 @@ public class Enfermedad implements Serializable{
 	
 	
 	
-	public void agregarRecursoRecomendado(Recurso recurso, boolean recursoTrata, boolean recursoPreviene) {
+	public void agregarRecursoRecomendado(Recurso recurso) {
 		
 		this.recursos.add(recurso);
-		recurso.getEnfermedades().add(this);
 		
 	}
 	
