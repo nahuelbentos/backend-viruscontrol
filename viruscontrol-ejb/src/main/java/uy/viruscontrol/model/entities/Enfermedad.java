@@ -160,8 +160,6 @@ public class Enfermedad implements Serializable{
 		this.recursos = recursos;
 	}
 	
-	//Operación agregarRecursoRecomendado(boolean, boolean, Recurso) se crea unicamente pasando el recurso
-	//Se modificará a futuro de ser necesario
 	
 	public void agregarRecursoRecomendado(Recurso recurso) {
 		

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "planilla_notificacion")
-public class PlanillaNotificacion {
+public class PlantillaNotificacion {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -18,10 +18,10 @@ public class PlanillaNotificacion {
 	@Column
 	private String descripcion;
 
-	public PlanillaNotificacion() {
+	public PlantillaNotificacion() {
 	}
 
-	public PlanillaNotificacion(int id, String descripcion) {
+	public PlantillaNotificacion(int id, String descripcion) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
