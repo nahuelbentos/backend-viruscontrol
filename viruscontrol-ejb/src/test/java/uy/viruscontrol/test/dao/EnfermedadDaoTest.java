@@ -7,14 +7,15 @@ import javax.enterprise.context.ApplicationScoped;
 
 
 import org.junit.Test;
-
+import org.junit.runner.RunWith;
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Assert;
 
 import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
 import uy.viruscontrol.model.entities.Enfermedad;
 
 
-@ApplicationScoped
+@RunWith(Arquillian.class)
 public class EnfermedadDaoTest {
 
 	@EJB

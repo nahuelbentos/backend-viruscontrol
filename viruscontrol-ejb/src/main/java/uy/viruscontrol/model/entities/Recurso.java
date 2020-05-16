@@ -48,20 +48,9 @@ public class Recurso implements Serializable {
 	}
 
 
-
-
-
 	public int getId() {
 		return id;
 	}
-
-	
-
-	
-
-
-
-
 
 	public void setId(int id) {
 		this.id = id;
@@ -84,9 +73,6 @@ public class Recurso implements Serializable {
 	}
 
 
-	//Se deja comentado dado que estar actualizando en ambas entidades puede causar errores 
-	//para evitar eso actualizo de un solo lado ambas entidades 
-	//por eso en agregarRecursoRecomendado (en Enfermedad) hago tambien recurso.getEnfermedades().add(this);
 	
 	public void asociarEnfermedad(Enfermedad enfermedad) {
 		
