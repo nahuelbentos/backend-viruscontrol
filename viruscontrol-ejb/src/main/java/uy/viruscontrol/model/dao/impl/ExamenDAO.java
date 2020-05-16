@@ -10,7 +10,6 @@ import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.ExamenDAOLocal;
 import uy.viruscontrol.model.entities.Examen;
-import uy.viruscontrol.model.entities.Recurso;
 
 
 @Stateless
@@ -43,7 +42,7 @@ public class ExamenDAO implements ExamenDAOLocal {
 	@Override
 	public List<Examen> findAll() {
 
-		Query q = em.createQuery("SELECT r FROM Examen r");
+		Query q = em.createQuery("SELECT e FROM Examen e");
 		return q.getResultList();
 	}
 	
