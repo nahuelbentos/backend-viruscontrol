@@ -2,39 +2,52 @@ package uy.viruscontrol.test.dao;
 
 import static org.junit.Assert.*;
 
+
+//import java.util.List;
+
 import javax.ejb.EJB;
 
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+
+/*
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+*/
 import org.junit.Test;
 import org.junit.runner.RunWith;
+//import org.junit.Assert;
 
-import uy.viruscontrol.model.dao.impl.TipoEnfermedadDAO;
 import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
-import uy.viruscontrol.model.entities.TipoEnfermedad;
+//import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAORemote;
+//import uy.viruscontrol.model.entities.TipoEnfermedad;
 
 
 @RunWith(Arquillian.class)
 public class TipoEnfermedadDAOTest{
-	
+	/*
 	@Deployment
 	public static JavaArchive createDeployment() {
-	    return ShrinkWrap.create(JavaArchive.class)
-	      .addClasses(TipoEnfermedad.class, TipoEnfermedadDAO.class, TipoEnfermedadDAOLocal.class)
+		JavaArchive jar =  ShrinkWrap.create(JavaArchive.class)
+	      .addClasses(TipoEnfermedadDAOLocal.class)
 	      .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+	    System.out.println(jar.toString(true));
+	    return jar;
 	}
+	*/
 	
 	@EJB
-	private TipoEnfermedadDAOLocal dao;
+	TipoEnfermedadDAOLocal dao;
+	//@EJB(lookup = "ejb:viruscontrol/viruscontrol-ejb/TipoEnfermedadDAO!uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAORemote")
+	//private TipoEnfermedadDAORemote tipoEnfermedadRemote;
+ 
 	
 	@Test
-	public void persistir() {
+	public void daoTest() {
 		
-		assertTrue(dao.findAll().isEmpty());
-		
+		assertTrue(!dao.findAll().isEmpty());
+		/*
 		TipoEnfermedad te1 = new TipoEnfermedad();
 		te1.setNombre("TipoEnfermedad Test 1");
 		
@@ -44,18 +57,18 @@ public class TipoEnfermedadDAOTest{
 		dao.persist(te1);
 		dao.persist(te2);
 		
-		assertEquals(2, dao.findAll().size());
+		assertEquals(4, dao.findAll().size());
 		
 		dao.delete(te2);
 		
-		assertEquals(1, dao.findAll().size());
+		assertEquals(3, dao.findAll().size());
 		
 		
-		/*
+		
 		List<TipoEnfermedad> tiposDeEnfermedades = dao.findAll();
-		Assert.assertEquals(te.getNombre(), tiposDeEnfermedades.get(0).getNombre());
-		
+		Assert.assertEquals(te1.getNombre(), tiposDeEnfermedades.get(0).getNombre());
 		*/
+		
 	}
 
 }
