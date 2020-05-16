@@ -23,12 +23,12 @@ public class Notificacion {
 	private Caso caso;
 	
 	@ManyToOne
-	private PlanillaNotificacion planilla;
+	private PlantillaNotificacion planilla;
 
 	protected Notificacion() {
 	}
 
-	public Notificacion(int id, String descripcion, Caso caso, PlanillaNotificacion planilla) {
+	public Notificacion(int id, String descripcion, Caso caso, PlantillaNotificacion planilla) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
@@ -60,11 +60,11 @@ public class Notificacion {
 		this.caso = caso;
 	}
 
-	public PlanillaNotificacion getPlanilla() {
+	public PlantillaNotificacion getPlanilla() {
 		return planilla;
 	}
 
-	public void setPlanilla(PlanillaNotificacion planilla) {
+	public void setPlanilla(PlantillaNotificacion planilla) {
 		this.planilla = planilla;
 	}
 	
