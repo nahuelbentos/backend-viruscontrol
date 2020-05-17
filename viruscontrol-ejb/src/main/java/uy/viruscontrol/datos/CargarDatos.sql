@@ -22,3 +22,7 @@ insert into recurso_enfermedad(recurso_previene, recurso_trata,id_enfermedad,id_
 --Enfermedad-Sintoma
 insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,100);
 insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,300);
+
+--Proveedor
+insert into proveedor(proveedor_tipo, id, nombre) values('RECURSO', 1, 'Roemers');
+insert into proveedor(proveedor_tipo, id, nombre) values('RECURSO', 2, 'Quimfa');
