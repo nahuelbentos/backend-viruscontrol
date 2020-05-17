@@ -18,4 +18,6 @@ public interface RecursoDAOLocal {
 	Recurso findById(Integer id);
 
 	void delete(Recurso recurso);
+
+	boolean exist(String nombre);
 }

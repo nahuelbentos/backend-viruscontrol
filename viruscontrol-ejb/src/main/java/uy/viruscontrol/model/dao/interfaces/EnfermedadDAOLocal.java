@@ -19,4 +19,6 @@ public interface EnfermedadDAOLocal  {
 	
 	void delete(Enfermedad enfermedad);
 
+	boolean exist(String nombre);
+
 }

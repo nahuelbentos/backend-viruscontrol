@@ -1,5 +1,6 @@
 package uy.viruscontrol.model.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -61,5 +62,18 @@ public class EnfermedadDAO implements EnfermedadDAOLocal {
 		em.remove(em.contains(enfermedad) ? enfermedad : em.merge(enfermedad));
 	}
 	
+	@Override
+	public boolean exist(String nombre) {
+		
+		List<Enfermedad> enfermedades = new ArrayList<Enfermedad>(); 
+    	enfermedades=findAll();
+    	
+    	for(Enfermedad enfermedad : enfermedades) {
+    		if(enfermedad.getNombre().equals(nombre)) {
+    			return true;
+    		}
+    	}
+    	return false;
+	}
 	
 }
