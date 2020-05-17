@@ -1,7 +1,7 @@
 package uy.viruscontrol.model.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -19,6 +19,7 @@ public abstract class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idUsuario;
 	
@@ -26,11 +27,11 @@ public abstract class Usuario implements Serializable{
 	private String apellido;
 	private String direccion;
 	@Column(name="\"fecha_nacimiento\"")
-	private Date fechaNacimiento;
+	private Calendar fechaNacimiento;
 	private String nacionalidad;
 	private String correo;
 	
-	/** atributos del negocio virusControl **/
+	/** atributos del negocio VirusControl **/
 	private String username;
 	private String password;
 	@Column(name="\"primer_ingreso\"")
@@ -63,10 +64,10 @@ public abstract class Usuario implements Serializable{
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public Date getFechaNacimiento() {
+	public Calendar getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(Calendar fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	public String getNacionalidad() {
@@ -97,6 +98,20 @@ public abstract class Usuario implements Serializable{
 		return primerIngreso;
 	}
 	public void setPrimerIngreso(boolean primerIngreso) {
+		this.primerIngreso = primerIngreso;
+	}
+	public Usuario(int idUsuario, String nombre, String apellido, String direccion, Calendar fechaNacimiento,
+			String nacionalidad, String correo, String username, String password, boolean primerIngreso) {
+		super();
+		this.idUsuario = idUsuario;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.direccion = direccion;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nacionalidad = nacionalidad;
+		this.correo = correo;
+		this.username = username;
+		this.password = password;
 		this.primerIngreso = primerIngreso;
 	}
 	
