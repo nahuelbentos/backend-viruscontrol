@@ -25,9 +25,8 @@ public class Sintoma implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Sintoma(int id, String nombre) {
+	public Sintoma(String nombre) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 	}
 	
