@@ -1,6 +1,5 @@
 package uy.viruscontrol.model.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -10,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.RecursoEnfermedadDAOLocal;
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.IdRecursoEnfermedad;
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.RecursoEnfermedad;
@@ -51,9 +51,10 @@ public class RecursoEnfermedadDAO implements RecursoEnfermedadDAOLocal {
 	}
 
 	@Override
-	public RecursoEnfermedad findById(Integer id) {
+	public RecursoEnfermedad findById(Recurso recurso, Enfermedad enfermedad) {
 		
-		return em.find(RecursoEnfermedad.class, id);
+		IdRecursoEnfermedad idAux = new IdRecursoEnfermedad(enfermedad.getId(),recurso.getId());
+		return em.find(RecursoEnfermedad.class, idAux);
 	}
 
 	@Override
@@ -62,15 +63,5 @@ public class RecursoEnfermedadDAO implements RecursoEnfermedadDAOLocal {
 		em.remove(em.contains(recursoEnfermedad) ? recursoEnfermedad : em.merge(recursoEnfermedad));
 		
 	}
-/*
-	@Override
-	public boolean exist(RecursoEnfermedad recursoEnfermedad) {
-		
-		IdRecursoEnfermedad idAux = em.find(IdRecursoEnfermedad.class, recursoEnfermedad.getId());
-		if(idAux == null)
-			return false;
-		else
-			return true;
-	}
-*/
+
 }

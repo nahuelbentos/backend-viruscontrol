@@ -43,7 +43,8 @@ public class EnfermedadBean implements EnfermedadBeanLocal {
     	
     	boolean altaOK = false;
     	Recurso r = new Recurso ();
-    	
+    	Enfermedad e = new Enfermedad();
+    	RecursoEnfermedad recEnf = new RecursoEnfermedad();
     	//Si no existe el recurso..
     	if(!daoRecursoLocal.exist(nombreRecurso)){
     		
@@ -55,26 +56,41 @@ public class EnfermedadBean implements EnfermedadBeanLocal {
     		altaOK=true;
     	}	
     	
-    	//Si existe la enfermedad le asocio el recurso
+    	//Si existe la enfermedad le asocio el recurso si aun no esta asociado  y viceversa
     	if(daoEnfermedadLocal.exist(nombreEnfermedad)) {
     		
     		//Obtengo el recurso
     		r = daoRecursoLocal.findById(getIdRecursoByName(nombreRecurso));
-    		//Lo asocio con la enfermedad
-    		r.asociarEnfermedad(daoEnfermedadLocal.findById(getIdEnfermedadByName(nombreEnfermedad)));
-    		//Actualizo el recurso
-    		daoRecursoLocal.persist(r);
+    		//Obtengo la enfermedad
+    		e= daoEnfermedadLocal.findById(getIdEnfermedadByName(nombreEnfermedad));
     		
-    		//Persisto en recurso_enfermedad
-        	RecursoEnfermedad recursoEnfermedad = new RecursoEnfermedad(r,daoEnfermedadLocal.findById(getIdEnfermedadByName(nombreEnfermedad)));
-        	daoRecEnfLocal.persist(recursoEnfermedad);
-        	recursoEnfermedad.setRecursoPreviene(recursoPreviene);
-        	recursoEnfermedad.setRecursoTrata(recursoTrata);
-        	//hay que validar si la clave compuesta existe en el sistema
-        	daoRecEnfLocal.merge(recursoEnfermedad);
+    		//Verifico si el recurso y la enfermedad ya estan asociados
+    		recEnf = daoRecEnfLocal.findById(r, e);
+    		//Si no lo estan
+    		if(recEnf == null) {
+    			//Lo asocio con la enfermedad
+        		r.asociarEnfermedad(e);
+        		//Actualizo el recurso
+        		daoRecursoLocal.persist(r);
+        		
+        		//Persisto en recurso_enfermedad
+            	RecursoEnfermedad recursoEnfermedad = new RecursoEnfermedad(r,daoEnfermedadLocal.findById(getIdEnfermedadByName(nombreEnfermedad)));
+            	daoRecEnfLocal.persist(recursoEnfermedad);
+            	recursoEnfermedad.setRecursoPreviene(recursoPreviene);
+            	recursoEnfermedad.setRecursoTrata(recursoTrata);
+            	//hay que validar si la clave compuesta existe en el sistema
+            	daoRecEnfLocal.merge(recursoEnfermedad);
+            	altaOK=true;
+    		}else {
+    			recEnf.setRecursoPreviene(recursoPreviene);
+    			recEnf.setRecursoTrata(recursoTrata);
+            	daoRecEnfLocal.merge(recEnf);
+            	altaOK=true;
+    		}
+    		
     		
     		altaOK=true;
-    		return altaOK;
+    		
     	}
     	
     	return altaOK;

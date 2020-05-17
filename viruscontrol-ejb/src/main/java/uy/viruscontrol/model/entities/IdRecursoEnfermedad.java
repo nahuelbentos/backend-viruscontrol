@@ -55,7 +55,7 @@ public class IdRecursoEnfermedad implements Serializable{
 		result = prime * result + idRecurso;
 		return result;
 	}
-
+	
 
 	@Override
 	public boolean equals(Object obj) {
