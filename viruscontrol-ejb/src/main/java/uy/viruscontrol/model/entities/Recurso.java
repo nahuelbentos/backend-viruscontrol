@@ -1,14 +1,17 @@
 package uy.viruscontrol.model.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 
 @Entity
@@ -21,14 +24,13 @@ public class Recurso implements Serializable {
 	private int id;
 	private String nombre;
 	
-	/*
-	//@ManyToMany(mappedBy = "recursos", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@OneToMany(mappedBy = "recurso")
-	private List<RecursoEnfermedad> recursosEnfermedades;
-*/
 	
-	@Transient
-	private List<Enfermedad> enfermedades;
+	
+	@OneToMany(fetch = FetchType.EAGER,
+			mappedBy = "recurso",
+	        orphanRemoval = true
+	    )
+	private List<RecursoEnfermedad> enfermedades = new ArrayList<>();;
 	
 	
 	public Recurso() {
@@ -36,17 +38,12 @@ public class Recurso implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-
-
-	public Recurso(int id, String nombre, List<Enfermedad> enfermedades) {
+	public Recurso(String nombre, List<RecursoEnfermedad> enfermedades) {
 		super();
-		this.id = id;
+		
 		this.nombre = nombre;
 		this.enfermedades = enfermedades;
 	}
-
 
 	public int getId() {
 		return id;
@@ -64,22 +61,76 @@ public class Recurso implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public List<Enfermedad> getEnfermedades() {
+	public List<RecursoEnfermedad> getEnfermedades() {
 		return enfermedades;
 	}
 
-	public void setEnfermedades(List<Enfermedad> enfermedades) {
+	public void setEnfermedades(List<RecursoEnfermedad> enfermedades) {
 		this.enfermedades = enfermedades;
 	}
-
-
 	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((enfermedades == null) ? 0 : enfermedades.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Recurso other = (Recurso) obj;
+		if (enfermedades == null) {
+			if (other.enfermedades != null)
+				return false;
+		} else if (!enfermedades.equals(other.enfermedades))
+			return false;
+		if (id != other.id)
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		return true;
+	}
+
 	public void asociarEnfermedad(Enfermedad enfermedad) {
 		
-		this.enfermedades.add(enfermedad);
-		
-		
+		RecursoEnfermedad recursoEnfermedad = new RecursoEnfermedad(this, enfermedad);
+		enfermedades.add(recursoEnfermedad);
+		enfermedad.getRecursos().add(recursoEnfermedad);
 	}
+	
+	
+/*
+	public void desasociarEnfermedad(Enfermedad enfermedad) {
+		for (Iterator<RecursoEnfermedad> iterator = enfermedades.iterator();
+	             iterator.hasNext(); ) {
+			RecursoEnfermedad recursoEnfermedad = iterator.next();
+	 
+	            if (recursoEnfermedad.getRecurso().equals(this) &&
+	            		recursoEnfermedad.getEnfermedad().equals(enfermedad)) {
+	                iterator.remove();
+	                recursoEnfermedad.getEnfermedad().getRecursos().remove(recursoEnfermedad);
+	                recursoEnfermedad.setRecurso(null);
+	                recursoEnfermedad.setEnfermedad(null);
+	            }
+	        }
+	}
+*/
+
+
 	
 	
 	

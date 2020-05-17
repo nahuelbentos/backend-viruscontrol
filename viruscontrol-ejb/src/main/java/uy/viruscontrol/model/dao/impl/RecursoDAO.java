@@ -1,8 +1,8 @@
 package uy.viruscontrol.model.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,7 +31,7 @@ public class RecursoDAO implements RecursoDAOLocal {
    
 	@Override
 	public void persist(Recurso recurso) {
-	
+		
 		em.persist(recurso);
 		
 	}
@@ -64,6 +64,18 @@ public class RecursoDAO implements RecursoDAOLocal {
 		
 	}
     
-    
+	@Override
+	public boolean exist(String nombre) {
+		
+		List<Recurso> recursos = new ArrayList<Recurso>(); 
+		recursos=findAll();
+    	
+    	for(Recurso recurso : recursos) {
+    		if(recurso.getNombre().equals(nombre)) {
+    			return true;
+    		}
+    	}
+    	return false;
+	}
 
 }
