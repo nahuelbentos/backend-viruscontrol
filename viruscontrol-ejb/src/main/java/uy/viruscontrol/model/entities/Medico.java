@@ -1,6 +1,7 @@
 package uy.viruscontrol.model.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -28,5 +29,13 @@ public class Medico extends Usuario implements Serializable {
 	public void setConectado(boolean conectado) {
 		this.conectado = conectado;
 	}
+
+	public Medico(int idUsuario, String nombre, String apellido, String direccion, Calendar fechaNacimiento,
+			String nacionalidad, String correo, String username, String password, boolean primerIngreso) {
+		super(idUsuario, nombre, apellido, direccion, fechaNacimiento, nacionalidad, correo, username, password, primerIngreso);
+	}
+	
+	
+	
 	
 }
