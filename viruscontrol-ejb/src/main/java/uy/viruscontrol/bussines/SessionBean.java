@@ -36,8 +36,6 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 			return AuthResponse.OK;
 		}else
 			return AuthResponse.FAILED;
-			
-		
 	}
 
 	@Override
