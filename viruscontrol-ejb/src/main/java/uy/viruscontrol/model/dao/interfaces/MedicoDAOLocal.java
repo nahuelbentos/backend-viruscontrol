@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.model.entities.Medico;
 
 @Local
@@ -18,5 +19,7 @@ public interface MedicoDAOLocal {
 	Medico findById(Integer id);
 
 	void delete(Medico medico);
+
+	List<Medico> findAllByPrestadoraSalud(PrestadoraSalud p);
 	
 }

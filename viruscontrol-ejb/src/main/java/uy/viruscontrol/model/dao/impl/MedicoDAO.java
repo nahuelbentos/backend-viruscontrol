@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
 import uy.viruscontrol.model.entities.Medico;
 
@@ -58,5 +59,13 @@ public class MedicoDAO implements MedicoDAOLocal{
 		
 		em.remove(em.contains(medico) ? medico : em.merge(medico));
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Medico> findAllByPrestadoraSalud(PrestadoraSalud p) {
+		return em.createQuery("From Medico WHERE prestadoraSalud = :prestadoraSalud")
+				.setParameter("prestadoraSalud", p)
+				.getResultList();
 	}
 }
