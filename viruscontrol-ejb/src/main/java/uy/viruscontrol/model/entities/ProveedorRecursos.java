@@ -14,8 +14,8 @@ public class ProveedorRecursos extends Proveedor implements Serializable {
 		super();
 	}
 
-	public ProveedorRecursos(int id, String nombre) {
-		super(id, nombre);
+	public ProveedorRecursos(int id, String nombre,String direccion,String barrio,String rangoHorario) {
+		super(id, nombre, direccion, barrio, rangoHorario);
 	}
 
 }

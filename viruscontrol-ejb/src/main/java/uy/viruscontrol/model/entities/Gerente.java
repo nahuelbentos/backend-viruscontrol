@@ -1,6 +1,7 @@
 package uy.viruscontrol.model.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -13,6 +14,12 @@ public class Gerente extends Usuario implements Serializable {
 
 	public Gerente() {
 		super();
+	}
+
+	public Gerente(int idUsuario, String nombre, String apellido, String direccion, Calendar fechaNacimiento,
+			String nacionalidad, String correo, String username, String password, boolean primerIngreso) {
+		super(idUsuario, nombre, apellido, direccion, fechaNacimiento, nacionalidad, correo, username, password, primerIngreso);
+		// TODO Auto-generated constructor stub
 	}
 	
 }
