@@ -11,9 +11,13 @@ import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
 import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.RecursoEnfermedadDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.SintomaDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
 import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.RecursoEnfermedad;
+import uy.viruscontrol.model.entities.Sintoma;
+import uy.viruscontrol.model.entities.TipoEnfermedad;
 
 /**
  * Session Bean implementation class EnfermedadBean
@@ -25,6 +29,8 @@ public class EnfermedadBean implements EnfermedadBeanLocal {
 	@EJB EnfermedadDAOLocal daoEnfermedadLocal;
 	@EJB RecursoDAOLocal daoRecursoLocal;
 	@EJB RecursoEnfermedadDAOLocal daoRecEnfLocal;
+	@EJB TipoEnfermedadDAOLocal daoTipoEnfermedadLocal;
+	@EJB SintomaDAOLocal daoSintomaLocal;
 	
     /**
      * Default constructor. 
@@ -33,6 +39,8 @@ public class EnfermedadBean implements EnfermedadBeanLocal {
         // TODO Auto-generated constructor stub
     }
     
+    
+    //Caso de uso altaRecursoRecomendado
     
     //Funcion que da de alta un nuevo Recurso si este no existe
     //a su vez se asocia a una enfermedad si esta existe
@@ -97,10 +105,83 @@ public class EnfermedadBean implements EnfermedadBeanLocal {
     }
     
     
+    //Caso de Uso crearEnfermedadInfecciosa
+    public boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 
+    		String nombreAgente, List<Sintoma> sintomas, boolean aprobada) {
+    	
+    	boolean altaOK=false;
+    	
+    	//Si la enfermedad NO existe, la creo
+    	if(!daoEnfermedadLocal.exist(nombreEnfermedad)) {
+	    		
+	    		//Si tipoEnfermedad no existe, lo persisto
+	    		TipoEnfermedad tipoEnfermedad = new TipoEnfermedad();
+	    		tipoEnfermedad.setNombre(nombreTipoEnfermedad);
+	    		//tipoEnfermedad = daoTipoEnfermedadLocal.findById(getIdTipoByName(nombreTipoEnfermedad));
+	        	if(!daoTipoEnfermedadLocal.exist(nombreTipoEnfermedad)) {
+		        		
+	        		daoTipoEnfermedadLocal.persist(tipoEnfermedad);
+	        	}
+	        	
+	        	//Si el sintoma no existe, lo persisto
+	        	for(Sintoma sintoma : sintomas) {
+	        		
+	        		if(!daoSintomaLocal.exist(sintoma.getNombre())) {
+	        			Sintoma sintomaNuevo = new Sintoma(sintoma.getNombre());
+	        			daoSintomaLocal.persist(sintomaNuevo);
+	        		}
+	        	}
+	        	
+	        	
+	        	//persisto enfermedad sin Sintomas y sin Tipo
+	        	Enfermedad enfermedad = new Enfermedad(nombreEnfermedad, false, nombreAgente, null, null);
+	        	daoEnfermedadLocal.persist(enfermedad);
+	        	
+	        	//Asocio la enfermedad con los sintomas
+	        	enfermedad=daoEnfermedadLocal.findById(getIdEnfermedadByName(nombreEnfermedad));
+	        	List<Sintoma> sintomasAux = new ArrayList<Sintoma>();
+	        	Sintoma s = new Sintoma();
+	        	for(Sintoma sintoma : sintomas) {
+	        		
+	        		s=daoSintomaLocal.findById(getIdSintomaByName(sintoma.getNombre()));
+	        		sintomasAux.add(s);
+	        	}
+	        	
+	        	enfermedad.setSintomas(sintomasAux);
+	        	daoEnfermedadLocal.merge(enfermedad);
+	        	
+	        	//Asocio la enfermedad con el Tipo
+	        	tipoEnfermedad = daoTipoEnfermedadLocal.findById(getIdTipoByName(nombreTipoEnfermedad));
+	        	enfermedad.setTipoEnfermedad(tipoEnfermedad);
+	        	daoEnfermedadLocal.merge(enfermedad);
+	        	
+	        	altaOK=true;
+        }else {
+    		return altaOK;
+    	}
+    		
+    	return altaOK;
+    }
+    
+    
+    //Aprobar Enfermedad Infecciosa
+    public boolean aprobarEnfermedadInfecciosa(int idEnfermedad) {
+    	
+    	boolean ok=false;
+    	Enfermedad e = daoEnfermedadLocal.findById(idEnfermedad);
+    	
+    	if(e != null) {
+    		e.setAprobada(true);
+    		daoEnfermedadLocal.merge(e);
+    		ok=true;
+    	}
+    	return ok;
+    }
    
     //*/*/*/*/*/*/*/*/*/AUXILIARES*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
     
     //Auxiliar que retorna el Id de una enfermedad dado su nombre
+    
     public int getIdEnfermedadByName(String nombreEnfermedad) {
     	
     	int id=0;
@@ -117,7 +198,8 @@ public class EnfermedadBean implements EnfermedadBeanLocal {
     	return id;
     }
     
-    //Auxiliar que busca un recurso dado su nombre
+    
+    //Auxiliar que retorna el id de un recurso dado su nombre
     public int getIdRecursoByName(String nombreRecurso) {
     	
 			int id = 0;
@@ -127,6 +209,43 @@ public class EnfermedadBean implements EnfermedadBeanLocal {
 	    	for(Recurso recurso : recursos) {
 	    		if(recurso.getNombre().equals(nombreRecurso)) {
 	    			id=recurso.getId();
+	    			break;
+	    		}
+	    	}
+	    	
+	    	return id;
+    }
+    
+  
+    
+  //Auxiliar que retorna el id de un tipo de enfermedad dado su nombre
+    public int getIdTipoByName(String nombreTipoEnfermedad) {
+    	
+			int id = 0;
+	    	List<TipoEnfermedad> tipos = new ArrayList<TipoEnfermedad>(); 
+	    	tipos=daoTipoEnfermedadLocal.findAll();
+	    	
+	    	for(TipoEnfermedad tipo : tipos) {
+	    		if(tipo.getNombre().equals(nombreTipoEnfermedad)) {
+	    			id=tipo.getid();
+	    			break;
+	    		}
+	    	}
+	    	
+	    	return id;
+    }
+    
+   
+  //Auxiliar que retorna el id de un sintoma dado su nombre
+    public int getIdSintomaByName(String nombreSintoma) {
+    	
+			int id = 0;
+	    	List<Sintoma> sintomas = new ArrayList<Sintoma>(); 
+	    	sintomas=daoSintomaLocal.findAll();
+	    	
+	    	for(Sintoma sintoma : sintomas) {
+	    		if(sintoma.getNombre().equals(nombreSintoma)) {
+	    			id=sintoma.getid();
 	    			break;
 	    		}
 	    	}
