@@ -5,6 +5,6 @@ import javax.ejb.Local;
 @Local
 public interface ProveedorBeanLocal {
 
-	boolean nuevoProveedor(int tipo, String Nombre, String direrccion, String barrio, String rangoHorario);
+	boolean nuevoProveedor(int tipo, String Nombre, String direccion, String barrio, String rangoHorario);
 
 }
