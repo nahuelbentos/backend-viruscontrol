@@ -21,13 +21,17 @@ public class UsuarioDAO implements UsuarioDAOLocal {
 
 	@Override
 	public Usuario findByUsername(String username) {
-		return (Usuario)em.createQuery("FROM Usuario WHERE username = :username").setParameter("username", username).getSingleResult();
+		try {
+			return (Usuario)em.createQuery("FROM Usuario WHERE username = :username").setParameter("username", username).getSingleResult();
+		}catch (NoResultException e) {
+			return null;
+		}
 	}
 
 	@Override
 	public boolean existUserByUsername(String username) {
 		try {
-			Object o = em.createQuery("FROM Usuario WHERE username = :username").setParameter("username", username).getSingleResult();
+			em.createQuery("FROM Usuario WHERE username = :username").setParameter("username", username).getSingleResult();
 			return true;
 		} catch (NoResultException e) {
 			return false;

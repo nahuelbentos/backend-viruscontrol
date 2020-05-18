@@ -1,0 +1,41 @@
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  background: #3f51b5;
+}
+
+.snippet-group {
+	display: table;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.snippet-one-content{
+	margin-top: 150px;
+}
+
+.snippet-padding {
+	width: 50%;
+}
+
+.snippet-padding, .snippet-body {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.snippet-body {
+	padding: 0 40px 40px;
+}
+
+/* NORMALIZACION DE COMPONENT.CSS DE JSF */
+.ui-button .ui-button-text {
+	display: inline-block!important;
+}
+.ui-widget-content {
+	border: none;
+}

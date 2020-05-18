@@ -7,10 +7,14 @@ import javax.ejb.Stateless;
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.UsuarioBeanLocal;
 import uy.viruscontrol.bussines.interfaces.UsuarioBeanRemote;
+import uy.viruscontrol.model.dao.interfaces.AdministradorDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.GerenteDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
+import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Ciudadano;
+import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.Usuario;
 
@@ -26,6 +30,10 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
     private CiudadanoDAOLocal ciudadanoDAO;
     @EJB
     private MedicoDAOLocal medicoDAO;
+    @EJB
+    private AdministradorDAOLocal adminDAO;
+    @EJB
+    private GerenteDAOLocal gteDAO;
     
 	@Override
 	public boolean autenticarUsuario(String username, String password) {
@@ -58,14 +66,33 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 					medicoDAO.persist((Medico)user);
 					break;
 				default:
-
-					// lanzar una excepcion o algo similar porque no puede llegar otro tipo de usuario que no sean estos dos.
 					break;
 					
 			}
 			return user.isPrimerIngreso();
 		}
 			
+	}
+	
+	@Override
+	public boolean registrarUsuario(Usuario user) {
+		
+		if (!usuarioDAO.existUserByUsername(user.getUsername())) {
+			try {
+				gteDAO.persist((Gerente)user);
+			} catch(Exception e) {
+				try {
+					adminDAO.persist((Administrador)user);
+				} catch(Exception e1) {
+					e.printStackTrace();
+					e1.printStackTrace();
+					return false;
+				}
+			}
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 
@@ -84,6 +111,9 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 			}
 		}
 	}
+
+
+
 	
 	
     

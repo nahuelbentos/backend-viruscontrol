@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />	
+
+	<!-- Dependencias de material design -->
+	<link href="styles/material.min.css" rel="stylesheet" />
+	<link href="https://code.getmdl.io/1.3.0/material.light_blue-indigo.min.css" rel="stylesheet" />
+	<link href="styles/main.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+
+</h:head> 
+<body> 
+
+	<h3>Solicitud de registro a Virus Control UY</h3>
+	
+	<h:form class="register-form"> 
+	
+		<p:panelGrid columns="4" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
+	
+			<p:outputLabel for="Username" value="Username" />
+			<p:inputText id="Username" value="#{RegisterView.username}"/>
+	
+	
+	        <h:outputText for="Password" value="Contraseña" />
+	        <p:password id="Password" value="#{RegisterView.password}" feedback="true"
+	                    promptLabel="Ingrese contraseña (minimo: 8 caracteres, 1 símbolo y 1 numero)" weakLabel="Débil"
+	                    goodLabel="Medio" strongLabel="Fuerte" />
+	
+			<p:outputLabel for="Correo" value="Correo" />
+	    	<p:inputText id="Correo" value="#{RegisterView.correo}"/>
+			
+		
+		</p:panelGrid>
+	    
+	    <p:spacer height="10" />
+	     
+	    <p:separator />
+		
+		<p:panelGrid columns="4" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">    
+			<p:outputLabel for="Nombre" value="Nombre" />
+			<p:inputText id="Nombre" value="#{RegisterView.nombre}"/>
+		 
+			<p:outputLabel for="Apellido" value="Apellido" />
+			<p:inputText id="Apellido" value="#{RegisterView.apellido}"/>
+		 
+			<p:outputLabel for="FechaNacimiento" value="Fecha de nacimiento" />
+			<p:datePicker id="FechaNacimiento" showIcon="true" style="width:auto" value="#{RegisterView.fechaNacimiento}"/>
+		 
+			<p:outputLabel for="Nacionalidad" value="Nacionalidad" />
+			<p:inputText id="Nacionalidad" value="#{RegisterView.nacionalidad}"/>
+		 
+			<p:outputLabel for="Dirección" value="Dirección" />
+		    <p:inputText id="Dirección" value="#{RegisterView.direccion}"/>
+		 
+		    <p:outputLabel for="selectOne" value="Tipo de usuario" />
+		    <p:selectOneMenu id="selectOne" value="#{RegisterView.tipoUsuario}">
+		        <f:selectItem itemLabel="Tipo de usuario" itemValue="" />
+		        <f:selectItem itemLabel="Administrador" itemValue="ADMINISTRADOR" />
+		        <f:selectItem itemLabel="Gerente" itemValue="GERENTE" />
+		    </p:selectOneMenu>
+		</p:panelGrid>
+		
+		<h:commandButton action="#{RegisterView.register}" value="Registrarse" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+	</h:form>
+</body> 
+</html>

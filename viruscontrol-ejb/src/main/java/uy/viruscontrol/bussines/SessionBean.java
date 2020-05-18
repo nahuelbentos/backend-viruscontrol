@@ -77,7 +77,4 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 		return userConectados.get(username);
 	}
 	
-	
-	
-	
 }
