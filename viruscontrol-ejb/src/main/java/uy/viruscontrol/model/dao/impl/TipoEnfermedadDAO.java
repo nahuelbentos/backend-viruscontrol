@@ -1,8 +1,9 @@
 package uy.viruscontrol.model.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,9 +14,7 @@ import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAORemote;
 import uy.viruscontrol.model.entities.TipoEnfermedad;
 
-/**
- * Session Bean implementation class TipoEnfermedadDAO
- */
+
 @Stateless
 @LocalBean
 public class TipoEnfermedadDAO implements TipoEnfermedadDAOLocal, TipoEnfermedadDAORemote {
@@ -61,6 +60,20 @@ public class TipoEnfermedadDAO implements TipoEnfermedadDAOLocal, TipoEnfermedad
 	public void delete(TipoEnfermedad tipoEnfermedad) {
 		
 		em.remove(em.contains(tipoEnfermedad) ? tipoEnfermedad : em.merge(tipoEnfermedad));
+	}
+	
+	@Override
+	public boolean exist(String nombre) {
+		
+		List<TipoEnfermedad> tipos = new ArrayList<TipoEnfermedad>(); 
+		tipos=findAll();
+    	
+    	for(TipoEnfermedad tipo : tipos) {
+    		if(tipo.getNombre().equals(nombre)) {
+    			return true;
+    		}
+    	}
+    	return false;
 	}
 
 }

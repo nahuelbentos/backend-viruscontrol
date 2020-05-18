@@ -33,12 +33,12 @@ public class Enfermedad implements Serializable{
 	@Column(name="\"nombre_agente\"")
 	private String nombreAgente;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="\"tipoenfermedad\"")
 	private TipoEnfermedad tipoEnfermedad;
 	
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "enfermedad_sintoma",
     joinColumns = {
 	        @JoinColumn(
@@ -69,14 +69,14 @@ public class Enfermedad implements Serializable{
 	}
 
 	public Enfermedad(String nombre, boolean aprobada, String nombreAgente, TipoEnfermedad tipoEnfermedad,
-			List<Sintoma> sintomas, List<RecursoEnfermedad> recursos) {
+			List<Sintoma> sintomas) {
 		super();
 		this.nombre = nombre;
 		this.aprobada = aprobada;
 		this.nombreAgente = nombreAgente;
 		this.tipoEnfermedad = tipoEnfermedad;
 		this.sintomas = sintomas;
-		this.recursos = recursos;
+		
 	}
 
 	

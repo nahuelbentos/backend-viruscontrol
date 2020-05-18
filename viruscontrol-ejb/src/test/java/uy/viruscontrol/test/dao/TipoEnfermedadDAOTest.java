@@ -6,6 +6,9 @@ import static org.junit.Assert.*;
 //import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.embeddable.EJBContainer;
+import javax.naming.Context;
+import javax.naming.NamingException;
 
 import org.jboss.arquillian.junit.Arquillian;
 
@@ -19,12 +22,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 //import org.junit.Assert;
 
+import uy.viruscontrol.model.dao.impl.TipoEnfermedadDAO;
 import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
 //import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAORemote;
 //import uy.viruscontrol.model.entities.TipoEnfermedad;
 
 
-@RunWith(Arquillian.class)
+//@RunWith(Arquillian.class)
 public class TipoEnfermedadDAOTest{
 	/*
 	@Deployment
@@ -37,16 +41,24 @@ public class TipoEnfermedadDAOTest{
 	}
 	*/
 	
-	@EJB
-	TipoEnfermedadDAOLocal dao;
+	//@EJB
+	//TipoEnfermedadDAOLocal dao;
+	
+	
+	
 	//@EJB(lookup = "ejb:viruscontrol/viruscontrol-ejb/TipoEnfermedadDAO!uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAORemote")
 	//private TipoEnfermedadDAORemote tipoEnfermedadRemote;
- 
+	
+    
 	
 	@Test
-	public void daoTest() {
-		
-		assertTrue(!dao.findAll().isEmpty());
+	public void daoTest() throws NamingException {
+		EJBContainer ejbContainer = EJBContainer.createEJBContainer();
+		Context ctx = ejbContainer.getContext();
+		TipoEnfermedadDAO  daoTipoEnfermedadLocal = (TipoEnfermedadDAO) ctx.lookup("java:global/classes/TipoEnfermedadDAO");
+
+	    
+	    assertTrue(!daoTipoEnfermedadLocal.findAll().isEmpty());
 		/*
 		TipoEnfermedad te1 = new TipoEnfermedad();
 		te1.setNombre("TipoEnfermedad Test 1");

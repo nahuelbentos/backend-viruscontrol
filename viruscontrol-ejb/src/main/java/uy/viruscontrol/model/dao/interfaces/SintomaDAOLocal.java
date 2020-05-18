@@ -20,4 +20,6 @@ public interface SintomaDAOLocal {
 
 	void delete(Sintoma sintoma);
 
+	boolean exist(String nombre);
+
 }
