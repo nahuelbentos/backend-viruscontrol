@@ -1,86 +1,81 @@
 package uy.viruscontrol.test.dao;
 
-import static org.junit.Assert.*;
 
-
-//import java.util.List;
-
-import javax.ejb.EJB;
-import javax.ejb.embeddable.EJBContainer;
-import javax.naming.Context;
-import javax.naming.NamingException;
-
-import org.jboss.arquillian.junit.Arquillian;
-
-/*
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-*/
 import org.junit.Test;
-import org.junit.runner.RunWith;
-//import org.junit.Assert;
+
+
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+
+import org.junit.*;
 
 import uy.viruscontrol.model.dao.impl.TipoEnfermedadDAO;
-import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
-//import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAORemote;
-//import uy.viruscontrol.model.entities.TipoEnfermedad;
+import uy.viruscontrol.model.entities.TipoEnfermedad;
 
 
-//@RunWith(Arquillian.class)
-public class TipoEnfermedadDAOTest{
+
+public class TipoEnfermedadDAOTest {
+
+	@Mock
+	private TipoEnfermedadDAO daoTipoEnfermedad;
 	/*
-	@Deployment
-	public static JavaArchive createDeployment() {
-		JavaArchive jar =  ShrinkWrap.create(JavaArchive.class)
-	      .addClasses(TipoEnfermedadDAOLocal.class)
-	      .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	    System.out.println(jar.toString(true));
-	    return jar;
-	}
+	@InjectMocks
+	private EnfermedadBean bean;
 	*/
 	
-	//@EJB
-	//TipoEnfermedadDAOLocal dao;
-	
-	
-	
-	//@EJB(lookup = "ejb:viruscontrol/viruscontrol-ejb/TipoEnfermedadDAO!uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAORemote")
-	//private TipoEnfermedadDAORemote tipoEnfermedadRemote;
-	
-    
+    @Before
+
+    public void setUp() throws Exception {
+
+         MockitoAnnotations.initMocks(this);
+
+    }
 	
 	@Test
-	public void daoTest() throws NamingException {
-		EJBContainer ejbContainer = EJBContainer.createEJBContainer();
-		Context ctx = ejbContainer.getContext();
-		TipoEnfermedadDAO  daoTipoEnfermedadLocal = (TipoEnfermedadDAO) ctx.lookup("java:global/classes/TipoEnfermedadDAO");
-
-	    
-	    assertTrue(!daoTipoEnfermedadLocal.findAll().isEmpty());
-		/*
-		TipoEnfermedad te1 = new TipoEnfermedad();
-		te1.setNombre("TipoEnfermedad Test 1");
+	public void inDAOTipoEnfermedad_PersistMethodIsInvoked() {
 		
-		TipoEnfermedad te2 = new TipoEnfermedad();
-		te2.setNombre("TipoEnfermedad Test 2");
-		
-		dao.persist(te1);
-		dao.persist(te2);
-		
-		assertEquals(4, dao.findAll().size());
-		
-		dao.delete(te2);
-		
-		assertEquals(3, dao.findAll().size());
-		
-		
-		
-		List<TipoEnfermedad> tiposDeEnfermedades = dao.findAll();
-		Assert.assertEquals(te1.getNombre(), tiposDeEnfermedades.get(0).getNombre());
-		*/
+		TipoEnfermedad te = new TipoEnfermedad();
+		daoTipoEnfermedad.persist(te);
+		Mockito.verify(daoTipoEnfermedad).persist(te);
 		
 	}
-
+	
+	@Test
+	public void inDAOTipoEnfermedad_MergeMethodIsInvoked() {
+		TipoEnfermedad te = new TipoEnfermedad();
+		daoTipoEnfermedad.merge(te);
+		Mockito.verify(daoTipoEnfermedad).merge(te);
+		
+	}
+	
+	@Test
+	public void inDAOTipoEnfermedad_FindAllMethodIsInvoked() {
+		
+		daoTipoEnfermedad.findAll();
+		Mockito.verify(daoTipoEnfermedad).findAll();
+	}
+	
+	@Test
+	public void inDAOTipoEnfermedad_FindByMethodIsInvoked() {
+		
+		daoTipoEnfermedad.findById(100);
+		Mockito.verify(daoTipoEnfermedad).findById(100);
+	}
+	
+	@Test
+	public void inDAOTipoEnfermedad_ExistMethodIsInvoked() {
+	
+		daoTipoEnfermedad.exist("Virus");
+		Mockito.verify(daoTipoEnfermedad).exist("Virus");
+	}
+	
+	@Test
+	public void inDAOTipoEnfermedad_DeleteMethodIsInvoked() {
+		TipoEnfermedad te = new TipoEnfermedad();
+		daoTipoEnfermedad.delete(te);
+		Mockito.verify(daoTipoEnfermedad).delete(te);
+	}
+	
 }
