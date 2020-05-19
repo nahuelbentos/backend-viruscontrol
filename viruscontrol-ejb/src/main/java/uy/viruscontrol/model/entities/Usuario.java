@@ -114,6 +114,13 @@ public abstract class Usuario implements Serializable{
 		this.password = password;
 		this.primerIngreso = primerIngreso;
 	}
+	public Usuario(String nombre, String apellido, String correo, String username) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.correo = correo;
+		this.username = username;
+	}
 	
 	
 	
