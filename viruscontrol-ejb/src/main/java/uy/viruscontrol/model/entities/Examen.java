@@ -1,8 +1,6 @@
 package uy.viruscontrol.model.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,18 +15,19 @@ public class Examen {
 	private int id;
 	@ManyToOne
 	private Enfermedad enfermedad;
-	@Enumerated
-	@Column
-	private EstadoExamen estado;
+
+	// segun el modelo de dominio y DCD, varios casos pueden ir asociados a un examen, por lo que el examen no puede tener un estado, dado que no está asociado a un ciudadano
+//	@Enumerated
+//	@Column
+//	private EstadoExamen estado;
 	
+//	public EstadoExamen getEstado() {
+//		return estado;
+//	}
+//	public void setEstado(EstadoExamen estado) {
+//		this.estado = estado;
+//	}
 	
-	
-	public EstadoExamen getEstado() {
-		return estado;
-	}
-	public void setEstado(EstadoExamen estado) {
-		this.estado = estado;
-	}
 	public Examen() {
 		super();
 	}

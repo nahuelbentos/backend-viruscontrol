@@ -2,13 +2,16 @@ package uy.viruscontrol.model.dao.impl;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import uy.viruscontrol.model.dao.interfaces.ExamenDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ProveedorExamenDAOLocal;
+import uy.viruscontrol.model.entities.Examen;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 
 
@@ -19,6 +22,8 @@ public class ProveedorExamenDAO implements ProveedorExamenDAOLocal {
 	
 	@PersistenceContext(unitName = "viruscontrolPersistenceUnit")
     protected EntityManager em;
+	
+	@EJB private ExamenDAOLocal daoExamen;
 	
 	public ProveedorExamenDAO() {
 		
@@ -56,6 +61,14 @@ public class ProveedorExamenDAO implements ProveedorExamenDAOLocal {
 		
 		em.remove(em.contains(proveedorExamen) ? proveedorExamen : em.merge(proveedorExamen));
 		
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ProveedorExamen> findAllByEnfermedadId(int idEnfermedad) {
+		List<Examen> examenes = daoExamen.findAllByEnfermedad(idEnfermedad);
+		return em.createQuery("FROM ProveedorExamen WHERE examenes in (:examenes)")
+				.setParameter(":examenes", examenes)
+				.getResultList();
 	}
 
 
