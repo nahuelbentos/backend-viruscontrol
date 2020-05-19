@@ -103,6 +103,7 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 				user.setPassword(hashPassword(user.getPassword()));
 			} catch (NoSuchAlgorithmException e2) {
 				System.out.println("ERROR ["+UsuarioBean.class.getName()+"]: No se pudo obtener el hash MD5 para la password.");
+				return false;
 			}
 			
 			try {
