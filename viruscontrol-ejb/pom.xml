@@ -57,6 +57,16 @@
 			<scope>provided</scope>
 		</dependency>
 
+
+
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>2.0.2-beta</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- Optional, but highly recommended -->
 		<!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA) 
 			JPA from JUnit/TestNG -->
@@ -95,11 +105,11 @@
 
 		<!-- Consumir servicios de Facebook [https://restfb.com/] -->
 		<dependency>
-		    <groupId>com.restfb</groupId>
-		    <artifactId>restfb</artifactId>
-		    <version>3.6.0</version>
+			<groupId>com.restfb</groupId>
+			<artifactId>restfb</artifactId>
+			<version>3.6.0</version>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
