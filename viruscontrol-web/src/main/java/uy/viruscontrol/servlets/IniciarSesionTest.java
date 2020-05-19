@@ -2,6 +2,7 @@ package uy.viruscontrol.servlets;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -13,13 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
+import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.PrestadoraSaludDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
+import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.model.entities.Usuario;
 
 @WebServlet("/IniciarSesionTest")
 public class IniciarSesionTest extends HttpServlet {
 
 	@EJB SessionBeanLocal sessionEJB;
+	@EJB CiudadanoDAOLocal usuDAO;
+	@EJB PrestadoraSaludDAOLocal prestadoraDAO;
 	
 	private static final long serialVersionUID = 1L;
        
@@ -42,6 +49,23 @@ public class IniciarSesionTest extends HttpServlet {
 		AuthResponse res = sessionEJB.iniciarSesionConRedes(ciudadano, TipoUsuario.CIUDADANO);
 		
 		System.out.println("El Session bean respondio: "+res);
+		
+		Ciudadano jhonnie = (Ciudadano)usuDAO.findById(1);
+		System.out.println("Voy a asignarle a " + jhonnie.getUsername() +" una prestadora recien creada.");
+		
+		PrestadoraSalud mucam = new PrestadoraSalud();
+		mucam.setNombre("Medica Uruguaya");
+		prestadoraDAO.persist(mucam);
+		System.out.println("Quedo agregada la prestadora de salud.");
+		
+		List<PrestadoraSalud> listPS = prestadoraDAO.findAll();
+		PrestadoraSalud getter = listPS.get(0);
+		
+		System.out.println("Me quede con la prestadora: " + "("+ getter.getId() +")" + getter.getNombre());
+		
+		jhonnie.setPrestadoraSalud(getter);
+		usuDAO.merge(jhonnie);
+		
 		
 		
 		

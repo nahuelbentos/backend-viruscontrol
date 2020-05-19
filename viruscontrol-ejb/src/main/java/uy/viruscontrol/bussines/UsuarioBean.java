@@ -53,15 +53,6 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 			return false;
 		}
 	}
-	
-	private String hashPassword(String clave) throws NoSuchAlgorithmException {
-		MessageDigest md = MessageDigest.getInstance("MD5");
-		md.update(clave.getBytes());
-		byte[] digest = md.digest();
-		String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
-		
-		return myHash;
-	}
 
 	@Override
 	public Usuario getUsuario(String username) {
@@ -107,6 +98,13 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 	public boolean registrarUsuario(Usuario user) {
 		
 		if (!usuarioDAO.existUserByUsername(user.getUsername())) {
+			
+			try {
+				user.setPassword(hashPassword(user.getPassword()));
+			} catch (NoSuchAlgorithmException e2) {
+				System.out.println("ERROR ["+UsuarioBean.class.getName()+"]: No se pudo obtener el hash MD5 para la password.");
+			}
+			
 			try {
 				gteDAO.persist((Gerente)user);
 			} catch(Exception e) {
@@ -141,8 +139,15 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 		}
 	}
 
-
-
+	/* AUXILIAR */
+	private String hashPassword(String clave) throws NoSuchAlgorithmException {
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(clave.getBytes());
+		byte[] digest = md.digest();
+		String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+		
+		return myHash;
+	}
 	
 	
     
