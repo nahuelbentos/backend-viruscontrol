@@ -34,7 +34,7 @@ public class Caso implements Serializable  {
 	@ManyToOne
 	private Enfermedad enfermedad;
 
-	protected Caso() {
+	public Caso() {
 	}
 
 	public Caso(int id, TipoCaso tipoCaso, Departamento departamento, Examen examen, Enfermedad enfermedad) {

@@ -30,7 +30,7 @@ public class Ubicacion implements Serializable {
 	private Ciudadano ciudadano;
 
 
-	protected Ubicacion() {
+	public Ubicacion() {
 	}
 
 	public Ubicacion(int id, String latitud, String longitud, Ciudadano ciudadano) {
