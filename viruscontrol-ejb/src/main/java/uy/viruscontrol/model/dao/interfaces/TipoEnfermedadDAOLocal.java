@@ -18,4 +18,6 @@ public interface TipoEnfermedadDAOLocal {
 	TipoEnfermedad findById(Integer id);
 	
 	void delete(TipoEnfermedad tipoEnfermedad);
+
+	boolean exist(String nombre);
 }

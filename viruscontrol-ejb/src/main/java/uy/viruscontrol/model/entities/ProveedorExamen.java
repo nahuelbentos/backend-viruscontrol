@@ -14,8 +14,8 @@ public class ProveedorExamen extends Proveedor implements Serializable {
 		super();
 	}
 
-	public ProveedorExamen(int id, String nombre) {
-		super(id, nombre);
+	public ProveedorExamen(int id, String nombre,String direccion,String barrio,String rangoHorario) {
+		super(id, nombre, direccion, barrio, rangoHorario);
 	}
 
 }

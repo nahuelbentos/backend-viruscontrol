@@ -26,16 +26,50 @@ public abstract class Proveedor implements Serializable {
 	@Column
 	private String nombre;
 	
+	@Column
+	private String direccion;
+	
+	@Column
+	private String barrio;
+	
+	@Column
+	private String rangoHorario;
+	
 	public Proveedor() {
 		
 	}
 
-	public Proveedor(int id, String nombre) {
+	public Proveedor(int id, String nombre,String direccion,String barrio,String rangoHorario) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.direccion= direccion;
 	}
 	
+	public String getBarrio() {
+		return barrio;
+	}
+
+	public void setBarrio(String barrio) {
+		this.barrio = barrio;
+	}
+
+	public String getRangoHorario() {
+		return rangoHorario;
+	}
+
+	public void setRangoHorario(String rangoHorario) {
+		this.rangoHorario = rangoHorario;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
 	public int getId() {
 		return id;
 	}

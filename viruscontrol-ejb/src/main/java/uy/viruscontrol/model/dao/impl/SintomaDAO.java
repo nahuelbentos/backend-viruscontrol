@@ -1,8 +1,9 @@
 package uy.viruscontrol.model.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -63,6 +64,18 @@ public class SintomaDAO implements SintomaDAOLocal {
 		
 	}
     
-    
+	@Override
+	public boolean exist(String nombre) {
+		
+		List<Sintoma> sintomas = new ArrayList<Sintoma>(); 
+		sintomas=findAll();
+    	
+    	for(Sintoma sintoma : sintomas) {
+    		if(sintoma.getNombre().equals(nombre)) {
+    			return true;
+    		}
+    	}
+    	return false;
+	}
 
 }

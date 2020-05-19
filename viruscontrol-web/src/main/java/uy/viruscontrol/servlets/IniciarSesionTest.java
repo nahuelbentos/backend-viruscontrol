@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
-import uy.viruscontrol.model.dao.interfaces.PrestadoraSaludDAOLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Usuario;
 

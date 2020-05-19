@@ -1,8 +1,12 @@
 package uy.viruscontrol.bussines;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.xml.bind.DatatypeConverter;
 
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.UsuarioBeanLocal;
@@ -41,9 +45,23 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 		if (user == null)
 			return false; // El usuario no existe en la base de datos.
 		
-		return (user.getPassword() == password);
+		try {
+			return (user.getPassword() == hashPassword(password));
+		} catch (NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+			System.out.println("ERROR ["+UsuarioBean.class.getName()+"]: No se pudo obtener el hash MD5 para la password.");
+			return false;
+		}
 	}
-
+	
+	private String hashPassword(String clave) throws NoSuchAlgorithmException {
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.update(clave.getBytes());
+		byte[] digest = md.digest();
+		String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+		
+		return myHash;
+	}
 
 	@Override
 	public Usuario getUsuario(String username) {
@@ -57,6 +75,17 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 			return false;
 		} else {
 			user.setPrimerIngreso(true);
+			
+			// Si la password es null, el usuario es de redes sociales, por lo que no la guardo. de lo contrario, guardo el hash md5 de la misma
+			if (user.getPassword() != null) {
+				try {
+					user.setPassword(hashPassword(user.getPassword()));
+				} catch (NoSuchAlgorithmException e) {
+//					e.printStackTrace();
+					System.out.println("ERROR ["+UsuarioBean.class.getName()+"]: No se pudo obtener el hash MD5 para la password.");
+				}
+			}
+			
 			switch (tipoUser){
 				case CIUDADANO:
 					ciudadanoDAO.persist((Ciudadano)user);
