@@ -1,4 +1,4 @@
-package uy.viruscontrol.views;
+package uy.viruscontrol.ui.views;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import uy.viruscontrol.views.UserManager;
+import uy.viruscontrol.ui.views.UserManager;
 
 @WebFilter
 public class SessionFilter implements Filter {

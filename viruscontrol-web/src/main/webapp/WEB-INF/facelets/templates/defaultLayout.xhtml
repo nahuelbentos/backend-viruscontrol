@@ -15,7 +15,7 @@
 
 	<h:outputStylesheet library="styles" name="main.css" />
 	
-	<title><ui:insert name="title" /></title>
+	<title><ui:insert name="title-pagina" /></title>
 	
 </h:head> 
 <body> 
@@ -42,6 +42,9 @@
 			</div>
 	
 			<div class="mdl-cell mdl-cell--10-col">
+				<ui:insert name="title">
+					<span></span>
+				</ui:insert>
 				<ui:insert name="content">
 					<span>Página en construcción</span>
 				</ui:insert>

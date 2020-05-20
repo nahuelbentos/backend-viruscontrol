@@ -1,4 +1,4 @@
-package uy.viruscontrol.views;
+package uy.viruscontrol.ui.views;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -111,7 +111,7 @@ public class UserManager implements Serializable {
 		if (currentUser instanceof Administrador) 
 			return "admin/";
 		else
-			if (currentUser instanceof Administrador)
+			if (currentUser instanceof Gerente)
 				return "gerente/";
 		
 		return "error";
