@@ -32,6 +32,18 @@
 	padding: 0 40px 40px;
 }
 
+.slide-menu {
+	display: inline-block;
+	background: #fff;
+	width: 200px;
+	box-sizing: border-box;
+	padding: 24px 0;
+	-webkit-flex-shrink: 0;
+	-ms-flex-negative: 0;
+	flex-shrink: 0;
+	z-index: 1;
+}
+
 /* NORMALIZACION DE COMPONENT.CSS DE JSF */
 .ui-button .ui-button-text {
 	display: inline-block!important;

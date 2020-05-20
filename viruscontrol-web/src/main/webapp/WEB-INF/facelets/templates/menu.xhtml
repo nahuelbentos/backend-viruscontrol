@@ -8,24 +8,16 @@
 	
 
 	<ui:composition>
-		<h:outputText value="#{MenuPrincipal.userManage.username}" />
+		<ul>
+			<ui:repeat var="opcion" value="#{MenuPrincipal.userManage.opciones}">
+				<li>
+					<h:outputLink value="#{opcion.value}">
+						#{opcion.key}
+	 				</h:outputLink>
+				</li>
+			</ui:repeat>
+		</ul>
 		
-		
-		
-		<ui:repeat var="opcion" value="#{MenuPrincipal.userManage.opciones}">
-			<li>
-				<h:outputLink value="#{opcion.value}">
-					#{opcion.key}
- 				</h:outputLink>
-			</li>
-		</ui:repeat>
-		
-		
-			
-		
-	
-	
-
 	</ui:composition>
 
 </html>

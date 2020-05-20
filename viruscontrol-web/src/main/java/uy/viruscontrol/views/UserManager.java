@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.controllers.SessionBeanController;
@@ -62,6 +64,11 @@ public class UserManager implements Serializable {
 		}
 	}
 	
+	public String logout() {
+		System.out.println("el nieri se quiere ir");
+		return "login";
+	}
+	
 	public Usuario getCurrentUser() {
 		return currentUser;
 	}
@@ -73,25 +80,43 @@ public class UserManager implements Serializable {
 	public Map<String,String> getOpciones(){
 		TreeMap<String,String> opciones = new TreeMap<String,String>();
 		
-		opciones.put("Inicio","home.xhtml");
 		if (currentUser != null) {
 			if (currentUser instanceof Administrador) {
-				opciones.put("Gestión de usuarios","admin/gestorUsuarios.xhtml");
-				opciones.put("Gestión de enfermedades","admin/gestorEnfermedad.xhtml");
-				opciones.put("Gestión de fuente de datos","admin/gestorFuenteDatos.xhtml");
-				opciones.put("Gestión de nodos periféricos","admin/gestorNodos.xhtml");
+				opciones.put("Gestión de usuarios",getDirVirtual(currentUser)+"gestorUsuarios.xhtml");
+				opciones.put("Gestión de enfermedades",getDirVirtual(currentUser)+"gestorEnfermedad.xhtml");
+				opciones.put("Gestión de fuente de datos",getDirVirtual(currentUser)+"gestorFuenteDatos.xhtml");
+				opciones.put("Gestión de nodos periféricos",getDirVirtual(currentUser)+"gestorNodos.xhtml");
 			} else {
 				if (currentUser instanceof Gerente) {
-					opciones.put("Gestión de enfermedades","gerente/gestorEnfermedad.xhtml");
-					opciones.put("Fuente de datos","gerente/gestorFuenteDatos.xhtml");
-					opciones.put("Generador de casos","gerente/gestorCasos.xhtml");
-					opciones.put("Gestión de notificaciones","gerente/gestorNotificaciones.xhtml");
-					opciones.put("Gráficas","gerente/charts.xhtml");
+					opciones.put("Gestión de enfermedades",getDirVirtual(currentUser)+"gestorEnfermedad.xhtml");
+					opciones.put("Fuente de datos",getDirVirtual(currentUser)+"gestorFuenteDatos.xhtml");
+					opciones.put("Generador de casos",getDirVirtual(currentUser)+"gestorCasos.xhtml");
+					opciones.put("Gestión de notificaciones",getDirVirtual(currentUser)+"gestorNotificaciones.xhtml");
+					opciones.put("Gráficas",getDirVirtual(currentUser)+"charts.xhtml");
 				}
 			}
 		}
 				
 		return opciones;
+	}
+	
+	
+	/* Metodo auxiliar que devuelve el directorio del usuario logueado, 
+	 * en caso que me encuentre dentro del directorio, le devuelvo empty. */
+	private static String getDirVirtual(Usuario currentUser) {
+		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		if (origRequest.getRequestURI().contains("admin") || origRequest.getRequestURI().contains("gerente"))
+			return "";
+		
+		if (currentUser instanceof Administrador) 
+			return "admin/";
+		else
+			if (currentUser instanceof Administrador)
+				return "gerente/";
+		
+		return "error";
+		
+		
 	}
 	
 	

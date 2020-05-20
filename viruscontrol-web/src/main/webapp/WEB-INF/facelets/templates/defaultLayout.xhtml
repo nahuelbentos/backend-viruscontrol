@@ -19,21 +19,45 @@
 	
 </h:head> 
 <body> 
-	<div id="layout">		
-		<div id="header">
-			<div id="logo"></div>
- 			<ui:include src="menu.xhtml"/> 
-		</div>
-	
-		<div id="content">
-			<ui:insert name="content">
-				<span>Página en construcción</span>
-			</ui:insert>
-		</div>
+	<header class="mdl-layout__header mdl-layout__header">
+		<div class="mdl-layout__header-row">
+			<span class="mdl-layout-title">Virus Control - Backoffice</span>
+			<div class="mdl-layout-spacer"></div>
 			
-		<div id="footer">
-			<p><a href="#">©</a></p>
+			<nav class="mdl-navigation">
+				
+				<h:commandButton action="#{UserManager.logout}" value="Salir" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+				</h:commandButton>
+				
+				<h:commandLink action="#" value="#{UserManage.username}" />
+			</nav>
 		</div>
+	</header>
+	
+	<div id="slide-menu" class="slide-menu mdl-shadow--4dp">
+		<ui:include src="menu.xhtml"/>
 	</div>
+
+	<div id="content">
+		<ui:insert name="content">
+			<span>Página en construcción</span>
+		</ui:insert>
+	</div>
+		
+		
+		
+		
+		
+	<footer class="mdl-mega-footer">
+	<div class="mdl-mega-footer__bottom-section">
+		<div class="mdl-logo">Virus Control Uy</div>
+	</div>
+
+	</footer>
+	
+	
+	<h:outputScript library="scripts" name="material.min.js" /> 
+		
+		
 </body> 
 </html>
