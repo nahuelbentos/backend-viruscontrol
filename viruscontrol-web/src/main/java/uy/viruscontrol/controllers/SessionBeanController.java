@@ -12,7 +12,7 @@ import uy.viruscontrol.model.entities.Usuario;
 
 public class SessionBeanController {
 
-	private static SessionBeanRemote iSessionBean = lookupRemoteSessionBean();;
+	private static SessionBeanRemote iSessionBean = lookupRemoteSessionBean();
 	
 	public static AuthResponse iniciarSesion(String username, String password) {
 		return iSessionBean.iniciarSesion(username, password);

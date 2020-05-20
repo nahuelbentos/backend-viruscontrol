@@ -8,6 +8,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 
 import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
+import uy.viruscontrol.bussines.interfaces.EnfermedadBeanRemote;
 import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.RecursoEnfermedadDAOLocal;
@@ -24,7 +25,7 @@ import uy.viruscontrol.model.entities.TipoEnfermedad;
  */
 @Stateful
 @LocalBean
-public class EnfermedadBean implements EnfermedadBeanLocal {
+public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote {
 	
 	@EJB EnfermedadDAOLocal daoEnfermedadLocal;
 	@EJB RecursoDAOLocal daoRecursoLocal;

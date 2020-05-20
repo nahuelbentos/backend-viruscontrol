@@ -1,4 +1,4 @@
-package uy.viruscontrol.views;
+package uy.viruscontrol.ui.views;
 
 import java.io.Serializable;
 
