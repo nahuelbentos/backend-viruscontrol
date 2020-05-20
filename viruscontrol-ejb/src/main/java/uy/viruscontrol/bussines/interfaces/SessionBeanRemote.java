@@ -15,4 +15,6 @@ public interface SessionBeanRemote {
 	
 	public void validarDatosConRedes(Usuario user);
 
+	public Usuario getUsuarioLogueado(String username);
+	
 }

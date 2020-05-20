@@ -8,6 +8,7 @@ import javax.naming.NamingException;
 
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.bussines.interfaces.SessionBeanRemote;
+import uy.viruscontrol.model.entities.Usuario;
 
 public class SessionBeanController {
 
@@ -15,6 +16,10 @@ public class SessionBeanController {
 	
 	public static AuthResponse iniciarSesion(String username, String password) {
 		return iSessionBean.iniciarSesion(username, password);
+	}
+	
+	public static Usuario getUsuarioLogeado(String username) {
+		return iSessionBean.getUsuarioLogueado(username);
 	}
 	
 	private static SessionBeanRemote lookupRemoteSessionBean(){

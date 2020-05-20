@@ -26,3 +26,8 @@ insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,300);
 --Proveedor
 insert into proveedor(proveedor_tipo, id, nombre) values('RECURSO', 100, 'Roemers');
 insert into proveedor(proveedor_tipo, id, nombre) values('RECURSO', 200, 'Quimfa');
+
+--Usuario
+insert into usuario(tipo_usuario, id, apellido, correo, direccion, fecha_nacimiento, nacionalidad, nombre, password, primer_ingreso, username) values('administrador',100,'Farcilli','maxifarcilli@gmail.com','Lorenzo Fernandez 3248','1992-08-09 00:00:00','Uruguayo','Maximiliano','21232F297A57A5A743894A0E4A801FC3',false,'maxifarkuso');
+
+

@@ -46,7 +46,7 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 			return false; // El usuario no existe en la base de datos.
 		
 		try {
-			return (user.getPassword() == hashPassword(password));
+			return (user.getPassword().equals(hashPassword(password)));
 		} catch (NoSuchAlgorithmException e) {
 //			e.printStackTrace();
 			System.out.println("ERROR ["+UsuarioBean.class.getName()+"]: No se pudo obtener el hash MD5 para la password.");

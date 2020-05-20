@@ -31,21 +31,20 @@
 						<h:panelGrid columns="2" cellpadding="5">
 		
 							<h:outputText value="Username"/>
-							<p:inputText value="#{LoginView.username}" />
+							<p:inputText value="#{UserManager.username}" />
 							
 							<h:outputText value="Contraseña" />
-						    <p:password id="password" value="#{LoginView.password}"/>
+						    <p:password id="password" value="#{UserManager.password}"/>
 						    
 						</h:panelGrid>
 						
 						<div class="mdl-card__actions mdl-card--border">
-							<h:commandButton action="#{LoginView.login}" value="Ingresar" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
-							
+							<h:commandButton action="#{UserManager.login}" value="Ingresar" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+							</h:commandButton>
 							
 							<p:linkButton outcome="register" value="Registrarse" class="mdl-button mdl-js-button mdl-button--primary" />
-							
 						</div>
-						
+						<h:outputText value="#{UserManager.mensaje}" id="ajaxMessage"/>
 					</h:form>
 					
 					
