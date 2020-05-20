@@ -19,42 +19,43 @@
 	
 </h:head> 
 <body> 
-	<header class="mdl-layout__header mdl-layout__header">
-		<div class="mdl-layout__header-row">
-			<span class="mdl-layout-title">Virus Control - Backoffice</span>
-			<div class="mdl-layout-spacer"></div>
+	<div class="mdl-layout__container">
+		<header class="mdl-layout__header mdl-layout__header">
+			<div class="mdl-layout__header-row">
+				<span class="mdl-layout-title">Virus Control - Backoffice</span>
+				<div class="mdl-layout-spacer"></div>
+				
+				<nav class="mdl-navigation">
+					
+					<h:commandButton action="#{UserManager.logout}" value="Salir" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+					</h:commandButton>
+					
+					<h:commandLink action="#" value="#{UserManage.username}" />
+				</nav>
+			</div>
+		</header>
+		
+		
+		<main id="content" class="docs-layout-content mdl-layout__content mdl-color-text--grey-600 mdl-grid">
+			<div id="slide-menu" class="mdl-cell mdl-cell--2-col">
+				<ui:include src="menu.xhtml"/>
+			</div>
+	
+			<div class="mdl-cell mdl-cell--10-col">
+				<ui:insert name="content">
+					<span>Página en construcción</span>
+				</ui:insert>
+			</div>
+		</main>
 			
-			<nav class="mdl-navigation">
-				
-				<h:commandButton action="#{UserManager.logout}" value="Salir" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-				</h:commandButton>
-				
-				<h:commandLink action="#" value="#{UserManage.username}" />
-			</nav>
-		</div>
-	</header>
+			
+		<footer class="mdl-mega-footer">
+			<div class="mdl-mega-footer__bottom-section">
+				<div class="mdl-logo">Virus Control Uy</div>
+			</div>
 	
-	<div id="slide-menu" class="slide-menu mdl-shadow--4dp">
-		<ui:include src="menu.xhtml"/>
+		</footer>
 	</div>
-
-	<div id="content">
-		<ui:insert name="content">
-			<span>Página en construcción</span>
-		</ui:insert>
-	</div>
-		
-		
-		
-		
-		
-	<footer class="mdl-mega-footer">
-	<div class="mdl-mega-footer__bottom-section">
-		<div class="mdl-logo">Virus Control Uy</div>
-	</div>
-
-	</footer>
-	
 	
 	<h:outputScript library="scripts" name="material.min.js" /> 
 		
