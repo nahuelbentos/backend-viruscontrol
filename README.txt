@@ -57,3 +57,14 @@ The goal "verify" (which triggers the maven-surefire-plugin) is executed later i
 artifacts ("viruscontrol-ejb.jar" and "viruscontrol-web.war") are already built. You can build
 the final EAR by including those files. The "maven-surefire-plugin" is executed before the JAR/WAR files
 are created, so those JAR/WAR files would have to be built in the "@Deployment" method, too. 
+
+
+==========================
+
+Se debe configurar en las preferencias del proyecto, la preferencia JBossWS para poder consumir web services.
+
+Ir a Window -> Preferences -> Web Services -> JBossWS Preferences -> Add -> En el campo "Home folder" indicar la ruta a la instalación de wildfly
+NOTA: se notará que se llegó a la carpeta indicada cuando el mensaje 
+    "Error occurred while loading JBossWS Command. Select the correct JBoss Server folder."
+    cambie por
+    "Create a JBossWS Runtime"
