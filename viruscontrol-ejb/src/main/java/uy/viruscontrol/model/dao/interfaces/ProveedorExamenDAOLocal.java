@@ -20,7 +20,7 @@ public interface ProveedorExamenDAOLocal {
 
 	void delete(ProveedorExamen proveedorExamen);
 
-	
+	public List<ProveedorExamen> findAllByEnfermedadId(int idEnfermedad);
 
 	
 

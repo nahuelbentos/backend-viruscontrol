@@ -7,15 +7,13 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class IdRecursoEnfermedad implements Serializable{
-
-	 
 	private static final long serialVersionUID = -342666877353966803L;
 
-		@Column(name = "enfermedad_id")
-	    private int idEnfermedad;
+	@Column(name = "enfermedad_id")
+    private int idEnfermedad;
 
-		@Column(name = "recurso_id")
-		private int idRecurso;
+	@Column(name = "recurso_id")
+	private int idRecurso;
 	 
 	 
 

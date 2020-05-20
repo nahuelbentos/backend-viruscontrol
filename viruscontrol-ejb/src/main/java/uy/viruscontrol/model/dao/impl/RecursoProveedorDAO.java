@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import uy.viruscontrol.model.dao.interfaces.RecursoProveedorDAOLocal;
 import uy.viruscontrol.model.entities.IdRecursoProveedor;
+import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.RecursoProveedor;
 
 @Stateless
@@ -47,6 +48,15 @@ public class RecursoProveedorDAO implements RecursoProveedorDAOLocal {
 	@Override
 	public void delete(IdRecursoProveedor id) {
 		em.remove(em.contains(id) ? id : em.merge(id));
+	}
+
+	@Override
+	public List<RecursoProveedor> findAllByRecurso(Recurso recurso) {
+		@SuppressWarnings("unchecked")
+		List<RecursoProveedor> lista = em.createQuery("FROM RecursoProveedor WHERE recurso = :recurso")
+										.setParameter(":recurso", recurso)
+										.getResultList();
+		return lista;
 	}
 
 	

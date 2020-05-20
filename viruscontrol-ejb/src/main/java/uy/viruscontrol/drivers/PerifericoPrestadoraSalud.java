@@ -71,10 +71,19 @@ public class PerifericoPrestadoraSalud implements PerifericoPrestadoraSaludLocal
 	@Override
 	public PrestadoraSalud obtenerPrestadorDeSalud(int idUsuario) {
 		Ciudadano user = daoCiudadano.findById(idUsuario);
-		if (user != null)
-			return user.getPrestadoraSalud();
-		else
+		if (user != null) {
+			if (user.getPrestadoraSalud() != null)
+				return user.getPrestadoraSalud();
+			else {
+				// si el usuario no tiene una prestadora de salud, devuelvo una random
+				List<PrestadoraSalud> ps = daoPrestadoraSalud.findAll();
+				Random rand = new Random();
+				if (ps != null)
+					return ps.get(rand.nextInt(ps.size()));
+				else
+					return null;
+			}	
+		} else
 			return null;
 	}
-
 }
