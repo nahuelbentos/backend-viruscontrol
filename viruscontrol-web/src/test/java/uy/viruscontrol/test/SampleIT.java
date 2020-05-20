@@ -1,6 +1,10 @@
 package uy.viruscontrol.test;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
+
+import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -12,6 +16,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
 
 /**
  * Sample integration test: demonstrates how to create the EAR file using the ShrinkWrap API.
@@ -26,6 +32,7 @@ public class SampleIT {
      * 
      * @return EAR archive
      */
+	
     @Deployment
     public static Archive<?> getEarArchive() {
         // Create the EAR archive:
@@ -61,6 +68,8 @@ public class SampleIT {
      * A sample test...
      * 
      */
+    
+    
     @Test
     public void test() {
         // This line will be written on the server console.

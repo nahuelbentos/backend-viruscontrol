@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import uy.viruscontrol.bussines.enumerated.EstadoExamen;
+import uy.viruscontrol.model.entities.EstadoExamen;
 
 
 @Local

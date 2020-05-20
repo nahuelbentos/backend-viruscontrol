@@ -25,7 +25,7 @@ public class Notificacion {
 	@ManyToOne
 	private PlantillaNotificacion planilla;
 
-	public Notificacion() {
+	protected Notificacion() {
 	}
 
 	public Notificacion(int id, String descripcion, Caso caso, PlantillaNotificacion planilla) {
