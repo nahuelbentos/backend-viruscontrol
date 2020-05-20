@@ -12,11 +12,13 @@ public class LoginView {
 	
 	private String username;
 	private String password;
-	
-	public LoginView(String username, String password) {
+	private String mensaje;
+
+	public LoginView(String username, String password, String mensaje) {
 		super();
 		this.username = username;
 		this.password = password;
+		this.mensaje = mensaje;
 	}
 	public LoginView() {
 		super();
@@ -33,11 +35,22 @@ public class LoginView {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public void login() {
+	public String getMensaje() {
+		return mensaje;
+	}
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+	public String login() {
 		AuthResponse res = SessionBeanController.iniciarSesion(username, password);
-		System.out.println(res);
-		
+		if (res.equals(AuthResponse.OK)) {
+			SessionBeanController.getUsuarioLogeado(username);
+			return "exito";
+		} else {
+			this.mensaje = "Usuario inexistente o las credenciales son incorrectas.";
+			return "fallo";
+			
+		}
 	}
 	
 

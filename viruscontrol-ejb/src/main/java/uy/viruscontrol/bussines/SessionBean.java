@@ -71,7 +71,8 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 		}		
 	}
 	
-	private Usuario getUsuarioLogueado(String username) {
+	@Override
+	public Usuario getUsuarioLogueado(String username) {
 		return userConectados.get(username);
 	}
 	

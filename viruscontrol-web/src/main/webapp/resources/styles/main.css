@@ -32,6 +32,10 @@
 	padding: 0 40px 40px;
 }
 
+.slide-menu {
+	border: 1px solid;
+}
+
 /* NORMALIZACION DE COMPONENT.CSS DE JSF */
 .ui-button .ui-button-text {
 	display: inline-block!important;
