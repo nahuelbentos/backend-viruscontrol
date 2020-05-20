@@ -34,6 +34,7 @@ public class ServiceAgentProveedorExamen implements ServiceAgentProveedorExamenL
 
 	@Override
 	public ProveedorExamen obtenerProveedor(int idEnfermedad) throws ClientProtocolException, IOException {
+		// TESTEADO
 		// Método @GET - Uso HttpGet - Devuelve JSON
 		HttpClient client = HttpClients.createDefault();
 		HttpGet getRequest = new HttpGet(urlProvExRest + "proveedor/" + idEnfermedad);
