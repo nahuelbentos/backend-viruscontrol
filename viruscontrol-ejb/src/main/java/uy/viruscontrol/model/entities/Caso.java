@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import uy.viruscontrol.bussines.enumerated.TipoCaso;
+
 @Entity
 @Table(name = "caso")
 public class Caso implements Serializable  {

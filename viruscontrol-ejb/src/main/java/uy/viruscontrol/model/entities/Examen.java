@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import uy.viruscontrol.bussines.enumerated.EstadoExamen;
+
 @Entity
 @Table(name = "examen")
 public class Examen {
