@@ -17,7 +17,7 @@ insert into public.enfermedad(id, aprobada, nombre, nombre_agente, tipoenfermeda
 
 --Enfermedad-Recurso
 insert into recurso_enfermedad(recurso_previene, recurso_trata,id_enfermedad,id_recurso) values (false, true, 100,200);
-//insert into recurso_enfermedad(recurso_previene, recurso_trata,id_enfermedad,id_recurso) values (true, true,100,300);
+--insert into recurso_enfermedad(recurso_previene, recurso_trata,id_enfermedad,id_recurso) values (true, true,100,300);
 
 --Enfermedad-Sintoma
 insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,100);
