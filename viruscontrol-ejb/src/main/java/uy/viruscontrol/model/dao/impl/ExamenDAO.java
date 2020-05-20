@@ -72,8 +72,9 @@ public class ExamenDAO implements ExamenDAOLocal {
 			return em.createQuery("FROM Examen WHERE enfermedad = :enfermedad")
 					.setParameter("enfermedad", enfermedad)
 					.getResultList();
-		} else
+		} else {
 			return null;
+		}
 	}
 
 }

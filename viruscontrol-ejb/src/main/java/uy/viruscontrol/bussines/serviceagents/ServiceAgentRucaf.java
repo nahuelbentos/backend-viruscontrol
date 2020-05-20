@@ -57,6 +57,11 @@ public class ServiceAgentRucaf implements ServiceAgentRucafLocal {
 
 	@Override
 	public PrestadoraSalud obtenerPrestadorDeSalud(int idUsuario) {
+		/* 
+		 * CUIDADO: si el driver no encuentra al usuario solicitado, no encontrará una prestadora asociada,
+		 * por lo que este método puede devolver null. Chequear el resultado en el código que llame a esta
+		 * operación.
+		 */
 		uy.viruscontrol.externalservices.soap.PrestadoraSalud res = cliente.obtenerPrestadorDeSalud(idUsuario);
 		if (res != null)
 			return new PrestadoraSalud(res.getId(), res.getNombre());

@@ -41,8 +41,7 @@ public class PerifericoProveedorExamen implements PerifericoProveedorExamenLocal
 	
 	@Override
 	public List<Examen> listaExamenesParaEnfermedad(int idEnfermedad) {
-		List<Examen> lista = daoExamen.findAllByEnfermedad(idEnfermedad);
-		return lista;
+		return daoExamen.findAllByEnfermedad(idEnfermedad);
 	}
 
 	@Override

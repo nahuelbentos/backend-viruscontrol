@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 @Entity
 @DiscriminatorValue("medico")
 public class Medico extends Usuario implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 2198638793079583112L;
+
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private PrestadoraSalud prestadoraSalud;
 	

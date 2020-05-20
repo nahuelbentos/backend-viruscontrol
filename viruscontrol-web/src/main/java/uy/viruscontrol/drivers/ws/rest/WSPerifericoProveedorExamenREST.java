@@ -1,5 +1,6 @@
 package uy.viruscontrol.drivers.ws.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,6 +17,7 @@ import uy.viruscontrol.drivers.PerifericoProveedorExamenLocal;
 import uy.viruscontrol.model.entities.EstadoExamen;
 import uy.viruscontrol.model.entities.Examen;
 import uy.viruscontrol.model.entities.ProveedorExamen;
+import uy.viruscontrol.utils.DtExamen;
 
 @ApplicationScoped
 @Path("/perifprovex")
@@ -32,8 +34,19 @@ public class WSPerifericoProveedorExamenREST {
 	@GET
 	@Path("/examenes/{idEnfermedad}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Examen> obtenerExamenesParaUnaEnfermedad(@PathParam("idEnfermedad") int idEnfermedad){
-		return provEx.listaExamenesParaEnfermedad(idEnfermedad);
+	public List<DtExamen> obtenerExamenesParaUnaEnfermedad(@PathParam("idEnfermedad") int idEnfermedad){
+		/* 
+		 * Se creó el DtExamen porque java no logra serializar la clase Enfermedad (se asume que por 
+		 * el id embebido, ya que el resto de las propiedades se han usado en otras clases y no ha 
+		 * habido problemas al serializas)
+		 * De esta manera, en el DtExamen se setean solo valores de interes como el id del examen y la enfermedad asociada
+		 */
+		List<Examen> temp = provEx.listaExamenesParaEnfermedad(idEnfermedad);
+		List<DtExamen> lista = new ArrayList<DtExamen>();
+		for (Examen e : temp) {
+			lista.add(e.getDt());
+		}
+		return lista;
 	}
 	
 	@POST

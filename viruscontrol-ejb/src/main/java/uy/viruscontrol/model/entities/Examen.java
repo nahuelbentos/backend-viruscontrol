@@ -1,5 +1,7 @@
 package uy.viruscontrol.model.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,9 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import uy.viruscontrol.utils.DtExamen;
+
 @Entity
 @Table(name = "examen")
-public class Examen {
+public class Examen implements Serializable {
+	private static final long serialVersionUID = -4187642113394060508L;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -46,5 +52,9 @@ public class Examen {
 	}
 	public void setEnfermedad(Enfermedad enfermedad) {
 		this.enfermedad = enfermedad;
+	}
+	
+	public DtExamen getDt() {
+		return new DtExamen(this.id, this.enfermedad.getId(), this.enfermedad.getNombre());
 	}
 }

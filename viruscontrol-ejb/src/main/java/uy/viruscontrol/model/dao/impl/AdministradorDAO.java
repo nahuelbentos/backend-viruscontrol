@@ -14,7 +14,7 @@ import uy.viruscontrol.model.entities.Administrador;
 
 @Stateless
 @LocalBean
-public class AdministradorDAO implements AdministradorDAOLocal{
+public class AdministradorDAO implements AdministradorDAOLocal {
 	
 	@PersistenceContext(unitName = "viruscontrolPersistenceUnit")
     protected EntityManager em;

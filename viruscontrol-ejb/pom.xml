@@ -109,6 +109,46 @@
 			<artifactId>restfb</artifactId>
 			<version>3.6.0</version>
 		</dependency>
+		
+		<!-- Importar dependencias para componentes HTTP (para consumir servicios REST) -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<!-- Se omite la versión ya que el proyecto ya administra por defecto la 4.5.11 -->
+			<!-- <version>4.5.12</version> -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+			<version>4.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<!-- Se pone la 4.5.11 en lugar de la 4.5.12 ya que el proyecto ya administra esta versión para httpclient -->
+			<version>4.5.11</version>
+		</dependency>
+		
+		<!-- Para leer/escribir JSON directo desde un Objeto -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<!-- Se importa commons-text para configurar los caracteres de escape al deserializar utilizando objectmapper -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-text</artifactId>
+		    <version>1.6</version>
+		</dependency>
+		
 
 	</dependencies>
 
