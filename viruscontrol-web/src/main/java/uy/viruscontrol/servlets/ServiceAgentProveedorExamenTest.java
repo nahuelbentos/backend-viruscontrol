@@ -32,6 +32,9 @@ public class ServiceAgentProveedorExamenTest extends HttpServlet {
 			System.out.println("Examen: " + e.getId());
 		}
 		
+		DtExamen solEx = saProvEx.altaDeExamen(1, 1, 2);
+		System.out.println("ServiceAgentProveedorExamen.altaDeExamen dice " + solEx.getId() + " " + solEx.getIdEnfermedad() + " " + solEx.getNombreEnfermedad());
+		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 

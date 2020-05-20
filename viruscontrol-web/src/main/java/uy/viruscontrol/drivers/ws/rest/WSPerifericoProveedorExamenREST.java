@@ -52,10 +52,11 @@ public class WSPerifericoProveedorExamenREST {
 	@POST
 	@Path("/examen")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Examen altaDeExamen(@FormParam("idPaciente") int idPaciente, 
+	public DtExamen altaDeExamen(@FormParam("idPaciente") int idPaciente, 
 									@FormParam("idExamen") int idExamen,
 									@FormParam("idMedico") int idMedico) {
-		return provEx.solicitarAltaExamen(idPaciente, idExamen, idMedico);
+//		System.out.println("["+WSPerifericoProveedorExamenREST.class.getName()+"] Paciente: "+idPaciente+", Examen: "+idExamen+", Medico: "+idMedico);
+		return provEx.solicitarAltaExamen(idPaciente, idExamen, idMedico).getDt();
 	}
 	
 	@GET
