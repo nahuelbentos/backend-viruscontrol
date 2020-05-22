@@ -6,12 +6,22 @@
       xmlns:p="http://primefaces.org/ui"> 
 
 <ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
-	<ui:define name="title">
+	<ui:define name="Gestión de Nodos Periféricos">
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
+	
 	<ui:define name="content">
+	<h:outputText value="#{GestorPrestadorView.mensaje}" />
 		<h:form>
-			<h:outputText value="ESTAS EN EL HOME CON LA ESTRUCTURA DEFINIDA" />
+		<h3 style="text-align: center">Alta Prestadora Salud</h3>
+			<p:panelGrid columns="4" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
+				<p:outputLabel for="NombrePrestador" value="Nombre Prestador" />
+				<p:inputText id="NombrePrestador" value="#{GestorPrestadorView.nombrePrestador}" required="true"
+						requiredMessage="Debe ingresar un Nombre"/>
+				<p:message for="NombrePrestador" />
+				
+				<h:commandButton action="#{GestorPrestadorView.agregarPrestador()}" value="Solicitar alta" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+			</p:panelGrid>
 		</h:form>
 	</ui:define>
  
