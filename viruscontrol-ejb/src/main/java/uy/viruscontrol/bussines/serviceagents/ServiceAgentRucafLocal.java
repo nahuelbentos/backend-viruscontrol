@@ -13,4 +13,5 @@ public interface ServiceAgentRucafLocal {
 	public boolean estaDisponible(int idPrestadora);
 	public int obtenerMedicoAsignado(int idPrestadora);
 	public PrestadoraSalud obtenerPrestadorDeSalud(int idUsuario);
+	public PrestadoraSalud obtenerPrestadorDeSaludAlternativo(int idUsuario);
 }

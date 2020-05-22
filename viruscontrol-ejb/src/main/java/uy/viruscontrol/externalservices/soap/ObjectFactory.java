@@ -31,6 +31,8 @@ public class ObjectFactory {
     private final static QName _ObtenerMedicos_QNAME = new QName("http://soap.ws.drivers.viruscontrol.uy/", "obtenerMedicos");
     private final static QName _ObtenerMedicosResponse_QNAME = new QName("http://soap.ws.drivers.viruscontrol.uy/", "obtenerMedicosResponse");
     private final static QName _ObtenerPrestadorDeSalud_QNAME = new QName("http://soap.ws.drivers.viruscontrol.uy/", "obtenerPrestadorDeSalud");
+    private final static QName _ObtenerPrestadorDeSaludAlternativo_QNAME = new QName("http://soap.ws.drivers.viruscontrol.uy/", "obtenerPrestadorDeSaludAlternativo");
+    private final static QName _ObtenerPrestadorDeSaludAlternativoResponse_QNAME = new QName("http://soap.ws.drivers.viruscontrol.uy/", "obtenerPrestadorDeSaludAlternativoResponse");
     private final static QName _ObtenerPrestadorDeSaludResponse_QNAME = new QName("http://soap.ws.drivers.viruscontrol.uy/", "obtenerPrestadorDeSaludResponse");
 
     /**
@@ -94,6 +96,22 @@ public class ObjectFactory {
      */
     public ObtenerPrestadorDeSalud createObtenerPrestadorDeSalud() {
         return new ObtenerPrestadorDeSalud();
+    }
+
+    /**
+     * Create an instance of {@link ObtenerPrestadorDeSaludAlternativo }
+     * 
+     */
+    public ObtenerPrestadorDeSaludAlternativo createObtenerPrestadorDeSaludAlternativo() {
+        return new ObtenerPrestadorDeSaludAlternativo();
+    }
+
+    /**
+     * Create an instance of {@link ObtenerPrestadorDeSaludAlternativoResponse }
+     * 
+     */
+    public ObtenerPrestadorDeSaludAlternativoResponse createObtenerPrestadorDeSaludAlternativoResponse() {
+        return new ObtenerPrestadorDeSaludAlternativoResponse();
     }
 
     /**
@@ -209,6 +227,32 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://soap.ws.drivers.viruscontrol.uy/", name = "obtenerPrestadorDeSalud")
     public JAXBElement<ObtenerPrestadorDeSalud> createObtenerPrestadorDeSalud(ObtenerPrestadorDeSalud value) {
         return new JAXBElement<ObtenerPrestadorDeSalud>(_ObtenerPrestadorDeSalud_QNAME, ObtenerPrestadorDeSalud.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ObtenerPrestadorDeSaludAlternativo }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ObtenerPrestadorDeSaludAlternativo }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://soap.ws.drivers.viruscontrol.uy/", name = "obtenerPrestadorDeSaludAlternativo")
+    public JAXBElement<ObtenerPrestadorDeSaludAlternativo> createObtenerPrestadorDeSaludAlternativo(ObtenerPrestadorDeSaludAlternativo value) {
+        return new JAXBElement<ObtenerPrestadorDeSaludAlternativo>(_ObtenerPrestadorDeSaludAlternativo_QNAME, ObtenerPrestadorDeSaludAlternativo.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ObtenerPrestadorDeSaludAlternativoResponse }{@code >}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code <}{@link ObtenerPrestadorDeSaludAlternativoResponse }{@code >}
+     */
+    @XmlElementDecl(namespace = "http://soap.ws.drivers.viruscontrol.uy/", name = "obtenerPrestadorDeSaludAlternativoResponse")
+    public JAXBElement<ObtenerPrestadorDeSaludAlternativoResponse> createObtenerPrestadorDeSaludAlternativoResponse(ObtenerPrestadorDeSaludAlternativoResponse value) {
+        return new JAXBElement<ObtenerPrestadorDeSaludAlternativoResponse>(_ObtenerPrestadorDeSaludAlternativoResponse_QNAME, ObtenerPrestadorDeSaludAlternativoResponse.class, null, value);
     }
 
     /**

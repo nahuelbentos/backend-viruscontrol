@@ -69,4 +69,13 @@ public class ServiceAgentRucaf implements ServiceAgentRucafLocal {
 			return null;
 	}
 
+	@Override
+	public PrestadoraSalud obtenerPrestadorDeSaludAlternativo(int idUsuario) {
+		uy.viruscontrol.externalservices.soap.PrestadoraSalud res = cliente.obtenerPrestadorDeSaludAlternativo(idUsuario);
+		if (res != null)
+			return new PrestadoraSalud(res.getId(), res.getNombre());
+		else
+			return null;
+	}
+
 }

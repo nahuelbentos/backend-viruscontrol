@@ -27,8 +27,15 @@ insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,300);
 insert into proveedor(proveedor_tipo, id, nombre) values('RECURSO', 100, 'Roemers');
 insert into proveedor(proveedor_tipo, id, nombre) values('RECURSO', 200, 'Quimfa');
 
+
+-- PrestadoraSalud
+insert into prestadora_salud (id, nombre) values (100, 'Servicio Médico Integral - SMI');
+insert into prestadora_salud (id, nombre) values (101, 'Medica Uruguaya');
+
 --Usuario
 insert into usuario(tipo_usuario, id, apellido, correo, direccion, fecha_nacimiento, nacionalidad, nombre, password, primer_ingreso, username) values('administrador',100,'Farcilli','maxifarcilli@gmail.com','Lorenzo Fernandez 3248','1992-08-09 00:00:00','Uruguayo','Maximiliano','21232F297A57A5A743894A0E4A801FC3',false,'admin');
 insert into usuario(tipo_usuario, id, apellido, correo, direccion, fecha_nacimiento, nacionalidad, nombre, password, primer_ingreso, username) values('gerente',101,'Farcilli','maxifarcilli@gmail.com','Lorenzo Fernandez 3248','1992-08-09 00:00:00','Uruguayo','Maximiliano','21232F297A57A5A743894A0E4A801FC3',false,'gerente');
-
-
+insert into usuario (tipo_usuario, id, apellido, correo, direccion, fecha_nacimiento, nacionalidad, nombre, password, primer_ingreso, username, conectado, prestadorasalud_id) values ('ciudadano', 102, 'Mortal', 'simple.mortal@algo.ccc', 'Dirección 1122 apto 111', '1980-11-05', 'Uruguayo', 'Simple', '21232F297A57A5A743894A0E4A801FC3', false, 'simplemortal', false, null);
+insert into usuario (tipo_usuario, id, apellido, correo, direccion, fecha_nacimiento, nacionalidad, nombre, password, primer_ingreso, username, conectado, prestadorasalud_id) values ('medico', 103, 'Del Covid', 'esclavo.delcovid@smi.ccc', 'Bulevar 1325', '1975-07-02', 'Uruguayo', 'Esclavo', '21232F297A57A5A743894A0E4A801FC3', false, 'edelcovid', false, 100);
+insert into usuario (tipo_usuario, id, apellido, correo, direccion, fecha_nacimiento, nacionalidad, nombre, password, primer_ingreso, username, conectado, prestadorasalud_id) values ('medico', 104, 'Perez', 'juan.perez@medicauruguaya.ccc', '18 de Julio 2566 apto 507', '1983-03-19', 'Uruguayo', 'Juan', '21232F297A57A5A743894A0E4A801FC3', false, 'jperez', false, 101);
+insert into usuario (tipo_usuario, id, apellido, correo, direccion, fecha_nacimiento, nacionalidad, nombre, password, primer_ingreso, username, conectado, prestadorasalud_id) values ('ciudadano', 105, 'Garcia', 'pedro.garcia@algo.ccc', 'Martin Fierro 2556', '1990-12-31', 'Uruguayo', 'Pedro', '21232F297A57A5A743894A0E4A801FC3', false, 'pedrogarcia', false, 100);
