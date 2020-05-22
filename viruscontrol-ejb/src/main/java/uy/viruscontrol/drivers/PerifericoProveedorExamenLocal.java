@@ -14,4 +14,5 @@ public interface PerifericoProveedorExamenLocal {
 	public List<Examen> listaExamenesParaEnfermedad(int idEnfermedad);
 	public Examen solicitarAltaExamen(int idPaciente, int idExamen, int idMedico);
 	public EstadoExamen resultadoExamen(int idCaso);
+	public List<ProveedorExamen> findAllByEnfermedad(int idEnfermedad);
 }

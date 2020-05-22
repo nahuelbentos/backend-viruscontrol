@@ -28,7 +28,7 @@ insert into proveedor(proveedor_tipo, id, nombre) values('RECURSO', 100, 'Roemer
 insert into proveedor(proveedor_tipo, id, nombre) values('RECURSO', 200, 'Quimfa');
 insert into proveedor(proveedor_tipo, id, nombre, barrio, direccion, rangohorario) values('EXAMEN', 300, 'labSA','centro','18 y ejido','24 hs');
 insert into proveedor(proveedor_tipo, id, nombre, barrio , direccion, rangohorario) values('EXAMEN', 400, 'BillGates Foundation','Xanadu','Seattle','24 hs');
-
+insert into proveedor(proveedor_tipo, id, barrio, direccion, nombre, rangohorario) values ('EXAMEN', 500, 'Centro', 'Canelones 2222', 'Algun prov', '24 hs');
 
 -- PrestadoraSalud
 insert into prestadora_salud (id, nombre) values (100, 'Servicio Médico Integral - SMI');
@@ -39,6 +39,7 @@ insert into examen(id,enfermedad_id) values(100,100);
 
 --proveedorexamen-examen
 insert into proveedorexamen_examen(id_proveedor, id_examen) values (300,100);
+insert into proveedorexamen_examen (id_proveedor, id_examen) values (500, 100);
 
 --Departamento
 insert into departamento(id,nombre) values(100, 'Montevideo');

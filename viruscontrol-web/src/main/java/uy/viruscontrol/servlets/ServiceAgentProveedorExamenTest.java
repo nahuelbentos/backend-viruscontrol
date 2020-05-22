@@ -60,7 +60,7 @@ public class ServiceAgentProveedorExamenTest extends HttpServlet {
 		}
 		
 		System.out.println("mostrar proveedores");
-		List<ProveedorExamen> listProv= medicoBean.ObtenerProveedoresExamen(100);
+		List<ProveedorExamen> listProv= saProvEx.obtenerProveedores(100);//medicoBean.ObtenerProveedoresExamen(100);
 		if(listProv!=null) {
 			for(ProveedorExamen p:listProv) {
 				System.out.println("id : "+p.getId());

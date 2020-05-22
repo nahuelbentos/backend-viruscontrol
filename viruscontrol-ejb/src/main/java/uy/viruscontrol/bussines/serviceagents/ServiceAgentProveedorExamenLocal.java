@@ -14,6 +14,7 @@ import uy.viruscontrol.utils.DtExamen;
 @Local
 public interface ServiceAgentProveedorExamenLocal {
 	public ProveedorExamen obtenerProveedor(int idEnfermedad) throws ClientProtocolException, IOException;
+	public List<ProveedorExamen> obtenerProveedores(int idEnfermedad) throws ClientProtocolException, IOException;
 	public List<DtExamen> obtenerExamenesParaUnaEnfermedad(int idEnfermedad) throws ClientProtocolException, IOException;
 	public DtExamen altaDeExamen(int idPaciente, int idExamen, int idMedico) throws ClientProtocolException, IOException;
 	public EstadoExamen obtenerResultadoExamen(int idCaso) throws ClientProtocolException, IOException;

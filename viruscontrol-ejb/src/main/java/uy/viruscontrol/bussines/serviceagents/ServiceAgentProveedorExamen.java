@@ -49,6 +49,16 @@ public class ServiceAgentProveedorExamen implements ServiceAgentProveedorExamenL
 	}
 
 	@Override
+	public List<ProveedorExamen> obtenerProveedores(int idEnfermedad) throws ClientProtocolException, IOException {
+		// Método @GET - Uso HttpGet - Devuelve JSON
+		HttpClient client = HttpClients.createDefault();
+		HttpGet getRequest = new HttpGet(urlProvExRest + "proveedores/" + idEnfermedad);
+		HttpResponse res = client.execute(getRequest);
+		
+		return mapper.readValue(res.getEntity().getContent(), mapper.getTypeFactory().constructCollectionType(List.class, ProveedorExamen.class));
+	}
+
+	@Override
 	public List<DtExamen> obtenerExamenesParaUnaEnfermedad(int idEnfermedad) throws ClientProtocolException, IOException {
 		// TESTEADO
 		// Método @GET - Uso HttpGet - Devuelve JSON

@@ -32,6 +32,13 @@ public class WSPerifericoProveedorExamenREST {
 	}
 	
 	@GET
+	@Path("/proveedores/{idEnfermedad}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<ProveedorExamen> obtenerProveedores(@PathParam("idEnfermedad") int idEnfermedad) {
+		return provEx.findAllByEnfermedad(idEnfermedad);
+	}
+	
+	@GET
 	@Path("/examenes/{idEnfermedad}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<DtExamen> obtenerExamenesParaUnaEnfermedad(@PathParam("idEnfermedad") int idEnfermedad){
