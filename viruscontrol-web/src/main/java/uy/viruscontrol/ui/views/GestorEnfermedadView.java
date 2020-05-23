@@ -4,14 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import uy.viruscontrol.controllers.EnfermedadBeanController;
-import uy.viruscontrol.model.entities.Administrador;
-import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Sintoma;
 
 @Named("GestorEnfermedadView")

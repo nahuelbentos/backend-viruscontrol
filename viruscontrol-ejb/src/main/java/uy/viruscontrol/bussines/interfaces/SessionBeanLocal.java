@@ -15,4 +15,5 @@ public interface SessionBeanLocal {
 	
 	public void validarDatosConRedes(Usuario user);
 	
+	public Usuario getUsuarioLogueado(String username);
 }

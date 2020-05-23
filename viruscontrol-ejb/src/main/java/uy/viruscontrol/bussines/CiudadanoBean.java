@@ -30,7 +30,11 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 	@Override
 	public boolean solicitarMedicoADomicilio(int idCiudadano, int idMedico, Calendar fecha, List<Sintoma> sintomas) {
 		try {
-			VisitaMedico vm = new VisitaMedico(daoMedico.findById(idMedico), daoCiudadano.findById(idCiudadano), fecha);
+			VisitaMedico vm = new VisitaMedico();
+			vm.setMedico(daoMedico.findById(idMedico));
+			vm.setCiudadano(daoCiudadano.findById(idCiudadano));
+			vm.setFechaAsignacion(fecha);
+			vm.setVisitaRealizada(false);
 			daoVisita.persist(vm);
 			return true;
 		} catch (Exception e) {
