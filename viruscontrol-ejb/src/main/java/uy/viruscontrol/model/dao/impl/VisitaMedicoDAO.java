@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
+import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.VisitaMedico;
 
@@ -57,6 +58,13 @@ public class VisitaMedicoDAO implements VisitaMedicoDAOLocal {
 		
 		em.remove(em.contains(visitaMedico) ? visitaMedico : em.merge(visitaMedico));
 		
+	}
+
+	@Override
+	public List<VisitaMedico> findByMedico(Medico m) { 
+	
+	
+		return null;
 	}
 	
 	
