@@ -60,7 +60,7 @@ public class ServiceAgentProveedorExamenTest extends HttpServlet {
 		}
 		
 		System.out.println("mostrar proveedores");
-		List<ProveedorExamen> listProv= saProvEx.obtenerProveedores(100);//medicoBean.ObtenerProveedoresExamen(100);
+		List<ProveedorExamen> listProv=medicoBean.ObtenerProveedoresExamen(100); ; //saProvEx.obtenerProveedores(100)
 		if(listProv!=null) {
 			for(ProveedorExamen p:listProv) {
 				System.out.println("id : "+p.getId());
@@ -69,7 +69,7 @@ public class ServiceAgentProveedorExamenTest extends HttpServlet {
 			}
 		}
 		
-		medicoBean.nuevoCaso(100, 100, 100);
+		medicoBean.nuevoCaso(100, 100, 100,102,103);
 		
 		/*System.out.println("aca 7");
 		DtExamen solEx = saProvEx.altaDeExamen(1, 1, 2);

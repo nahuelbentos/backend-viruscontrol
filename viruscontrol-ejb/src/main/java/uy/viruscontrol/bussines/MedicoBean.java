@@ -77,11 +77,11 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     public List<ProveedorExamen> ObtenerProveedoresExamen(int idEnfermedad) {
     	try {
     		//esto va a cambiar cuando jhona cambie lo de service agents
-    		List<ProveedorExamen> listaProv =new ArrayList<ProveedorExamen>();
+    		List<ProveedorExamen> listaProv =saProvEx.obtenerProveedores(idEnfermedad);
     	
-    		ProveedorExamen pe=saProvEx.obtenerProveedor(idEnfermedad);
+    	//	ProveedorExamen pe=saProvEx.obtenerProveedor(idEnfermedad);
     	
-			listaProv.add(pe) ;
+	//		listaProv.add(pe) ;
 			
 			
 			
@@ -101,21 +101,34 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     }
     
     @Override
-    public boolean nuevoCaso(int idDepartamento,int idExamen,int idEnfermedad) {
+    public boolean nuevoCaso(int idDepartamento,int idExamen,int idEnfermedad,int idPaciente,int idMedico) {
     	 System.out.println("nuevo caso");
-    Departamento depa=departamentoDao.findById(idDepartamento);
+    	 try {
+			DtExamen solEx = saProvEx.altaDeExamen(idPaciente, idExamen, idMedico);
+		
+    	 
+			Departamento depa=departamentoDao.findById(idDepartamento);
+		    
+		    Examen ex=examenDao.findById(solEx.getId());
+		    
+		    Enfermedad enf=enfermedadDao.findById(idEnfermedad);
+		    	
+		   	Caso c=new Caso();
+		   	c.setDepartamento(depa);
+		   	c.setEnfermedad(enf);
+		   	c.setExamen(ex);
+		   	c.setTipoCaso(TipoCaso.SOSPECHOSO);
+		   	
+		   	casoDao.persist(c);
+    	 
+    	 } catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     
-    Examen ex=examenDao.findById(idExamen);
-    
-    Enfermedad enf=enfermedadDao.findById(idEnfermedad);
-    	
-   	Caso c=new Caso();
-   	c.setDepartamento(depa);
-   	c.setEnfermedad(enf);
-   	c.setExamen(ex);
-   	c.setTipoCaso(TipoCaso.SOSPECHOSO);
-   	
-   	casoDao.persist(c);
    	return true;
     	
     }
