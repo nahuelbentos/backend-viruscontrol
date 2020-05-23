@@ -15,7 +15,7 @@ import uy.viruscontrol.utils.VisitaPendiente;
 @Path("/medico")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public interface IMedicoRest {
+public interface IServicesMedico {
 	
 	@GET
 	@Path("/{username}/visita_pendiente/all")

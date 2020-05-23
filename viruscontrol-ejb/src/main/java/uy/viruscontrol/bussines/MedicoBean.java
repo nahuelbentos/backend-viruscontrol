@@ -1,6 +1,7 @@
 package uy.viruscontrol.bussines;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,6 @@ import javax.ejb.Stateful;
 import org.apache.http.client.ClientProtocolException;
 
 import uy.viruscontrol.bussines.enumerated.TipoCaso;
-import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
 import uy.viruscontrol.bussines.interfaces.MedicoBeanLocal;
 import uy.viruscontrol.bussines.interfaces.MedicoBeanRemote;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
@@ -20,13 +20,18 @@ import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.DepartamentoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ExamenDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
 import uy.viruscontrol.model.entities.Caso;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Departamento;
 import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Examen;
+import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.ProveedorExamen;
+import uy.viruscontrol.model.entities.VisitaMedico;
 import uy.viruscontrol.utils.DtExamen;
+import uy.viruscontrol.utils.VisitaPendiente;
 
 /**
  * Session Bean implementation class MedicoBean
@@ -36,11 +41,14 @@ import uy.viruscontrol.utils.DtExamen;
 public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
 
 	@EJB private ServiceAgentProveedorExamenLocal saProvEx;
+	
 	@EJB private CiudadanoDAOLocal ciudadanoDao;
     @EJB private DepartamentoDAOLocal departamentoDao;
     @EJB private ExamenDAOLocal examenDao;
     @EJB private EnfermedadDAOLocal enfermedadDao;
     @EJB private CasoDAOLocal casoDao;
+    @EJB private UsuarioDAOLocal usuarioDao;
+    @EJB private VisitaMedicoDAOLocal visitaMedicoDao;
     
 	/**
      * Default constructor. 
@@ -132,6 +140,28 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
    	return true;
     	
     }
+
+	@Override
+	public List<VisitaPendiente> getVisitaPendiente(String username) {
+		Medico m = (Medico)usuarioDao.findByUsername(username);
+		
+		List<VisitaMedico> vms = visitaMedicoDao.findByMedico(m);
+		List<VisitaPendiente> vps = new ArrayList<VisitaPendiente>();
+		for (VisitaMedico vm : vms) {
+			if (!vm.isVisitaRealizada()) {
+				VisitaPendiente vp = new VisitaPendiente();
+				vp.setNombre(vm.getCiudadano().getNombre());
+				vp.setApellido(vm.getCiudadano().getApellido());
+				vp.setDireccion(vm.getCiudadano().getDireccion());
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				vp.setFecha(sdf.format(vm.getFechaAsignacion().getTime()) );
+				vps.add(vp);
+			}
+		}
+
+		return vps;
+	}
    
 
 }
