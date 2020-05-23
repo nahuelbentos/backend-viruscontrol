@@ -10,7 +10,7 @@ import uy.viruscontrol.model.entities.Sintoma;
 public interface EnfermedadBeanLocal {
 
 	
-	boolean altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata,
+	int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata,
 			boolean recursoPreviene);
 	
 	boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 

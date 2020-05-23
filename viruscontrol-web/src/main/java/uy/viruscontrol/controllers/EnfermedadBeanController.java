@@ -18,6 +18,10 @@ public class EnfermedadBeanController {
 		return iEnfermedadBean.crearEnfermedadInfecciosa(nombreEnfermedad, nombreTipoEnfermedad, nombreAgente, sintomas, false);
 	}
 	
+	public static int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
+			return iEnfermedadBean.altaRecursoRecomendado(nombreEnfermedad, nombreRecurso, recursoTrata, recursoPreviene);
+	}
+	
 	private static EnfermedadBeanRemote lookupRemoteEnfermedadBean(){
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");  
