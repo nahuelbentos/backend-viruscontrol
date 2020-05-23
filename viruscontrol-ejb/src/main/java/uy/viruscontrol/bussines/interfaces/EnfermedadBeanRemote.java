@@ -14,4 +14,6 @@ public interface EnfermedadBeanRemote {
 
 	public boolean aprobarEnfermedadInfecciosa(int idEnfermedad);
 
+	public List<Sintoma> obtenerListaSintomas();
+
 }

@@ -26,4 +26,8 @@ public interface IWSPerifericoPrestadoraSalud {
 	@WebMethod
 	public PrestadoraSalud obtenerPrestadorDeSalud(@WebParam(name="idUsuario")
 												  int idUsuario);
+	
+	@WebMethod
+	public PrestadoraSalud obtenerPrestadorDeSaludAlternativo(@WebParam(name="idUsuario")
+												  			 int idUsuario);
 }

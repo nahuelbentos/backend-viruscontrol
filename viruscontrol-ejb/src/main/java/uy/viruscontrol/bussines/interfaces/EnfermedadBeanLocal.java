@@ -25,4 +25,7 @@ public interface EnfermedadBeanLocal {
 	int getIdRecursoByName(String nombreRecurso);
 
 	int getIdEnfermedadByName(String nombreEnfermedad);
+	
+	public List<Sintoma> obtenerListaSintomas();
+	
 }

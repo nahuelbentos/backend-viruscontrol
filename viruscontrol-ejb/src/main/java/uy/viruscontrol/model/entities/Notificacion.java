@@ -1,5 +1,7 @@
 package uy.viruscontrol.model.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +11,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "notificacion")
-public class Notificacion {
+public class Notificacion implements Serializable {
+	private static final long serialVersionUID = 7319096381795282022L;
 
-	
 	@Id
 	@GeneratedValue
 	private int id;

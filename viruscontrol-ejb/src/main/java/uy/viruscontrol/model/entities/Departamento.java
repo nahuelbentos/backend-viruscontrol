@@ -1,5 +1,7 @@
 package uy.viruscontrol.model.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "departamento")
-public class Departamento {
+public class Departamento implements Serializable {
+	private static final long serialVersionUID = -3773827476637847886L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

@@ -19,6 +19,4 @@ public interface PrestadoraSaludDAOLocal {
 
 	void delete(PrestadoraSalud prestadoraSalud);
 	
-	
-
 }

@@ -1,5 +1,6 @@
 package uy.viruscontrol.bussines;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,8 +9,11 @@ import javax.ejb.Stateful;
 
 import uy.viruscontrol.bussines.interfaces.PrestadorBeanLocal;
 import uy.viruscontrol.bussines.interfaces.PrestadorBeanRemote;
-
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentRucafLocal;
+import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.PrestadoraSaludDAOLocal;
+import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 /**
@@ -20,7 +24,10 @@ import uy.viruscontrol.model.entities.PrestadoraSalud;
 public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
 
 	
-	@EJB PrestadoraSaludDAOLocal daoprestadorlocal; 
+	@EJB PrestadoraSaludDAOLocal daoprestadorlocal;
+	@EJB private MedicoDAOLocal daoMedico;
+	@EJB private CiudadanoDAOLocal daoCiudadano;
+	@EJB private ServiceAgentRucafLocal saRucaf;
     /**
      * Default constructor. 
      */
@@ -58,6 +65,26 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
     	}
     	
     }
+
+	@Override
+	public List<Medico> obtenerMedicosVisita(int idCiudadano) {
+		try {
+			PrestadoraSalud p = saRucaf.obtenerPrestadorDeSalud(idCiudadano);
+			List<Medico> medicos = null;
+			
+			if (saRucaf.estaDisponible(p.getId())) {
+				medicos = daoMedico.findAllByPrestadoraSalud(p);
+			} else {
+				medicos = daoMedico.findAllByPrestadoraSalud(saRucaf.obtenerPrestadorDeSaludAlternativo(idCiudadano));
+			}
+			
+			return (medicos != null) ? medicos : new ArrayList<Medico>();
+		} catch (Exception e) {
+			// puede entrar por nullpointer exeption
+			return new ArrayList<Medico>();
+		}
+		
+	}
 
 
 

@@ -254,4 +254,9 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
 	    	return id;
     }
     
+    @Override
+    public List<Sintoma> obtenerListaSintomas() {
+    	List<Sintoma> sintomas = daoSintomaLocal.findAll();
+    	return (sintomas != null) ? sintomas : new ArrayList<Sintoma>();
+    }
 }

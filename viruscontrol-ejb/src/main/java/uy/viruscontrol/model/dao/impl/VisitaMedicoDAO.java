@@ -1,5 +1,6 @@
 package uy.viruscontrol.model.dao.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -10,7 +11,6 @@ import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
 import uy.viruscontrol.model.entities.Medico;
-import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.VisitaMedico;
 
 @Stateless
@@ -27,7 +27,14 @@ public class VisitaMedicoDAO implements VisitaMedicoDAOLocal {
 	@Override
 	public void persist(VisitaMedico visitaMedico) {
 	
-		em.persist(visitaMedico);
+//		em.persist(visitaMedico);
+		// [WORKAROUND] se utiliza native query porque revienta mapeando los tipos
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		em.createNativeQuery(
+				"INSERT INTO visita_medico (ciudadano, fechaasignacion, medico) " + 
+				"VALUES (" + visitaMedico.getCiudadano().getIdUsuario() + ", " +
+				"'"+sdf.format(visitaMedico.getFechaAsignacion().getTime()) + "', " + 
+				visitaMedico.getMedico().getIdUsuario() + ");").executeUpdate();
 		
 	}
 	

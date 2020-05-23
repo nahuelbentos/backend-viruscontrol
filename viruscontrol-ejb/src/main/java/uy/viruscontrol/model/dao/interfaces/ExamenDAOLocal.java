@@ -18,5 +18,6 @@ public interface ExamenDAOLocal {
 	Examen findById(Integer id);
 
 	void delete(Examen examen);
-
+	
+	public List<Examen> findAllByEnfermedad(int idEnfermedad);
 }

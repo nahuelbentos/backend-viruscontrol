@@ -38,4 +38,9 @@ public class WSPerifericoPrestadoraSalud implements IWSPerifericoPrestadoraSalud
 		return prestadora.obtenerPrestadorDeSalud(idUsuario);
 	}
 
+	@Override
+	public PrestadoraSalud obtenerPrestadorDeSaludAlternativo(int idUsuario) {
+		return prestadora.obtenerPrestadorDeSaludAlternativo(idUsuario);
+	}
+
 }
