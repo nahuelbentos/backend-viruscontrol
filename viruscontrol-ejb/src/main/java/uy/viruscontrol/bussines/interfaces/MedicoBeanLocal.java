@@ -7,6 +7,7 @@ import javax.ejb.Local;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.utils.DtExamen;
+import uy.viruscontrol.utils.VisitaPendiente;
 
 @Local
 public interface MedicoBeanLocal {
@@ -18,5 +19,7 @@ public interface MedicoBeanLocal {
 	List<ProveedorExamen> ObtenerProveedoresExamen(int idEnfermedad);
 
 	boolean nuevoCaso(int idDepartamento, int idExamen, int idEnfermedad,int idPaciente,int idMedico);
+	
+	public List<VisitaPendiente> getVisitaPendiente(String username);
 
 }

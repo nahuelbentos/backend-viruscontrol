@@ -55,6 +55,11 @@ public class UserManager implements Serializable {
 		System.out.println("res->"+res);
 		if (res.equals(AuthResponse.OK)) {
 			currentUser = SessionBeanController.getUsuarioLogeado(username);
+			
+			//HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+			
+			
 			System.out.println("usuario logueado: " + currentUser.getUsername());
 			return "exito";
 		} else {

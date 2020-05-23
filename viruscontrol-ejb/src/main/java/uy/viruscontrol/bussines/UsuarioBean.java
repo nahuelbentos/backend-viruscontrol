@@ -2,6 +2,7 @@ package uy.viruscontrol.bussines;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -21,6 +22,7 @@ import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.Usuario;
+import uy.viruscontrol.utils.VisitaPendiente;
 
 @Stateless
 @LocalBean
@@ -148,10 +150,6 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 		String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
 		
 		return myHash;
-	}
-	
-	
-    
-    
+	}    
 
 }
