@@ -11,10 +11,7 @@ import uy.viruscontrol.bussines.interfaces.PrestadorBeanRemote;
 
 public class PrestadorBeanController {
 	
-	/*
-	@Inject
-	private static PrestadorBeanLocal prestadorBeanLocal;
-	*/
+	
 	
 	private static PrestadorBeanRemote prestadorBeanRemote = lookupRemotePrestadorBean();
 	

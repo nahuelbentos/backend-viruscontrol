@@ -44,7 +44,7 @@ public class GestorPrestadorView implements Serializable{
 		
 		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador);
 		if (ok) {
-			this.mensaje = "El Prestador de Salud" + this.getNombrePrestador() + "se creó con éxito";
+			this.mensaje = "El Prestador de Salud " + this.getNombrePrestador() + " se creó con éxito";
 		}
 		else {
 			this.mensaje = "Error Prestador no creado, verifique";
