@@ -22,12 +22,14 @@ public class GestorEnfermedadView implements Serializable{
 	// Datos para la vista
 	private String mensaje;
 	
-	// Datos del negocio
+	
+	// Datos del negocio para alta enfermedad
 	private String nombreEnfermedad;
 	private String nombreTipoEnfermedad;
 	private String nombreAgente;
 	private List<Sintoma> sintomas;
 	private String sintomasStr;
+	
 	
 	public GestorEnfermedadView() {
 		super();
@@ -70,6 +72,7 @@ public class GestorEnfermedadView implements Serializable{
 		this.sintomasStr = sintomasStr;
 	}
 	
+	
 	public void agregarNuevaEnfermedad() {
 		this.sintomas = new ArrayList<Sintoma>();
 		String[] ss = this.sintomasStr.split(",");
@@ -83,4 +86,6 @@ public class GestorEnfermedadView implements Serializable{
 		if (ok)
 			this.mensaje = "Se agrego la solicitud de alta de la enfermedad " + this.nombreEnfermedad + ". Un administrador debe aprobarla para que quede dada de alta."; 
 	}
+	
+	
 }

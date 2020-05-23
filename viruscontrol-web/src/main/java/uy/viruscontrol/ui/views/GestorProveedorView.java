@@ -10,12 +10,12 @@ import uy.viruscontrol.controllers.ProveedorBeanController;
 public class GestorProveedorView {
 
 	String mensaje;
-	//int tipoProveedor;
 	int tipo;
 	String nombreProveedor;
 	String direccion;
 	String barrio;
 	String rangoHorario;
+	
 	public String getMensaje() {
 		return mensaje;
 	}
