@@ -62,7 +62,12 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     	
     	try {
 			List<DtExamen> listEx = saProvEx.obtenerExamenesParaUnaEnfermedad(idEnfermedad);
-			return listEx;
+			if(listEx!=null) {
+				return listEx;
+			}else {
+				List<DtExamen> listEx3= new ArrayList<DtExamen>();
+				return listEx3;
+			}
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,7 +119,11 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     	 try {
 			DtExamen solEx = saProvEx.altaDeExamen(idPaciente, idExamen, idMedico);
 		
-    	 
+			System.out.println("idDepartamento: "+idDepartamento);
+			System.out.println("idExamen: "+idExamen);
+			System.out.println("idEnfermedad"+idEnfermedad);
+			System.out.println("idexamen solex: "+solEx.getId());
+			
 			Departamento depa=departamentoDao.findById(idDepartamento);
 		    
 		    Examen ex=examenDao.findById(solEx.getId());
