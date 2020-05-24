@@ -13,9 +13,9 @@
 	<ui:define name="content">
 	
 		<h:form>
-		<h4 style="text-align: center">Alta Prestadora Salud</h4>
+		<h4 style="text-align: left">Alta Prestadora Salud</h4>
 		<h:outputText value="#{GestorPrestadorView.mensaje}" />
-			<p:panelGrid columns="4" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
+			<p:panelGrid columns="1" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
 				
 				<p:outputLabel for="NombrePrestador" value="Nombre Prestador" />
 				<p:inputText id="NombrePrestador" value="#{GestorPrestadorView.nombrePrestador}" required="true"
@@ -29,9 +29,11 @@
 		
 		
 		<h:form>
-		<h4 style="text-align: center">Alta Proveedor Recurso / Alta Proveedor Examen</h4>
+		<h4 style="text-align: left">Alta Proveedor Recurso / Alta Proveedor Examen</h4>
 		<h:outputText value="#{GestorProveedorView.mensaje}" />
-			<p:panelGrid columns="4" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
+			
+			<p:panelGrid columns="5" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
+				
 				<p:outputLabel for="@next" value="Tipo de Proveedor: " />
 					<p:selectOneMenu id="lazy"
 						value="#{GestorProveedorView.tipo}" style="width:150px"

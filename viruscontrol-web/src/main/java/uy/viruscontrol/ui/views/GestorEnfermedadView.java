@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import uy.viruscontrol.controllers.EnfermedadBeanController;
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Sintoma;
 
 @Named("GestorEnfermedadView")
@@ -31,9 +33,43 @@ public class GestorEnfermedadView implements Serializable{
 	private String sintomasStr;
 	
 	
+	//Datos Enfermedades No Aprobadas
+	private List<String> enfermedadesNoAprobadas;
+	private String nombreEnfermedadNoAprobada;
+	
 	public GestorEnfermedadView() {
 		super();
+		
+		
 	}
+	
+	@PostConstruct
+	public void init() {
+			enfermedadesNoAprobadas=new ArrayList<String>();
+			for(Enfermedad enfermedad :EnfermedadBeanController.obtenerEnfermedadesNoAprobadas()) {
+				enfermedadesNoAprobadas.add(enfermedad.getNombre());
+			}	
+	
+	}
+	
+	public List<String> getEnfermedadesNoAprobadas() {
+		return enfermedadesNoAprobadas;
+	}
+	
+	public void setEnfermedadesNoAprobadas(List<String> enfermedadesNoAprobadas) {
+		this.enfermedadesNoAprobadas = enfermedadesNoAprobadas;
+	}
+	
+	public String getNombreEnfermedadNoAprobada() {
+		return nombreEnfermedadNoAprobada;
+	}
+	
+	public void setNombreEnfermedadNoAprobada(String nombreEnfermedadNoAprobada) {
+		this.nombreEnfermedadNoAprobada = nombreEnfermedadNoAprobada;
+	}
+
+
+
 	public UserManager getUserManage() {
 		return userManage;
 	}
@@ -72,7 +108,6 @@ public class GestorEnfermedadView implements Serializable{
 		this.sintomasStr = sintomasStr;
 	}
 	
-	
 	public void agregarNuevaEnfermedad() {
 		this.sintomas = new ArrayList<Sintoma>();
 		String[] ss = this.sintomasStr.split(",");
@@ -85,6 +120,19 @@ public class GestorEnfermedadView implements Serializable{
 		boolean ok = EnfermedadBeanController.crearEnfermedadInfecciosa(this.nombreEnfermedad, this.nombreTipoEnfermedad, this.nombreAgente, this.sintomas);
 		if (ok)
 			this.mensaje = "Se agrego la solicitud de alta de la enfermedad " + this.nombreEnfermedad + ". Un administrador debe aprobarla para que quede dada de alta."; 
+	}
+	
+	//CU Aprobar Enfermedad
+	public void aprobarEnfermedad() {
+		int idAux = EnfermedadBeanController.getIdEnfermedadByName(nombreEnfermedadNoAprobada);
+		
+		boolean ok = EnfermedadBeanController.aprobarEnfermedad(idAux);
+		
+		if(ok) {
+			this.mensaje = "La enfermedad "+ this.getNombreEnfermedadNoAprobada() + "fue aprobada.";
+		}else {
+			this.mensaje="Error, no se pudo aprobar la enfermedad, verifique.";
+		}
 	}
 	
 	

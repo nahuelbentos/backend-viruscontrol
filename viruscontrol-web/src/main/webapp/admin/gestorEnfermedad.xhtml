@@ -11,7 +11,21 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<h:outputText value="ESTAS EN EL gestor enfermedad CON LA ESTRUCTURA DEFINIDA" />
+		<h4 style="text-align: left">Aprobar Enfermedad</h4>
+		<h:outputText value="#{GestorEnfermedadView.mensaje}" />
+			
+			<p:panelGrid columns="1" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
+				
+				<p:outputLabel for="@next" value="Enfermedad" />
+					<p:selectOneMenu id="Enfermedad"
+						value="#{GestorEnfermedadView.nombreEnfermedadNoAprobada}" style="width:150px"
+						required="true" requiredMessage="Debe seleccionar Enfermedad">
+						<f:selectItem itemLabel="Seleccione Enfermedad" itemValue="" />
+						<f:selectItems value="#{GestorEnfermedadView.enfermedadesNoAprobadas}" />
+					</p:selectOneMenu>
+					<p:message for="Enfermedad" />
+				<h:commandButton action="#{GestorEnfermedadView.aprobarEnfermedad()}" value="Aprobar" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+			</p:panelGrid>
 		</h:form>
 	</ui:define>
  
