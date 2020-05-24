@@ -19,6 +19,7 @@ import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.RecursoEnfermedad;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.TipoEnfermedad;
+import uy.viruscontrol.model.entities.Usuario;
 
 /**
  * Session Bean implementation class EnfermedadBean
@@ -260,5 +261,21 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     public List<Sintoma> obtenerListaSintomas() {
     	List<Sintoma> sintomas = daoSintomaLocal.findAll();
     	return (sintomas != null) ? sintomas : new ArrayList<Sintoma>();
+    }
+    
+    @Override
+    public List<Enfermedad> obtenerListaEnfermedadesNoAprobadas() {
+    	
+    	List<Enfermedad> enfermedadesAuxiliar=new ArrayList<Enfermedad>();
+    	List<Enfermedad> enfermedades = daoEnfermedadLocal.findAll();
+    	
+    	for(Enfermedad enfermedad : enfermedades) {
+    		if(!enfermedad.isAprobada()) {
+    			enfermedadesAuxiliar.add(enfermedad);
+    		}
+    	}
+    	return enfermedadesAuxiliar;
+    	
+    	
     }
 }
