@@ -34,8 +34,8 @@ insert into proveedor(proveedor_tipo, id, barrio, direccion, nombre, rangohorari
 insert into prestadora_salud (id, nombre) values (100, 'Servicio Médico Integral - SMI');
 insert into prestadora_salud (id, nombre) values (101, 'Medica Uruguaya');
 
---Examen-Enfermedad
-insert into examen(id,enfermedad_id) values(100,100);
+--Examen
+insert into examen(id,nombre,enfermedad_id) values(100,'hisopado',100);
 
 --proveedorexamen-examen
 insert into proveedorexamen_examen(id_proveedor, id_examen) values (300,100);
