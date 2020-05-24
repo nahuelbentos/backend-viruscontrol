@@ -17,4 +17,5 @@ public interface SessionBeanRemote {
 
 	public Usuario getUsuarioLogueado(String username);
 	
+	public void cerrarSesion(String username);
 }

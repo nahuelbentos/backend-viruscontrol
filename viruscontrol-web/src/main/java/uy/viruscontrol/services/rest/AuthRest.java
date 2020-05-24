@@ -31,6 +31,27 @@ public class AuthRest implements IAuthRest {
 	public AuthResponse iniciarSesionCiudadano(Ciudadano user) {
 		return sessionEjb.iniciarSesionConRedes(user, TipoUsuario.CIUDADANO);
 	}
+
+	@Override
+	public Response validarDatosConRedes(Ciudadano user) {
+		try {
+			sessionEjb.validarDatosConRedes(user);
+			
+			return Response.status(Status.OK).build();
+		} catch (Exception e) { 
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@Override
+	public Response cerrarSesion(String username) {
+		try {
+			sessionEjb.cerrarSesion(username);
+			return Response.status(Status.OK).build();
+		} catch (Exception e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 	
 
 }

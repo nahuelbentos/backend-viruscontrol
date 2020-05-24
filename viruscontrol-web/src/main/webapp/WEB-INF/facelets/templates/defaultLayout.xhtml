@@ -26,10 +26,10 @@
 				<div class="mdl-layout-spacer"></div>
 				
 				<nav class="mdl-navigation">
-					
-					<h:commandButton action="#{UserManager.logout}" value="Salir" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-					</h:commandButton>
-					
+					<h:form>
+						<h:commandButton action="#{UserManager.logout}" value="Salir" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+						</h:commandButton>
+					</h:form>
 					<h:commandLink action="#" value="#{UserManage.username}" />
 				</nav>
 			</div>
