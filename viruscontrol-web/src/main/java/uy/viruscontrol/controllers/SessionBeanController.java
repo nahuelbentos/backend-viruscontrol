@@ -22,6 +22,10 @@ public class SessionBeanController {
 		return iSessionBean.getUsuarioLogueado(username);
 	}
 	
+	public static void cerrarSesion(String username) {
+		iSessionBean.cerrarSesion(username);
+	}
+	
 	private static SessionBeanRemote lookupRemoteSessionBean(){
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");  
@@ -38,5 +42,7 @@ public class SessionBeanController {
 			return null;
 		}
 	}
+	
+	
 	
 }

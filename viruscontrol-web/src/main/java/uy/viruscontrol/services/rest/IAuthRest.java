@@ -1,8 +1,10 @@
 package uy.viruscontrol.services.rest;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -21,9 +23,18 @@ public interface IAuthRest{
 	@POST
 	@Path("/entrar/medico")
 	public AuthResponse iniciarSesionMedico(Medico user);
+	
 	@POST
 	@Path("/entrar/ciudadano")
 	public AuthResponse iniciarSesionCiudadano(Ciudadano user);
+	
+	@PUT
+	@Path("/validar_datos")
+	public Response validarDatosConRedes(Ciudadano user);
+	
+	@DELETE
+	@Path("/salir")
+	public Response cerrarSesion(String username);
 	
 	@GET
 	@Path("/ping")

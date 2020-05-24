@@ -52,15 +52,8 @@ public class UserManager implements Serializable {
 	
 	public String login() {
 		AuthResponse res = SessionBeanController.iniciarSesion(username, password);
-		System.out.println("res->"+res);
 		if (res.equals(AuthResponse.OK)) {
 			currentUser = SessionBeanController.getUsuarioLogeado(username);
-			
-			//HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-
-			
-			
-			System.out.println("usuario logueado: " + currentUser.getUsername());
 			return "exito";
 		} else {
 			this.mensaje = "Usuario inexistente o las credenciales son incorrectas.";
@@ -70,7 +63,8 @@ public class UserManager implements Serializable {
 	}
 	
 	public String logout() {
-		System.out.println("el nieri se quiere ir");
+		SessionBeanController.cerrarSesion(username);
+		currentUser = null;
 		return "login";
 	}
 	
