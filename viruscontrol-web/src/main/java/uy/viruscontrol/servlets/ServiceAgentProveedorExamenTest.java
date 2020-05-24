@@ -65,6 +65,8 @@ public class ServiceAgentProveedorExamenTest extends HttpServlet {
 			for(ProveedorExamen p:listProv) {
 				System.out.println("id : "+p.getId());
 				System.out.println("nombre : "+p.getNombre());
+				System.out.println("barrio: "+p.getBarrio());
+				System.out.println("rango horario: "+p.getRangoHorario());
 				System.out.println("-------------");
 			}
 		}
