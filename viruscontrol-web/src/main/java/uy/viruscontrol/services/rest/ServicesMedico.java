@@ -19,6 +19,7 @@ import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.utils.DtCaso;
 import uy.viruscontrol.utils.DtExamen;
+import uy.viruscontrol.utils.VisitaPendiente;
 
 @ApplicationScoped
 @Path("/medico")
@@ -87,6 +88,11 @@ public class ServicesMedico {
 		
 			return dtc;
 	}
-	
+	@GET
+	@Path("/{username}/visita_pendiente/all")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<VisitaPendiente> getVisitasPendientes(@PathParam("username")String username){
+			return medicoBean.getVisitaPendiente(username);
+	}
 	
 }

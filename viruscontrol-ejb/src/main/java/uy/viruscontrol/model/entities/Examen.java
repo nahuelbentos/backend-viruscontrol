@@ -2,6 +2,7 @@ package uy.viruscontrol.model.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,8 @@ public class Examen implements Serializable {
 	private int id;
 	@ManyToOne
 	private Enfermedad enfermedad;
+	@Column
+	private String nombre;
 
 	// segun el modelo de dominio y DCD, varios casos pueden ir asociados a un examen, por lo que el examen no puede tener un estado, dado que no está asociado a un ciudadano
 //	@Enumerated
@@ -40,6 +43,14 @@ public class Examen implements Serializable {
 	public Examen(Enfermedad enfermedad) {
 		super();
 		this.enfermedad = enfermedad;
+	}
+	
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	public int getId() {
 		return id;
