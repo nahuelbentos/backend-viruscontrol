@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import uy.viruscontrol.bussines.interfaces.EnfermedadBeanRemote;
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Sintoma;
 
 public class EnfermedadBeanController {
@@ -16,6 +17,22 @@ public class EnfermedadBeanController {
 	
 	public static boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, String nombreAgente, List<Sintoma> sintomas) {
 		return iEnfermedadBean.crearEnfermedadInfecciosa(nombreEnfermedad, nombreTipoEnfermedad, nombreAgente, sintomas, false);
+	}
+	
+	public static int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
+			return iEnfermedadBean.altaRecursoRecomendado(nombreEnfermedad, nombreRecurso, recursoTrata, recursoPreviene);
+	}
+	
+	public static List<Enfermedad> obtenerEnfermedadesNoAprobadas() {
+		return iEnfermedadBean.obtenerListaEnfermedadesNoAprobadas();
+	}
+	
+	public static boolean aprobarEnfermedad(int idEnfermedad) {
+		return iEnfermedadBean.aprobarEnfermedadInfecciosa(idEnfermedad);
+	}
+	
+	public static int getIdEnfermedadByName(String nombreEnfermedad) {
+		return iEnfermedadBean.getIdEnfermedadByName(nombreEnfermedad);
 	}
 	
 	private static EnfermedadBeanRemote lookupRemoteEnfermedadBean(){

@@ -4,16 +4,23 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Sintoma;
 
 @Remote
 public interface EnfermedadBeanRemote {
 
-	public boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 
+	boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 
     		String nombreAgente, List<Sintoma> sintomas, boolean aprobada);
 
-	public boolean aprobarEnfermedadInfecciosa(int idEnfermedad);
+	boolean aprobarEnfermedadInfecciosa(int idEnfermedad);
 
-	public List<Sintoma> obtenerListaSintomas();
+	List<Sintoma> obtenerListaSintomas();
+	
+	int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene);
 
+	List<Enfermedad> obtenerListaEnfermedadesNoAprobadas();
+
+	
+	int getIdEnfermedadByName(String nombreEnfermedad);
 }

@@ -10,8 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import uy.viruscontrol.controllers.EnfermedadBeanController;
-import uy.viruscontrol.model.entities.Administrador;
-import uy.viruscontrol.model.entities.Gerente;
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Sintoma;
 
 @Named("GestorEnfermedadView")
@@ -25,16 +24,52 @@ public class GestorEnfermedadView implements Serializable{
 	// Datos para la vista
 	private String mensaje;
 	
-	// Datos del negocio
+	
+	// Datos del negocio para alta enfermedad
 	private String nombreEnfermedad;
 	private String nombreTipoEnfermedad;
 	private String nombreAgente;
 	private List<Sintoma> sintomas;
 	private String sintomasStr;
 	
+	
+	//Datos Enfermedades No Aprobadas
+	private List<String> enfermedadesNoAprobadas;
+	private String nombreEnfermedadNoAprobada;
+	
 	public GestorEnfermedadView() {
 		super();
+		
+		
 	}
+	
+	@PostConstruct
+	public void init() {
+			enfermedadesNoAprobadas=new ArrayList<String>();
+			for(Enfermedad enfermedad :EnfermedadBeanController.obtenerEnfermedadesNoAprobadas()) {
+				enfermedadesNoAprobadas.add(enfermedad.getNombre());
+			}	
+	
+	}
+	
+	public List<String> getEnfermedadesNoAprobadas() {
+		return enfermedadesNoAprobadas;
+	}
+	
+	public void setEnfermedadesNoAprobadas(List<String> enfermedadesNoAprobadas) {
+		this.enfermedadesNoAprobadas = enfermedadesNoAprobadas;
+	}
+	
+	public String getNombreEnfermedadNoAprobada() {
+		return nombreEnfermedadNoAprobada;
+	}
+	
+	public void setNombreEnfermedadNoAprobada(String nombreEnfermedadNoAprobada) {
+		this.nombreEnfermedadNoAprobada = nombreEnfermedadNoAprobada;
+	}
+
+
+
 	public UserManager getUserManage() {
 		return userManage;
 	}
@@ -86,4 +121,19 @@ public class GestorEnfermedadView implements Serializable{
 		if (ok)
 			this.mensaje = "Se agrego la solicitud de alta de la enfermedad " + this.nombreEnfermedad + ". Un administrador debe aprobarla para que quede dada de alta."; 
 	}
+	
+	//CU Aprobar Enfermedad
+	public void aprobarEnfermedad() {
+		int idAux = EnfermedadBeanController.getIdEnfermedadByName(nombreEnfermedadNoAprobada);
+		
+		boolean ok = EnfermedadBeanController.aprobarEnfermedad(idAux);
+		
+		if(ok) {
+			this.mensaje = "La enfermedad "+ this.getNombreEnfermedadNoAprobada() + "fue aprobada.";
+		}else {
+			this.mensaje="Error, no se pudo aprobar la enfermedad, verifique.";
+		}
+	}
+	
+	
 }

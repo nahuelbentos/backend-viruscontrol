@@ -19,6 +19,7 @@ import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.RecursoEnfermedad;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.TipoEnfermedad;
+import uy.viruscontrol.model.entities.Usuario;
 
 /**
  * Session Bean implementation class EnfermedadBean
@@ -48,9 +49,9 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     //de lo contrario solo se crea el recurso sin enfermedad
     
     @Override
-    public boolean altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
+    public int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
     	
-    	boolean altaOK = false;
+    	int altaOK = 0;
     	Recurso r = new Recurso ();
     	Enfermedad e = new Enfermedad();
     	RecursoEnfermedad recEnf = new RecursoEnfermedad();
@@ -62,7 +63,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     		
     		daoRecursoLocal.persist(r);
     		
-    		altaOK=true;
+    		altaOK=1;
     	}	
     	
     	//Si existe la enfermedad le asocio el recurso si aun no esta asociado  y viceversa
@@ -87,19 +88,21 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
             	daoRecEnfLocal.persist(recursoEnfermedad);
             	recursoEnfermedad.setRecursoPreviene(recursoPreviene);
             	recursoEnfermedad.setRecursoTrata(recursoTrata);
-            	//hay que validar si la clave compuesta existe en el sistema
+            	
             	daoRecEnfLocal.merge(recursoEnfermedad);
-            	altaOK=true;
-    		}else {
-    			recEnf.setRecursoPreviene(recursoPreviene);
-    			recEnf.setRecursoTrata(recursoTrata);
-            	daoRecEnfLocal.merge(recEnf);
-            	altaOK=true;
+            	altaOK=2;
+    		}
+    		
+    		else {//borrar
+    			
+            	altaOK=0;
     		}
     		
     		
-    		altaOK=true;
     		
+    		
+    	}else {
+    		altaOK=3;
     	}
     	
     	return altaOK;
@@ -258,5 +261,21 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     public List<Sintoma> obtenerListaSintomas() {
     	List<Sintoma> sintomas = daoSintomaLocal.findAll();
     	return (sintomas != null) ? sintomas : new ArrayList<Sintoma>();
+    }
+    
+    @Override
+    public List<Enfermedad> obtenerListaEnfermedadesNoAprobadas() {
+    	
+    	List<Enfermedad> enfermedadesAuxiliar=new ArrayList<Enfermedad>();
+    	List<Enfermedad> enfermedades = daoEnfermedadLocal.findAll();
+    	
+    	for(Enfermedad enfermedad : enfermedades) {
+    		if(!enfermedad.isAprobada()) {
+    			enfermedadesAuxiliar.add(enfermedad);
+    		}
+    	}
+    	return enfermedadesAuxiliar;
+    	
+    	
     }
 }

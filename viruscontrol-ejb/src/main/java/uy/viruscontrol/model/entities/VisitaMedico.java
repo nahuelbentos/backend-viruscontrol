@@ -27,15 +27,19 @@ public class VisitaMedico implements Serializable {
 	@Column(name = "fecha_asignacion")
 	private Calendar fechaAsignacion;
 
+	@Column(name = "visita_realizada")
+	private boolean visitaRealizada;
+	
 	public VisitaMedico() {
 		super();
 	}
 
-	public VisitaMedico(Medico medico, Ciudadano ciudadano, Calendar fechaAsignacion) {
+	public VisitaMedico(Medico medico, Ciudadano ciudadano, Calendar fechaAsignacion, boolean visitaRealizada) {
 		super();
 		this.medico = medico;
 		this.ciudadano = ciudadano;
 		this.fechaAsignacion = fechaAsignacion;
+		this.visitaRealizada = visitaRealizada;
 	}
 
 	public Medico getMedico() {
@@ -60,6 +64,14 @@ public class VisitaMedico implements Serializable {
 
 	public void setFechaAsignacion(Calendar fechaAsignacion) {
 		this.fechaAsignacion = fechaAsignacion;
+	}
+
+	public boolean isVisitaRealizada() {
+		return visitaRealizada;
+	}
+
+	public void setVisitaRealizada(boolean visitaRealizada) {
+		this.visitaRealizada = visitaRealizada;
 	}
 	
 }
