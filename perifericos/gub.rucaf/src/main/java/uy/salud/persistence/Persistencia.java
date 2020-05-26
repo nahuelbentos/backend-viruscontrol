@@ -1,4 +1,4 @@
-package uy.gub.rucaf.persistence;
+package uy.salud.persistence;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,8 +14,8 @@ import javax.ejb.Local;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
-import uy.gub.rucaf.entities.PrestadoraSalud;
-import uy.gub.rucaf.entities.Usuario;
+import uy.salud.entities.PrestadoraSalud;
+import uy.salud.entities.Usuario;
 
 @Startup
 @Singleton
@@ -113,6 +113,16 @@ public class Persistencia implements PersistenciaLocal {
 	public List<PrestadoraSalud> getPrestadoras() {
 		return this.prestadoras;
 	}
+	
+	@Override
+	public PrestadoraSalud findPrestadora(int id) {
+		PrestadoraSalud ps = null;
+		for (PrestadoraSalud it : this.prestadoras) {
+			if (it.getId() == id)
+				ps = it;
+		}
+		return ps;
+	}
 
 	@Override
 	public boolean addPrestadora(PrestadoraSalud prestadora) {
@@ -132,11 +142,6 @@ public class Persistencia implements PersistenciaLocal {
 		} else
 			return false;
 	}
-
-	/*@Override
-	public PrestadoraSalud findPrestadoraUsuario(int documento) {
-		return findUsuario(documento).getPrestadora();
-	}*/
 	
 	@Override
 	public Usuario findUsuario(int documento) {
@@ -153,7 +158,7 @@ public class Persistencia implements PersistenciaLocal {
 				if (Integer.parseInt(splitter[0]) == documento) {
 					usu.setDocumento(Integer.parseInt(splitter[0]));
 					usu.setNombreCompleto(splitter[1]);
-					usu.setPrestadora(prestadoras.get(Integer.parseInt(splitter[2])));
+					usu.setPrestadora(findPrestadora(Integer.parseInt(splitter[2])));
 					exit = true;
 				}
 			}
@@ -165,6 +170,29 @@ public class Persistencia implements PersistenciaLocal {
 			System.out.println("[uy.gub.rucaf.persistence"+Persistencia.class.getName()+"] ERROR: No se pudo leer el archivo usuarios");
 		}
 		return usu;
+	}
+	
+	@Override
+	public List<Usuario> getUsuarios() {
+		List<Usuario> lista = new ArrayList<Usuario>();
+		try {
+			fr = new FileReader(fileUsuarios);
+			br = new BufferedReader(fr);
+			
+			String registro;
+			String[] splitter;
+			while ((registro=br.readLine()) != null) {
+				splitter = registro.split(Pattern.quote(";"));
+				Usuario usu = new Usuario(Integer.parseInt(splitter[0]), splitter[1], findPrestadora(Integer.parseInt(splitter[2])));
+				lista.add(usu);
+			}
+
+			fr.close();
+			
+		} catch (IOException e) {
+			System.out.println("[uy.gub.rucaf.persistence"+Persistencia.class.getName()+"] ERROR: No se pudo leer el archivo usuarios");
+		}
+		return lista;
 	}
 
 	@Override

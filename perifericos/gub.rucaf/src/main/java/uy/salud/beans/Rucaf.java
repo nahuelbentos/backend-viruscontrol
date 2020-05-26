@@ -1,4 +1,4 @@
-package uy.gub.rucaf.beans;
+package uy.salud.beans;
 
 import java.util.List;
 import java.util.Random;
@@ -7,9 +7,9 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import uy.gub.rucaf.entities.PrestadoraSalud;
-import uy.gub.rucaf.entities.Usuario;
-import uy.gub.rucaf.persistence.PersistenciaLocal;
+import uy.salud.entities.PrestadoraSalud;
+import uy.salud.entities.Usuario;
+import uy.salud.persistence.PersistenciaLocal;
 
 @Stateless
 @Local(RucafLocal.class)
@@ -37,7 +37,6 @@ public class Rucaf implements RucafLocal {
 	public PrestadoraSalud obtenerPrestadoraUsuario(int documento) {
 		Usuario user = persistencia.findUsuario(documento);
 		if(user.getDocumento() == 0) {
-			
 			// todos los usuarios deben existir en rucaf, por lo que si no existe lo creo y asigno prestadora random
 			user.setDocumento(documento);
 			user.setNombreCompleto("");
@@ -45,6 +44,7 @@ public class Rucaf implements RucafLocal {
 			persistencia.addUsuario(user);
 		}
 		
+		//System.out.println("Datos del usuario solicitado: "+user.toString()+" - Prestadora: "+user.getPrestadora().toString()); //DEBUG
 		return user.getPrestadora();
 	}
 

@@ -1,4 +1,4 @@
-package uy.gub.rucaf.entities;
+package uy.salud.entities;
 
 import java.io.Serializable;
 
