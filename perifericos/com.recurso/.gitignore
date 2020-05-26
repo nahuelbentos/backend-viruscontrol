@@ -1,2 +1,4 @@
 /target/
 .settings/org.eclipse.core.resources.prefs
+.settings/org.eclipse.core.prefs
+.settings/org.eclipse.wst.common.component
