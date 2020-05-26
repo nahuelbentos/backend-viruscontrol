@@ -34,7 +34,7 @@ public class Enfermedad implements Serializable{
 	private String nombreAgente;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name="\"tipoenfermedad\"")
+	@JoinColumn(name="\"tipo_enfermedad\"")
 	private TipoEnfermedad tipoEnfermedad;
 	
 	

@@ -13,7 +13,7 @@ public class RecursoTest {
 	@Test
 	public void test() {
 		
-		Recurso r1 = new Recurso("Recurso 1",null);
+		Recurso r1 = new Recurso("Recurso 1",null,null);
 		
 		Assert.assertEquals(r1.getNombre(), "Recurso 1");
 	}
