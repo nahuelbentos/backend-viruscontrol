@@ -1,13 +1,16 @@
 package uy.viruscontrol.model.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "tipo_recurso")
@@ -19,6 +22,10 @@ public class TipoRecurso implements Serializable{
 	private int id;
 	private String nombre;
 	private String descripcion;
+	
+	//bi-directional many-to-one association to Recurso
+	@OneToMany(mappedBy="tipoRecurso", fetch = FetchType.EAGER)
+	List<Recurso> recursos;
 	
 	public TipoRecurso() {
 		super();
@@ -59,6 +66,14 @@ public class TipoRecurso implements Serializable{
 
 	
 
+	public List<Recurso> getRecursos() {
+		return recursos;
+	}
+
+	public void setRecursos(List<Recurso> recursos) {
+		this.recursos = recursos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -66,6 +81,7 @@ public class TipoRecurso implements Serializable{
 		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((recursos == null) ? 0 : recursos.hashCode());
 		return result;
 	}
 
@@ -90,8 +106,15 @@ public class TipoRecurso implements Serializable{
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		if (recursos == null) {
+			if (other.recursos != null)
+				return false;
+		} else if (!recursos.equals(other.recursos))
+			return false;
 		return true;
 	}
+
+	
 	
 	
 	
