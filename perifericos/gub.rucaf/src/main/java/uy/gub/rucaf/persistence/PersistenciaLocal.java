@@ -11,7 +11,8 @@ import uy.gub.rucaf.entities.Usuario;
 public interface PersistenciaLocal {
 	public List<PrestadoraSalud> getPrestadoras();
 	public boolean addPrestadora(PrestadoraSalud prestadora);
-	public PrestadoraSalud findPrestadoraUsuario(int documento);
+	//public PrestadoraSalud findPrestadoraUsuario(int documento);
+	public Usuario findUsuario(int documento);
 	public boolean addUsuario(Usuario usuario);
 	public boolean updateUsuario(Usuario usuario);
 	public boolean deleteUsuario(int documento);

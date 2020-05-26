@@ -9,5 +9,5 @@ import uy.gub.rucaf.entities.PrestadoraSalud;
 @Local
 public interface RucafLocal {
 	public List<PrestadoraSalud> obtenerPrestadoras();
-	public PrestadoraSalud obtenerPrestadoraUsuario();
+	public PrestadoraSalud obtenerPrestadoraUsuario(int documento);
 }

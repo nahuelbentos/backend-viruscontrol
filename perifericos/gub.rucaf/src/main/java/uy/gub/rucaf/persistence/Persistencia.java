@@ -133,12 +133,13 @@ public class Persistencia implements PersistenciaLocal {
 			return false;
 	}
 
-	@Override
+	/*@Override
 	public PrestadoraSalud findPrestadoraUsuario(int documento) {
 		return findUsuario(documento).getPrestadora();
-	}
+	}*/
 	
-	private Usuario findUsuario(int documento) {
+	@Override
+	public Usuario findUsuario(int documento) {
 		Usuario usu = new Usuario();
 		try {
 			fr = new FileReader(fileUsuarios);
