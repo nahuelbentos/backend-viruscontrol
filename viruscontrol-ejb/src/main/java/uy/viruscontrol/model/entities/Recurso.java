@@ -5,13 +5,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
 
 
 @Entity
@@ -23,6 +29,10 @@ public class Recurso implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String nombre;
+	
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name="tipo_recurso")
+	private TipoRecurso tipoRecurso;
 	
 	
 	
@@ -38,11 +48,12 @@ public class Recurso implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Recurso(String nombre, List<RecursoEnfermedad> enfermedades) {
+	public Recurso(String nombre, List<RecursoEnfermedad> enfermedades,TipoRecurso tipoRecurso) {
 		super();
 		
 		this.nombre = nombre;
 		this.enfermedades = enfermedades;
+		this.tipoRecurso= tipoRecurso;
 	}
 
 	public int getId() {
@@ -71,6 +82,16 @@ public class Recurso implements Serializable {
 	
 	
 
+	public TipoRecurso getTipoRecurso() {
+		return tipoRecurso;
+	}
+
+	public void setTipoRecurso(TipoRecurso tipoRecurso) {
+		this.tipoRecurso = tipoRecurso;
+	}
+
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,6 +99,7 @@ public class Recurso implements Serializable {
 		result = prime * result + ((enfermedades == null) ? 0 : enfermedades.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((tipoRecurso == null) ? 0 : tipoRecurso.hashCode());
 		return result;
 	}
 
@@ -101,6 +123,11 @@ public class Recurso implements Serializable {
 			if (other.nombre != null)
 				return false;
 		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (tipoRecurso == null) {
+			if (other.tipoRecurso != null)
+				return false;
+		} else if (!tipoRecurso.equals(other.tipoRecurso))
 			return false;
 		return true;
 	}
