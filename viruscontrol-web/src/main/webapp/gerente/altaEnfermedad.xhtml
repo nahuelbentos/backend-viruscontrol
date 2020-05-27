@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+	<ui:define name="Alta enfermedad Infecciosa">
+		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
+	</ui:define>
+	
+	<ui:define name="title">
+		<h4>Alta Enfermedad Infecciosa</h4>
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:outputText value="#{GestorEnfermedadView.mensaje}" />
+		<h:form>
+			<p:panelGrid columns="1" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
+				<p:outputLabel for="NombreEnfermedad" value="Nombre Enfermedad" />
+				<p:inputText id="NombreEnfermedad" value="#{GestorEnfermedadView.nombreEnfermedad}" required="true"/>
+				
+				
+				<p:outputLabel for="NombreAgente" value="Nombre Agente" />
+				<p:inputText id="NombreAgente" value="#{GestorEnfermedadView.nombreAgente}" required="true"/>
+				
+				<p:outputLabel for="TipoEnfermedad" value="Tipo Enfermedad" />
+	    		<p:inputText id="TipoEnfermedad" value="#{GestorEnfermedadView.nombreTipoEnfermedad}" required="true"/>
+	    		
+	    		<p:outputLabel for="Sintomas" value="Sintomas (separados por ',')" />
+	    		<p:inputText id = "Sintomas" value="#{GestorEnfermedadView.sintomasStr}" required="true"/>
+	    		
+	    		<h:commandButton action="#{GestorEnfermedadView.agregarNuevaEnfermedad()}" value="Alta" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+			</p:panelGrid>
+		</h:form>
+		
+		
+		
+	</ui:define>
+ 
+</ui:composition>
+
+</html>

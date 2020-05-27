@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+	<ui:define name="Gestor de Recursos">
+		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
+	</ui:define>
+
+	<ui:define name="content">
+		
+		<h:form>
+		
+			<p:panelGrid columns="1" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+				
+				<h4>Alta Tipo Recurso</h4>
+				<h:outputText value="#{GestorRecursosView.mensajeTipoRecurso}" />
+				
+				<p:outputLabel for="NombreTipoRecurso" value="Nombre" />
+				<p:inputText id="NombreTipoRecurso"
+					value="#{GestorRecursosView.nombreTipoRecurso}" required="true"/>
+
+				<p:outputLabel for="DescripcionTipoRecurso" value="Descripcion" />
+				<p:inputText id="DescripcionTipoRecurso"
+					value="#{GestorRecursosView.descripcionTipoRecurso}"
+					required="true" />
+
+				<h:commandButton
+					action="#{GestorRecursosView.agregarNuevoTipoRecurso()}" value="Alta"
+					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+			</p:panelGrid>
+		</h:form>
+	
+	
+	
+		
+		<h:form>
+		
+			<p:panelGrid columns="1" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+				
+				<h4>Alta Recurso de un Determinado Tipo</h4>
+				<h:outputText value="#{GestorRecursosView.mensajeRecurso}" />
+				
+				<p:outputLabel for="NombreRecurso" value="Nombre" />
+				<p:inputText id="NombreRecurso"
+					value="#{GestorRecursosView.nombreRecurso}" required="true"/>
+
+				<p:outputLabel for="@next" value="TipoRecurso" />
+					<p:selectOneMenu id="TipoRecurso"
+						value="#{GestorRecursosView.nombreTipoRecursoDropDown}" style="width:150px"
+						required="true" requiredMessage="Debe seleccionar Tipo">
+						<f:selectItem itemLabel="Seleccione Tipo" itemValue="" />
+						<f:selectItems value="#{GestorRecursosView.tiposDeRecursos}" />
+					</p:selectOneMenu>					
+
+				<h:commandButton
+					action="#{GestorRecursosView.agregarNuevoRecurso()}" value="Alta"
+					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

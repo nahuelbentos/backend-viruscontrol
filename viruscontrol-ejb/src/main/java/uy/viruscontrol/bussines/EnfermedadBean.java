@@ -21,7 +21,6 @@ import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.RecursoEnfermedad;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.TipoEnfermedad;
-import uy.viruscontrol.model.entities.Usuario;
 import uy.viruscontrol.model.entities.TipoRecurso;
 
 /**
@@ -53,21 +52,17 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     //de lo contrario solo se crea el recurso sin enfermedad
     
     @Override
-    public int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
+    public boolean asociarRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
     	
-    	int altaOK = 0;
+    	
     	Recurso r = new Recurso ();
     	Enfermedad e = new Enfermedad();
     	RecursoEnfermedad recEnf = new RecursoEnfermedad();
     	//Si no existe el recurso..
     	if(!daoRecursoLocal.exist(nombreRecurso)){
     		
-    		r.setNombre(nombreRecurso);
-	    	//Persisto el Recurso
-    		
-    		daoRecursoLocal.persist(r);
-    		
-    		altaOK=1;
+    		System.out.println("El Recurso no existe");
+    		return false;
     	}	
     	
     	//Si existe la enfermedad le asocio el recurso si aun no esta asociado  y viceversa
@@ -94,25 +89,19 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
             	recursoEnfermedad.setRecursoTrata(recursoTrata);
             	
             	daoRecEnfLocal.merge(recursoEnfermedad);
-            	altaOK=2;
+            	System.out.println("El Recurso fue asociado a la Enfermedad");
+            	return true;
+    		}else {
+    			System.out.println("El Recurso ya se encuentra asociado a la Enfermedad");
+    			return false;
     		}
     		
-    		else {//borrar
-    			
-            	altaOK=0;
-    		}
-    		
-    		
-    		
-    		
-    	}else {
-    		altaOK=3;
-    	}
-    	
-    	return altaOK;
+    	 }else {
+ 			System.out.println("La enfermedad no existe");
+ 			return false;
+ 		}
+    
     }
-    
-    
     //Caso de Uso crearEnfermedadInfecciosa
     public boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 
     		String nombreAgente, List<Sintoma> sintomas, boolean aprobada) {
@@ -189,13 +178,16 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     
     @Override
     //Agregar un Recurso de un determinado tipo
-    public boolean altaRecursoDeUnDeterminadoTipo(String nombre,TipoRecurso tipoRecurso) {
+    public boolean altaRecursoDeUnDeterminadoTipo(String nombre,int idTipoRecurso) {
 		
+    	
+    	
     	if(!daoRecursoLocal.exist(nombre)) {
     		Recurso recurso = new Recurso();
         	recurso.setNombre(nombre);
-        	recurso.setTipoRecurso(tipoRecurso);
+        	recurso.setTipoRecurso(daoTipoRecursoLocal.findById(idTipoRecurso));
         	daoRecursoLocal.persist(recurso);
+        	System.out.println("Recurso creado");
         	return true;
     	}else {
     		System.out.println("El Recurso ya existe");
@@ -335,6 +327,30 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     	}
     	return enfermedadesAuxiliar;
     	
+    	
+    }
+    
+    @Override
+    public List<TipoRecurso> obtenerTiposDeRecursos(){
+    	
+    	List<TipoRecurso> tiposDeRecursos = daoTipoRecursoLocal.findAll();
+    	return (tiposDeRecursos != null) ? tiposDeRecursos : new ArrayList<TipoRecurso>();
+    	
+    }
+    
+    @Override
+    public List<Recurso> obtenerRecursos(){
+    	
+    	List<Recurso> recursos = daoRecursoLocal.findAll();
+    	return (recursos != null) ? recursos : new ArrayList<Recurso>();
+    	
+    }
+    
+    @Override
+    public List<Enfermedad> obtenerEnfermedades(){
+    	
+    	List<Enfermedad> enfermedades = daoEnfermedadLocal.findAll();
+    	return (enfermedades != null) ? enfermedades : new ArrayList<Enfermedad>();
     	
     }
 }
