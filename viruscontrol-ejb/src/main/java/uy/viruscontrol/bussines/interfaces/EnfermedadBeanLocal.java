@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.Sintoma;
+import uy.viruscontrol.model.entities.TipoRecurso;
 
 @Local
 public interface EnfermedadBeanLocal {
@@ -26,6 +28,14 @@ public interface EnfermedadBeanLocal {
 
 	int getIdEnfermedadByName(String nombreEnfermedad);
 	
+	int getIdTipoRecursoByName(String nombreTipoRecurso);
+	
 	public List<Sintoma> obtenerListaSintomas();
+
+	boolean altaRecursoDeUnDeterminadoTipo(String nombre, TipoRecurso tipoRecurso);
+
+	List<Recurso> obtenerRecursosPorTipoRecurso(String nombreTipoRecurso);
+
+	
 	
 }
