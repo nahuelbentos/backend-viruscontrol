@@ -1,22 +1,57 @@
 package uy.viruscontrol.ui.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import uy.viruscontrol.controllers.EnfermedadBeanController;
+import uy.viruscontrol.model.entities.Enfermedad;
+import uy.viruscontrol.model.entities.Recurso;
 
-@Named("GestorAltaRecursoRecomendadoView")
+@Named("GestorRecursoRecomendadoView")
 @RequestScoped
 public class GestorRecursoRecomendadoView {
 
 	//Datos del negocio para el alta de recurso recomendado
-		private String nombre_Enfermedad;
+		
+	
+		private List<String>enfermedades;
+		private String nombreEnfermedad;
+		
+		private List<String>recursos;
 		private String nombreRecurso; 
+		
 		private boolean recursoTrata;
 		private boolean recursoPreviene;
 		
 		private String mensaje;
 		
+		
+		
+		
+		public GestorRecursoRecomendadoView() {
+			super();
+			// TODO Auto-generated constructor stub
+		}
+		
+		
+		@PostConstruct
+		public void init() {
+			enfermedades=new ArrayList<String>();
+			recursos=new ArrayList<String>();
+				
+			for(Enfermedad enfermedad : EnfermedadBeanController.obtenerEnfermedades()) {
+					enfermedades.add(enfermedad.getNombre());
+			}
+			
+			for(Recurso recurso : EnfermedadBeanController.obtenerRecursos()) {
+				recursos.add(recurso.getNombre());
+			}
+		
+		}
 		
 		public String getMensaje() {
 			return mensaje;
@@ -25,11 +60,11 @@ public class GestorRecursoRecomendadoView {
 			this.mensaje = mensaje;
 		}
 		
-		public String getNombre_Enfermedad() {
-			return nombre_Enfermedad;
+		public String getNombreEnfermedad() {
+			return nombreEnfermedad;
 		}
-		public void setNombre_Enfermedad(String nombre_Enfermedad) {
-			this.nombre_Enfermedad = nombre_Enfermedad;
+		public void setNombreEnfermedad(String nombreEnfermedad) {
+			this.nombreEnfermedad = nombreEnfermedad;
 		}
 		public String getNombreRecurso() {
 			return nombreRecurso;
@@ -52,23 +87,37 @@ public class GestorRecursoRecomendadoView {
 		
 		
 		
-		public void agregarRecursoRecomendadoEnfermedad() {
+		
+		public List<String> getEnfermedades() {
+			return enfermedades;
+		}
+
+
+		public void setEnfermedades(List<String> enfermedades) {
+			this.enfermedades = enfermedades;
+		}
+
+
+		public List<String> getRecursos() {
+			return recursos;
+		}
+
+
+		public void setRecursos(List<String> recursos) {
+			this.recursos = recursos;
+		}
+
+
+		public void asociarRecursoRecomendadoEnfermedad() {
 			
-			int ok = EnfermedadBeanController.altaRecursoRecomendado(nombre_Enfermedad, nombreRecurso, recursoTrata, recursoPreviene);
+			boolean ok = EnfermedadBeanController.asociarRecursoRecomendado(nombreEnfermedad, nombreRecurso, recursoTrata, recursoPreviene);
 			
-			if (ok==1) {
-				this.mensaje = "Recurso "+ this.getNombreRecurso() + " creado.";
-				}
-			if(ok==2) {
-					this.mensaje = "Recurso "+ this.getNombreRecurso() + " asociado a la Enfermedad "+this.getNombre_Enfermedad();
-				}
-			if(ok==3) {
-						this.mensaje = "Recurso Ok. La enfermedad a asociar no existe, debe crearla.";
-					}
-			if(ok==0) {
-				this.mensaje = "Error, El Recurso ya se encuentra asociado a la Enfermedad.";
+			if (ok) {
+				this.mensaje = "El Recurso fue asociado a la Enfermedad.";
 			}
-					
+			else {
+				this.mensaje = "El Recurso ya se encuentra asociadoa la Enfermedad.";
+			}
 					
 		}
 }

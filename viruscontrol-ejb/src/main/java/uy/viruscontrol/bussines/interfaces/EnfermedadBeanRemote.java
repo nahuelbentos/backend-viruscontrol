@@ -5,7 +5,9 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import uy.viruscontrol.model.entities.Enfermedad;
+import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.Sintoma;
+import uy.viruscontrol.model.entities.TipoRecurso;
 
 @Remote
 public interface EnfermedadBeanRemote {
@@ -17,10 +19,23 @@ public interface EnfermedadBeanRemote {
 
 	List<Sintoma> obtenerListaSintomas();
 	
-	int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene);
+	boolean asociarRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene);
 
 	List<Enfermedad> obtenerListaEnfermedadesNoAprobadas();
 
+	int getIdTipoRecursoByName(String nombreTipoRecurso);
 	
 	int getIdEnfermedadByName(String nombreEnfermedad);
+	
+	boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso);
+	
+	List<Recurso> obtenerRecursosPorTipoRecurso(String nombreTipoRecurso);
+	
+	boolean altaTipoRecurso (String nombre, String descripcion);
+
+	List<TipoRecurso> obtenerTiposDeRecursos();
+
+	List<Recurso> obtenerRecursos();
+
+	List<Enfermedad> obtenerEnfermedades();
 }

@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 
+
 import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
 import uy.viruscontrol.bussines.interfaces.EnfermedadBeanRemote;
 import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
@@ -14,12 +15,13 @@ import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.RecursoEnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.SintomaDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.TipoEnfermedadDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.TipoRecursoDAOLocal;
 import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.RecursoEnfermedad;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.TipoEnfermedad;
-import uy.viruscontrol.model.entities.Usuario;
+import uy.viruscontrol.model.entities.TipoRecurso;
 
 /**
  * Session Bean implementation class EnfermedadBean
@@ -33,6 +35,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
 	@EJB RecursoEnfermedadDAOLocal daoRecEnfLocal;
 	@EJB TipoEnfermedadDAOLocal daoTipoEnfermedadLocal;
 	@EJB SintomaDAOLocal daoSintomaLocal;
+	@EJB TipoRecursoDAOLocal daoTipoRecursoLocal;
 	
     /**
      * Default constructor. 
@@ -49,21 +52,17 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     //de lo contrario solo se crea el recurso sin enfermedad
     
     @Override
-    public int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
+    public boolean asociarRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
     	
-    	int altaOK = 0;
+    	
     	Recurso r = new Recurso ();
     	Enfermedad e = new Enfermedad();
     	RecursoEnfermedad recEnf = new RecursoEnfermedad();
     	//Si no existe el recurso..
     	if(!daoRecursoLocal.exist(nombreRecurso)){
     		
-    		r.setNombre(nombreRecurso);
-	    	//Persisto el Recurso
-    		
-    		daoRecursoLocal.persist(r);
-    		
-    		altaOK=1;
+    		System.out.println("El Recurso no existe");
+    		return false;
     	}	
     	
     	//Si existe la enfermedad le asocio el recurso si aun no esta asociado  y viceversa
@@ -90,25 +89,19 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
             	recursoEnfermedad.setRecursoTrata(recursoTrata);
             	
             	daoRecEnfLocal.merge(recursoEnfermedad);
-            	altaOK=2;
+            	System.out.println("El Recurso fue asociado a la Enfermedad");
+            	return true;
+    		}else {
+    			System.out.println("El Recurso ya se encuentra asociado a la Enfermedad");
+    			return false;
     		}
     		
-    		else {//borrar
-    			
-            	altaOK=0;
-    		}
-    		
-    		
-    		
-    		
-    	}else {
-    		altaOK=3;
-    	}
-    	
-    	return altaOK;
+    	 }else {
+ 			System.out.println("La enfermedad no existe");
+ 			return false;
+ 		}
+    
     }
-    
-    
     //Caso de Uso crearEnfermedadInfecciosa
     public boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 
     		String nombreAgente, List<Sintoma> sintomas, boolean aprobada) {
@@ -181,6 +174,46 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     	}
     	return ok;
     }
+    
+    
+    @Override
+    //Agregar un Recurso de un determinado tipo
+    public boolean altaRecursoDeUnDeterminadoTipo(String nombre,int idTipoRecurso) {
+		
+    	
+    	
+    	if(!daoRecursoLocal.exist(nombre)) {
+    		Recurso recurso = new Recurso();
+        	recurso.setNombre(nombre);
+        	recurso.setTipoRecurso(daoTipoRecursoLocal.findById(idTipoRecurso));
+        	daoRecursoLocal.persist(recurso);
+        	System.out.println("Recurso creado");
+        	return true;
+    	}else {
+    		System.out.println("El Recurso ya existe");
+    		return false;
+    	}
+    	
+    }
+    
+    //Agregar Tipo de Recurso
+    public boolean altaTipoRecurso (String nombre, String descripcion) {
+    	if(!daoTipoRecursoLocal.exist(nombre)) {
+    		TipoRecurso tipoRecurso = new TipoRecurso(nombre, descripcion);
+    		daoTipoRecursoLocal.persist(tipoRecurso);
+    		return true;
+    	}else {
+    		System.out.println("El Tipo de Recurso ya existe");
+    		return false;
+    	}
+    }
+    
+    @Override
+    //Obtener recursos de un tipo de recurso
+    public List<Recurso> obtenerRecursosPorTipoRecurso(String  nombreTipoRecurso) { 
+    	
+    	return daoTipoRecursoLocal.findById(getIdTipoRecursoByName(nombreTipoRecurso)).getRecursos();
+    }
    
     //*/*/*/*/*/*/*/*/*/AUXILIARES*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
     
@@ -239,7 +272,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
 	    	return id;
     }
     
-   
+    @Override
   //Auxiliar que retorna el id de un sintoma dado su nombre
     public int getIdSintomaByName(String nombreSintoma) {
     	
@@ -250,6 +283,24 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
 	    	for(Sintoma sintoma : sintomas) {
 	    		if(sintoma.getNombre().equals(nombreSintoma)) {
 	    			id=sintoma.getid();
+	    			break;
+	    		}
+	    	}
+	    	
+	    	return id;
+    }
+    
+    @Override
+    //Auxiliar que retorna el id de un tipo de recurso dado su nombre
+    public int getIdTipoRecursoByName(String nombreTipoRecurso) {
+    	
+			int id = 0;
+	    	List<TipoRecurso> tipoRecursos = new ArrayList<TipoRecurso>(); 
+	    	tipoRecursos=daoTipoRecursoLocal.findAll();
+	    	
+	    	for(TipoRecurso tipoRecurso : tipoRecursos) {
+	    		if(tipoRecurso.getNombre().equals(nombreTipoRecurso)) {
+	    			id=tipoRecurso.getId();
 	    			break;
 	    		}
 	    	}
@@ -276,6 +327,30 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     	}
     	return enfermedadesAuxiliar;
     	
+    	
+    }
+    
+    @Override
+    public List<TipoRecurso> obtenerTiposDeRecursos(){
+    	
+    	List<TipoRecurso> tiposDeRecursos = daoTipoRecursoLocal.findAll();
+    	return (tiposDeRecursos != null) ? tiposDeRecursos : new ArrayList<TipoRecurso>();
+    	
+    }
+    
+    @Override
+    public List<Recurso> obtenerRecursos(){
+    	
+    	List<Recurso> recursos = daoRecursoLocal.findAll();
+    	return (recursos != null) ? recursos : new ArrayList<Recurso>();
+    	
+    }
+    
+    @Override
+    public List<Enfermedad> obtenerEnfermedades(){
+    	
+    	List<Enfermedad> enfermedades = daoEnfermedadLocal.findAll();
+    	return (enfermedades != null) ? enfermedades : new ArrayList<Enfermedad>();
     	
     }
 }
