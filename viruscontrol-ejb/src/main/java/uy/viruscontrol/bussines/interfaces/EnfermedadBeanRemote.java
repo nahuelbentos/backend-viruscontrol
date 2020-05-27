@@ -19,7 +19,7 @@ public interface EnfermedadBeanRemote {
 
 	List<Sintoma> obtenerListaSintomas();
 	
-	int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene);
+	boolean asociarRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene);
 
 	List<Enfermedad> obtenerListaEnfermedadesNoAprobadas();
 
@@ -27,7 +27,15 @@ public interface EnfermedadBeanRemote {
 	
 	int getIdEnfermedadByName(String nombreEnfermedad);
 	
-	boolean altaRecursoDeUnDeterminadoTipo(String nombre, TipoRecurso tipoRecurso);
+	boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso);
 	
 	List<Recurso> obtenerRecursosPorTipoRecurso(String nombreTipoRecurso);
+	
+	boolean altaTipoRecurso (String nombre, String descripcion);
+
+	List<TipoRecurso> obtenerTiposDeRecursos();
+
+	List<Recurso> obtenerRecursos();
+
+	List<Enfermedad> obtenerEnfermedades();
 }

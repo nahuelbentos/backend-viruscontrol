@@ -9,22 +9,32 @@ import javax.naming.NamingException;
 
 import uy.viruscontrol.bussines.interfaces.EnfermedadBeanRemote;
 import uy.viruscontrol.model.entities.Enfermedad;
+import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.Sintoma;
+import uy.viruscontrol.model.entities.TipoRecurso;
 
 public class EnfermedadBeanController {
 
 	private static EnfermedadBeanRemote iEnfermedadBean = lookupRemoteEnfermedadBean();
 	
+	
+	//Operaciones
+	//Enfermedades
 	public static boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, String nombreAgente, List<Sintoma> sintomas) {
 		return iEnfermedadBean.crearEnfermedadInfecciosa(nombreEnfermedad, nombreTipoEnfermedad, nombreAgente, sintomas, false);
 	}
 	
-	public static int altaRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
-			return iEnfermedadBean.altaRecursoRecomendado(nombreEnfermedad, nombreRecurso, recursoTrata, recursoPreviene);
+	
+	public static boolean asociarRecursoRecomendado(String nombreEnfermedad, String nombreRecurso, boolean recursoTrata, boolean recursoPreviene) {
+			return iEnfermedadBean.asociarRecursoRecomendado(nombreEnfermedad, nombreRecurso, recursoTrata, recursoPreviene);
 	}
 	
 	public static List<Enfermedad> obtenerEnfermedadesNoAprobadas() {
 		return iEnfermedadBean.obtenerListaEnfermedadesNoAprobadas();
+	}
+	
+	public static List<Enfermedad> obtenerEnfermedades() {
+		return iEnfermedadBean.obtenerEnfermedades();
 	}
 	
 	public static boolean aprobarEnfermedad(int idEnfermedad) {
@@ -34,6 +44,30 @@ public class EnfermedadBeanController {
 	public static int getIdEnfermedadByName(String nombreEnfermedad) {
 		return iEnfermedadBean.getIdEnfermedadByName(nombreEnfermedad);
 	}
+	
+	//Recursos y Tipos de Recursos
+	public static boolean altaTipoRecurso(String nombre, String descripcion) {
+		return iEnfermedadBean.altaTipoRecurso(nombre, descripcion);
+	}
+	
+	public static boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso) {
+		
+		return iEnfermedadBean.altaRecursoDeUnDeterminadoTipo(nombre, idTipoRecurso);
+	}
+	
+	public static List<TipoRecurso> obtenerTiposDeRecursos(){
+		return iEnfermedadBean.obtenerTiposDeRecursos();
+	}
+	
+	public static int getIdTipoRecursoByName(String nombreTipoRecurso) {
+		return iEnfermedadBean.getIdTipoRecursoByName(nombreTipoRecurso);
+	}
+	
+	public static List<Recurso> obtenerRecursos() {
+		return iEnfermedadBean.obtenerRecursos();
+	}
+	
+	//LOOKUP
 	
 	private static EnfermedadBeanRemote lookupRemoteEnfermedadBean(){
 		Properties props = new Properties();

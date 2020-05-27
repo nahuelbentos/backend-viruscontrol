@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+	<ui:define name="Asociar Recurso a Enfermedad">
+		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:outputText value="#{GestorRecursoRecomendadoView.mensaje}" />
+		<h:form>
+			<h4 style="text-align: left">Asociar Recurso Recomendado para
+				Enfermedad</h4>
+			
+			<p:panelGrid columns="1" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+
+				<p:outputLabel for="@next" value="Enfermedad" />
+				<p:selectOneMenu id="Enfermedad"
+					value="#{GestorRecursoRecomendadoView.nombreEnfermedad}"
+					style="width:150px" required="true">
+					<f:selectItem itemLabel="Seleccione Enfermedad" itemValue="" />
+					<f:selectItems
+						value="#{GestorRecursoRecomendadoView.enfermedades}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="@next" value="Recurso" />
+				<p:selectOneMenu id="Recurso"
+					value="#{GestorRecursoRecomendadoView.nombreRecurso}"
+					style="width:150px" required="true">
+					<f:selectItem itemLabel="Seleccione Recurso" itemValue="" />
+					<f:selectItems value="#{GestorRecursoRecomendadoView.recursos}" />
+				</p:selectOneMenu>
+
+				<h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+					<p:selectBooleanCheckbox
+						value="#{GestorRecursoRecomendadoView.recursoTrata}"
+						itemLabel="Trata" />
+					<!-- <f:converter converterId="javax.faces.Boolean" /> -->
+				</h:panelGrid>
+
+				<h:panelGrid columns="1" style="margin-bottom:10px" cellpadding="5">
+					<p:selectBooleanCheckbox
+						value="#{GestorRecursoRecomendadoView.recursoPreviene}"
+						itemLabel="Previene" />
+					<!-- <f:converter converterId="javax.faces.Boolean" /> -->
+				</h:panelGrid>
+
+
+				<h:commandButton
+					action="#{GestorRecursoRecomendadoView.asociarRecursoRecomendadoEnfermedad()}"
+					value="Alta"
+					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
