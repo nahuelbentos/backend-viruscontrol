@@ -8,8 +8,8 @@ import javax.ejb.Stateless;
 
 import uy.salud.services.soap.rucaf.IRucafService;
 import uy.salud.services.soap.rucaf.RucafService;
-import uy.viruscontrol.externalservices.soap.IWSPerifericoPrestadoraSalud;
-import uy.viruscontrol.externalservices.soap.PerifericoPrestadoraSalud;
+import com.prestadorsalud.services.soap.IWSPerifericoPrestadoraSalud;
+import com.prestadorsalud.services.soap.PerifericoPrestadoraSalud;
 import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 
@@ -32,9 +32,9 @@ public class ServiceAgentPrestadoraSalud implements ServiceAgentPrestadoraSaludL
 	// Consultas a Periférico Prestadoras de Salud ****************************************************************
 	@Override
 	public List<Medico> obtenerMedicos(int idPrestadora) {
-		List<uy.viruscontrol.externalservices.soap.Medico> res = clientePS.obtenerMedicos(idPrestadora);
+		List<com.prestadorsalud.services.soap.Medico> res = clientePS.obtenerMedicos(idPrestadora);
 		List<Medico> lista = new ArrayList<Medico>();
-		for (uy.viruscontrol.externalservices.soap.Medico it : res) {
+		for (com.prestadorsalud.services.soap.Medico it : res) {
 			PrestadoraSalud ps = new PrestadoraSalud(it.getPrestadoraSalud().getId(), it.getPrestadoraSalud().getNombre());
 			Medico m = new Medico(it.getIdUsuario()
 					, it.getNombre()
@@ -64,7 +64,7 @@ public class ServiceAgentPrestadoraSalud implements ServiceAgentPrestadoraSaludL
 
 	@Override
 	public PrestadoraSalud obtenerPrestadorDeSaludAlternativo(int idUsuario) {
-		uy.viruscontrol.externalservices.soap.PrestadoraSalud res = clientePS.obtenerPrestadorDeSaludAlternativo(idUsuario);
+		com.prestadorsalud.services.soap.PrestadoraSalud res = clientePS.obtenerPrestadorDeSaludAlternativo(idUsuario);
 		if (res != null)
 			return new PrestadoraSalud(res.getId(), res.getNombre());
 		else
