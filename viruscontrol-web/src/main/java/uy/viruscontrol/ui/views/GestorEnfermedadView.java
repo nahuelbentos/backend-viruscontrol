@@ -3,6 +3,8 @@ package uy.viruscontrol.ui.views;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -10,8 +12,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import uy.viruscontrol.controllers.EnfermedadBeanController;
+import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Enfermedad;
+import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Sintoma;
+
 
 @Named("GestorEnfermedadView")
 @RequestScoped
@@ -20,7 +25,7 @@ public class GestorEnfermedadView implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private UserManager userManage;
+	private UserManager userManager;
 	// Datos para la vista
 	private String mensaje;
 	
@@ -68,13 +73,11 @@ public class GestorEnfermedadView implements Serializable{
 		this.nombreEnfermedadNoAprobada = nombreEnfermedadNoAprobada;
 	}
 
-
-
-	public UserManager getUserManage() {
-		return userManage;
+	public UserManager getUserManager() {
+		return userManager;
 	}
-	public void setUserManage(UserManager userManage) {
-		this.userManage = userManage;
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
 	}
 	public String getNombreEnfermedad() {
 		return nombreEnfermedad;
@@ -135,5 +138,28 @@ public class GestorEnfermedadView implements Serializable{
 		}
 	}
 	
+	
+	public Map<String,String> getOpciones(){
+		TreeMap<String,String> opciones = new TreeMap<String,String>();
+		
+		if (userManager.getCurrentUser() != null) {
+			if (userManager.getCurrentUser() instanceof Administrador) {
+				//opciones.put("Gestión de usuarios", userManager.getDirVirtual(currentUser)+"gestorUsuarios.xhtml");
+				//opciones.put("Gestión de enfermedades", userManager.getDirVirtual(currentUser)+"gestorEnfermedad.xhtml");
+				//opciones.put("Gestión de fuente de datos", userManager.getDirVirtual(currentUser)+"gestorFuenteDatos.xhtml");
+				//opciones.put("Gestión de nodos periféricos", userManager.getDirVirtual(currentUser)+"gestorNodos.xhtml");
+			} else {
+				if (userManager.getCurrentUser() instanceof Gerente) {
+					opciones.put("Alta de Enfermedad Infecciosa", UserManager.getDirVirtual(userManager.getCurrentUser())+"altaEnfermedad.xhtml");
+					opciones.put("Gestor de Recursos para Enfermedad", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorRecursos.xhtml");
+					opciones.put("Asociar Recurso a Enfermedad", UserManager.getDirVirtual(userManager.getCurrentUser())+"asociarRecursoEnfermedad.xhtml");
+					//opciones.put("Gestión de notificaciones", userManager.getDirVirtual(currentUser)+"gestorNotificaciones.xhtml");
+					//opciones.put("Gráficas", userManager.getDirVirtual(currentUser)+"charts.xhtml");
+				}
+			}
+		}
+				
+		return opciones;
+	}
 	
 }

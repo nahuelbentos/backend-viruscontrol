@@ -102,7 +102,7 @@ public class UserManager implements Serializable {
 	
 	/* Metodo auxiliar que devuelve el directorio del usuario logueado, 
 	 * en caso que me encuentre dentro del directorio, le devuelvo empty. */
-	private static String getDirVirtual(Usuario currentUser) {
+	public static String getDirVirtual(Usuario currentUser) {
 		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		if (origRequest.getRequestURI().contains("admin") || origRequest.getRequestURI().contains("gerente"))
 			return "";
