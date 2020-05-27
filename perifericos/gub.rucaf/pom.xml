@@ -152,6 +152,15 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>               
         </dependency>
+        
+		<!-- El openshif me tira error de que no existe esta dependencia, por lo que la agrego -->
+		<dependency>
+			<groupId>javax.jws</groupId>
+			<artifactId>javax.jws-api</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+        
     </dependencies>
 	
     <build>
