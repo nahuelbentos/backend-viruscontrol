@@ -9,9 +9,12 @@ import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 @Local
 public interface ServiceAgentPrestadoraSaludLocal {
+	// Consultas a Periférico Prestadoras de Salud
 	public List<Medico> obtenerMedicos(int idPrestadora);
 	public boolean estaDisponible(int idPrestadora);
 	public int obtenerMedicoAsignado(int idPrestadora);
-	public PrestadoraSalud obtenerPrestadorDeSalud(int idUsuario);
-	public PrestadoraSalud obtenerPrestadorDeSaludAlternativo(int idUsuario);
+	public PrestadoraSalud obtenerPrestadorDeSaludAlternativo(int documento);
+	
+	// Consultas a Periférico Salud.uy / Rucaf
+	public PrestadoraSalud obtenerPrestadorDeSalud(int documento);
 }
