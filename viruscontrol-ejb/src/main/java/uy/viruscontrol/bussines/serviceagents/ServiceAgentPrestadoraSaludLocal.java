@@ -8,7 +8,7 @@ import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 @Local
-public interface ServiceAgentRucafLocal {
+public interface ServiceAgentPrestadoraSaludLocal {
 	public List<Medico> obtenerMedicos(int idPrestadora);
 	public boolean estaDisponible(int idPrestadora);
 	public int obtenerMedicoAsignado(int idPrestadora);

@@ -12,12 +12,12 @@ import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 @Stateless
-@Local(ServiceAgentRucafLocal.class)
-public class ServiceAgentRucaf implements ServiceAgentRucafLocal {
+@Local(ServiceAgentPrestadoraSaludLocal.class)
+public class ServiceAgentPrestadoraSalud implements ServiceAgentPrestadoraSaludLocal {
 	private PerifericoPrestadoraSalud servicio;
 	private IWSPerifericoPrestadoraSalud cliente;
 	
-	public ServiceAgentRucaf() {
+	public ServiceAgentPrestadoraSalud() {
 		super();
 		this.servicio = new PerifericoPrestadoraSalud();
 		this.cliente = servicio.getWSPerifericoPrestadoraSaludPort();

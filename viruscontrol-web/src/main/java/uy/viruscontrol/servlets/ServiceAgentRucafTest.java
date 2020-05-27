@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import uy.viruscontrol.bussines.serviceagents.ServiceAgentRucafLocal;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentPrestadoraSaludLocal;
 
 
 @WebServlet("/ServiceAgentRucafTest")
 public class ServiceAgentRucafTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    @EJB private ServiceAgentRucafLocal saRucaf;
+    @EJB private ServiceAgentPrestadoraSaludLocal saRucaf;
     
     public ServiceAgentRucafTest() {
         super();
