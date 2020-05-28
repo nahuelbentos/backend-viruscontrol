@@ -35,6 +35,7 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 			vm.setCiudadano(daoCiudadano.findById(idCiudadano));
 			vm.setFechaAsignacion(fecha);
 			vm.setVisitaRealizada(false);
+			vm.setSintomas(sintomas);
 			daoVisita.persist(vm);
 			return true;
 		} catch (Exception e) {

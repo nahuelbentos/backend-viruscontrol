@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -73,6 +72,14 @@ public class VisitaMedico implements Serializable {
 		this.visitaRealizada = visitaRealizada;
 	}
 
+	public int getIdVisitaMedico() {
+		return idVisitaMedico;
+	}
+
+	public void setIdVisitaMedico(int idVisitaMedico) {
+		this.idVisitaMedico = idVisitaMedico;
+	}
+
 	public Medico getMedico() {
 		return medico;
 	}
@@ -103,6 +110,14 @@ public class VisitaMedico implements Serializable {
 
 	public void setVisitaRealizada(boolean visitaRealizada) {
 		this.visitaRealizada = visitaRealizada;
+	}
+
+	public List<Sintoma> getSintomas() {
+		return sintomas;
+	}
+
+	public void setSintomas(List<Sintoma> sintomas) {
+		this.sintomas = sintomas;
 	}
 	
 }

@@ -33,8 +33,10 @@ public class VisitaMedicoDAO implements VisitaMedicoDAOLocal {
 	
 	@Override
 	public void persist(VisitaMedico visitaMedico) {
-	
-//		em.persist(visitaMedico);
+		
+		em.persist(visitaMedico);
+		/*
+		
 		// [WORKAROUND] se utiliza native query porque revienta mapeando los tipos
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		em.createNativeQuery(
@@ -45,6 +47,7 @@ public class VisitaMedicoDAO implements VisitaMedicoDAOLocal {
 						visitaMedico.getMedico().getIdUsuario() + "," + 
 						visitaMedico.isVisitaRealizada() + " );").executeUpdate();
 		
+		*/
 	}
 	
 	@Override
@@ -85,8 +88,15 @@ public class VisitaMedicoDAO implements VisitaMedicoDAOLocal {
 	 *********************************************************************************/
 	@EJB CiudadanoDAOLocal ciudadanoDAO;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<VisitaMedico> findByMedico(Medico m) { 
+		
+		List<VisitaMedico> visitas = em.createQuery("SELECT v FROM VisitaMedico v WHERE medico = :m")
+				.setParameter("m", m)
+				.getResultList();
+		
+		/*
 		// [WORKAROUND] sigo manejando native query porque hibernate no 
 		// reconoce al medico como un int, sino como un bytearr.
 		
@@ -110,6 +120,7 @@ public class VisitaMedicoDAO implements VisitaMedicoDAOLocal {
 			
 			visitas.add(vm);
 		}
+		*/
 		return visitas;
 	}
 	
