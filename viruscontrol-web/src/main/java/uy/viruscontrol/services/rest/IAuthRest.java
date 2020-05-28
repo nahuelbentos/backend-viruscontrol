@@ -11,10 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import uy.viruscontrol.bussines.enumerated.AuthResponse;
-
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Medico;
+import uy.viruscontrol.utils.UserAuthFE;
 
 @Path("/autenticacion")
 @Produces(MediaType.APPLICATION_JSON)
@@ -23,11 +22,11 @@ public interface IAuthRest{
 	
 	@POST
 	@Path("/entrar/medico")
-	public AuthResponse iniciarSesionMedico(Medico user);
+	public UserAuthFE iniciarSesionMedico(Medico user);
 	
 	@POST
 	@Path("/entrar/ciudadano")
-	public AuthResponse iniciarSesionCiudadano(Ciudadano user);
+	public UserAuthFE iniciarSesionCiudadano(Ciudadano user);
 	
 	@PUT
 	@Path("/validar_datos")
