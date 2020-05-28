@@ -37,6 +37,9 @@ public class GestorEnfermedadView implements Serializable{
 	private List<Sintoma> sintomas;
 	private String sintomasStr;
 	
+	//Datos para listar enfermedades
+	private List<Enfermedad>enfermedades;
+	private Enfermedad enfermedad = new Enfermedad();
 	
 	//Datos Enfermedades No Aprobadas
 	private List<String> enfermedadesNoAprobadas;
@@ -54,9 +57,31 @@ public class GestorEnfermedadView implements Serializable{
 			for(Enfermedad enfermedad :EnfermedadBeanController.obtenerEnfermedadesNoAprobadas()) {
 				enfermedadesNoAprobadas.add(enfermedad.getNombre());
 			}	
+			
+			enfermedades=new ArrayList<Enfermedad>();
+			enfermedades = EnfermedadBeanController.obtenerEnfermedades();
 	
 	}
 	
+	
+	
+	
+	public List<Enfermedad> getEnfermedades() {
+		return enfermedades;
+	}
+
+	public void setEnfermedades(List<Enfermedad> enfermedades) {
+		this.enfermedades = enfermedades;
+	}
+
+	public Enfermedad getEnfermedad() {
+		return enfermedad;
+	}
+
+	public void setEnfermedad(Enfermedad enfermedad) {
+		this.enfermedad = enfermedad;
+	}
+
 	public List<String> getEnfermedadesNoAprobadas() {
 		return enfermedadesNoAprobadas;
 	}
@@ -132,7 +157,7 @@ public class GestorEnfermedadView implements Serializable{
 		boolean ok = EnfermedadBeanController.aprobarEnfermedad(idAux);
 		
 		if(ok) {
-			this.mensaje = "La enfermedad "+ this.getNombreEnfermedadNoAprobada() + "fue aprobada.";
+			this.mensaje = "La enfermedad "+ this.getNombreEnfermedadNoAprobada() + " fue aprobada.";
 		}else {
 			this.mensaje="Error, no se pudo aprobar la enfermedad, verifique.";
 		}
