@@ -5,11 +5,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Medico;
+import uy.viruscontrol.utils.UserAuthFE;
 
 @ApplicationScoped
 public class AuthRest implements IAuthRest {
@@ -23,12 +23,12 @@ public class AuthRest implements IAuthRest {
 	}
 
 	@Override
-	public AuthResponse iniciarSesionMedico(Medico user) {
+	public UserAuthFE iniciarSesionMedico(Medico user) {
 		return sessionEjb.iniciarSesionConRedes(user, TipoUsuario.MEDICO);
 	}
 
 	@Override
-	public AuthResponse iniciarSesionCiudadano(Ciudadano user) {
+	public UserAuthFE iniciarSesionCiudadano(Ciudadano user) {
 		return sessionEjb.iniciarSesionConRedes(user, TipoUsuario.CIUDADANO);
 	}
 
@@ -51,7 +51,6 @@ public class AuthRest implements IAuthRest {
 		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-	}
-	
+	}	
 
 }
