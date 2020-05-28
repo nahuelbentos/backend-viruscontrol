@@ -150,6 +150,31 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 		String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
 		
 		return myHash;
-	}    
+	}   
+	
+	 @Override
+	    public List<Ciudadano> mostrarCiudadanos(){
+	    	return ciudadanoDAO.findAll();
+	    }
+	 
+	 @Override
+	    public List<Medico> mostrarMedicos(){
+	    	
+		 return medicoDAO.findAll();
+	    }
+	 
+	 @Override
+	    public List<Gerente> mostrarGerentes(){
+	    	
+		 return gteDAO.findAll();
+	    }
+	 
+	 @Override
+	    public List<Administrador> mostrarAdministradores(){
+	    	
+		 return adminDAO.findAll();
+	    }
+	 
+	 
 
 }

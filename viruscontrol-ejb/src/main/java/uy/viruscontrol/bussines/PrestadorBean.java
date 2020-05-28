@@ -9,7 +9,7 @@ import javax.ejb.Stateful;
 
 import uy.viruscontrol.bussines.interfaces.PrestadorBeanLocal;
 import uy.viruscontrol.bussines.interfaces.PrestadorBeanRemote;
-import uy.viruscontrol.bussines.serviceagents.ServiceAgentRucafLocal;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentPrestadoraSaludLocal;
 import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.PrestadoraSaludDAOLocal;
@@ -27,7 +27,7 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
 	@EJB PrestadoraSaludDAOLocal daoprestadorlocal;
 	@EJB private MedicoDAOLocal daoMedico;
 	@EJB private CiudadanoDAOLocal daoCiudadano;
-	@EJB private ServiceAgentRucafLocal saRucaf;
+	@EJB private ServiceAgentPrestadoraSaludLocal saRucaf;
     /**
      * Default constructor. 
      */

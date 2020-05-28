@@ -1,5 +1,6 @@
 package uy.viruscontrol.controllers;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.naming.Context;
@@ -7,6 +8,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import uy.viruscontrol.bussines.interfaces.UsuarioBeanRemote;
+import uy.viruscontrol.model.entities.Administrador;
+import uy.viruscontrol.model.entities.Ciudadano;
+import uy.viruscontrol.model.entities.Gerente;
+import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.Usuario;
 
 public class UsuarioBeanController {
@@ -15,6 +20,21 @@ public class UsuarioBeanController {
 	
 	public static boolean registrarUsuario(Usuario user) {
 		return iUsuarioBean.registrarUsuario(user);
+	}
+	
+	public static List<Ciudadano> mostrarCiudadanos(){
+		return iUsuarioBean.mostrarCiudadanos();
+	}
+	
+	public static List<Medico> mostrarMedicos() {
+		return iUsuarioBean.mostrarMedicos();
+	}
+	
+	public static List<Gerente> mostrarGerentes(){
+		return iUsuarioBean.mostrarGerentes();
+	}
+	public static List<Administrador> mostrarAdministradores(){
+		return iUsuarioBean.mostrarAdministradores();
 	}
 	
 	private static UsuarioBeanRemote lookupRemoteUsuarioBean(){
