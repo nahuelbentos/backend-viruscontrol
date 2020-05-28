@@ -1,22 +1,16 @@
 package uy.viruscontrol.model.dao.impl;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 
-import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
-import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.VisitaMedico;
 
@@ -27,27 +21,15 @@ public class VisitaMedicoDAO implements VisitaMedicoDAOLocal {
 	@PersistenceContext(unitName = "viruscontrolPersistenceUnit")
     protected EntityManager em;
 	
-	public VisitaMedicoDAO() {
-		
-	}
+	public VisitaMedicoDAO() {}
 	
 	@Override
-	public void persist(VisitaMedico visitaMedico) {
-		
-		em.persist(visitaMedico);
-		/*
-		
-		// [WORKAROUND] se utiliza native query porque revienta mapeando los tipos
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		em.createNativeQuery(
-				"INSERT INTO visita_medico (ciudadano, fechaasignacion, medico, visita_realizada) " + 
-				"VALUES (" + 
-						visitaMedico.getCiudadano().getIdUsuario() + ", " +
-						"'"+sdf.format(visitaMedico.getFechaAsignacion().getTime()) + "', " +
-						visitaMedico.getMedico().getIdUsuario() + "," + 
-						visitaMedico.isVisitaRealizada() + " );").executeUpdate();
-		
-		*/
+	public void persist(VisitaMedico visitaMedico) throws PersistenceException {
+		try {
+			em.persist(visitaMedico);
+		} catch (RollbackException e) {
+			throw new PersistenceException("Clave duplicada");
+		}
 	}
 	
 	@Override
@@ -78,15 +60,6 @@ public class VisitaMedicoDAO implements VisitaMedicoDAOLocal {
 		em.remove(em.contains(visitaMedico) ? visitaMedico : em.merge(visitaMedico));
 		
 	}
-
-	
-	
-	/*********************************************************************************
-	 ***    HAY QUE MODIFICAR LA ENTIDAD VISITA MEDICO PARA QUE PUEDA MANEJAR      ***
-	 ***         OBJETOS DE MANERA DE PODER SACAR LAS INYECCIONES DE LOS           ***
-	 ***                     DAOS DEFINIDOS A CONTINUACION.                        ***
-	 *********************************************************************************/
-	@EJB CiudadanoDAOLocal ciudadanoDAO;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -95,32 +68,6 @@ public class VisitaMedicoDAO implements VisitaMedicoDAOLocal {
 		List<VisitaMedico> visitas = em.createQuery("SELECT v FROM VisitaMedico v WHERE medico = :m")
 				.setParameter("m", m)
 				.getResultList();
-		
-		/*
-		// [WORKAROUND] sigo manejando native query porque hibernate no 
-		// reconoce al medico como un int, sino como un bytearr.
-		
-		@SuppressWarnings("unchecked")
-		List<Object[]> rows = em.createNativeQuery(
-				"SELECT vm.ciudadano,vm.fechaasignacion,vm.medico,vm.visita_realizada "
-				+ "FROM visita_medico vm WHERE vm.medico = " + m.getIdUsuario()
-				+ "ORDER BY vm.medico").getResultList();
-		
-		List<VisitaMedico> visitas = new ArrayList<VisitaMedico>();
-		for (Object[] row : rows) {
-			VisitaMedico vm = new VisitaMedico();
-			vm.setCiudadano(ciudadanoDAO.findById((int)row[0]));
-			vm.setMedico(m);
-			vm.setVisitaRealizada((boolean)row[3]);
-			
-			Timestamp tm = (Timestamp)row[1];
-			Calendar cal=GregorianCalendar.getInstance();
-			cal.setTime(tm);
-			vm.setFechaAsignacion(cal);
-			
-			visitas.add(vm);
-		}
-		*/
 		return visitas;
 	}
 	

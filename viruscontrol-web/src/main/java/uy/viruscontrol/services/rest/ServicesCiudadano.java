@@ -1,7 +1,6 @@
 package uy.viruscontrol.services.rest;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -66,8 +65,7 @@ public class ServicesCiudadano {
 			boolean ok = beanCiudadano.solicitarMedicoADomicilio(idCiudadano, idMedico, fec, sintomas);
 			return Response.status(Status.OK).entity(ok).build();
 		} catch (Exception e) {
-//			e.printStackTrace();
-			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}
 	}
 

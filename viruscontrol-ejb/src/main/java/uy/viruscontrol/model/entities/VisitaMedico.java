@@ -44,7 +44,7 @@ public class VisitaMedico implements Serializable {
 	private boolean visitaRealizada;
 
 	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "visitamedico_sintomas",
+	@JoinTable(name = "visita_medico_sintomas",
 		joinColumns = {
 			@JoinColumn(
 					name = "id_visitamedico",

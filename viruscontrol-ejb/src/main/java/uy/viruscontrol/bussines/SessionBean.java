@@ -12,8 +12,10 @@ import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
 import uy.viruscontrol.bussines.interfaces.SessionBeanRemote;
 import uy.viruscontrol.bussines.interfaces.UsuarioBeanLocal;
+import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
 import uy.viruscontrol.model.entities.Usuario;
 import uy.viruscontrol.proxies.ProxyRedesSocialesLocal;
+import uy.viruscontrol.utils.UserAuthFE;
 
 @Singleton
 @LocalBean
@@ -23,6 +25,8 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 	private UsuarioBeanLocal usuEJB;
 	@EJB
 	private ProxyRedesSocialesLocal socialMediaClient;
+	@EJB
+	private UsuarioDAOLocal usuDAO;
 	
 	private Map<String,Usuario> userConectados = new HashMap<String, Usuario>();
 	
@@ -39,18 +43,22 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 	}
 
 	@Override
-	public AuthResponse iniciarSesionConRedes(Usuario user, TipoUsuario tipoUser) {
-		AuthResponse res;
-		if (!socialMediaClient.authUsuario(user.getUsername()))
-			res = AuthResponse.FAILED;
-		else {
+	public UserAuthFE iniciarSesionConRedes(Usuario user, TipoUsuario tipoUser) {
+		UserAuthFE ret = new UserAuthFE();
+		
+		if (!socialMediaClient.authUsuario(user.getUsername())) {
+			ret.setResponse(AuthResponse.FAILED);
+			ret.setUsuario(null);
+		} else {
 			if (usuEJB.registrarPrimerIngreso(user, tipoUser))
-				res = AuthResponse.PRIMERINGRESO;
+				ret.setResponse(AuthResponse.PRIMERINGRESO);
 			else
-				res = AuthResponse.OK;
+				ret.setResponse(AuthResponse.OK);
+			
+			ret.setUsuario(usuDAO.findByUsername(user.getUsername()));
 			userConectados.put(user.getUsername(),user);
 		}
-		return res;
+		return ret;
 	}
 
 	@Override

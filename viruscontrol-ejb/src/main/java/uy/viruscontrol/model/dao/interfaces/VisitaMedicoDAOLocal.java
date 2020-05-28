@@ -3,6 +3,7 @@ package uy.viruscontrol.model.dao.interfaces;
 import java.util.List;
 
 import javax.ejb.Local;
+import javax.persistence.PersistenceException;
 
 import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.VisitaMedico;
@@ -10,7 +11,7 @@ import uy.viruscontrol.model.entities.VisitaMedico;
 @Local
 public interface VisitaMedicoDAOLocal {
 
-	void persist(VisitaMedico visitaMedico);
+	void persist(VisitaMedico visitaMedico) throws PersistenceException;
 
 	void merge(VisitaMedico visitaMedico);
 

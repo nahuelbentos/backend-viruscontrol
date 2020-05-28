@@ -29,6 +29,7 @@ import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Examen;
 import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.ProveedorExamen;
+import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.VisitaMedico;
 import uy.viruscontrol.utils.DtExamen;
 import uy.viruscontrol.utils.VisitaPendiente;
@@ -165,6 +166,13 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
 				
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				vp.setFecha(sdf.format(vm.getFechaAsignacion().getTime()) );
+				
+				List<String> sinAsString = new ArrayList<String>();
+				for (Sintoma s : vm.getSintomas()) {
+					sinAsString.add(s.getid()+";"+s.getNombre());
+				}
+				vp.setSintomas(sinAsString);
+				
 				vps.add(vp);
 			}
 		}
