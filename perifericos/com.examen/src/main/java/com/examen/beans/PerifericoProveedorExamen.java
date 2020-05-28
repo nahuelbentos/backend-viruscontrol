@@ -1,4 +1,4 @@
-package uy.viruscontrol.drivers;
+package com.examen.beans;
 
 import java.util.List;
 import java.util.Random;
@@ -7,14 +7,15 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
-import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
-import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
-import uy.viruscontrol.model.dao.interfaces.ExamenDAOLocal;
-import uy.viruscontrol.model.dao.interfaces.ProveedorExamenDAOLocal;
-import uy.viruscontrol.model.entities.Caso;
-import uy.viruscontrol.model.entities.EstadoExamen;
-import uy.viruscontrol.model.entities.Examen;
-import uy.viruscontrol.model.entities.ProveedorExamen;
+import com.examen.persistence.CasoDAOLocal;
+import com.examen.persistence.EnfermedadDAOLocal;
+import com.examen.persistence.ExamenDAOLocal;
+import com.examen.persistence.ProveedorExamenDAOLocal;
+import com.examen.entities.Caso;
+import com.examen.entities.Enfermedad;
+import com.examen.entities.EstadoExamen;
+import com.examen.entities.Examen;
+import com.examen.entities.ProveedorExamen;
 
 @Stateless
 @Local(PerifericoProveedorExamenLocal.class)
@@ -26,17 +27,17 @@ public class PerifericoProveedorExamen implements PerifericoProveedorExamenLocal
 	@EJB private CasoDAOLocal daoCaso;
 	
 	public PerifericoProveedorExamen() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	@Override
 	public ProveedorExamen find(int idEnfermedad) {
 		List<ProveedorExamen> pe = daoProvEx.findAllByEnfermedadId(idEnfermedad);
 		Random rand = new Random();
-		if (pe != null)
+		if ((pe != null) && pe.size() > 0)
 			return pe.get(rand.nextInt(pe.size()));
 		else
-			return null;
+			return new ProveedorExamen();
 	}
 	
 	@Override
@@ -52,7 +53,11 @@ public class PerifericoProveedorExamen implements PerifericoProveedorExamenLocal
 	@Override
 	public Examen solicitarAltaExamen(int idPaciente, int idExamen, int idMedico) {
 		// como se está emulando ser un proveedor de examen, devuelvo una instancia del examen solicitado, pero no la persisto
-		return daoExamen.findById(idExamen);
+		Examen ex = daoExamen.findById(idExamen);
+		if (ex != null)
+			return ex;
+		else
+			return new Examen(new Enfermedad());
 	}
 
 	@Override

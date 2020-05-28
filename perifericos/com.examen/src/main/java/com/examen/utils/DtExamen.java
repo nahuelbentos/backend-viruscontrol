@@ -1,4 +1,4 @@
-package uy.viruscontrol.utils;
+package com.examen.utils;
 
 import java.io.Serializable;
 

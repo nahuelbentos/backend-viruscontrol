@@ -28,7 +28,7 @@ import uy.viruscontrol.utils.DtExamen;
 @Stateless
 @Local(ServiceAgentProveedorExamenLocal.class)
 public class ServiceAgentProveedorExamen implements ServiceAgentProveedorExamenLocal {
-	private static final String urlProvExRest = "http://localhost:8080/viruscontrol-web/rest/perifprovex/";
+	private static final String urlProvExRest = "http://localhost:8080/proveedores-examenes/rest/perifprovex/";
 	private static ObjectMapper mapper;
 	
 	public ServiceAgentProveedorExamen() {

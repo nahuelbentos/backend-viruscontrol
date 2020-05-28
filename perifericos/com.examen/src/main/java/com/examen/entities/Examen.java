@@ -1,4 +1,4 @@
-package uy.viruscontrol.model.entities;
+package com.examen.entities;
 
 import java.io.Serializable;
 
@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import uy.viruscontrol.utils.DtExamen;
+import com.examen.utils.DtExamen;
 
 @Entity
 @Table(name = "examen")

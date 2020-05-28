@@ -1,4 +1,4 @@
-package uy.viruscontrol.drivers;
+package com.recurso.beans;
 
 import javax.ejb.Local;
 

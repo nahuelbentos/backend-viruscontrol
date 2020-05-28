@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentPrestadoraSaludLocal;
 
-@WebServlet("/PerifericoPrestadoraSaludDataTest")
-public class PerifericoPrestadoraSaludDataTest extends HttpServlet {
+@WebServlet("/ServiceAgentPrestadoraSaludTest")
+public class ServiceAgentPrestadoraSaludTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB private ServiceAgentPrestadoraSaludLocal prestadora;
 	
-    public PerifericoPrestadoraSaludDataTest() {
+    public ServiceAgentPrestadoraSaludTest() {
         super();
     }
 
