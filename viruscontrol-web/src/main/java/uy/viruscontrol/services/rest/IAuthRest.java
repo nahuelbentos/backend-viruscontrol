@@ -39,4 +39,5 @@ public interface IAuthRest{
 	@GET
 	@Path("/ping")
 	public Response ping();
+	
 }

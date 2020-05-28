@@ -51,7 +51,6 @@ public class AuthRest implements IAuthRest {
 		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
-	}
-	
+	}	
 
 }
