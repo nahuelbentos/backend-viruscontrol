@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+				<h4 style="text-align: left">Lista de Ciudadanos</h4>
+					
+			
+				 <a href="ListaCiudadanos.xhtml">Ciudadanos</a>
+				  <a href="ListaMedicos.xhtml">Medicos</a>
+				    <a href="ListaGerentes.xhtml">Gerentes</a>
+				     <a href="ListaAdministradores.xhtml">Administradores</a>
+				<p:dataTable id="a" value="#{GestorUsuariosView.mostrarCiudadanos()}" var="p">
+			
+				<p:column headerText="Nombre" >
+					<p:outputLabel value="#{p.nombre}"/>
+				</p:column>
+				<p:column headerText="Apellido" >
+					<p:outputLabel value="#{p.apellido}"/>
+				</p:column>
+				<p:column headerText="Direccion" >
+					<p:outputLabel value="#{p.direccion}"/>
+				</p:column>
+				<p:column headerText="Correo" >
+					<p:outputLabel value="#{p.correo}"/>
+				</p:column>
+				
+				</p:dataTable>
+				
+			<!-- 	<h:outputText value="Ciudadanos" />
+				<h:dataTable  value="#{GestorUsuariosView.mostrarCiudadanos()}" var="c"
+        styleClass="order-table" headerClass="order-table-header"
+        rowClasses="order-table-odd-row,order-table-even-row">
+
+        <h:column>
+            <f:facet name="header">Nombre</f:facet>
+            #{c.nombre}
+        </h:column>
+
+        <h:column>
+           <f:facet name="header">Apellido</f:facet>
+           #{c.apellido}
+        </h:column>
+        <h:column>
+           <f:facet name="header">Correo</f:facet>
+           #{c.correo}
+        </h:column>
+        <h:column>
+           <f:facet name="header">Nacionalidad</f:facet>
+           #{c.nacionalidad}
+        </h:column>
+        <h:column>
+           <f:facet name="header">Direccion</f:facet>
+           #{c.direccion}
+        </h:column>
+    </h:dataTable>
+    <h:outputText value="Medicos" />
+			<h:dataTable  value="#{GestorUsuariosView.mostrarMedicos()}" var="m"
+        styleClass="order-table" headerClass="order-table-header"
+        rowClasses="order-table-odd-row,order-table-even-row">
+
+        <h:column>
+            <f:facet name="header">Nombre</f:facet>
+            #{m.nombre}
+        </h:column>
+
+        <h:column>
+           <f:facet name="header">Apellido</f:facet>
+           #{m.apellido}
+        </h:column>
+        <h:column>
+           <f:facet name="header">Correo</f:facet>
+           #{m.correo}
+        </h:column>
+        <h:column>
+           <f:facet name="header">Nacionalidad</f:facet>
+           #{m.nacionalidad}
+        </h:column>
+        <h:column>
+           <f:facet name="header">Direccion</f:facet>
+           #{m.direccion}
+        </h:column>
+    </h:dataTable> -->
+			
+		</h:form>
+	</ui:define>
+ 
+</ui:composition>
+
+</html>
