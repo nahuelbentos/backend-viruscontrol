@@ -1,7 +1,7 @@
 package uy.viruscontrol.utils;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.List;
 
 public class VisitaPendiente implements Serializable{
 
@@ -11,6 +11,7 @@ public class VisitaPendiente implements Serializable{
 	private String apellido;
 	private String direccion;
 	private String fecha;
+	private List<String> sintomas;
 	
 	public String getFecha() {
 		return fecha;
@@ -36,10 +37,13 @@ public class VisitaPendiente implements Serializable{
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+	public List<String> getSintomas() {
+		return sintomas;
+	}
+	public void setSintomas(List<String> sintomas) {
+		this.sintomas = sintomas;
+	}
 	public VisitaPendiente() {
 		super();
 	}
-	
-	
-	
 }

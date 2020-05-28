@@ -1,7 +1,6 @@
 package uy.viruscontrol.services.rest;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -54,16 +53,19 @@ public class ServicesCiudadano {
 	public Response confirmarVisita(@FormParam("idCiudadano") int idCiudadano, @FormParam("idMedico") int idMedico, @FormParam("fecha") Date fecha, @FormParam("sintomas") String sintomasJson) {
 		mapper = new ObjectMapper();
 		try {
-			List<Sintoma> sintomas = new ArrayList<Sintoma>();//mapper.readValue(sintomasJson, mapper.getTypeFactory().constructCollectionType(List.class, Sintoma.class));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 			Calendar fec = Calendar.getInstance();
 			System.out.println("Fecha ingresada: "+sdf.format(fecha));
 			fec.setTime(fecha);
+			System.out.println("Listado de sintomas");
+			List<Sintoma> sintomas = mapper.readValue(sintomasJson, mapper.getTypeFactory().constructCollectionType(List.class, Sintoma.class));
+			for (Sintoma sintoma : sintomas) {
+				System.out.println("sintoma: " + sintoma.getNombre());
+			}
 			boolean ok = beanCiudadano.solicitarMedicoADomicilio(idCiudadano, idMedico, fec, sintomas);
 			return Response.status(Status.OK).entity(ok).build();
 		} catch (Exception e) {
-//			e.printStackTrace();
-			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}
 	}
 

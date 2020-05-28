@@ -5,13 +5,14 @@ import javax.ejb.Remote;
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.model.entities.Usuario;
+import uy.viruscontrol.utils.UserAuthFE;
 
 @Remote
 public interface SessionBeanRemote {
 
 	public AuthResponse iniciarSesion(String username, String password);
 	
-	public AuthResponse iniciarSesionConRedes(Usuario user, TipoUsuario tipoUsuario);
+	public UserAuthFE iniciarSesionConRedes(Usuario user, TipoUsuario tipoUsuario);
 	
 	public void validarDatosConRedes(Usuario user);
 
