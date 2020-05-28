@@ -39,13 +39,11 @@
 				<p:outputLabel for="Sintomas" value="Sintomas (separados por ',')" />
 				<p:inputText id="Sintomas"
 					value="#{GestorEnfermedadView.sintomasStr}" required="true" />
-
+                
 				<h:commandButton
-					update="@form :enfermedades:enfermedadesList"
-					actionListener="#{GestorEnfermedadView.agregarNuevaEnfermedad()}"
-					value="Alta"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-				</h:commandButton>
+                	action="#{GestorEnfermedadView.agregarNuevaEnfermedad()}"
+                	class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                </h:commandButton>
 				
 			</p:panelGrid>
 		</h:form>
