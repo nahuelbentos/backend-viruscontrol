@@ -28,7 +28,10 @@ import uy.viruscontrol.utils.DtExamen;
 @Stateless
 @Local(ServiceAgentProveedorExamenLocal.class)
 public class ServiceAgentProveedorExamen implements ServiceAgentProveedorExamenLocal {
-	private static final String urlProvExRest = "http://localhost:8080/proveedores-examenes/rest/perifprovex/";
+	// localhost - solo para probar cuando se hacen cambios locales al periférico
+//	private static final String urlProvExRest = "http://localhost:8080/proveedores-examenes/rest/perifprovex/";
+	// MiNube - para mantenerlo siempre en ejecución consultando el servicio remoto
+	private static final String urlProvExRest = "http://179.27.96.131:8080/proveedores-examenes/rest/perifprovex/";
 	private static ObjectMapper mapper;
 	
 	public ServiceAgentProveedorExamen() {

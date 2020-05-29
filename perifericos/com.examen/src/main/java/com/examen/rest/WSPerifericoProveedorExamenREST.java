@@ -63,6 +63,7 @@ public class WSPerifericoProveedorExamenREST {
 									@FormParam("idExamen") int idExamen,
 									@FormParam("idMedico") int idMedico) {
 //		System.out.println("["+WSPerifericoProveedorExamenREST.class.getName()+"] Paciente: "+idPaciente+", Examen: "+idExamen+", Medico: "+idMedico);
+		// debería devolver un id caso, pero no quiero romper el sequence de hibernate, así que no lo devuelvo.
 		return provEx.solicitarAltaExamen(idPaciente, idExamen, idMedico).getDt();
 	}
 	

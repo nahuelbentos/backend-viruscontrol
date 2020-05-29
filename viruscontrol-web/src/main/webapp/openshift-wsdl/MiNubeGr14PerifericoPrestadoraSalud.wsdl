@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://soap.services.prestador.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PerifericoPrestadoraSalud" targetNamespace="http://soap.services.prestador.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://soap.services.prestador.com/" elementFormDefault="unqualified" targetNamespace="http://soap.services.prestador.com/" version="1.0">
+
+  <xs:element name="estaDisponible" type="tns:estaDisponible"/>
+
+  <xs:element name="estaDisponibleResponse" type="tns:estaDisponibleResponse"/>
+
+  <xs:element name="obtenerMedicoAsignado" type="tns:obtenerMedicoAsignado"/>
+
+  <xs:element name="obtenerMedicoAsignadoResponse" type="tns:obtenerMedicoAsignadoResponse"/>
+
+  <xs:element name="obtenerMedicos" type="tns:obtenerMedicos"/>
+
+  <xs:element name="obtenerMedicosResponse" type="tns:obtenerMedicosResponse"/>
+
+  <xs:element name="obtenerPrestadorDeSaludAlternativo" type="tns:obtenerPrestadorDeSaludAlternativo"/>
+
+  <xs:element name="obtenerPrestadorDeSaludAlternativoResponse" type="tns:obtenerPrestadorDeSaludAlternativoResponse"/>
+
+  <xs:complexType name="obtenerPrestadorDeSaludAlternativo">
+    <xs:sequence>
+      <xs:element name="idUsuario" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtenerPrestadorDeSaludAlternativoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:prestadoraSalud"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="prestadoraSalud">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="estaDisponible">
+    <xs:sequence>
+      <xs:element name="idPrestadora" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="estaDisponibleResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtenerMedicoAsignado">
+    <xs:sequence>
+      <xs:element name="idPrestadora" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtenerMedicoAsignadoResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtenerMedicos">
+    <xs:sequence>
+      <xs:element name="idPrestadora" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtenerMedicosResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:medico"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="medico">
+    <xs:complexContent>
+      <xs:extension base="tns:usuario">
+        <xs:sequence>
+          <xs:element name="conectado" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="prestadoraSalud" type="tns:prestadoraSalud"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="usuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" type="xs:string"/>
+      <xs:element minOccurs="0" name="correo" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime"/>
+      <xs:element name="idUsuario" type="xs:int"/>
+      <xs:element minOccurs="0" name="nacionalidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="password" type="xs:string"/>
+      <xs:element name="primerIngreso" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="username" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="estaDisponibleResponse">
+    <wsdl:part element="tns:estaDisponibleResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerMedicoAsignado">
+    <wsdl:part element="tns:obtenerMedicoAsignado" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerMedicoAsignadoResponse">
+    <wsdl:part element="tns:obtenerMedicoAsignadoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerMedicosResponse">
+    <wsdl:part element="tns:obtenerMedicosResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerPrestadorDeSaludAlternativoResponse">
+    <wsdl:part element="tns:obtenerPrestadorDeSaludAlternativoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerPrestadorDeSaludAlternativo">
+    <wsdl:part element="tns:obtenerPrestadorDeSaludAlternativo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="estaDisponible">
+    <wsdl:part element="tns:estaDisponible" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerMedicos">
+    <wsdl:part element="tns:obtenerMedicos" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IWSPerifericoPrestadoraSalud">
+    <wsdl:operation name="obtenerPrestadorDeSaludAlternativo">
+      <wsdl:input message="tns:obtenerPrestadorDeSaludAlternativo" name="obtenerPrestadorDeSaludAlternativo">
+    </wsdl:input>
+      <wsdl:output message="tns:obtenerPrestadorDeSaludAlternativoResponse" name="obtenerPrestadorDeSaludAlternativoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="estaDisponible">
+      <wsdl:input message="tns:estaDisponible" name="estaDisponible">
+    </wsdl:input>
+      <wsdl:output message="tns:estaDisponibleResponse" name="estaDisponibleResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerMedicoAsignado">
+      <wsdl:input message="tns:obtenerMedicoAsignado" name="obtenerMedicoAsignado">
+    </wsdl:input>
+      <wsdl:output message="tns:obtenerMedicoAsignadoResponse" name="obtenerMedicoAsignadoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerMedicos">
+      <wsdl:input message="tns:obtenerMedicos" name="obtenerMedicos">
+    </wsdl:input>
+      <wsdl:output message="tns:obtenerMedicosResponse" name="obtenerMedicosResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PerifericoPrestadoraSaludSoapBinding" type="tns:IWSPerifericoPrestadoraSalud">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="obtenerPrestadorDeSaludAlternativo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obtenerPrestadorDeSaludAlternativo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtenerPrestadorDeSaludAlternativoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="estaDisponible">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="estaDisponible">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="estaDisponibleResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerMedicoAsignado">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obtenerMedicoAsignado">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtenerMedicoAsignadoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="obtenerMedicos">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obtenerMedicos">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtenerMedicosResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PerifericoPrestadoraSalud">
+    <wsdl:port binding="tns:PerifericoPrestadoraSaludSoapBinding" name="WSPerifericoPrestadoraSaludPort">
+      <soap:address location="http://179.27.96.131:8080/prestadoras-salud/PerifericoPrestadoraSalud"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
