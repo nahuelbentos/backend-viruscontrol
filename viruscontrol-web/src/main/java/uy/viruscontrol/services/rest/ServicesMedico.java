@@ -7,10 +7,13 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import uy.viruscontrol.bussines.interfaces.MedicoBeanLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
@@ -88,6 +91,7 @@ public class ServicesMedico {
 		
 			return dtc;
 	}
+	
 	@GET
 	@Path("/{username}/visita_pendiente/all")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -95,4 +99,16 @@ public class ServicesMedico {
 			return medicoBean.getVisitaPendiente(username);
 	}
 	
+	@PUT
+	@Path("/{username}/visita_pendiente/{idVisitaPendiente}")
+	public Response confirmarVisitaPendiente(@PathParam("username")String username, 
+											 @PathParam("idVisitaPendiente")int idVisitaPendiente){
+		try {
+			
+			boolean ok = medicoBean.confirmarVisitaPendiente(username, idVisitaPendiente);
+			return Response.status(Status.OK).entity(ok).build();
+		} catch (Exception e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+		}
+	}
 }

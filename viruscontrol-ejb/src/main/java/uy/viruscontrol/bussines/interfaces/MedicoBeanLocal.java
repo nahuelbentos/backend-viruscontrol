@@ -22,4 +22,6 @@ public interface MedicoBeanLocal {
 	
 	public List<VisitaPendiente> getVisitaPendiente(String username);
 
+	public boolean confirmarVisitaPendiente(String username, int idVisitaPendiente);
+	
 }
