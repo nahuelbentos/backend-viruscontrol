@@ -27,13 +27,13 @@ public class GestorUsuariosView implements Serializable {
 	private List<Medico> medicos;
 	private List<Gerente> gerentes;
 	private List<Administrador> administradores;
-	
-	
+	private Ciudadano ciudadanoSeleccionado;
+	private String nombre;
 	public List<Gerente> mostrarGerentes(){
 	
 		
 		return UsuarioBeanController.mostrarGerentes();
-
+	
 	}
 	
 	public List<Administrador> mostrarAdministradores(){
@@ -50,13 +50,39 @@ public class GestorUsuariosView implements Serializable {
 		 * c:UsuarioBeanController.mostrarCiudadanos()) {
 		 * listaCiudadanos.add(c.getNombre()); }
 		 */
+	
+			return UsuarioBeanController.mostrarCiudadanos();
+		}
+	public List<Medico> mostrarMedicos(){
+	
+			return UsuarioBeanController.mostrarMedicos();
+		}
 
-		return UsuarioBeanController.mostrarCiudadanos();
+public void editarUsuario() {
+	if(ciudadanoSeleccionado!=null) {
+		System.out.println("usuario seleccionado "+ciudadanoSeleccionado.getNombre());
 	}
-public List<Medico> mostrarMedicos(){
+	
+	if(nombre!=null) {
+		System.out.println("nombre que escribio es "+nombre);
+	}
+	
+}
 
-		return UsuarioBeanController.mostrarMedicos();
-	}
+
+
+
+
+
+
+public String getNombre() {
+	return nombre;
+}
+
+public void setNombre(String nombre) {
+	this.nombre = nombre;
+}
+
 public List<Ciudadano> getCiudadanos() {
 	return ciudadanos;
 }
@@ -80,6 +106,14 @@ public List<Administrador> getAdministradores() {
 }
 public void setAdministradores(List<Administrador> administradores) {
 	this.administradores = administradores;
+}
+
+public Ciudadano getCiudadanoSeleccionado() {
+	return ciudadanoSeleccionado;
+}
+
+public void setCiudadanoSeleccionado(Ciudadano ciudadanoSeleccionado) {
+	this.ciudadanoSeleccionado = ciudadanoSeleccionado;
 }
 
 	
