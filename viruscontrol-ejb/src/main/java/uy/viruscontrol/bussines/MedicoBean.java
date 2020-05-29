@@ -160,6 +160,7 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
 		for (VisitaMedico vm : vms) {
 			if (!vm.isVisitaRealizada()) {
 				VisitaPendiente vp = new VisitaPendiente();
+				vp.setId(vm.getIdVisitaMedico());
 				vp.setNombre(vm.getCiudadano().getNombre());
 				vp.setApellido(vm.getCiudadano().getApellido());
 				vp.setDireccion(vm.getCiudadano().getDireccion());
@@ -167,17 +168,35 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				vp.setFecha(sdf.format(vm.getFechaAsignacion().getTime()) );
 				
-				List<String> sinAsString = new ArrayList<String>();
+				List<Sintoma> sintomas = new ArrayList<Sintoma>();
 				for (Sintoma s : vm.getSintomas()) {
-					sinAsString.add(s.getid()+";"+s.getNombre());
+					sintomas.add(s);
 				}
-				vp.setSintomas(sinAsString);
+				vp.setSintomas(sintomas);
 				
 				vps.add(vp);
 			}
 		}
 
 		return vps;
+	}
+
+	@Override
+	public boolean confirmarVisitaPendiente(String username, int idVisitaPendiente) {
+		
+		VisitaMedico visita = visitaMedicoDao.findById(idVisitaPendiente);
+		
+		if (visita == null)
+			return false;
+		
+		if (!visita.getMedico().getUsername().equals(username))
+			return false;
+		
+		visita.setVisitaRealizada(true);
+		
+		visitaMedicoDao.merge(visita);
+		return true;
+		
 	}
    
 
