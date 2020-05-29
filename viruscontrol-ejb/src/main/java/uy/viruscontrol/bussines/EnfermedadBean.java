@@ -131,7 +131,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
 	        	
 	        	
 	        	//persisto enfermedad sin Sintomas y sin Tipo
-	        	Enfermedad enfermedad = new Enfermedad(nombreEnfermedad, false, nombreAgente, null, null);
+	        	Enfermedad enfermedad = new Enfermedad(nombreEnfermedad, false, nombreAgente, null, null,false);
 	        	daoEnfermedadLocal.persist(enfermedad);
 	        	
 	        	//Asocio la enfermedad con los sintomas
@@ -164,15 +164,31 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     //Aprobar Enfermedad Infecciosa
     public boolean aprobarEnfermedadInfecciosa(int idEnfermedad) {
     	
-    	boolean ok=false;
+    	
     	Enfermedad e = daoEnfermedadLocal.findById(idEnfermedad);
     	
     	if(e != null) {
     		e.setAprobada(true);
     		daoEnfermedadLocal.merge(e);
-    		ok=true;
+    		System.out.println("Enfermedad aprobada");
+    		return true;
     	}
-    	return ok;
+    	return false;
+    }
+    
+  //Rechazar Enfermedad Infecciosa
+    public boolean rechazarEnfermedadInfecciosa(int idEnfermedad) {
+    	
+    	
+    	Enfermedad e = daoEnfermedadLocal.findById(idEnfermedad);
+    	
+    	if(e != null) {
+    		e.setRechazada(true);
+    		daoEnfermedadLocal.merge(e);
+    		System.out.println("Enfermedad rechazada");
+    		return true;
+    	}
+    	return false;
     }
     
     
@@ -321,7 +337,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     	List<Enfermedad> enfermedades = daoEnfermedadLocal.findAll();
     	
     	for(Enfermedad enfermedad : enfermedades) {
-    		if(!enfermedad.isAprobada()) {
+    		if((!enfermedad.isAprobada()) &&(!enfermedad.isRechazada())) {
     			enfermedadesAuxiliar.add(enfermedad);
     		}
     	}
