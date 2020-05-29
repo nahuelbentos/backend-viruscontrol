@@ -18,7 +18,7 @@ insert into public.sintoma(id,nombre) values (200, 'Vomitos');
 insert into public.sintoma(id,nombre) values (300, 'Fiebre');
 
 --Enfermedad
-insert into public.enfermedad(id, aprobada, nombre, nombre_agente, tipo_enfermedad) values (100,false,'COVID-19','SARS-CoV-2',100);
+insert into public.enfermedad(id, aprobada, nombre, nombre_agente, tipo_enfermedad, rechazada) values (100,false,'COVID-19','SARS-CoV-2',100,false);
 
 --Enfermedad-Recurso
 insert into recurso_enfermedad(recurso_previene, recurso_trata,id_enfermedad,id_recurso) values (false, true, 100,200);

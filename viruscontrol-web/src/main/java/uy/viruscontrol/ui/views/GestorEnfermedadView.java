@@ -163,6 +163,19 @@ public class GestorEnfermedadView implements Serializable{
 		}
 	}
 	
+	//Rechazar Enfermedad
+		public void rechazarEnfermedad() {
+			int idAux = EnfermedadBeanController.getIdEnfermedadByName(nombreEnfermedadNoAprobada);
+			
+			boolean ok = EnfermedadBeanController.rechazarEnfermedad(idAux);
+			
+			if(ok) {
+				this.mensaje = "La enfermedad "+ this.getNombreEnfermedadNoAprobada() + " fue rechazada.";
+			}else {
+				this.mensaje="Error, no se pudo rechazar la enfermedad, verifique.";
+			}
+		}
+	
 	
 	public Map<String,String> getOpciones(){
 		TreeMap<String,String> opciones = new TreeMap<String,String>();

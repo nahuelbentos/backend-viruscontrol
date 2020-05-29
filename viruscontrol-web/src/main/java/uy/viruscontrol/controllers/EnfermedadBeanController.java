@@ -41,6 +41,10 @@ public class EnfermedadBeanController {
 		return iEnfermedadBean.aprobarEnfermedadInfecciosa(idEnfermedad);
 	}
 	
+	public static boolean rechazarEnfermedad(int idEnfermedad) {
+		return iEnfermedadBean.rechazarEnfermedadInfecciosa(idEnfermedad);
+	}
+	
 	public static int getIdEnfermedadByName(String nombreEnfermedad) {
 		return iEnfermedadBean.getIdEnfermedadByName(nombreEnfermedad);
 	}
