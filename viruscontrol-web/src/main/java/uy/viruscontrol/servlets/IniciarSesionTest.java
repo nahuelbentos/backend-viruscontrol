@@ -11,15 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
 import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.PrestadoraSaludDAOLocal;
-import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.model.entities.Usuario;
+import uy.viruscontrol.utils.UserAuthFE;
 
 @WebServlet("/IniciarSesionTest")
 public class IniciarSesionTest extends HttpServlet {
@@ -46,7 +45,7 @@ public class IniciarSesionTest extends HttpServlet {
 		ciudadano.setCorreo("jhoni@adinet.com.uy");
 		ciudadano.setUsername("jhonnie");
 		
-		AuthResponse res = sessionEJB.iniciarSesionConRedes(ciudadano, TipoUsuario.CIUDADANO);
+		UserAuthFE res = sessionEJB.iniciarSesionConRedes(ciudadano, TipoUsuario.CIUDADANO);
 		
 		System.out.println("El Session bean respondio: "+res);
 		

@@ -1,33 +1,32 @@
-package uy.viruscontrol.model.dao.impl;
+package com.examen.persistence;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import uy.viruscontrol.model.dao.interfaces.ExamenDAOLocal;
-import uy.viruscontrol.model.dao.interfaces.ProveedorExamenDAOLocal;
-import uy.viruscontrol.model.entities.Examen;
-import uy.viruscontrol.model.entities.ProveedorExamen;
-
+import com.examen.persistence.ExamenDAOLocal;
+import com.examen.persistence.ProveedorExamenDAOLocal;
+import com.examen.entities.Examen;
+import com.examen.entities.ProveedorExamen;
 
 
 @Stateless
-@LocalBean
+@Local(ProveedorExamenDAOLocal.class)
 public class ProveedorExamenDAO implements ProveedorExamenDAOLocal {
 	
-	@PersistenceContext(unitName = "viruscontrolPersistenceUnit")
+	@PersistenceContext(unitName = "com.examenPersistenceUnit")
     protected EntityManager em;
 	
 	@EJB private ExamenDAOLocal daoExamen;
 	
 	public ProveedorExamenDAO() {
-		
+		super();
 	}
 	@Override
 	public void persist(ProveedorExamen proveedorExamen) {
@@ -80,11 +79,11 @@ public class ProveedorExamenDAO implements ProveedorExamenDAOLocal {
 		List<ProveedorExamen> ret = new ArrayList<ProveedorExamen>();
 		if (examenes != null) {
 			List<Object[]> lista = em.createNativeQuery(
-					"SELECT p.id, p.nombre, p.direccion, p.barrio, p.rangohorario "+ 
-					"FROM proveedor p INNER JOIN proveedorexamen_examen pee ON pee.id_proveedor = p.id "+
-					"WHERE p.proveedor_tipo = 'EXAMEN' "+
-					"AND pee.id_examen in ("+generateInClauseFromList(examenes, 0)+");").getResultList();
-		
+						"SELECT p.id, p.nombre, p.direccion, p.barrio, p.rangohorario "+ 
+						"FROM proveedor p INNER JOIN proveedorexamen_examen pee ON pee.id_proveedor = p.id "+
+						"WHERE p.proveedor_tipo = 'EXAMEN' "+
+						"AND pee.id_examen in ("+generateInClauseFromList(examenes, 0)+");").getResultList();
+			
 			for (Object[] pe : lista) {
 				ret.add(new ProveedorExamen(Integer.parseInt(pe[0].toString()), 
 											pe[1].toString(), 
