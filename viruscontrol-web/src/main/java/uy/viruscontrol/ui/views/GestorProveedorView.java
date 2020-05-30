@@ -1,20 +1,47 @@
 package uy.viruscontrol.ui.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import org.primefaces.event.RowEditEvent;
+
 import uy.viruscontrol.controllers.ProveedorBeanController;
+import uy.viruscontrol.model.entities.ProveedorExamen;
+import uy.viruscontrol.model.entities.ProveedorRecursos;
 
 @Named("GestorProveedorView")
 @RequestScoped
 public class GestorProveedorView {
 
 	String mensaje;
+	
+	//Datos Alta
 	int tipo;
-	String nombreProveedor;
-	String direccion;
-	String barrio;
-	String rangoHorario;
+	private String nombreProveedor;
+	private String direccion;
+	private String barrio;
+	private String rangoHorario;
+	
+	private ProveedorRecursos proveedorRecurso;
+	
+	private List<ProveedorRecursos> proveedoresRecursos;
+	private List<ProveedorExamen> proveedoresExamenes;
+	
+	
+	@PostConstruct
+	public void init() {
+		proveedoresRecursos = new ArrayList<ProveedorRecursos>();
+		proveedoresRecursos = ProveedorBeanController.obtenerProveedoresRecursos();
+		
+		proveedoresExamenes = new ArrayList<ProveedorExamen>();
+		proveedoresExamenes = ProveedorBeanController.obtenerProveedoresExamenes();
+	}
 	
 	public String getMensaje() {
 		return mensaje;
@@ -54,6 +81,22 @@ public class GestorProveedorView {
 	
 
 
+	public List<ProveedorRecursos> getProveedoresRecursos() {
+		return proveedoresRecursos;
+	}
+
+	public void setProveedoresRecursos(List<ProveedorRecursos> proveedoresRecursos) {
+		this.proveedoresRecursos = proveedoresRecursos;
+	}
+
+	public List<ProveedorExamen> getProveedoresExamenes() {
+		return proveedoresExamenes;
+	}
+
+	public void setProveedoresExamenes(List<ProveedorExamen> proveedoresExamenes) {
+		this.proveedoresExamenes = proveedoresExamenes;
+	}
+
 	public int getTipo() {
 		return tipo;
 	}
@@ -63,7 +106,7 @@ public class GestorProveedorView {
 	public void agregarProveedor() {
 		
 		
-		
+	///ALTA	
 		boolean ok = ProveedorBeanController.crearProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario);
 		if (ok) {
 			if (tipo==1) {
@@ -76,4 +119,31 @@ public class GestorProveedorView {
 			this.mensaje = "Error Proveedor no creado, verifique";
 		}
 	}
+	
+	
+	//ACTUALIZAR P RECURSOS
+	//ACTUALIZAR - METODO ACTUALIZAR AJAX EVENT DATATABLE
+		public void actualizarPR(RowEditEvent event) {
+			
+			proveedorRecurso = (ProveedorRecursos) event.getObject();
+			boolean ok = ProveedorBeanController.actualizarProveedorRecurso(proveedorRecurso);
+			
+			if (ok) {
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor de Recursos actualizado"));
+				
+			}
+			else {
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error! Proveedor no actualizado, verifique"));
+				
+			}
+		}
+		
+		//ACTUALIZAR - METODO CANCELAR AJAX EVENT DATATABLE
+		public void cancelar(RowEditEvent event) {
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Cancelado!"));
+		}
+		
+		
+	
+	
 }

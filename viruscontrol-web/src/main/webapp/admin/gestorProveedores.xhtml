@@ -64,6 +64,87 @@
 					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
 			</p:panelGrid>
 		</h:form>
+		
+		
+		<h:form id="form">
+			<h4 style="text-align: left">Actualizar Proveedor Recurso</h4>
+
+			<p:growl id="msg" />
+			<p:dataTable id="table1" tableStyle="width:auto" var="p"
+				value="#{GestorProveedorView.proveedoresRecursos}" editable="true">
+
+				<p:ajax event="rowEdit" listener="#{GestorProveedorView.actualizarPR}"
+					update=":form:msg" />
+				<p:ajax event="rowEditCancel"
+					listener="#{GestorProveedorView.cancelar}" update=":form:msg" />
+
+				<p:column id="column1" headerText="Nombre">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.nombre}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.nombre}"
+								placeholder="#{p.nombre}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column2" headerText="Dirección">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.direccion}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.direccion}"
+								placeholder="#{p.direccion}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column3" headerText="Barrio">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.barrio}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.barrio}"
+								placeholder="#{p.barrio}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column4" headerText="Rango Horario">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.rangoHorario}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.rangoHorario}"
+								placeholder="#{p.rangoHorario}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+
+			<br></br>
+
+
+
+		</h:form>
 	
 	</ui:define>
 	

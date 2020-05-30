@@ -1,5 +1,6 @@
 package uy.viruscontrol.controllers;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.naming.Context;
@@ -8,6 +9,8 @@ import javax.naming.NamingException;
 
 
 import uy.viruscontrol.bussines.interfaces.ProveedorBeanRemote;
+import uy.viruscontrol.model.entities.ProveedorExamen;
+import uy.viruscontrol.model.entities.ProveedorRecursos;
 
 public class ProveedorBeanController {
 
@@ -16,6 +19,23 @@ private static ProveedorBeanRemote proveedorBeanRemote = lookupRemoteProveedorBe
 	public static boolean crearProveedor(int tipo, String nombreProveedor, String direccion, String barrio, String rangoHorario) {
 		return proveedorBeanRemote.nuevoProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario);
 	}
+	
+	public static List<ProveedorExamen> obtenerProveedoresExamenes(){
+		return proveedorBeanRemote.obtenerProveedoresExamenes();
+	}
+	
+	public static List<ProveedorRecursos> obtenerProveedoresRecursos(){
+		return proveedorBeanRemote.obtenerProveedoresRecursos();
+	}
+	
+	public static boolean actualizarProveedorExamen(ProveedorExamen proveedorExamen) {
+		return proveedorBeanRemote.actualizarProveedorExamen(proveedorExamen);
+	}
+	
+	public static boolean actualizarProveedorRecurso(ProveedorRecursos proveedorRecurso) {
+		return proveedorBeanRemote.actualizarProveedorRecursos(proveedorRecurso);
+	}
+	
 	
 	
 	private static ProveedorBeanRemote lookupRemoteProveedorBean(){
