@@ -1,5 +1,6 @@
 package uy.viruscontrol.bussines;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,9 +9,9 @@ import javax.ejb.Stateless;
 
 import uy.viruscontrol.bussines.interfaces.ProveedorBeanLocal;
 import uy.viruscontrol.bussines.interfaces.ProveedorBeanRemote;
-import uy.viruscontrol.model.dao.impl.ProveedorRecursoDAO;
 import uy.viruscontrol.model.dao.interfaces.ProveedorExamenDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ProveedorRecursoDAOLocal;
+import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.model.entities.ProveedorRecursos;
 
@@ -70,14 +71,64 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     	}
     	
     	
-    	
-    	
-    	
     	return true;
     	
     }
+    
+    //Obtener proveedores Auxiliar
+    public List<ProveedorRecursos> obtenerProveedoresRecursos(){
+    	List<ProveedorRecursos> proveedoresRecursos = daoProveedorRecurso.findAll();
+    	return (proveedoresRecursos != null) ? proveedoresRecursos : new ArrayList<ProveedorRecursos>();
+    }
+    public List<ProveedorExamen> obtenerProveedoresExamenes(){
+    	
+    	List<ProveedorExamen> proveedoresExamen = daoProveedorExamen.findAll();
+    	return (proveedoresExamen != null) ? proveedoresExamen : new ArrayList<ProveedorExamen>();
+    }
  
+   
+    @Override
+	public boolean actualizarProveedorExamen(ProveedorExamen proveedorExamen) {
+		
+    	ProveedorExamen pe = new ProveedorExamen();
+		pe=daoProveedorExamen.findById(proveedorExamen.getId());
+		
+		if(pe != null) {
+			
+			pe.setNombre(proveedorExamen.getNombre());
+			pe.setDireccion(proveedorExamen.getDireccion());
+			pe.setBarrio(proveedorExamen.getBarrio());
+			pe.setRangoHorario(proveedorExamen.getRangoHorario());
+			
+			daoProveedorExamen.merge(pe);
+			System.out.println("Proveedor de Examen actualizado correctamente.");
+			return true;
+		}else {
+			System.out.println("Error, el Proveedor de Examen no existe.");
+			return false;
+		}
+	}
     
-    
+    @Override
+	public boolean actualizarProveedorRecursos(ProveedorRecursos proveedorRecurso) {
+		
+    	ProveedorRecursos pr = new ProveedorRecursos();
+		pr=daoProveedorRecurso.findById(proveedorRecurso.getId());
+		
+		if(pr != null) {
+			
+			pr.setNombre(proveedorRecurso.getNombre());
+			pr.setDireccion(proveedorRecurso.getDireccion());
+			pr.setBarrio(proveedorRecurso.getBarrio());
+			pr.setRangoHorario(proveedorRecurso.getRangoHorario());
+			
+			daoProveedorRecurso.merge(pr);
+			System.out.println("Proveedor de Recurso actualizado correctamente.");
+			return true;
+		}else {
+			System.out.println("Error, el Proveedor de Recurso no existe.");
+			return false;
+		}
+	}
 
 }

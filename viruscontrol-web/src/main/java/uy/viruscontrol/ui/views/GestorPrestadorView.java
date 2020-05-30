@@ -37,31 +37,17 @@ public class GestorPrestadorView implements Serializable{
 
 	private PrestadoraSalud prestadora;
 	
-	private String nuevoNombrePrestadora;
 	
-	public GestorPrestadorView() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	@PostConstruct
 	public void init() {
 		prestadorasSalud = new ArrayList<PrestadoraSalud>();
 		prestadorasSalud = PrestadorBeanController.obtenerPrestadorasSalud();
 		
-		prestadora = new PrestadoraSalud();
+		
 	}
 	
 	
-	
-	public String getNuevoNombrePrestadora() {
-		return nuevoNombrePrestadora;
-	}
-
-	public void setNuevoNombrePrestadora(String nuevoNombrePrestadora) {
-		this.nuevoNombrePrestadora = nuevoNombrePrestadora;
-	}
-
 	public PrestadoraSalud getPrestadora() {
 		return prestadora;
 	}
@@ -121,16 +107,15 @@ public class GestorPrestadorView implements Serializable{
 	public void actualizar(RowEditEvent event) {
 		
 		prestadora = (PrestadoraSalud) event.getObject();
-		prestadora.setNombre(nuevoNombrePrestadora);
 		
 		boolean ok = PrestadorBeanController.actualizarPrestador(prestadora);
 		
 		if (ok) {
-			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Prestador de Salud se actualizó con éxito"));
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Prestador fue actualizado"));
 			
 		}
 		else {
-			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error Prestador no actualizado, verifique"));
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error!, Prestador no actualizado, verifique"));
 			
 		}
 	}
