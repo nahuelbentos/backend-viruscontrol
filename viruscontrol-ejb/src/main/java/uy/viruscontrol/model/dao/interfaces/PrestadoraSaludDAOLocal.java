@@ -18,5 +18,7 @@ public interface PrestadoraSaludDAOLocal {
 	PrestadoraSalud findById(Integer id);
 
 	void delete(PrestadoraSalud prestadoraSalud);
+
+	boolean exist(String nombre);
 	
 }

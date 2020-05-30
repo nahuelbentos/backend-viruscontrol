@@ -86,6 +86,48 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
 		
 	}
 
+	@Override
+	public boolean actualizarPrestador(PrestadoraSalud prestadoraSalud) {
+		
+		PrestadoraSalud ps = new PrestadoraSalud();
+		ps=daoprestadorlocal.findById(prestadoraSalud.getId());
+		
+		if(ps != null) {
+			ps.setNombre(prestadoraSalud.getNombre());
+			daoprestadorlocal.merge(ps);
+			System.out.println("Prestadora de Salud actualizada correctamente.");
+			return true;
+		}else {
+			System.out.println("Error, la Prestadora de Salud no existe.");
+			return false;
+		}
+	}
+
+		
+	  //Auxiliar que retorna el id de un Prestador dado su nombre
+	    public int getIdPrestadorByName(String nombrePrestadoraSalud) {
+	    	
+				int id = 0;
+		    	List<PrestadoraSalud> prestadoras = new ArrayList<PrestadoraSalud>(); 
+		    	prestadoras=daoprestadorlocal.findAll();
+		    	
+		    	for(PrestadoraSalud prestadora : prestadoras) {
+		    		if(prestadora.getNombre().equals(nombrePrestadoraSalud)) {
+		    			id=prestadora.getId();
+		    			break;
+		    		}
+		    	}
+		    	
+		    	return id;
+	    }
+
+	    @Override
+	    public List<PrestadoraSalud> obtenerPrestadorasSalud(){
+	    	
+	    	List<PrestadoraSalud> prestadorasSalud = daoprestadorlocal.findAll();
+	    	return (prestadorasSalud != null) ? prestadorasSalud : new ArrayList<PrestadoraSalud>();
+	    	
+	    }
 
 
 }

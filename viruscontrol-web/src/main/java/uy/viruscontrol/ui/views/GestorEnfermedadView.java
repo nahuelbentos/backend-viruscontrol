@@ -163,23 +163,32 @@ public class GestorEnfermedadView implements Serializable{
 		}
 	}
 	
+	//Rechazar Enfermedad
+		public void rechazarEnfermedad() {
+			int idAux = EnfermedadBeanController.getIdEnfermedadByName(nombreEnfermedadNoAprobada);
+			
+			boolean ok = EnfermedadBeanController.rechazarEnfermedad(idAux);
+			
+			if(ok) {
+				this.mensaje = "La enfermedad "+ this.getNombreEnfermedadNoAprobada() + " fue rechazada.";
+			}else {
+				this.mensaje="Error, no se pudo rechazar la enfermedad, verifique.";
+			}
+		}
+	
 	
 	public Map<String,String> getOpciones(){
 		TreeMap<String,String> opciones = new TreeMap<String,String>();
 		
 		if (userManager.getCurrentUser() != null) {
 			if (userManager.getCurrentUser() instanceof Administrador) {
-				//opciones.put("Gestión de usuarios", userManager.getDirVirtual(currentUser)+"gestorUsuarios.xhtml");
-				//opciones.put("Gestión de enfermedades", userManager.getDirVirtual(currentUser)+"gestorEnfermedad.xhtml");
-				//opciones.put("Gestión de fuente de datos", userManager.getDirVirtual(currentUser)+"gestorFuenteDatos.xhtml");
-				//opciones.put("Gestión de nodos periféricos", userManager.getDirVirtual(currentUser)+"gestorNodos.xhtml");
+				//nothing to do
 			} else {
 				if (userManager.getCurrentUser() instanceof Gerente) {
 					opciones.put("Alta de Enfermedad Infecciosa", UserManager.getDirVirtual(userManager.getCurrentUser())+"altaEnfermedad.xhtml");
 					opciones.put("Gestor de Recursos para Enfermedad", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorRecursos.xhtml");
 					opciones.put("Asociar Recurso a Enfermedad", UserManager.getDirVirtual(userManager.getCurrentUser())+"asociarRecursoEnfermedad.xhtml");
-					//opciones.put("Gestión de notificaciones", userManager.getDirVirtual(currentUser)+"gestorNotificaciones.xhtml");
-					//opciones.put("Gráficas", userManager.getDirVirtual(currentUser)+"charts.xhtml");
+					
 				}
 			}
 		}

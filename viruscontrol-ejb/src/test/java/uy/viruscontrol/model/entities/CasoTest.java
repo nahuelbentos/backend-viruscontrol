@@ -31,7 +31,7 @@ public class CasoTest {
          MockitoAnnotations.initMocks(this);
          departamento = new Departamento("Montevideo");
          examen = new Examen(enfermedad);
-         enfermedad = new Enfermedad("Enfermedad Test", false, null, null, null);
+         enfermedad = new Enfermedad("Enfermedad Test", false, null, null, null,false);
          caso = new Caso(1, TipoCaso.CONFIRMADO, departamento, examen, enfermedad);
          
     }
