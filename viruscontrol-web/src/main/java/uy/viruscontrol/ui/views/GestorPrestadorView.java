@@ -3,16 +3,21 @@ package uy.viruscontrol.ui.views;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
 
 import uy.viruscontrol.controllers.PrestadorBeanController;
+import uy.viruscontrol.model.entities.Administrador;
+import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 @Named("GestorPrestadorView")
@@ -20,6 +25,9 @@ import uy.viruscontrol.model.entities.PrestadoraSalud;
 public class GestorPrestadorView implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	
+	@Inject
+	private UserManager userManager;
 		
 	private String mensaje;
 	
@@ -87,6 +95,16 @@ public class GestorPrestadorView implements Serializable{
 		this.nombrePrestador = nombrePrestador;
 	}
 	
+	
+	
+	public UserManager getUserManager() {
+		return userManager;
+	}
+
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
+	}
+
 	public void agregarPrestador() {
 		
 		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador);
@@ -122,6 +140,26 @@ public class GestorPrestadorView implements Serializable{
 		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Cancelado!"));
 	}
 	
+	
+	
+	public Map<String,String> getOpciones(){
+		TreeMap<String,String> opciones = new TreeMap<String,String>();
+		
+		if (userManager.getCurrentUser() != null) {
+			if (userManager.getCurrentUser() instanceof Administrador) {
+				opciones.put("Alta y Edición - Prestadora de Salud", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorPrestadoraSalud.xhtml");
+				opciones.put("Alta y Edición - Proveedor Recurso y/o Exámen", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorProveedores.xhtml");
+				
+			} else {
+				if (userManager.getCurrentUser() instanceof Gerente) {
+					
+					
+				}
+			}
+		}
+				
+		return opciones;
+	}
 	
 	
 }
