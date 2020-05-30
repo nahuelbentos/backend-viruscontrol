@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Medico;
+import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 @Local
 public interface PrestadorBeanLocal {
@@ -12,5 +14,9 @@ public interface PrestadorBeanLocal {
 	boolean nuevoPrestador(String nombre);
 	
 	public List<Medico> obtenerMedicosVisita(int idCiudadano);
+
+	boolean actualizarPrestador(PrestadoraSalud prestadoraSalud);
+
+	List<PrestadoraSalud> obtenerPrestadorasSalud();
 
 }

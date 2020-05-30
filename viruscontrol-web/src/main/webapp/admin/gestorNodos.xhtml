@@ -1,74 +1,129 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+<ui:composition
+	template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
 	<ui:define name="Gestión de Nodos Periféricos">
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
-	
+
 	<ui:define name="content">
-	
+
 		<h:form>
-		<h4 style="text-align: left">Alta Prestadora Salud</h4>
-		<h:outputText value="#{GestorPrestadorView.mensaje}" />
-			<p:panelGrid columns="1" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
-				
+			<h4 style="text-align: left">Alta Prestadora de Salud</h4>
+			<h:outputText value="#{GestorPrestadorView.mensaje}" />
+
+			<p:panelGrid columns="1" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+
 				<p:outputLabel for="NombrePrestador" value="Nombre Prestador" />
-				<p:inputText id="NombrePrestador" value="#{GestorPrestadorView.nombrePrestador}" required="true"
-						requiredMessage="Debe ingresar un Nombre"/>
+				<p:inputText id="NombrePrestador"
+					value="#{GestorPrestadorView.nombrePrestador}" required="true"
+					requiredMessage="Debe ingresar un Nombre" />
 				<p:message for="NombrePrestador" />
-				
-				<h:commandButton action="#{GestorPrestadorView.agregarPrestador()}" value="Solicitar alta" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+
+				<h:commandButton action="#{GestorPrestadorView.agregarPrestador()}"
+					value="Alta"
+					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
 			</p:panelGrid>
 		</h:form>
-		
-		
-		
+
+		<br></br>
+
+
+		<h:form id="form">
+			<h4 style="text-align: left">Actualizar Prestadora de Salud</h4>
+
+			<p:growl id="msg" />
+			<p:dataTable id="table1" tableStyle="width:auto" var="p"
+				value="#{GestorPrestadorView.prestadorasSalud}" editable="true">
+
+				<p:ajax event="rowEdit" listener="#{GestorPrestadorView.actualizar}"
+					update=":form:msg" />
+				<p:ajax event="rowEditCancel"
+					listener="#{GestorPrestadorView.cancelar}" update=":form:msg" />
+
+				<p:column id="column1" headerText="Actualizar Datos Prestadora">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.nombre}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{GestorPrestadorView.nuevoNombrePrestadora}"
+								placeholder="#{p.nombre}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+
+			<br></br>
+
+
+
+		</h:form>
+
 		<h:form>
-		<h4 style="text-align: left">Alta Proveedor Recurso / Alta Proveedor Examen</h4>
-		<h:outputText value="#{GestorProveedorView.mensaje}" />
-			
-			<p:panelGrid columns="5" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
-				
+			<h4 style="text-align: left">Alta Proveedor Recurso / Alta
+				Proveedor Examen</h4>
+			<h:outputText value="#{GestorProveedorView.mensaje}" />
+
+			<p:panelGrid columns="5" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+
 				<p:outputLabel for="@next" value="Tipo de Proveedor: " />
-					<p:selectOneMenu id="lazy"
-						value="#{GestorProveedorView.tipo}" style="width:150px"
-						required="true" requiredMessage="Debe seleccionar Tipo de Proveedor">
-						<f:selectItem itemLabel="Seleccione Tipo" itemValue="" />
-						<f:selectItem itemLabel="Recurso" itemValue="1" />
-						<f:selectItem itemLabel="Exámen" itemValue="2" />
-						<f:converter converterId="javax.faces.Integer" />
-					</p:selectOneMenu>
-				
+				<p:selectOneMenu id="lazy" value="#{GestorProveedorView.tipo}"
+					style="width:150px" required="true"
+					requiredMessage="Debe seleccionar Tipo de Proveedor">
+					<f:selectItem itemLabel="Seleccione Tipo" itemValue="" />
+					<f:selectItem itemLabel="Recurso" itemValue="1" />
+					<f:selectItem itemLabel="Exámen" itemValue="2" />
+					<f:converter converterId="javax.faces.Integer" />
+				</p:selectOneMenu>
+
 				<p:outputLabel for="NombreProveedor" value="Nombre Proveedor" />
-				<p:inputText id="NombreProveedor" value="#{GestorProveedorView.nombreProveedor}" required="true"
-						requiredMessage="Debe ingresar un Nombre"/>
+				<p:inputText id="NombreProveedor"
+					value="#{GestorProveedorView.nombreProveedor}" required="true"
+					requiredMessage="Debe ingresar un Nombre" />
 				<p:message for="NombreProveedor" />
-				
+
 				<p:outputLabel for="DireccionProveedor" value="Direccion Proveedor" />
-				<p:inputText id="DireccionProveedor" value="#{GestorProveedorView.direccion}" required="true"
-						requiredMessage="Debe ingresar una Dirección"/>
+				<p:inputText id="DireccionProveedor"
+					value="#{GestorProveedorView.direccion}" required="true"
+					requiredMessage="Debe ingresar una Dirección" />
 				<p:message for="DireccionProveedor" />
-				
+
 				<p:outputLabel for="BarrioProveedor" value="Barrio Proveedor" />
-				<p:inputText id="BarrioProveedor" value="#{GestorProveedorView.barrio}" required="true"
-						requiredMessage="Debe ingresar un Barrio"/>
+				<p:inputText id="BarrioProveedor"
+					value="#{GestorProveedorView.barrio}" required="true"
+					requiredMessage="Debe ingresar un Barrio" />
 				<p:message for="BarrioProveedor" />
-				
+
 				<p:outputLabel for="RangoHorarioProveedor" value="Rango Horario" />
-				<p:inputText id="RangoHorarioProveedor" value="#{GestorProveedorView.rangoHorario}" required="true"
-						requiredMessage="Debe ingresar un Rango Horario"/>
+				<p:inputText id="RangoHorarioProveedor"
+					value="#{GestorProveedorView.rangoHorario}" required="true"
+					requiredMessage="Debe ingresar un Rango Horario" />
 				<p:message for="RangoHorarioProveedor" />
-				
-				<h:commandButton action="#{GestorProveedorView.agregarProveedor()}" value="Solicitar alta" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+
+				<h:commandButton action="#{GestorProveedorView.agregarProveedor()}"
+					value="Solicitar alta"
+					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
 			</p:panelGrid>
 		</h:form>
 	</ui:define>
- 
+
 </ui:composition>
 
 </html>
