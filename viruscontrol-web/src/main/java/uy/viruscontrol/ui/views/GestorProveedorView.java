@@ -29,6 +29,7 @@ public class GestorProveedorView {
 	private String rangoHorario;
 	
 	private ProveedorRecursos proveedorRecurso;
+	private ProveedorExamen proveedorExamen;
 	
 	private List<ProveedorRecursos> proveedoresRecursos;
 	private List<ProveedorExamen> proveedoresExamenes;
@@ -89,6 +90,25 @@ public class GestorProveedorView {
 		this.proveedoresRecursos = proveedoresRecursos;
 	}
 
+	
+	
+	
+	public ProveedorRecursos getProveedorRecurso() {
+		return proveedorRecurso;
+	}
+
+	public void setProveedorRecurso(ProveedorRecursos proveedorRecurso) {
+		this.proveedorRecurso = proveedorRecurso;
+	}
+
+	public ProveedorExamen getProveedorExamen() {
+		return proveedorExamen;
+	}
+
+	public void setProveedorExamen(ProveedorExamen proveedorExamen) {
+		this.proveedorExamen = proveedorExamen;
+	}
+
 	public List<ProveedorExamen> getProveedoresExamenes() {
 		return proveedoresExamenes;
 	}
@@ -122,7 +142,6 @@ public class GestorProveedorView {
 	
 	
 	//ACTUALIZAR P RECURSOS
-	//ACTUALIZAR - METODO ACTUALIZAR AJAX EVENT DATATABLE
 		public void actualizarPR(RowEditEvent event) {
 			
 			proveedorRecurso = (ProveedorRecursos) event.getObject();
@@ -143,6 +162,22 @@ public class GestorProveedorView {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Cancelado!"));
 		}
 		
+		//ACTUALIZAR P Examenes
+		public void actualizarPE(RowEditEvent event) {
+					
+			proveedorExamen = (ProveedorExamen) event.getObject();
+			boolean ok = ProveedorBeanController.actualizarProveedorExamen(proveedorExamen);
+			
+			if (ok) {
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor de Examenes actualizado"));
+					
+			}
+			else {
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error! Proveedor no actualizado, verifique"));
+				
+			}
+		}
+				
 		
 	
 	
