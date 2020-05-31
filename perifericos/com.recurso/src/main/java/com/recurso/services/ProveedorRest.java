@@ -5,9 +5,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 
-import com.recurso.model.DummyProveedor;
 import com.recurso.model.HandlerModel;
-import com.recurso.model.entities.ProveedorRecurso;
+import com.recurso.model.entities.DummyProveedor;
+import com.recurso.model.entities.DummyRecursoDisponible;
 import com.recurso.model.entities.TipoProveedor;
 
 @ApplicationScoped
@@ -21,9 +21,8 @@ public class ProveedorRest implements IProveedorRest{
 	}
 
 	@Override
-	public List<ProveedorRecurso> getRecursosDisponibles(String codigoProveedor) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<DummyRecursoDisponible> getRecursosDisponibles(String codigoProveedor) {
+		return handler.getRecursosDisponiblesPorProveedor(codigoProveedor);
 	}
 
 	@Override

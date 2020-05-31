@@ -10,8 +10,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.recurso.model.DummyProveedor;
-import com.recurso.model.entities.ProveedorRecurso;
+import com.recurso.model.entities.DummyProveedor;
+import com.recurso.model.entities.DummyRecursoDisponible;
 import com.recurso.model.entities.TipoProveedor;
 
 @Path("/proveedor")
@@ -33,7 +33,7 @@ public interface IProveedorRest {
 	
 	@GET
 	@Path("/{codigoProveedor}")
-	public List<ProveedorRecurso> getRecursosDisponibles(@PathParam("codigoProveedor") String codigoProveedor);
+	public List<DummyRecursoDisponible> getRecursosDisponibles(@PathParam("codigoProveedor") String codigoProveedor);
 	
 	@PUT
 	@Path("/{codigoProveedor}/adquirir/{codigoRecurso}")
