@@ -132,8 +132,8 @@ public class GestorPrestadorView implements Serializable{
 		
 		if (userManager.getCurrentUser() != null) {
 			if (userManager.getCurrentUser() instanceof Administrador) {
-				opciones.put("Alta y Edición - Prestadora de Salud", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorPrestadoraSalud.xhtml");
-				opciones.put("Alta y Edición - Proveedor Recurso y/o Exámen", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorProveedores.xhtml");
+				opciones.put("ABM Prestadora de Salud", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorPrestadoraSalud.xhtml");
+				opciones.put("ABM Proveedor Recurso y/o Exámen", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorProveedores.xhtml");
 				
 			} else {
 				if (userManager.getCurrentUser() instanceof Gerente) {

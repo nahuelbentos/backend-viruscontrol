@@ -36,6 +36,13 @@ private static ProveedorBeanRemote proveedorBeanRemote = lookupRemoteProveedorBe
 		return proveedorBeanRemote.actualizarProveedorRecursos(proveedorRecurso);
 	}
 	
+	public static boolean eliminarProveedorRecursos(ProveedorRecursos proveedorRecurso) {
+		return proveedorBeanRemote.eliminarProveedorRecursos(proveedorRecurso);
+	}
+	
+	public static boolean eliminarProveedorExamenes(ProveedorExamen proveedorExamen) {
+		return proveedorBeanRemote.eliminarProveedorExamenes(proveedorExamen);
+	}
 	
 	
 	private static ProveedorBeanRemote lookupRemoteProveedorBean(){

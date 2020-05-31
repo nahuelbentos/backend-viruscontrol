@@ -78,12 +78,22 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     //Obtener proveedores Auxiliar
     public List<ProveedorRecursos> obtenerProveedoresRecursos(){
     	List<ProveedorRecursos> proveedoresRecursos = daoProveedorRecurso.findAll();
-    	return (proveedoresRecursos != null) ? proveedoresRecursos : new ArrayList<ProveedorRecursos>();
+    	List<ProveedorRecursos> proveedoresRecursosNoEliminados = new ArrayList<ProveedorRecursos>();
+    	for(ProveedorRecursos pr : proveedoresRecursos)
+    		if(!pr.isDeleted())
+    			proveedoresRecursosNoEliminados.add(pr);
+    	
+    	return (proveedoresRecursosNoEliminados != null) ? proveedoresRecursosNoEliminados : new ArrayList<ProveedorRecursos>();
     }
     public List<ProveedorExamen> obtenerProveedoresExamenes(){
     	
-    	List<ProveedorExamen> proveedoresExamen = daoProveedorExamen.findAll();
-    	return (proveedoresExamen != null) ? proveedoresExamen : new ArrayList<ProveedorExamen>();
+    	List<ProveedorExamen> proveedoresExamenes = daoProveedorExamen.findAll();
+    	List<ProveedorExamen> proveedoresExamenNoEliminados = new ArrayList<ProveedorExamen>();
+    	for(ProveedorExamen pr : proveedoresExamenes)
+    		if(!pr.isDeleted())
+    			proveedoresExamenNoEliminados.add(pr);
+    	
+    	return (proveedoresExamenNoEliminados != null) ? proveedoresExamenNoEliminados : new ArrayList<ProveedorExamen>();
     }
  
    
@@ -130,5 +140,41 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
 			return false;
 		}
 	}
+    
+    @Override
+    public boolean eliminarProveedorRecursos(ProveedorRecursos proveedorRecurso) {
+    	ProveedorRecursos pr = new ProveedorRecursos();
+		pr=daoProveedorRecurso.findById(proveedorRecurso.getId());
+
+		if(pr != null) {
+			
+			pr.setDeleted(true);
+			daoProveedorRecurso.merge(pr);
+			
+			System.out.println("Proveedor de Recurso eliminado.");
+			return true;
+		}else {
+			System.out.println("Error, el Proveedor de Recurso no existe.");
+			return false;
+		}
+    }
+    
+    @Override
+    public boolean eliminarProveedorExamenes(ProveedorExamen proveedorExamen) {
+    	ProveedorExamen pr = new ProveedorExamen();
+		pr=daoProveedorExamen.findById(proveedorExamen.getId());
+
+		if(pr != null) {
+			
+			pr.setDeleted(true);
+			daoProveedorExamen.merge(pr);
+			
+			System.out.println("Proveedor de Recurso eliminado.");
+			return true;
+		}else {
+			System.out.println("Error, el Proveedor de Recurso no existe.");
+			return false;
+		}
+    }
 
 }

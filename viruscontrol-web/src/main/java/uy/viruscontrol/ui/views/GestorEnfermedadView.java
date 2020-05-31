@@ -185,7 +185,7 @@ public class GestorEnfermedadView implements Serializable{
 				//nothing to do
 			} else {
 				if (userManager.getCurrentUser() instanceof Gerente) {
-					opciones.put("Alta de Enfermedad Infecciosa", UserManager.getDirVirtual(userManager.getCurrentUser())+"altaEnfermedad.xhtml");
+					opciones.put("ABM Enfermedad Infecciosa", UserManager.getDirVirtual(userManager.getCurrentUser())+"altaEnfermedad.xhtml");
 					opciones.put("Gestor de Recursos para Enfermedad", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorRecursos.xhtml");
 					opciones.put("Asociar Recurso a Enfermedad", UserManager.getDirVirtual(userManager.getCurrentUser())+"asociarRecursoEnfermedad.xhtml");
 					
