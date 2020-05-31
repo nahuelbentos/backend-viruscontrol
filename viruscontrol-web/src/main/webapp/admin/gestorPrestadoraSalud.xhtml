@@ -22,9 +22,7 @@
 
 				<p:outputLabel for="NombrePrestador" value="Nombre Prestador" />
 				<p:inputText id="NombrePrestador"
-					value="#{GestorPrestadorView.nombrePrestador}" required="true"
-					requiredMessage="Debe ingresar un Nombre" />
-				<p:message for="NombrePrestador" />
+					value="#{GestorPrestadorView.nombrePrestador}" required="true"/>
 
 				<p:commandButton action="#{GestorPrestadorView.agregarPrestador()}"
 					value="Alta"/>

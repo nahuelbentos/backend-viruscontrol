@@ -1,17 +1,37 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+      xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
-	<ui:define name="title">
+<ui:composition
+	template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+	<ui:define name="ABM - Fuentes de Datos">
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<h:outputText value="ESTAS EN EL HOME CON LA ESTRUCTURA DEFINIDA" />
+			
+			<h4 style="text-align: left">Alta Fuente de Datos</h4>
+			
+			<p:growl id="msg" />
+
+			<p:panelGrid columns="1" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+
+				<p:outputLabel for="Codigo" value="Codigo" />
+				<p:inputText id="Codigo"
+					value="#{GestorFuenteDatosView.codigo}" required="true"/>
+					
+				<p:outputLabel for="Url" value="URL" />
+				<p:inputText id="Url"
+					value="#{GestorFuenteDatosView.url}" required="true"/>
+
+				<p:commandButton action="#{GestorFuenteDatosView.agregarFuenteDatos()}"
+					value="Alta"/>
+			</p:panelGrid>
 		</h:form>
 	</ui:define>
  
