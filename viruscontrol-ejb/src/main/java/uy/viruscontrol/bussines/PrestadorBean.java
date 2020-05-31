@@ -15,7 +15,6 @@ import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.PrestadoraSaludDAOLocal;
 import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
-import uy.viruscontrol.model.entities.ProveedorExamen;
 
 /**
  * Session Bean implementation class PrestadorBean

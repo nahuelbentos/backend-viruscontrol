@@ -16,12 +16,9 @@ import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
 
 import uy.viruscontrol.controllers.PrestadorBeanController;
-import uy.viruscontrol.controllers.ProveedorBeanController;
 import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
-import uy.viruscontrol.model.entities.ProveedorExamen;
-import uy.viruscontrol.model.entities.ProveedorRecursos;
 
 @Named("GestorPrestadorView")
 @RequestScoped
