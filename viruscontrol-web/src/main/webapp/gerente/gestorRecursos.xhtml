@@ -31,9 +31,8 @@
 					value="#{GestorRecursosView.descripcionTipoRecurso}"
 					required="true" />
 
-				<h:commandButton
-					action="#{GestorRecursosView.agregarNuevoTipoRecurso()}" value="Alta"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+				<p:commandButton
+					action="#{GestorRecursosView.agregarNuevoTipoRecurso()}" value="Alta"/>
 			</p:panelGrid>
 		</h:form>
 	
@@ -61,9 +60,8 @@
 						<f:selectItems value="#{GestorRecursosView.tiposDeRecursos}" />
 					</p:selectOneMenu>					
 
-				<h:commandButton
-					action="#{GestorRecursosView.agregarNuevoRecurso()}" value="Alta"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+				<p:commandButton
+					action="#{GestorRecursosView.agregarNuevoRecurso()}" value="Alta"/>
 			</p:panelGrid>
 		</h:form>
 	</ui:define>
