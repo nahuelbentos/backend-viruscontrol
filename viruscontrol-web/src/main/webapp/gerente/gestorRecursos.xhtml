@@ -13,14 +13,14 @@
 
 	<ui:define name="content">
 		
-		<h:form>
-		
+		<h:form id="form1">
+		<p:growl id="msg" />
 			<p:panelGrid columns="1" layout="grid"
 				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
 				contentStyleClass="p-align-baseline ui-fluid">
 				
 				<h4>Alta Tipo Recurso</h4>
-				<h:outputText value="#{GestorRecursosView.mensajeTipoRecurso}" />
+				
 				
 				<p:outputLabel for="NombreTipoRecurso" value="Nombre" />
 				<p:inputText id="NombreTipoRecurso"
@@ -31,23 +31,23 @@
 					value="#{GestorRecursosView.descripcionTipoRecurso}"
 					required="true" />
 
-				<h:commandButton
+				<p:commandButton
 					action="#{GestorRecursosView.agregarNuevoTipoRecurso()}" value="Alta"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+					update="form1"/>
 			</p:panelGrid>
 		</h:form>
 	
 	
 	
 		
-		<h:form>
-		
+		<h:form id="form2">
+		<p:growl id="msg" />
 			<p:panelGrid columns="1" layout="grid"
 				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
 				contentStyleClass="p-align-baseline ui-fluid">
 				
 				<h4>Alta Recurso de un Determinado Tipo</h4>
-				<h:outputText value="#{GestorRecursosView.mensajeRecurso}" />
+				
 				
 				<p:outputLabel for="NombreRecurso" value="Nombre" />
 				<p:inputText id="NombreRecurso"
@@ -61,9 +61,9 @@
 						<f:selectItems value="#{GestorRecursosView.tiposDeRecursos}" />
 					</p:selectOneMenu>					
 
-				<h:commandButton
+				<p:commandButton
 					action="#{GestorRecursosView.agregarNuevoRecurso()}" value="Alta"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+					update="form2"/>
 			</p:panelGrid>
 		</h:form>
 	</ui:define>

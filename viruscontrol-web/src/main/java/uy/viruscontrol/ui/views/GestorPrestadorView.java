@@ -29,39 +29,24 @@ public class GestorPrestadorView implements Serializable{
 	@Inject
 	private UserManager userManager;
 		
-	private String mensaje;
-	
-	
+	//Datos Alta
 	private String nombrePrestador;
 	List<PrestadoraSalud> prestadorasSalud;
 
 	private PrestadoraSalud prestadora;
 	
-	private String nuevoNombrePrestadora;
-	
-	public GestorPrestadorView() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	//Datos Eliminar
+	private List<PrestadoraSalud> prestadorasEliminadas = new ArrayList<>();
 
 	@PostConstruct
 	public void init() {
 		prestadorasSalud = new ArrayList<PrestadoraSalud>();
 		prestadorasSalud = PrestadorBeanController.obtenerPrestadorasSalud();
 		
-		prestadora = new PrestadoraSalud();
+		
 	}
 	
 	
-	
-	public String getNuevoNombrePrestadora() {
-		return nuevoNombrePrestadora;
-	}
-
-	public void setNuevoNombrePrestadora(String nuevoNombrePrestadora) {
-		this.nuevoNombrePrestadora = nuevoNombrePrestadora;
-	}
-
 	public PrestadoraSalud getPrestadora() {
 		return prestadora;
 	}
@@ -79,13 +64,7 @@ public class GestorPrestadorView implements Serializable{
 		this.prestadorasSalud = prestadorasSalud;
 	}
 
-	public String getMensaje() {
-		return mensaje;
-	}
 
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
 
 	public String getNombrePrestador() {
 		return nombrePrestador;
@@ -109,10 +88,10 @@ public class GestorPrestadorView implements Serializable{
 		
 		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador);
 		if (ok) {
-			this.mensaje = "El Prestador de Salud " + this.getNombrePrestador() + " se creó con éxito";
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Prestadora de nombre "+ this.nombrePrestador +" creada."));
 		}
 		else {
-			this.mensaje = "Error Prestador no creado, verifique";
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, Prestador no creado, verifique."));
 		}
 	}
 	
@@ -121,16 +100,15 @@ public class GestorPrestadorView implements Serializable{
 	public void actualizar(RowEditEvent event) {
 		
 		prestadora = (PrestadoraSalud) event.getObject();
-		prestadora.setNombre(nuevoNombrePrestadora);
 		
 		boolean ok = PrestadorBeanController.actualizarPrestador(prestadora);
 		
 		if (ok) {
-			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Prestador de Salud se actualizó con éxito"));
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Prestador fue actualizado"));
 			
 		}
 		else {
-			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error Prestador no actualizado, verifique"));
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error!, Prestador no actualizado, verifique"));
 			
 		}
 	}
@@ -147,8 +125,8 @@ public class GestorPrestadorView implements Serializable{
 		
 		if (userManager.getCurrentUser() != null) {
 			if (userManager.getCurrentUser() instanceof Administrador) {
-				opciones.put("Alta y Edición - Prestadora de Salud", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorPrestadoraSalud.xhtml");
-				opciones.put("Alta y Edición - Proveedor Recurso y/o Exámen", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorProveedores.xhtml");
+				opciones.put("ABM Prestadora de Salud", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorPrestadoraSalud.xhtml");
+				opciones.put("ABM Proveedor Recurso y/o Exámen", UserManager.getDirVirtual(userManager.getCurrentUser())+"gestorProveedores.xhtml");
 				
 			} else {
 				if (userManager.getCurrentUser() instanceof Gerente) {
@@ -161,5 +139,23 @@ public class GestorPrestadorView implements Serializable{
 		return opciones;
 	}
 	
+	//Metodo que elimina de la lista padre aquellos objetos seleccionados en la tabla
+	public String eliminarPrestadoraSalud() {
+		for(PrestadoraSalud ps : prestadorasSalud) {
+			if(ps.isDeleted()) {
+				prestadorasEliminadas.add(ps);
+			}
+		}
+		if(!prestadorasEliminadas.isEmpty()) {
+			prestadorasSalud.removeAll(prestadorasEliminadas);
+			for(PrestadoraSalud pre : prestadorasEliminadas) {
+				PrestadorBeanController.eliminarPrestadoraSalud(pre);
+			}
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor Eliminado."));
+		}
+		
+		
+		return "gestorProveedores";
+	}
 	
 }

@@ -41,7 +41,7 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
     	
     	if(daoprestadorlocal.findAll().isEmpty()) {
     		System.out.println("lista de prestadores vacia");
-    		System.out.println("se  creara la prestadora con nomnre:"+nombre);
+    		System.out.println("Prestadora de nombre: "+nombre+" creada.");
     		PrestadoraSalud  ps= new PrestadoraSalud();
     		ps.setNombre(nombre);
     		daoprestadorlocal.persist(ps);
@@ -50,13 +50,21 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
     	}else {
     		List<PrestadoraSalud> prestadoras=daoprestadorlocal.findAll();
     		for(PrestadoraSalud p:prestadoras) {
-    			if(p.getNombre().contentEquals(nombre)) {
-    				System.out.println("prestadora ya existe");
-    				return false;
+    			if((p.getNombre().contentEquals(nombre)) && (p.isDeleted())) {
+    				p.setDeleted(false);
+    				p.setNombre(nombre);
+    				
+    				daoprestadorlocal.merge(p);
+    				return true;
+    			}else {
+    				if((p.getNombre().contentEquals(nombre)) && (!p.isDeleted())) {
+    					System.out.println("Prestadora ya existe");
+        				return false;
+    				}
     			}
     		}
     		
-    		System.out.println("se  creara la prestadora con nomnre:"+nombre);
+    		System.out.println("Prestadora de nombre: "+nombre+" creada.");
     		PrestadoraSalud  ps= new PrestadoraSalud();
     		ps.setNombre(nombre);
     		daoprestadorlocal.persist(ps);
@@ -128,6 +136,22 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
 	    	return (prestadorasSalud != null) ? prestadorasSalud : new ArrayList<PrestadoraSalud>();
 	    	
 	    }
+
+		@Override
+		public boolean eliminarPrestadoraSalud(PrestadoraSalud prestadoraSalud) {
+			PrestadoraSalud ps = new PrestadoraSalud();
+			ps=daoprestadorlocal.findById(prestadoraSalud.getId());
+			
+			if(ps != null) {
+				ps.setDeleted(true);
+				daoprestadorlocal.merge(prestadoraSalud);
+				System.out.println("Prestadora eliminada.");
+				return true;
+			}else {
+				System.out.println("Error, la Prestadora no existe.");
+				return false;
+			}
+		}
 
 
 }

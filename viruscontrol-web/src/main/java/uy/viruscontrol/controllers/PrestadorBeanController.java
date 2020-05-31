@@ -30,6 +30,11 @@ public class PrestadorBeanController {
 		return prestadorBeanRemote.actualizarPrestador(prestadoraSalud);
 	}
 	
+	public static boolean eliminarPrestadoraSalud(PrestadoraSalud prestadoraSalud) {
+		return prestadorBeanRemote.eliminarPrestadoraSalud(prestadoraSalud);
+		
+	}
+	
 	private static PrestadorBeanRemote lookupRemotePrestadorBean(){
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");  
@@ -46,4 +51,7 @@ public class PrestadorBeanController {
 			return null;
 		}
 	}
+
+
+
 }

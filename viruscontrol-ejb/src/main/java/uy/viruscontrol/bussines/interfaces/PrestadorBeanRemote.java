@@ -18,5 +18,7 @@ public interface PrestadorBeanRemote {
 	boolean actualizarPrestador(PrestadoraSalud prestadoraSalud);
 	
 	List<PrestadoraSalud> obtenerPrestadorasSalud();
+
+	boolean eliminarPrestadoraSalud(PrestadoraSalud prestadoraSalud);
 	
 }
