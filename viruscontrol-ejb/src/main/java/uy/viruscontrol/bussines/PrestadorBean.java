@@ -41,7 +41,7 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
     	
     	if(daoprestadorlocal.findAll().isEmpty()) {
     		System.out.println("lista de prestadores vacia");
-    		System.out.println("se  creara la prestadora con nomnre:"+nombre);
+    		System.out.println("Prestadora de nombre: "+nombre+" creada.");
     		PrestadoraSalud  ps= new PrestadoraSalud();
     		ps.setNombre(nombre);
     		daoprestadorlocal.persist(ps);
@@ -58,13 +58,13 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
     				return true;
     			}else {
     				if((p.getNombre().contentEquals(nombre)) && (!p.isDeleted())) {
-    					System.out.println("prestadora ya existe");
+    					System.out.println("Prestadora ya existe");
         				return false;
     				}
     			}
     		}
     		
-    		System.out.println("se  creara la prestadora con nombnre:"+nombre);
+    		System.out.println("Prestadora de nombre: "+nombre+" creada.");
     		PrestadoraSalud  ps= new PrestadoraSalud();
     		ps.setNombre(nombre);
     		daoprestadorlocal.persist(ps);
