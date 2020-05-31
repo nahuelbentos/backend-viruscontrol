@@ -77,5 +77,16 @@ public class ServiceAgentPrestadoraSalud implements ServiceAgentPrestadoraSaludL
 		uy.salud.services.soap.rucaf.PrestadoraSalud res = rucaf.obtenerPrestadoraUsuario(documento);
 		return new PrestadoraSalud(res.getId(), res.getNombre());
 	}
+	
+	@Override
+	public List<PrestadoraSalud> obtenerPrestadorasRucaf() {
+		List<uy.salud.services.soap.rucaf.PrestadoraSalud> temp = rucaf.obtenerPrestadoras();
+		List<PrestadoraSalud> ret = new ArrayList<PrestadoraSalud>();
+		for (uy.salud.services.soap.rucaf.PrestadoraSalud it : temp) {
+			PrestadoraSalud p = new PrestadoraSalud(it.getId(), it.getNombre());
+			ret.add(p);
+		}
+		return ret;
+	}
 
 }

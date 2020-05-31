@@ -17,4 +17,5 @@ public interface ServiceAgentPrestadoraSaludLocal {
 	
 	// Consultas a Periférico Salud.uy / Rucaf
 	public PrestadoraSalud obtenerPrestadorDeSalud(int documento);
+	public List<PrestadoraSalud> obtenerPrestadorasRucaf();
 }
