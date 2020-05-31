@@ -31,7 +31,7 @@ public class GestorPrestadorView implements Serializable{
 		
 	//Datos Alta
 	private String nombrePrestador;
-	List<PrestadoraSalud> prestadorasSalud;
+	private List<PrestadoraSalud> prestadorasSalud;
 
 	private PrestadoraSalud prestadora;
 	
@@ -155,7 +155,7 @@ public class GestorPrestadorView implements Serializable{
 		}
 		
 		
-		return "gestorProveedores";
+		return "gestorPrestadoraSalud";
 	}
 	
 }

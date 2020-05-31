@@ -1,5 +1,6 @@
 package uy.viruscontrol.controllers;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.naming.Context;
@@ -7,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import uy.viruscontrol.bussines.interfaces.FuenteDatosBeanRemote;
+import uy.viruscontrol.model.entities.FuenteDeDatos;
 
 public class FuenteDatosBeanController {
 
@@ -16,6 +18,18 @@ public class FuenteDatosBeanController {
 	
 	public static boolean crearFuenteDatos(String codigo, String url) {
 		return fuenteDatosBeanRemote.crearFuenteDatos(codigo, url);
+	}
+	
+	public static  boolean actualizarFuenteDatos(FuenteDeDatos fuenteDatos) {
+		return fuenteDatosBeanRemote.actualizarFuenteDatos(fuenteDatos);
+	}
+
+	public static List<FuenteDeDatos> obtenerFuenteDeDatos(){
+		return fuenteDatosBeanRemote.obtenerFuenteDeDatos();
+	}
+
+	public static boolean eliminarFuenteDeDatos(FuenteDeDatos fuenteDatos) {
+		return fuenteDatosBeanRemote.eliminarFuenteDeDatos(fuenteDatos);
 	}
 	
 	private static FuenteDatosBeanRemote lookupRemoteFuenteDatosBean(){

@@ -132,10 +132,14 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
 	    @Override
 	    public List<PrestadoraSalud> obtenerPrestadorasSalud(){
 	    	
-	    	List<PrestadoraSalud> prestadorasSalud = daoprestadorlocal.findAll();
-	    	return (prestadorasSalud != null) ? prestadorasSalud : new ArrayList<PrestadoraSalud>();
+	    	 List<PrestadoraSalud> prestadorasSalud = daoprestadorlocal.findAll();
+	    	 List<PrestadoraSalud> prestadorasSaludExamenNoEliminadas = new ArrayList<PrestadoraSalud>();
+	    	for(PrestadoraSalud ps : prestadorasSalud)
+	    		if(!ps.isDeleted())
+	    			prestadorasSaludExamenNoEliminadas.add(ps);
 	    	
-	    }
+	    	return (prestadorasSaludExamenNoEliminadas != null) ? prestadorasSaludExamenNoEliminadas : new ArrayList<PrestadoraSalud>();
+		 }
 
 		@Override
 		public boolean eliminarPrestadoraSalud(PrestadoraSalud prestadoraSalud) {
