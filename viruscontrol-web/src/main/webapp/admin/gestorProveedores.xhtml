@@ -21,7 +21,7 @@
 				Proveedor Examen</h4>
 			<h:outputText value="#{GestorProveedorView.mensaje}" />
 
-			<p:panelGrid columns="5" layout="grid"
+			<p:panelGrid columns="4" layout="grid"
 				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
 				contentStyleClass="p-align-baseline ui-fluid">
 
@@ -37,27 +37,20 @@
 
 				<p:outputLabel for="NombreProveedor" value="Nombre Proveedor" />
 				<p:inputText id="NombreProveedor"
-					value="#{GestorProveedorView.nombreProveedor}" required="true"
-					requiredMessage="Debe ingresar un Nombre" />
-				<p:message for="NombreProveedor" />
+					value="#{GestorProveedorView.nombreProveedor}" required="true"/>
+				
 
 				<p:outputLabel for="DireccionProveedor" value="Direccion Proveedor" />
 				<p:inputText id="DireccionProveedor"
-					value="#{GestorProveedorView.direccion}" required="true"
-					requiredMessage="Debe ingresar una Dirección" />
-				<p:message for="DireccionProveedor" />
+					value="#{GestorProveedorView.direccion}" required="true"/>
 
 				<p:outputLabel for="BarrioProveedor" value="Barrio Proveedor" />
 				<p:inputText id="BarrioProveedor"
-					value="#{GestorProveedorView.barrio}" required="true"
-					requiredMessage="Debe ingresar un Barrio" />
-				<p:message for="BarrioProveedor" />
+					value="#{GestorProveedorView.barrio}" required="true"/>
 
 				<p:outputLabel for="RangoHorarioProveedor" value="Rango Horario" />
 				<p:inputText id="RangoHorarioProveedor"
-					value="#{GestorProveedorView.rangoHorario}" required="true"
-					requiredMessage="Debe ingresar un Rango Horario" />
-				<p:message for="RangoHorarioProveedor" />
+					value="#{GestorProveedorView.rangoHorario}" required="true"/>
 
 				<h:commandButton action="#{GestorProveedorView.agregarProveedor()}"
 					value="Alta"

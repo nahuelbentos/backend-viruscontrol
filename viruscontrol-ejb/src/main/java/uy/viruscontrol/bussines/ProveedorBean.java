@@ -11,7 +11,6 @@ import uy.viruscontrol.bussines.interfaces.ProveedorBeanLocal;
 import uy.viruscontrol.bussines.interfaces.ProveedorBeanRemote;
 import uy.viruscontrol.model.dao.interfaces.ProveedorExamenDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ProveedorRecursoDAOLocal;
-import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.model.entities.ProveedorRecursos;
 
@@ -37,9 +36,23 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     	if(tipo==1) {
     		List<ProveedorRecursos> proveedoresRecurso=daoProveedorRecurso.findAll();
     		for(ProveedorRecursos pr:proveedoresRecurso) {
-    			if(pr.getNombre().contentEquals(nombre)) {
-    				System.out.println("el proveedor de recurso ya existe");
-    				return false;
+    			if((pr.getNombre().contentEquals(nombre)) && (pr.isDeleted())) {
+    				
+    				pr.setDeleted(false);
+    				pr.setBarrio(barrio);
+    	    		pr.setDireccion(direccion);
+    	    		pr.setNombre(nombre);
+    	    		pr.setRangoHorario(rangoHorario);
+    	    		
+    	    		daoProveedorRecurso.merge(pr);
+    				
+    				return true;
+    			}
+    			else {
+    				if((pr.getNombre().contentEquals(nombre)) && (!pr.isDeleted())) {
+	    				System.out.println("el proveedor de recurso ya existe");
+	    				return false;
+    				}
     			}
     		}
     		ProveedorRecursos p=new ProveedorRecursos();
@@ -55,9 +68,23 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     		
     		List<ProveedorExamen> proveedoresExamen=daoProveedorExamen.findAll();
     		for(ProveedorExamen pe:proveedoresExamen) {
-    			if(pe.getNombre().contentEquals(nombre)) {
-    				System.out.println("el proveedor de examen ya existe");
-    				return false;
+    			if((pe.getNombre().contentEquals(nombre)) && (pe.isDeleted())) {
+    				
+    				pe.setDeleted(false);
+    				pe.setBarrio(barrio);
+    				pe.setDireccion(direccion);
+    				pe.setNombre(nombre);
+    				pe.setRangoHorario(rangoHorario);
+    	    		
+    	    		daoProveedorExamen.merge(pe);
+    				
+    				return true;
+    				
+    			}else {
+    				if((pe.getNombre().contentEquals(nombre)) && (!pe.isDeleted())) {
+    					System.out.println("el proveedor de examen ya existe");
+        				return false;
+    				}
     			}
     		}
     		ProveedorExamen p=new ProveedorExamen();
