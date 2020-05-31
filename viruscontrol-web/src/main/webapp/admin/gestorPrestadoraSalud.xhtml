@@ -14,8 +14,7 @@
 	<ui:define name="content">
 	<h:form>
 			<h4 style="text-align: left">Alta Prestadora de Salud</h4>
-			<h:outputText value="#{GestorPrestadorView.mensaje}" />
-
+			
 			<p:panelGrid columns="1" layout="grid"
 				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
 				contentStyleClass="p-align-baseline ui-fluid">
@@ -25,7 +24,8 @@
 					value="#{GestorPrestadorView.nombrePrestador}" required="true"/>
 
 				<p:commandButton action="#{GestorPrestadorView.agregarPrestador()}"
-					value="Alta"/>
+					value="Alta"
+					update="form"/>
 			</p:panelGrid>
 		</h:form>
 

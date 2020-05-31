@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import uy.viruscontrol.controllers.EnfermedadBeanController;
@@ -26,10 +28,6 @@ public class GestorRecursoRecomendadoView {
 		
 		private boolean recursoTrata;
 		private boolean recursoPreviene;
-		
-		private String mensaje;
-		
-		
 		
 		
 		public GestorRecursoRecomendadoView() {
@@ -53,12 +51,6 @@ public class GestorRecursoRecomendadoView {
 		
 		}
 		
-		public String getMensaje() {
-			return mensaje;
-		}
-		public void setMensaje(String mensaje) {
-			this.mensaje = mensaje;
-		}
 		
 		public String getNombreEnfermedad() {
 			return nombreEnfermedad;
@@ -113,10 +105,12 @@ public class GestorRecursoRecomendadoView {
 			boolean ok = EnfermedadBeanController.asociarRecursoRecomendado(nombreEnfermedad, nombreRecurso, recursoTrata, recursoPreviene);
 			
 			if (ok) {
-				this.mensaje = "El Recurso fue asociado a la Enfermedad.";
+				
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Recurso fue asociado a la Enfermedad."));
 			}
 			else {
-				this.mensaje = "El Recurso ya se encuentra asociadoa la Enfermedad.";
+				
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Recurso ya se encuentra asociadoa la Enfermedad."));
 			}
 					
 		}

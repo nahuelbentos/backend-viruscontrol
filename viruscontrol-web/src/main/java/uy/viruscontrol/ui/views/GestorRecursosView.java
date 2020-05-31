@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import uy.viruscontrol.controllers.EnfermedadBeanController;
@@ -14,9 +16,7 @@ import uy.viruscontrol.model.entities.TipoRecurso;
 @RequestScoped
 public class GestorRecursosView {
 
-	// Datos para la vista
-	private String mensajeRecurso;
-	private String mensajeTipoRecurso;
+
 	
 	// Datos negocio
 	private String nombreTipoRecurso;
@@ -42,22 +42,7 @@ public class GestorRecursosView {
 
 	
 	
-	public String getMensajeRecurso() {
-		return mensajeRecurso;
-	}
-
-	public void setMensajeRecurso(String mensajeRecurso) {
-		this.mensajeRecurso = mensajeRecurso;
-	}
-
-	public String getMensajeTipoRecurso() {
-		return mensajeTipoRecurso;
-	}
-
-	public void setMensajeTipoRecurso(String mensajeTipoRecurso) {
-		this.mensajeTipoRecurso = mensajeTipoRecurso;
-	}
-
+	
 	public String getNombreTipoRecurso() {
 		return nombreTipoRecurso;
 	}
@@ -102,9 +87,11 @@ public class GestorRecursosView {
 		boolean ok = EnfermedadBeanController.altaTipoRecurso(nombreTipoRecurso, descripcionTipoRecurso);
 
 		if (ok) {
-			this.mensajeTipoRecurso = "El Tipo de Recurso " + this.getNombreTipoRecurso() + " fue dado de alta.";
+			
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Tipo de Recurso " + this.getNombreTipoRecurso() + " fue dado de alta."));
 		} else {
-			this.mensajeTipoRecurso = "Error, no se pudo dar de alta el Tipo de Recurso, verifique.";
+			
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo dar de alta el Tipo de Recurso, verifique."));
 		}
 	}
 
@@ -114,9 +101,11 @@ public class GestorRecursosView {
 
 		boolean ok = EnfermedadBeanController.altaRecursoDeUnDeterminadoTipo(nombreRecurso, idAux);
 		if (ok) {
-			this.mensajeRecurso = "El Recurso " + this.getNombreRecurso() + " fue dado de alta.";
+			
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Recurso " + this.getNombreRecurso() + " fue dado de alta."));
 		} else {
-			this.mensajeRecurso = "Error, no se pudo dar de alta el Recurso, verifique.";
+			
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo dar de alta el Recurso, verifique."));
 		}
 	}
 
