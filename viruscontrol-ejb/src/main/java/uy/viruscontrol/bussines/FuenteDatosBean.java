@@ -1,5 +1,6 @@
 package uy.viruscontrol.bussines;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -9,7 +10,6 @@ import javax.ejb.Stateless;
 import uy.viruscontrol.bussines.interfaces.FuenteDatosBeanRemote;
 import uy.viruscontrol.model.dao.interfaces.FuenteDeDatosDAOLocal;
 import uy.viruscontrol.model.entities.FuenteDeDatos;
-
 /**
  * Session Bean implementation class FuenteDatosBean
  */
@@ -63,4 +63,50 @@ public class FuenteDatosBean implements FuenteDatosBeanRemote {
     	}
     }
     
+    
+    @Override
+	public boolean actualizarFuenteDatos(FuenteDeDatos fuenteDatos) {
+		
+    	FuenteDeDatos fuente = new FuenteDeDatos();
+    	fuente=daoFuenteDatosLocal.findById(fuenteDatos.getId());
+		
+		if(fuente != null) {
+			fuente.setCodigo(fuenteDatos.getCodigo());
+			fuente.setUrl(fuenteDatos.getUrl());
+			daoFuenteDatosLocal.merge(fuente);
+			System.out.println("Fuente de Datos actualizada correctamente.");
+			return true;
+		}else {
+			System.out.println("Error, la Fuente de Datos no existe.");
+			return false;
+		}
+	}
+    
+    @Override
+    public List<FuenteDeDatos> obtenerFuenteDeDatos(){
+    	
+    	 List<FuenteDeDatos> fuentesDeDatos = daoFuenteDatosLocal.findAll();
+    	 List<FuenteDeDatos> fuentesDeDatosExamenNoEliminadas = new ArrayList<FuenteDeDatos>();
+    	for(FuenteDeDatos fuente : fuentesDeDatos)
+    		if(!fuente.isDeleted())
+    			fuentesDeDatosExamenNoEliminadas.add(fuente);
+    	
+    	return (fuentesDeDatosExamenNoEliminadas != null) ? fuentesDeDatosExamenNoEliminadas : new ArrayList<FuenteDeDatos>();
+	 }
+
+	@Override
+	public boolean eliminarFuenteDeDatos(FuenteDeDatos fuenteDatos) {
+		FuenteDeDatos fuente = new FuenteDeDatos();
+		fuente=daoFuenteDatosLocal.findById(fuenteDatos.getId());
+		
+		if(fuente != null) {
+			fuente.setDeleted(true);
+			daoFuenteDatosLocal.merge(fuente);
+			System.out.println("Fuente de Datos eliminada.");
+			return true;
+		}else {
+			System.out.println("Error, la Fuente de Datos no existe.");
+			return false;
+		}
+	}
 }

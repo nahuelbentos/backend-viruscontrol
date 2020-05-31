@@ -32,9 +32,78 @@
 
 				<p:commandButton action="#{GestorFuenteDatosView.agregarFuenteDatos()}"
 					value="Alta"
-					update="form"/>
+					update="form1"/>
 			</p:panelGrid>
 		</h:form>
+		
+		<br />
+		
+		<h:form id="form1">
+			<h4 style="text-align: left">Actualizar / Eliminar Fuentes De Datos</h4>
+
+			<p:growl id="msg" />
+			<p:dataTable id="table1" tableStyle="width:auto" var="p"
+				value="#{GestorFuenteDatosView.fuentesDeDatos}" editable="true">
+
+				<p:ajax event="rowEdit" listener="#{GestorFuenteDatosView.actualizar}"
+					update=":form:msg" />
+				<p:ajax event="rowEditCancel"
+					listener="#{GestorFuenteDatosView.cancelar}" update=":form:msg" />
+
+				<p:column id="del">
+					<h:selectBooleanCheckbox value="#{p.deleted}" />
+				</p:column>
+				
+				<p:column id="column1" headerText="Código">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.codigo}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.codigo}"
+								placeholder="#{p.codigo}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column2" headerText="URL">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.url}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.url}"
+								placeholder="#{p.url}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+
+			<br />
+			
+			<p:commandButton 
+			value="Eliminar"
+			actionListener="#{GestorFuenteDatosView.eliminarFuentesDeDatos()}"
+			update="form1"
+			icon="ui-icon-trash">
+				<p:confirm message="Seguro que desea eliminar?" header="Aviso" icon="ui-icon-alert" />
+			</p:commandButton>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+				<p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no" />
+			</p:confirmDialog>
+
+
+		</h:form>
+		
 	</ui:define>
  
 </ui:composition>
