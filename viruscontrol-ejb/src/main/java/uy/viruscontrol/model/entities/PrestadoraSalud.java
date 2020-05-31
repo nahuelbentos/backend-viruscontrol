@@ -21,6 +21,8 @@ public class PrestadoraSalud implements Serializable {
 	@Column
 	private String nombre;
 	
+	private boolean deleted;
+	
 	public PrestadoraSalud() {
 		super();
 	}
@@ -47,4 +49,13 @@ public class PrestadoraSalud implements Serializable {
 		this.nombre = nombre;
 	}
 
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	
 }

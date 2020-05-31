@@ -16,9 +16,12 @@ import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
 
 import uy.viruscontrol.controllers.PrestadorBeanController;
+import uy.viruscontrol.controllers.ProveedorBeanController;
 import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
+import uy.viruscontrol.model.entities.ProveedorExamen;
+import uy.viruscontrol.model.entities.ProveedorRecursos;
 
 @Named("GestorPrestadorView")
 @RequestScoped
@@ -31,13 +34,14 @@ public class GestorPrestadorView implements Serializable{
 		
 	private String mensaje;
 	
-	
+	//Datos Alta
 	private String nombrePrestador;
 	List<PrestadoraSalud> prestadorasSalud;
 
 	private PrestadoraSalud prestadora;
 	
-	
+	//Datos Eliminar
+	private List<PrestadoraSalud> prestadorasEliminadas = new ArrayList<>();
 
 	@PostConstruct
 	public void init() {
@@ -146,5 +150,23 @@ public class GestorPrestadorView implements Serializable{
 		return opciones;
 	}
 	
+	//Metodo que elimina de la lista padre aquellos objetos seleccionados en la tabla
+	public String eliminarPrestadoraSalud() {
+		for(PrestadoraSalud ps : prestadorasSalud) {
+			if(ps.isDeleted()) {
+				prestadorasEliminadas.add(ps);
+			}
+		}
+		if(!prestadorasEliminadas.isEmpty()) {
+			prestadorasSalud.removeAll(prestadorasEliminadas);
+			for(PrestadoraSalud pre : prestadorasEliminadas) {
+				PrestadorBeanController.eliminarPrestadoraSalud(pre);
+			}
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor Eliminado."));
+		}
+		
+		
+		return "gestorProveedores";
+	}
 	
 }

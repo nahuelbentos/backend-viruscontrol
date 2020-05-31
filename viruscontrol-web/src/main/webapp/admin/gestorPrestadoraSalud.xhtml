@@ -11,10 +11,6 @@
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	
-	<ui:define name="title">
-		<h4>Alta y Edición Prestadora Salud</h4>
-	</ui:define>
-	
 	<ui:define name="content">
 	<h:form>
 			<h4 style="text-align: left">Alta Prestadora de Salud</h4>
@@ -40,7 +36,7 @@
 
 
 		<h:form id="form">
-			<h4 style="text-align: left">Actualizar Prestadora de Salud</h4>
+			<h4 style="text-align: left">Actualizar / Eliminar Prestadora de Salud</h4>
 
 			<p:growl id="msg" />
 			<p:dataTable id="table1" tableStyle="width:auto" var="p"
@@ -51,8 +47,11 @@
 				<p:ajax event="rowEditCancel"
 					listener="#{GestorPrestadorView.cancelar}" update=":form:msg" />
 
+				<p:column id="del">
+					<h:selectBooleanCheckbox value="#{p.deleted}" />
+				</p:column>
+				
 				<p:column id="column1" headerText="Actualizar Datos Prestadora">
-
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{p.nombre}" />
@@ -71,8 +70,20 @@
 
 			</p:dataTable>
 
-			<br></br>
-
+			<br />
+			
+			<p:commandButton 
+			value="Eliminar"
+			actionListener="#{GestorPrestadorView.eliminarPrestadoraSalud()}"
+			update="form"
+			icon="ui-icon-trash">
+				<p:confirm message="Seguro que desea eliminar?" header="Aviso" icon="ui-icon-alert" />
+			</p:commandButton>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+				<p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no" />
+			</p:confirmDialog>
 
 
 		</h:form>
