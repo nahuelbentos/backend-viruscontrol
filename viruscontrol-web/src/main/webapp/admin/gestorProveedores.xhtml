@@ -12,7 +12,7 @@
 	</ui:define>
 	
 	<ui:define name="title">
-		<h4>Alta y Edición Proveedores</h4>
+		<h5>Alta y Edición Proveedores</h5>
 	</ui:define>
 	
 	<ui:define name="content">
@@ -60,14 +60,17 @@
 				<p:message for="RangoHorarioProveedor" />
 
 				<h:commandButton action="#{GestorProveedorView.agregarProveedor()}"
-					value="Solicitar alta"
-					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+					value="Alta"
+					update="form form2"
+					
+					class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" 
+					/>
 			</p:panelGrid>
 		</h:form>
 		
 		
 		<h:form id="form">
-			<h4 style="text-align: left">Actualizar Proveedor Recurso</h4>
+			<h5 style="text-align: left">Actualizar / Eliminar Proveedor Recurso</h5>
 
 			<p:growl id="msg" />
 			<p:dataTable id="table1" tableStyle="width:auto" var="p"
@@ -77,7 +80,12 @@
 					update=":form:msg" />
 				<p:ajax event="rowEditCancel"
 					listener="#{GestorProveedorView.cancelar}" update=":form:msg" />
-
+					
+					
+				<p:column id="del">
+					<h:selectBooleanCheckbox value="#{p.deleted}" />
+				</p:column>
+				
 				<p:column id="column1" headerText="Nombre">
 
 					<p:cellEditor>
@@ -140,14 +148,27 @@
 
 			</p:dataTable>
 
-			<br></br>
+			<br />
 
-
+			<p:commandButton 
+			value="Eliminar"
+			actionListener="#{GestorProveedorView.eliminarProveedorRecursos()}"
+			update="form"
+			icon="ui-icon-trash">
+				
+				<p:confirm message="Seguro que desea eliminar?" header="Aviso" icon="ui-icon-alert" />
+				
+			</p:commandButton>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+				<p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no" />
+			</p:confirmDialog>
 
 		</h:form>
 		
 		<h:form id="form2">
-			<h4 style="text-align: left">Actualizar Proveedor Exámen</h4>
+			<h5 style="text-align: left">Actualizar / Eliminar Proveedor Exámen</h5>
 
 			<p:growl id="msg" />
 			<p:dataTable id="table2" tableStyle="width:auto" var="p"
@@ -158,6 +179,11 @@
 				<p:ajax event="rowEditCancel"
 					listener="#{GestorProveedorView.cancelar}" update=":form:msg" />
 
+
+				<p:column id="del">
+					<h:selectBooleanCheckbox value="#{p.deleted}" />
+				</p:column>
+				
 				<p:column id="column1" headerText="Nombre">
 
 					<p:cellEditor>
@@ -222,7 +248,20 @@
 
 			<br></br>
 
-
+			<p:commandButton 
+			value="Eliminar"
+			actionListener="#{GestorProveedorView.eliminarProveedorExamenes()}"
+			update="form2"
+			icon="ui-icon-trash">
+				
+				<p:confirm message="Seguro que desea eliminar?" header="Aviso" icon="ui-icon-alert" />
+				
+			</p:commandButton>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+				<p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no" />
+			</p:confirmDialog>
 
 		</h:form>
 	

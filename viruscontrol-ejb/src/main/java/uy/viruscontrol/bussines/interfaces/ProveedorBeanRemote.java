@@ -16,4 +16,8 @@ public interface ProveedorBeanRemote {
 	List<ProveedorExamen> obtenerProveedoresExamenes();
 	boolean actualizarProveedorExamen(ProveedorExamen proveedorExamen);
 	boolean actualizarProveedorRecursos(ProveedorRecursos proveedorRecurso);
+
+	boolean eliminarProveedorRecursos(ProveedorRecursos proveedorRecurso);
+
+	boolean eliminarProveedorExamenes(ProveedorExamen proveedorExamen);
 }

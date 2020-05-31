@@ -35,6 +35,8 @@ public abstract class Proveedor implements Serializable {
 	@Column
 	private String rangoHorario;
 	
+	private boolean deleted;
+	
 	public Proveedor() {
 		
 	}
@@ -84,6 +86,15 @@ public abstract class Proveedor implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	@Override

@@ -34,6 +34,9 @@ public class GestorProveedorView {
 	private List<ProveedorRecursos> proveedoresRecursos;
 	private List<ProveedorExamen> proveedoresExamenes;
 	
+	//Eliminar
+	private List<ProveedorRecursos> proveedoresRecursosEliminados = new ArrayList<>();
+	private List<ProveedorExamen> proveedoresExamenesEliminados = new ArrayList<>();
 	
 	@PostConstruct
 	public void init() {
@@ -178,7 +181,43 @@ public class GestorProveedorView {
 			}
 		}
 				
+		//Metodo que elimina de la lista padre aquellos objetos seleccionados en la tabla
+		public String eliminarProveedorRecursos() {
+			for(ProveedorRecursos pr : proveedoresRecursos) {
+				if(pr.isDeleted()) {
+					proveedoresRecursosEliminados.add(pr);
+				}
+			}
+			if(!proveedoresRecursosEliminados.isEmpty()) {
+				proveedoresRecursos.removeAll(proveedoresRecursosEliminados);
+				for(ProveedorRecursos pre : proveedoresRecursosEliminados) {
+					ProveedorBeanController.eliminarProveedorRecursos(pre);
+				}
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor Eliminado."));
+			}
+			
+			
+			return "gestorProveedores";
+		}
 		
-	
+		
+		//Metodo que elimina de la lista padre aquellos objetos seleccionados en la tabla
+				public String eliminarProveedorExamenes() {
+					for(ProveedorExamen pr : proveedoresExamenes) {
+						if(pr.isDeleted()) {
+							proveedoresExamenesEliminados.add(pr);
+						}
+					}
+					if(!proveedoresExamenesEliminados.isEmpty()) {
+						proveedoresExamenes.removeAll(proveedoresExamenesEliminados);
+						for(ProveedorExamen pre : proveedoresExamenesEliminados) {
+							ProveedorBeanController.eliminarProveedorExamenes(pre);
+						}
+						FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor Eliminado."));
+					}
+					
+					
+					return "gestorProveedores";
+				}
 	
 }
