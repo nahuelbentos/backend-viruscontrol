@@ -1,5 +1,7 @@
 package com.recurso.model;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import com.opencsv.CSVReader;
+import com.recurso.model.entities.DummyProveedor;
+import com.recurso.model.entities.DummyRecursoDisponible;
 import com.recurso.model.entities.Proveedor;
 import com.recurso.model.entities.ProveedorRecurso;
 import com.recurso.model.entities.Recurso;
@@ -32,18 +37,29 @@ public class HandlerModel {
     
     @PostConstruct
     public void init() {
+    	
     	iniciarTiposProveedor();
-    	iniciarProveedores();
     	iniciarTiposRecursos();
-    	inicarRecursos();
+    	iniciarRecursos();
+    	iniciarProveedores();
+    	
     	
     }
     
-    public List<ProveedorRecurso> getRecursosDisponiblesPorProveedor(String codigoProveedor){
+    public List<DummyRecursoDisponible> getRecursosDisponiblesPorProveedor(String codigoProveedor){
     	
     	Proveedor p = proveedores.get(codigoProveedor);
-    	return p.getRecursosDisponibles();
-    	
+		
+    	List<DummyRecursoDisponible> drrdd = new ArrayList<DummyRecursoDisponible>();
+    	for (ProveedorRecurso pr : p.getRecursosDisponibles()) {
+    		DummyRecursoDisponible drd = new DummyRecursoDisponible();
+    		
+    		drd.setCantidadDisponible(pr.getCantidadDisponible());
+    		drd.setPrecio(pr.getPrecio());
+    		drd.setRecurso(pr.getRecurso());
+    		drrdd.add(drd);
+		}
+    	return drrdd;
     }
     
     public List<DummyProveedor> getProveedores(){
@@ -132,119 +148,189 @@ public class HandlerModel {
     
     
     /*************************** AUXILIARES ***************************/
-    
-    private void iniciarProveedores() {
+        private void iniciarProveedores() {
     	proveedores = new HashMap<String,Proveedor>();
     	
-    	Proveedor p = new Proveedor();
-    	p.setTipoProveedor(tiposProveedor.get("FARMACIA"));
-    	p.setCodigo("FDSM");
-    	p.setNombre("Farmashop Devoto San Martin");
-    	p.setBarrio("Brazo Oriental");
-    	p.setRecursosDisponibles(new ArrayList<ProveedorRecurso>());
-    	proveedores.put(p.getCodigo(), p);
-    	
-    	Proveedor p1 = new Proveedor();
-    	p1.setTipoProveedor(tiposProveedor.get("COMERCIO"));
-    	p1.setCodigo("DRWW");
-    	p1.setNombre("Drogueria Walter White");
-    	p1.setBarrio("Brazo Oriental");
-    	p1.setRecursosDisponibles(new ArrayList<ProveedorRecurso>());
-    	proveedores.put(p1.getCodigo(), p1);
-    	
-    	Proveedor p2 = new Proveedor();
-    	p2.setTipoProveedor(tiposProveedor.get("ORGCIVIL"));
-    	p2.setCodigo("CELA");
-    	p2.setNombre("Comunidad El abrazo");
-    	p2.setBarrio("Brazo Oriental");
-    	p2.setRecursosDisponibles(new ArrayList<ProveedorRecurso>());
-    	proveedores.put(p2.getCodigo(), p2);
-    	
-    	setRecursosDisponibles();
+    	readCsvProveedores();
+    	readCsvRecursosDeProveedor();
     }
     
     private void iniciarTiposProveedor() {
-    	tiposProveedor = new HashMap<String,TipoProveedor>();
+    	tiposProveedor = new HashMap<String, TipoProveedor>();
     	
-    	TipoProveedor tp = new TipoProveedor();
-    	tp.setCodigo("COMERCIO");
-    	tp.setNombre("Comercio");
-    	tiposProveedor.put(tp.getCodigo(), tp);
-    	
-    	TipoProveedor tp1 = new TipoProveedor();
-    	tp.setCodigo("FARMACIA");
-    	tp.setNombre("Farmacia");
-    	tiposProveedor.put(tp1.getCodigo(), tp1);
-    	
-    	TipoProveedor tp2 = new TipoProveedor();
-    	tp.setCodigo("ORGCIVIL");
-    	tp.setNombre("Organizaciones de la sociedad civil");
-    	tiposProveedor.put(tp2.getCodigo(), tp2);
-    	
-    	
-    	
+    	readCsvTipoProveedores();
     }
 
     private void iniciarTiposRecursos() {
     	tiposRecursos = new HashMap<String,TipoRecurso>();
     	
-    	TipoRecurso tr = new TipoRecurso();
-    	tr.setCodigo("ALGEL");
-    	tr.setNombre("Alcohol en gel 250gr");
-    	tr.setPrecioReferencia(199.00);
-    	tiposRecursos.put(tr.getCodigo(), tr);
-    	
-    	TipoRecurso tr1 = new TipoRecurso();
-    	tr1.setCodigo("GASAS");
-    	tr1.setNombre("Gasas x20");
-    	tr1.setPrecioReferencia(100.00);
-    	tiposRecursos.put(tr1.getCodigo(), tr1);
+    	readCsvTipoRecursos();
     }
     
-    private void inicarRecursos() {
+    private void iniciarRecursos() {
     	recursos = new HashMap<String, Recurso>();
     	
-    	Recurso r = new Recurso();
-    	r.setCodigo("ALGELAGA");
-    	r.setMarca("Alcohol en gel - Laboratorio Agapito");
-    	r.setTipoRecurso(tiposRecursos.get("ALGEL"));
-    	recursos.put(r.getCodigo(),r);
-    	
-    	Recurso r1 = new Recurso();
-    	r1.setCodigo("GASASAGA");
-    	r1.setMarca("Gasas - Laboratorio Agapito");
-    	r1.setTipoRecurso(tiposRecursos.get("GASAS"));
-    	recursos.put(r1.getCodigo(),r1);
-    	
-    	Recurso r2 = new Recurso();
-    	r2.setCodigo("ALGELRICK");
-    	r2.setMarca("Alcohol en gel - Laboratorio No lo se Rick");
-    	r2.setTipoRecurso(tiposRecursos.get("ALGEL"));
-    	recursos.put(r2.getCodigo(),r2);
+    	readCsvRecursos();
     }
     
     
-    private void setRecursosDisponibles() {
-    	
-    	
-    	Proveedor p = this.proveedores.get("DRWW");
-    	Recurso r = this.recursos.get("ALGELAGA");
-    	
-    	ProveedorRecurso pr = new ProveedorRecurso();
-    	pr.setProveedor(p);
-    	pr.setRecurso(r);
-    	pr.setCantidadDisponible(2000);
-    	pr.setPrecio(160.00);
-    	
-    	Recurso r1 = this.recursos.get("GASASAGA");
-    	ProveedorRecurso pr1 = new ProveedorRecurso();
-    	pr1.setProveedor(p);
-    	pr1.setRecurso(r1);
-    	pr1.setCantidadDisponible(2000);
-    	pr1.setPrecio(160.00);
-    	
-    	p.addRecursoDisponible(pr);
-    	p.addRecursoDisponible(pr1);
+    private void readCsvTipoProveedores() {
+    	CSVReader reader = null;
+    	try {
+    		ClassLoader classLoader = this.getClass().getClassLoader();
+    		FileReader file = new FileReader(classLoader.getResource("tipoProveedores.csv").getFile());
+    		reader = new CSVReader(file,';');
+    		
+    		List<String[]> records = reader.readAll();
+    		for (String[] record : records) {
+    			TipoProveedor tp = new TipoProveedor();
+    			tp.setCodigo(record[0]);
+    			tp.setNombre(record[1]);
+    			this.tiposProveedor.put(tp.getCodigo(), tp);
+    		}
+           
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		if (null != reader) {
+    			try {
+    				reader.close();
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
+    		} 
+    	}
     }
     
+    private void readCsvProveedores() {
+    	CSVReader reader = null;
+    	try {
+    		ClassLoader classLoader = this.getClass().getClassLoader();
+    		FileReader file = new FileReader(classLoader.getResource("proveedores.csv").getFile());
+    		reader = new CSVReader(file,';');
+    		
+    		List<String[]> records = reader.readAll();
+    		for (String[] record : records) {
+    			Proveedor p = new Proveedor();
+    			p.setCodigo(record[0]);
+    			p.setNombre(record[1]);
+    			p.setHorarioAtencion(record[2]);
+    			p.setBarrio(record[3]);
+    			p.setDireccion(record[4]);
+    			
+    			TipoProveedor tp = this.tiposProveedor.get(record[5]);
+    			p.setTipoProveedor(tp);
+    			
+    			this.proveedores.put(p.getCodigo(), p);
+    		}
+           
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		if (null != reader) {
+    			try {
+    				reader.close();
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
+    		} 
+    	}
+    }
+    
+    private void readCsvTipoRecursos() {
+    	CSVReader reader = null;
+    	try {
+    		ClassLoader classLoader = this.getClass().getClassLoader();
+    		FileReader file = new FileReader(classLoader.getResource("tipoRecursos.csv").getFile());
+    		reader = new CSVReader(file,';');
+    		
+    		List<String[]> records = reader.readAll();
+    		for (String[] record : records) {
+    			TipoRecurso tr = new TipoRecurso();
+    			tr.setCodigo(record[0]);
+    			tr.setNombre(record[1]);
+    			tr.setPrecioReferencia(Double.valueOf(record[2]));
+    			this.tiposRecursos.put(tr.getCodigo(), tr);
+    		}
+           
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		if (null != reader) {
+    			try {
+    				reader.close();
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
+    		} 
+    	}
+    }
+    
+    private void readCsvRecursos() {
+    	CSVReader reader = null;
+    	try {
+    		ClassLoader classLoader = this.getClass().getClassLoader();
+    		FileReader file = new FileReader(classLoader.getResource("recursos.csv").getFile());
+    		reader = new CSVReader(file,';');
+    		
+    		List<String[]> records = reader.readAll();
+    		for (String[] record : records) {
+    			Recurso r = new Recurso();
+    			r.setCodigo(record[0]);
+    			r.setMarca(record[1]);
+    			
+    			TipoRecurso tr = this.tiposRecursos.get(record[2]);
+    			r.setTipoRecurso(tr);
+    			this.recursos.put(r.getCodigo(), r);
+    		}
+           
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		if (null != reader) {
+    			try {
+    				reader.close();
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
+    		} 
+    	}
+    }
+    
+    private void readCsvRecursosDeProveedor() {
+    	CSVReader reader = null;
+    	try {
+    		ClassLoader classLoader = this.getClass().getClassLoader();
+    		FileReader file = new FileReader(classLoader.getResource("recursosDeProveedores.csv").getFile());
+    		reader = new CSVReader(file,';');
+    		
+    		List<String[]> records = reader.readAll();
+    		Proveedor p = null;
+    		for (String[] record : records) {
+    			if (p == null || !p.getCodigo().equals(record[0]))
+    				p = this.proveedores.get(record[0]);
+    			
+    			Recurso r = this.recursos.get(record[1]);
+    			
+    			ProveedorRecurso pr = new ProveedorRecurso();
+    			pr.setProveedor(p);
+    			pr.setRecurso(r);
+    			pr.setCantidadDisponible(Integer.parseInt(record[2]));
+    			pr.setPrecio(Double.parseDouble(record[3]));
+    			
+    			p.addRecursoDisponible(pr);
+    		}
+           
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		if (null != reader) {
+    			try {
+    				reader.close();
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
+    		} 
+    	}
+    }
 }

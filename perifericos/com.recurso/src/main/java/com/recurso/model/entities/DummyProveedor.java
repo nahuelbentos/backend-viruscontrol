@@ -1,4 +1,4 @@
-package com.recurso.model;
+package com.recurso.model.entities;
 
 import java.io.Serializable;
 
