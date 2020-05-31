@@ -8,6 +8,8 @@ import java.util.TreeMap;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -27,7 +29,7 @@ public class GestorEnfermedadView implements Serializable{
 	@Inject
 	private UserManager userManager;
 	// Datos para la vista
-	private String mensaje;
+	
 	
 	
 	// Datos del negocio para alta enfermedad
@@ -122,12 +124,7 @@ public class GestorEnfermedadView implements Serializable{
 	public void setNombreAgente(String nombreAgente) {
 		this.nombreAgente = nombreAgente;
 	}
-	public String getMensaje() {
-		return mensaje;
-	}
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
+	
 	
 	public String getSintomasStr() {
 		return sintomasStr;
@@ -146,8 +143,12 @@ public class GestorEnfermedadView implements Serializable{
 		}
 		
 		boolean ok = EnfermedadBeanController.crearEnfermedadInfecciosa(this.nombreEnfermedad, this.nombreTipoEnfermedad, this.nombreAgente, this.sintomas);
-		if (ok)
-			this.mensaje = "Se agrego la solicitud de alta de la enfermedad " + this.nombreEnfermedad + ". Un administrador debe aprobarla para que quede dada de alta."; 
+		if (ok) {
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Se agrego la solicitud de alta de la enfermedad " + this.nombreEnfermedad + ". Un administrador debe aprobarla para que quede dada de alta."));
+		
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo crear la enfermedad, verifique."));
+		}
 	}
 	
 	//CU Aprobar Enfermedad
@@ -157,9 +158,12 @@ public class GestorEnfermedadView implements Serializable{
 		boolean ok = EnfermedadBeanController.aprobarEnfermedad(idAux);
 		
 		if(ok) {
-			this.mensaje = "La enfermedad "+ this.getNombreEnfermedadNoAprobada() + " fue aprobada.";
+			
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("La enfermedad "+ this.getNombreEnfermedadNoAprobada() + " fue aprobada."));
 		}else {
-			this.mensaje="Error, no se pudo aprobar la enfermedad, verifique.";
+			
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo aprobar la enfermedad, verifique."));
+			
 		}
 	}
 	
@@ -170,9 +174,11 @@ public class GestorEnfermedadView implements Serializable{
 			boolean ok = EnfermedadBeanController.rechazarEnfermedad(idAux);
 			
 			if(ok) {
-				this.mensaje = "La enfermedad "+ this.getNombreEnfermedadNoAprobada() + " fue rechazada.";
+				
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("La enfermedad "+ this.getNombreEnfermedadNoAprobada() + " fue rechazada."));
 			}else {
-				this.mensaje="Error, no se pudo rechazar la enfermedad, verifique.";
+				
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo rechazar la enfermedad, verifique."));
 			}
 		}
 	

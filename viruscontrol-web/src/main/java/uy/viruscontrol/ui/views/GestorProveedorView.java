@@ -1,5 +1,6 @@
 package uy.viruscontrol.ui.views;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,10 @@ import uy.viruscontrol.model.entities.ProveedorRecursos;
 
 @Named("GestorProveedorView")
 @RequestScoped
-public class GestorProveedorView {
+public class GestorProveedorView  implements Serializable{
 
-	String mensaje;
+	
+	private static final long serialVersionUID = 1429289222086985379L;
 	
 	//Datos Alta
 	int tipo;
@@ -46,15 +48,6 @@ public class GestorProveedorView {
 		proveedoresExamenes = new ArrayList<ProveedorExamen>();
 		proveedoresExamenes = ProveedorBeanController.obtenerProveedoresExamenes();
 	}
-	
-	public String getMensaje() {
-		return mensaje;
-	}
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
-
-	
 	
 	public String getNombreProveedor() {
 		return nombreProveedor;
@@ -133,13 +126,13 @@ public class GestorProveedorView {
 		boolean ok = ProveedorBeanController.crearProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario);
 		if (ok) {
 			if (tipo==1) {
-				this.mensaje = "El Proveedor de Recurso " + this.getNombreProveedor() + " se creó con éxito";
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor de Recurso "+this.nombreProveedor+" creado."));
 			}else {
-				this.mensaje = "El Proveedor de Examen " + this.getNombreProveedor() + " se creó con éxito";
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor de Exámen "+this.nombreProveedor+" creado."));
 			}
 		}
 		else {
-			this.mensaje = "Error Proveedor no creado, verifique";
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error Proveedor no creado, verifique"));
 		}
 	}
 	

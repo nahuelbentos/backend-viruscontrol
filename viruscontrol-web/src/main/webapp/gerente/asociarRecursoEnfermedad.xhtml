@@ -12,8 +12,9 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h:outputText value="#{GestorRecursoRecomendadoView.mensaje}" />
-		<h:form>
+		
+		<h:form id="form">
+		<p:growl id="msg" />
 			<h4 style="text-align: left">Asociar Recurso Recomendado para
 				Enfermedad</h4>
 			
@@ -56,6 +57,7 @@
 				<p:commandButton
 					action="#{GestorRecursoRecomendadoView.asociarRecursoRecomendadoEnfermedad()}"
 					value="Alta"
+					update="form"
 					 />
 			</p:panelGrid>
 		</h:form>

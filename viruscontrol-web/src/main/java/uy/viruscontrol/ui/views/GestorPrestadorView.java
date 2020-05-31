@@ -29,8 +29,6 @@ public class GestorPrestadorView implements Serializable{
 	@Inject
 	private UserManager userManager;
 		
-	private String mensaje;
-	
 	//Datos Alta
 	private String nombrePrestador;
 	List<PrestadoraSalud> prestadorasSalud;
@@ -66,13 +64,7 @@ public class GestorPrestadorView implements Serializable{
 		this.prestadorasSalud = prestadorasSalud;
 	}
 
-	public String getMensaje() {
-		return mensaje;
-	}
 
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
 
 	public String getNombrePrestador() {
 		return nombrePrestador;
@@ -96,10 +88,10 @@ public class GestorPrestadorView implements Serializable{
 		
 		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador);
 		if (ok) {
-			this.mensaje = "El Prestador de Salud " + this.getNombrePrestador() + " se creó con éxito";
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Prestadora de nombre "+ this.nombrePrestador +" creada."));
 		}
 		else {
-			this.mensaje = "Error Prestador no creado, verifique";
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, Prestador no creado, verifique."));
 		}
 	}
 	
