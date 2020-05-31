@@ -36,8 +36,8 @@ insert into proveedor(proveedor_tipo, id, nombre, barrio , direccion, rangohorar
 insert into proveedor(proveedor_tipo, id, barrio, direccion, nombre, rangohorario,deleted) values ('EXAMEN', 500, 'Centro', 'Canelones 2222', 'Algun prov', '24 hs',false);
 
 -- PrestadoraSalud
-insert into prestadora_salud (id, nombre) values (100, 'Servicio Medico Integral - SMI');
-insert into prestadora_salud (id, nombre) values (101, 'Medica Uruguaya');
+insert into prestadora_salud (id, nombre, deleted) values (100, 'Servicio Medico Integral - SMI', false);
+insert into prestadora_salud (id, nombre, deleted) values (101, 'Medica Uruguaya', false);
 
 --Examen
 insert into examen(id,nombre,enfermedad_id) values(100,'hisopado',100);

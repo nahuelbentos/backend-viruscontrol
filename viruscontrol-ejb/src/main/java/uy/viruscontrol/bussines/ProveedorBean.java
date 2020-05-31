@@ -31,6 +31,8 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     }
    
     //tipo =1 = proveedor recurso tipo =2 = proveedor Examen
+    //Funcion adaptada para que tome en cuenta que si el proveedor a dar de alta ya existe en la base, se fije si este esta eliminado o no
+    //Si loo está, lo reactiva sino no hace anda dado que el mismo ya existe activo
     @Override
     public boolean nuevoProveedor(int tipo,String nombre,String direccion,String barrio,String rangoHorario) {
     	if(tipo==1) {
