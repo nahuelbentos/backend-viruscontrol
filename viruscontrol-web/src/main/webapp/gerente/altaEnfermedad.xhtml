@@ -17,8 +17,8 @@
 
 	<ui:define name="content">
 		
-		<h:form>
-		<h:outputText value="#{GestorEnfermedadView.mensaje}" />
+		<h:form id="form">
+		<p:growl id="msg" />
 			<p:panelGrid columns="4" layout="grid"
 				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
 				contentStyleClass="p-align-baseline ui-fluid">
@@ -40,10 +40,12 @@
 				<p:inputText id="Sintomas"
 					value="#{GestorEnfermedadView.sintomasStr}" required="true" />
                 
-				<h:commandButton
+				<p:commandButton
+					value="Alta"
                 	action="#{GestorEnfermedadView.agregarNuevaEnfermedad()}"
-                	class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                </h:commandButton>
+                	update="form"
+                	/>
+              
 				
 			</p:panelGrid>
 		</h:form>

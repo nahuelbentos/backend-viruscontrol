@@ -1,34 +1,51 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+<ui:composition
+	template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
 	<ui:define name="title">
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	<ui:define name="content">
-		<h:form>
-		<h4 style="text-align: left">Aprobar Enfermedad</h4>
-		<h:outputText value="#{GestorEnfermedadView.mensaje}" />
+		<h:form id="form">
+			<h4 style="text-align: left">Aprobar Enfermedad</h4>
 			
-			<p:panelGrid columns="1" layout="grid" columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" contentStyleClass="p-align-baseline ui-fluid">
-				
+			<p:growl id="msg" />
+			<p:panelGrid id="panel" columns="1" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+
 				<p:outputLabel for="@next" value="Enfermedad" />
-					<p:selectOneMenu id="Enfermedad"
-						value="#{GestorEnfermedadView.nombreEnfermedadNoAprobada}" style="width:150px"
-						required="true" requiredMessage="Debe seleccionar Enfermedad">
-						<f:selectItem itemLabel="Seleccione Enfermedad" itemValue="" />
-						<f:selectItems value="#{GestorEnfermedadView.enfermedadesNoAprobadas}" />
-					</p:selectOneMenu>
-					<p:message for="Enfermedad" />
-				<h:commandButton action="#{GestorEnfermedadView.aprobarEnfermedad()}" value="Aprobar" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+				<p:selectOneMenu id="Enfermedad"
+					value="#{GestorEnfermedadView.nombreEnfermedadNoAprobada}"
+					style="width:150px" required="true">
+					<f:selectItem itemLabel="Seleccione Enfermedad" itemValue="" />
+					<f:selectItems
+						value="#{GestorEnfermedadView.enfermedadesNoAprobadas}" />
+				</p:selectOneMenu>
+				
+
+
+				<p:commandButton
+					action="#{GestorEnfermedadView.aprobarEnfermedad()}"
+					value="Aprobar" 
+					update="form" />
+
+				<p:commandButton
+					action="#{GestorEnfermedadView.rechazarEnfermedad()}"
+					value="Rechazar" update="form" 
+					/>
+
 			</p:panelGrid>
+
+			
 		</h:form>
 	</ui:define>
- 
+
 </ui:composition>
 
 </html>

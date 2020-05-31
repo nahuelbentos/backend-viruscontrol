@@ -1,5 +1,6 @@
 package uy.viruscontrol.model.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -9,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.PrestadoraSaludDAOLocal;
-
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 @Stateless
@@ -57,6 +58,18 @@ public class PrestadoraSaludDAO implements PrestadoraSaludDAOLocal {
 	}
 	
 	
-	
+	@Override
+	public boolean exist(String nombre) {
+		
+		List<PrestadoraSalud> prestadoras = new ArrayList<PrestadoraSalud>(); 
+		prestadoras=findAll();
+    	
+    	for(PrestadoraSalud prestadora : prestadoras) {
+    		if(prestadora.getNombre().equals(nombre)) {
+    			return true;
+    		}
+    	}
+    	return false;
+	}
 	
 }

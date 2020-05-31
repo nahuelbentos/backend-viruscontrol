@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+	<ui:define name="Alta y Edición Proveedores">
+		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
+	</ui:define>
+	
+	<ui:define name="title">
+		<h5>Alta y Edición Proveedores</h5>
+	</ui:define>
+	
+	<ui:define name="content">
+	<h:form>
+			<h4 style="text-align: left">Alta Proveedor Recurso / Alta
+				Proveedor Examen</h4>
+			
+				<p:panelGrid columns="4" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+
+				<p:outputLabel for="@next" value="Tipo de Proveedor: " />
+				<p:selectOneMenu id="lazy" value="#{GestorProveedorView.tipo}"
+					style="width:150px" required="true"
+					requiredMessage="Debe seleccionar Tipo de Proveedor">
+					<f:selectItem itemLabel="Seleccione Tipo" itemValue="" />
+					<f:selectItem itemLabel="Recurso" itemValue="1" />
+					<f:selectItem itemLabel="Exámen" itemValue="2" />
+					<f:converter converterId="javax.faces.Integer" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="NombreProveedor" value="Nombre Proveedor" />
+				<p:inputText id="NombreProveedor"
+					value="#{GestorProveedorView.nombreProveedor}" required="true"/>
+				
+
+				<p:outputLabel for="DireccionProveedor" value="Direccion Proveedor" />
+				<p:inputText id="DireccionProveedor"
+					value="#{GestorProveedorView.direccion}" required="true"/>
+
+				<p:outputLabel for="BarrioProveedor" value="Barrio Proveedor" />
+				<p:inputText id="BarrioProveedor"
+					value="#{GestorProveedorView.barrio}" required="true"/>
+
+				<p:outputLabel for="RangoHorarioProveedor" value="Rango Horario" />
+				<p:inputText id="RangoHorarioProveedor"
+					value="#{GestorProveedorView.rangoHorario}" required="true"/>
+
+				<p:commandButton action="#{GestorProveedorView.agregarProveedor()}"
+					value="Alta"
+					update="form form2"/>
+			</p:panelGrid>
+		</h:form>
+		
+		
+		<h:form id="form">
+			<h5 style="text-align: left">Actualizar / Eliminar Proveedor Recurso</h5>
+
+			<p:growl id="msg" />
+			<p:dataTable id="table1" tableStyle="width:auto" var="p"
+				value="#{GestorProveedorView.proveedoresRecursos}" editable="true">
+
+				<p:ajax event="rowEdit" listener="#{GestorProveedorView.actualizarPR}"
+					update=":form:msg" />
+				<p:ajax event="rowEditCancel"
+					listener="#{GestorProveedorView.cancelar}" update=":form:msg" />
+					
+					
+				<p:column id="del">
+					<h:selectBooleanCheckbox value="#{p.deleted}" />
+				</p:column>
+				
+				<p:column id="column1" headerText="Nombre">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.nombre}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.nombre}"
+								placeholder="#{p.nombre}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column2" headerText="Dirección">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.direccion}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.direccion}"
+								placeholder="#{p.direccion}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column3" headerText="Barrio">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.barrio}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.barrio}"
+								placeholder="#{p.barrio}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column4" headerText="Rango Horario">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.rangoHorario}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.rangoHorario}"
+								placeholder="#{p.rangoHorario}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+
+			<br />
+
+			<p:commandButton 
+			value="Eliminar"
+			actionListener="#{GestorProveedorView.eliminarProveedorRecursos()}"
+			update="form"
+			icon="ui-icon-trash">
+				
+				<p:confirm message="Seguro que desea eliminar?" header="Aviso" icon="ui-icon-alert" />
+				
+			</p:commandButton>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+				<p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no" />
+			</p:confirmDialog>
+
+		</h:form>
+		
+		<h:form id="form2">
+			<h5 style="text-align: left">Actualizar / Eliminar Proveedor Exámen</h5>
+
+			<p:growl id="msg" />
+			<p:dataTable id="table2" tableStyle="width:auto" var="p"
+				value="#{GestorProveedorView.proveedoresExamenes}" editable="true">
+
+				<p:ajax event="rowEdit" listener="#{GestorProveedorView.actualizarPE}"
+					update=":form:msg" />
+				<p:ajax event="rowEditCancel"
+					listener="#{GestorProveedorView.cancelar}" update=":form:msg" />
+
+
+				<p:column id="del">
+					<h:selectBooleanCheckbox value="#{p.deleted}" />
+				</p:column>
+				
+				<p:column id="column1" headerText="Nombre">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.nombre}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.nombre}"
+								placeholder="#{p.nombre}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column2" headerText="Dirección">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.direccion}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.direccion}"
+								placeholder="#{p.direccion}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column3" headerText="Barrio">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.barrio}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.barrio}"
+								placeholder="#{p.barrio}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column4" headerText="Rango Horario">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.rangoHorario}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.rangoHorario}"
+								placeholder="#{p.rangoHorario}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+
+			<br></br>
+
+			<p:commandButton 
+			value="Eliminar"
+			actionListener="#{GestorProveedorView.eliminarProveedorExamenes()}"
+			update="form2"
+			icon="ui-icon-trash">
+				
+				<p:confirm message="Seguro que desea eliminar?" header="Aviso" icon="ui-icon-alert" />
+				
+			</p:commandButton>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+				<p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no" />
+			</p:confirmDialog>
+
+		</h:form>
+	
+	</ui:define>
+	
+	</ui:composition>
+</html>

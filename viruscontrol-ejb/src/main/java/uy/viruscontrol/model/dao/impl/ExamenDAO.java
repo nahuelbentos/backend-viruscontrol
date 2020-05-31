@@ -1,5 +1,6 @@
 package uy.viruscontrol.model.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -68,13 +69,13 @@ public class ExamenDAO implements ExamenDAOLocal {
 	@Override
 	public List<Examen> findAllByEnfermedad(int idEnfermedad) {
 		Enfermedad enfermedad = daoEnfermedad.findById(idEnfermedad);
+		List<Examen> ret = new ArrayList<Examen>();
 		if (enfermedad != null) {
-			return em.createQuery("FROM Examen WHERE enfermedad = :enfermedad")
+			ret = em.createQuery("FROM Examen WHERE enfermedad = :enfermedad")
 					.setParameter("enfermedad", enfermedad)
 					.getResultList();
-		} else {
-			return null;
 		}
+		return ret;
 	}
 
 }

@@ -1,4 +1,4 @@
-package uy.viruscontrol.drivers.ws.rest;
+package com.examen.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import uy.viruscontrol.drivers.PerifericoProveedorExamenLocal;
-import uy.viruscontrol.model.entities.EstadoExamen;
-import uy.viruscontrol.model.entities.Examen;
-import uy.viruscontrol.model.entities.ProveedorExamen;
-import uy.viruscontrol.utils.DtExamen;
+import com.examen.beans.PerifericoProveedorExamenLocal;
+import com.examen.entities.EstadoExamen;
+import com.examen.entities.Examen;
+import com.examen.entities.ProveedorExamen;
+import com.examen.utils.DtExamen;
 
 @ApplicationScoped
 @Path("/perifprovex")
@@ -63,6 +63,7 @@ public class WSPerifericoProveedorExamenREST {
 									@FormParam("idExamen") int idExamen,
 									@FormParam("idMedico") int idMedico) {
 //		System.out.println("["+WSPerifericoProveedorExamenREST.class.getName()+"] Paciente: "+idPaciente+", Examen: "+idExamen+", Medico: "+idMedico);
+		// debería devolver un id caso, pero no quiero romper el sequence de hibernate, así que no lo devuelvo.
 		return provEx.solicitarAltaExamen(idPaciente, idExamen, idMedico).getDt();
 	}
 	

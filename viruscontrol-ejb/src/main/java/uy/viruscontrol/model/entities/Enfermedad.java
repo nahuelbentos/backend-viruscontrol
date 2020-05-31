@@ -29,7 +29,8 @@ public class Enfermedad implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String nombre;
-	private boolean aprobada;
+	private boolean aprobada=false;
+	private boolean rechazada=false;
 	@Column(name="\"nombre_agente\"")
 	private String nombreAgente;
 	
@@ -69,13 +70,14 @@ public class Enfermedad implements Serializable{
 	}
 
 	public Enfermedad(String nombre, boolean aprobada, String nombreAgente, TipoEnfermedad tipoEnfermedad,
-			List<Sintoma> sintomas) {
+			List<Sintoma> sintomas, boolean rechazada) {
 		super();
 		this.nombre = nombre;
 		this.aprobada = aprobada;
 		this.nombreAgente = nombreAgente;
 		this.tipoEnfermedad = tipoEnfermedad;
 		this.sintomas = sintomas;
+		this.rechazada = rechazada;
 		
 	}
 
@@ -83,6 +85,14 @@ public class Enfermedad implements Serializable{
 	
 	
 	
+	public boolean isRechazada() {
+		return rechazada;
+	}
+
+	public void setRechazada(boolean rechazada) {
+		this.rechazada = rechazada;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -138,9 +148,6 @@ public class Enfermedad implements Serializable{
 	public void setRecursos(List<RecursoEnfermedad> recursos) {
 		this.recursos = recursos;
 	}
-	
-	
-	
 
 	@Override
 	public int hashCode() {
@@ -150,6 +157,7 @@ public class Enfermedad implements Serializable{
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((nombreAgente == null) ? 0 : nombreAgente.hashCode());
+		result = prime * result + (rechazada ? 1231 : 1237);
 		result = prime * result + ((recursos == null) ? 0 : recursos.hashCode());
 		result = prime * result + ((sintomas == null) ? 0 : sintomas.hashCode());
 		result = prime * result + ((tipoEnfermedad == null) ? 0 : tipoEnfermedad.hashCode());
@@ -179,6 +187,8 @@ public class Enfermedad implements Serializable{
 				return false;
 		} else if (!nombreAgente.equals(other.nombreAgente))
 			return false;
+		if (rechazada != other.rechazada)
+			return false;
 		if (recursos == null) {
 			if (other.recursos != null)
 				return false;
@@ -196,6 +206,11 @@ public class Enfermedad implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
+	
+
+	
 
 	
 	

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition
+	template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+	<ui:define name="Alta y Edición Prestadora Salud">
+		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
+	</ui:define>
+	
+	<ui:define name="content">
+	<h:form>
+			<h4 style="text-align: left">Alta Prestadora de Salud</h4>
+			
+			<p:panelGrid columns="1" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+
+				<p:outputLabel for="NombrePrestador" value="Nombre Prestador" />
+				<p:inputText id="NombrePrestador"
+					value="#{GestorPrestadorView.nombrePrestador}" required="true"/>
+
+				<p:commandButton action="#{GestorPrestadorView.agregarPrestador()}"
+					value="Alta"
+					update="form"/>
+			</p:panelGrid>
+		</h:form>
+
+		<br></br>
+
+
+		<h:form id="form">
+			<h4 style="text-align: left">Actualizar / Eliminar Prestadora de Salud</h4>
+
+			<p:growl id="msg" />
+			<p:dataTable id="table1" tableStyle="width:auto" var="p"
+				value="#{GestorPrestadorView.prestadorasSalud}" editable="true">
+
+				<p:ajax event="rowEdit" listener="#{GestorPrestadorView.actualizar}"
+					update=":form:msg" />
+				<p:ajax event="rowEditCancel"
+					listener="#{GestorPrestadorView.cancelar}" update=":form:msg" />
+
+				<p:column id="del">
+					<h:selectBooleanCheckbox value="#{p.deleted}" />
+				</p:column>
+				
+				<p:column id="column1" headerText="Actualizar Datos Prestadora">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.nombre}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.nombre}"
+								placeholder="#{p.nombre}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+
+			<br />
+			
+			<p:commandButton 
+			value="Eliminar"
+			actionListener="#{GestorPrestadorView.eliminarPrestadoraSalud()}"
+			update="form"
+			icon="ui-icon-trash">
+				<p:confirm message="Seguro que desea eliminar?" header="Aviso" icon="ui-icon-alert" />
+			</p:commandButton>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+				<p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no" />
+			</p:confirmDialog>
+
+
+		</h:form>
+	
+	</ui:define>
+	
+	</ui:composition>
+</html>

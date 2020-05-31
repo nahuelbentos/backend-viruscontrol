@@ -38,4 +38,6 @@ public interface EnfermedadBeanRemote {
 	List<Recurso> obtenerRecursos();
 
 	List<Enfermedad> obtenerEnfermedades();
+	
+	boolean rechazarEnfermedadInfecciosa(int idEnfermedad);
 }

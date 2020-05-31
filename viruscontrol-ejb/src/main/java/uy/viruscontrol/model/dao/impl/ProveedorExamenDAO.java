@@ -77,18 +77,21 @@ public class ProveedorExamenDAO implements ProveedorExamenDAOLocal {
 //					"AND pee.id_examen in ("+generateInClauseFromList(examenes, 0)+");";
 //		System.out.println(query);
 		
-		List<Object[]> lista = em.createNativeQuery(
-					"SELECT p.id, p.barrio, p.direccion, p.nombre, p.rangohorario "+ 
+		List<ProveedorExamen> ret = new ArrayList<ProveedorExamen>();
+		if (examenes != null) {
+			List<Object[]> lista = em.createNativeQuery(
+					"SELECT p.id, p.nombre, p.direccion, p.barrio, p.rangohorario "+ 
 					"FROM proveedor p INNER JOIN proveedorexamen_examen pee ON pee.id_proveedor = p.id "+
 					"WHERE p.proveedor_tipo = 'EXAMEN' "+
 					"AND pee.id_examen in ("+generateInClauseFromList(examenes, 0)+");").getResultList();
-		List<ProveedorExamen> ret = new ArrayList<ProveedorExamen>();
-		for (Object[] pe : lista) {
-			ret.add(new ProveedorExamen(Integer.parseInt(pe[0].toString()),
-										pe[1].toString(),
-										pe[2].toString(),
-										pe[3].toString(),
-										pe[4].toString()));
+		
+			for (Object[] pe : lista) {
+				ret.add(new ProveedorExamen(Integer.parseInt(pe[0].toString()), 
+											pe[1].toString(), 
+											pe[2].toString(), 
+											pe[3].toString(), 
+											pe[4].toString()));
+			}
 		}
 		return ret;
 		

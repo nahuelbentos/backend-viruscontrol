@@ -3,16 +3,25 @@ package uy.viruscontrol.utils;
 import java.io.Serializable;
 import java.util.List;
 
+import uy.viruscontrol.model.entities.Sintoma;
+
 public class VisitaPendiente implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	private int id;
 	private String nombre;
 	private String apellido;
 	private String direccion;
 	private String fecha;
-	private List<String> sintomas;
+	private List<Sintoma> sintomas;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getFecha() {
 		return fecha;
 	}
@@ -37,10 +46,10 @@ public class VisitaPendiente implements Serializable{
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public List<String> getSintomas() {
+	public List<Sintoma> getSintomas() {
 		return sintomas;
 	}
-	public void setSintomas(List<String> sintomas) {
+	public void setSintomas(List<Sintoma> sintomas) {
 		this.sintomas = sintomas;
 	}
 	public VisitaPendiente() {

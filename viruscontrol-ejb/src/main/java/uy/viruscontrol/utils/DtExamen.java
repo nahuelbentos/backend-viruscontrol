@@ -6,6 +6,7 @@ public class DtExamen implements Serializable {
 	private static final long serialVersionUID = 4307061725748956684L;
 	
 	private int id;
+	private String nombre;
 	private int idEnfermedad;
 	private String nombreEnfermedad;
 	
@@ -13,9 +14,10 @@ public class DtExamen implements Serializable {
 		super();
 	}
 
-	public DtExamen(int id, int idEnfermedad, String nombreEnfermedad) {
+	public DtExamen(int id, String nombre, int idEnfermedad, String nombreEnfermedad) {
 		super();
 		this.id = id;
+		this.setNombre(nombre);
 		this.idEnfermedad = idEnfermedad;
 		this.nombreEnfermedad = nombreEnfermedad;
 	}
@@ -42,6 +44,14 @@ public class DtExamen implements Serializable {
 
 	public void setNombreEnfermedad(String nombreEnfermedad) {
 		this.nombreEnfermedad = nombreEnfermedad;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 

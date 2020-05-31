@@ -22,7 +22,7 @@ public class FuenteDeDatos implements Serializable {
 	@Column
 	private String url;
 	
-	
+	private boolean deleted;
 	
 	public FuenteDeDatos() {
 		super();
@@ -55,4 +55,16 @@ public class FuenteDeDatos implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	
 }

@@ -66,6 +66,6 @@ public class Examen implements Serializable {
 	}
 	
 	public DtExamen getDt() {
-		return new DtExamen(this.id, this.enfermedad.getId(), this.enfermedad.getNombre());
+		return new DtExamen(this.id, this.nombre, this.enfermedad.getId(), this.enfermedad.getNombre());
 	}
 }
