@@ -5,8 +5,33 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
 
+
 <ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
 	<ui:define name="title">
+	 <style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+     
+    .ui-datatable {
+        margin-bottom: 25px
+    }
+     
+    .ui-datatable .ui-datatable-footer {
+        text-align:left;
+    }
+     
+    .ui-datalist ul {
+        padding: 0 0 0 10px;
+        margin: 5px 0;
+    }
+     
+    .ui-datatable .ui-button-icon-only .ui-button-text {
+        padding: 0;
+        line-height: 1.2;
+    }
+</style>		
+	
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	<ui:define name="content">
@@ -18,8 +43,10 @@
 				  <a href="ListaMedicos.xhtml">Medicos</a>
 				    <a href="ListaGerentes.xhtml">Gerentes</a>
 				     <a href="ListaAdministradores.xhtml">Administradores</a>
-				<p:dataTable id="a" value="#{GestorUsuariosView.mostrarCiudadanos()}" var="p">
-			
+				    
+				
+				<p:dataTable id="checkboxDT" value="#{GestorUsuariosView.mostrarCiudadanos()}" var="p" selection="#{GestorUsuariosView.ciudadanoSeleccionado}" rowKey="#{p.idUsuario}">
+				<p:column selectionMode="single" style="width:16px;text-align:center"/>
 				<p:column headerText="Nombre" >
 					<p:outputLabel value="#{p.nombre}"/>
 				</p:column>
@@ -32,7 +59,49 @@
 				<p:column headerText="Correo" >
 					<p:outputLabel value="#{p.correo}"/>
 				</p:column>
+				<p:column headerText="Nacionalidad" >
+					<p:outputLabel value="#{p.nacionalidad}"/>
+				</p:column>
+				<p:column headerText="User Name" >
+					<p:outputLabel value="#{p.username}"/>
+				</p:column>
+				<p:column headerText="fecha de nacimiento" >
+					<p:outputLabel value="#{p.fechaNacimiento.time}"/>
+				</p:column>
 				
+				 <f:facet name="footer">
+				 
+				 
+				 <p>Nombre</p>
+			
+				  <p:inputText  id="Nombre" value="#{GestorUsuariosView.nombre}"/>
+				  	<br/>
+				  		<br/>
+				  	 <p>Apellido</p>
+				  	 <p:inputText  id="Apellido" value="#{GestorUsuariosView.apellido}"/>
+				  	<br/>
+				  	<br/>
+				  	 <p>Correo</p>
+				  	 <p:inputText  id="Correo" value="#{GestorUsuariosView.correo}"/>
+				  	<br/>
+				  	<br/>
+				  	 <p>Direccion</p>
+				  	 <p:inputText  id="direccion" value="#{GestorUsuariosView.direccion}"/>
+				  	<br/>
+				  	<br/>
+					 <p>Nacionalidad</p>
+				  	 <p:inputText  id="nacionalidad" value="#{GestorUsuariosView.nacionalidad}"/>
+				  	<br/>	
+				  	<br/>
+				  	<p>UserName</p>
+				  	 <p:inputText  id="username" value="#{GestorUsuariosView.userName}"/>
+				  	<br/>
+				  	<br/>
+				  	<p>fecha</p>
+				  	 <p:calendar id="fecha" value="#{GestorUsuariosView.fecha}"/> 
+				  	<br/>
+            <p:commandButton action="#{GestorUsuariosView.editarCiudadano()}" value="EDITAR" update="checkboxDT"/>
+        </f:facet>
 				</p:dataTable>
 				
 			<!-- 	<h:outputText value="Ciudadanos" />
