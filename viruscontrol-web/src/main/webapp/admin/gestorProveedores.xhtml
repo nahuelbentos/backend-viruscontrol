@@ -50,6 +50,16 @@
 				<p:outputLabel for="RangoHorarioProveedor" value="Rango Horario" />
 				<p:inputText id="RangoHorarioProveedor"
 					value="#{GestorProveedorView.rangoHorario}" required="true"/>
+					
+				<p:outputLabel for="@next" value="Proveedor Externo" />
+				<p:selectOneMenu id="PerifericoRecurso"
+					value="#{GestorProveedorView.codigoPeriferico}"
+					style="width:150px" required="false">
+					<f:selectItem itemLabel="Seleccione Proveedor" itemValue="" />
+					<f:selectItems value="#{GestorProveedorView.proveedoresRecursosPeriferico}"
+					var="provRec" itemLabel="#{provRec}" itemValue="#{provRec.id}"/>
+				</p:selectOneMenu>
+				
 
 				<p:commandButton action="#{GestorProveedorView.agregarProveedor()}"
 					value="Alta"
@@ -129,6 +139,10 @@
 								placeholder="#{p.rangoHorario}"></p:inputText>
 						</f:facet>
 					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column5" headerText="Proveedor Externo">
+						<h:outputText value="#{p.codigoPeriferico}" />
 				</p:column>
 
 				<p:column>

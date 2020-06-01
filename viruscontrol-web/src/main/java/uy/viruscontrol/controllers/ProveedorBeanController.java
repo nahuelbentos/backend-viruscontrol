@@ -9,15 +9,17 @@ import javax.naming.NamingException;
 
 
 import uy.viruscontrol.bussines.interfaces.ProveedorBeanRemote;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecursoRemote;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.model.entities.ProveedorRecursos;
 
 public class ProveedorBeanController {
 
-private static ProveedorBeanRemote proveedorBeanRemote = lookupRemoteProveedorBean();
+	private static ProveedorBeanRemote proveedorBeanRemote = lookupRemoteProveedorBean();
+	private static ServiceAgentProveedorRecursoRemote serviceAgentProveedorRecursoRemote = lookupRemoteServiceAgentProveedorRecursos();
 	
-	public static boolean crearProveedor(int tipo, String nombreProveedor, String direccion, String barrio, String rangoHorario) {
-		return proveedorBeanRemote.nuevoProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario);
+	public static boolean crearProveedor(int tipo, String nombreProveedor, String direccion, String barrio, String rangoHorario, String codigoPeriferico) {
+		return proveedorBeanRemote.nuevoProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario, codigoPeriferico);
 	}
 	
 	public static List<ProveedorExamen> obtenerProveedoresExamenes(){
@@ -44,6 +46,10 @@ private static ProveedorBeanRemote proveedorBeanRemote = lookupRemoteProveedorBe
 		return proveedorBeanRemote.eliminarProveedorExamenes(proveedorExamen);
 	}
 	
+	public static List<ProveedorRecursos> obtenerProveedoresPeriferico(){
+		return serviceAgentProveedorRecursoRemote.getProveedoresPeriferico();
+	}
+	
 	
 	private static ProveedorBeanRemote lookupRemoteProveedorBean(){
 		Properties props = new Properties();
@@ -56,6 +62,23 @@ private static ProveedorBeanRemote proveedorBeanRemote = lookupRemoteProveedorBe
 			
 			String jndiName = "ejb:viruscontrol/viruscontrol-ejb/ProveedorBean!uy.viruscontrol.bussines.interfaces.ProveedorBeanRemote";
 			return (ProveedorBeanRemote)ctx.lookup(jndiName);
+		} catch (NamingException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	private static ServiceAgentProveedorRecursoRemote lookupRemoteServiceAgentProveedorRecursos(){
+		Properties props = new Properties();
+		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");  
+		props.put(Context.PROVIDER_URL,"http-remoting://localhost:8080");
+		
+		Context ctx;
+		try {
+			ctx = new InitialContext(props);
+			
+			String jndiName = "ejb:viruscontrol/viruscontrol-ejb/ServiceAgentProveedorRecurso!uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecursoRemote";
+			return (ServiceAgentProveedorRecursoRemote)ctx.lookup(jndiName);
 		} catch (NamingException e) {
 			e.printStackTrace();
 			return null;
