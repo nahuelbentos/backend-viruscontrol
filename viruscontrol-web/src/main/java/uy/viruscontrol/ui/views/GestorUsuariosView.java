@@ -30,6 +30,9 @@ public class GestorUsuariosView implements Serializable {
 	private List<Gerente> gerentes;
 	private List<Administrador> administradores;
 	private Ciudadano ciudadanoSeleccionado;
+	private Medico medicoSeleccionado;
+	private Gerente gerenteSeleccionado;
+	private Administrador adminSeleccionado;
 	private String nombre;
 	private String apellido;
 	private String correo;
@@ -71,7 +74,7 @@ public class GestorUsuariosView implements Serializable {
 public void editarCiudadano() {
 	if(ciudadanoSeleccionado!=null) {
 		System.out.println("usuario seleccionado "+ciudadanoSeleccionado.getNombre());
-	}
+	
 	
 	if(nombre!=null) {
 		System.out.println("nombre que escribio es "+nombre);
@@ -86,16 +89,85 @@ public void editarCiudadano() {
 		UsuarioBeanController.editarCiudadano(ciudadanoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null);
 	}
 	
+	}
 	
 	
 }
 
+public void editarMedico() {
+	if(medicoSeleccionado!=null) {
+		
+	
+	if(fecha!=null) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha);
+		System.out.println(calendar.getTime());
+		UsuarioBeanController.editarMedico(medicoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar);
+		
+	}else {
+		UsuarioBeanController.editarMedico(medicoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null);
+	}
+	}
+}
+
+
+public void editarGerente() {
+	if(gerenteSeleccionado!=null) {
+		
+	
+	if(fecha!=null) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha);
+		System.out.println(calendar.getTime());
+		UsuarioBeanController.editarGerente(gerenteSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar,password);
+		
+	}else {
+		UsuarioBeanController.editarGerente(gerenteSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null,password);
+	}
+	}
+}
+
+public void editarAdmin() {
+	if(adminSeleccionado!=null) {
+		
+	
+	if(fecha!=null) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha);
+		System.out.println(calendar.getTime());
+		UsuarioBeanController.editarAdmin(adminSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar,password);
+		
+	}else {
+		UsuarioBeanController.editarAdmin(adminSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null,password);
+	}
+	}
+}
 
 
 
+public Administrador getAdminSeleccionado() {
+	return adminSeleccionado;
+}
 
+public void setAdminSeleccionado(Administrador adminSeleccionado) {
+	this.adminSeleccionado = adminSeleccionado;
+}
 
+public Gerente getGerenteSeleccionado() {
+	return gerenteSeleccionado;
+}
 
+public void setGerenteSeleccionado(Gerente gerenteSeleccionado) {
+	this.gerenteSeleccionado = gerenteSeleccionado;
+}
+
+public Medico getMedicoSeleccionado() {
+	return medicoSeleccionado;
+}
+
+public void setMedicoSeleccionado(Medico medicoSeleccionado) {
+	this.medicoSeleccionado = medicoSeleccionado;
+}
 
 public Date getFecha() {
 	return fecha;
