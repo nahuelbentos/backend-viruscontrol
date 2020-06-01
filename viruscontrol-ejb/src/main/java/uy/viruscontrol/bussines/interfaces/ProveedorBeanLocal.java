@@ -10,10 +10,13 @@ import uy.viruscontrol.model.entities.ProveedorRecursos;
 @Local
 public interface ProveedorBeanLocal {
 
-	boolean nuevoProveedor(int tipo, String Nombre, String direccion, String barrio, String rangoHorario);
+	boolean nuevoProveedor(int tipo,String nombre,String direccion,String barrio,String rangoHorario, String codigoPeriferico);
 
 	List<ProveedorRecursos> obtenerProveedoresRecursos();
+	
 	List<ProveedorExamen> obtenerProveedoresExamenes();
+	
 	boolean actualizarProveedorExamen(ProveedorExamen proveedorExamen);
+	
 	boolean actualizarProveedorRecursos(ProveedorRecursos proveedorRecurso);
 }

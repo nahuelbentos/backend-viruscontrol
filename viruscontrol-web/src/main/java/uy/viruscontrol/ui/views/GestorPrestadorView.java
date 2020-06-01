@@ -121,14 +121,14 @@ public class GestorPrestadorView implements Serializable{
 
 	public void agregarPrestador() {
 		
-		
+		/*
 		System.out.println(rucaf);
 		for(PrestadoraSalud psRucaf : prestadorasRucaf) {
 			if(psRucaf.getNombre().equals(rucaf)) {
 				 idRucaf = psRucaf.getId();
 			}
 		}
-		
+		*/
 		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador, this.idRucaf);
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Prestadora de nombre "+ this.nombrePrestador +" creada."));

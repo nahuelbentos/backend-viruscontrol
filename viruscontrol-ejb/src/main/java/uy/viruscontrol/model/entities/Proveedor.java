@@ -117,7 +117,16 @@ public abstract class Proveedor implements Serializable {
 		if (id != other.id)
 			return false;
 		return true;
+		
+		
 	}
+
+	@Override
+	public String toString() {
+		return id + " - " + nombre;
+	}
+
+	
 	
 	
 

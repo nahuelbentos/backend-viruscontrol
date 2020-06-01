@@ -24,12 +24,13 @@
 					value="#{GestorPrestadorView.nombrePrestador}" required="true"/>
 
 				
-				<p:outputLabel for="@next" value="Rucaf" />
+				<p:outputLabel for="@next" value="Prestadora externa" />
 				<p:selectOneMenu id="Rucaf"
-					value="#{GestorPrestadorView.rucaf}"
+					value="#{GestorPrestadorView.idRucaf}"
 					style="width:150px" required="true">
 					<f:selectItem itemLabel="Seleccione Prestadora" itemValue="" />
-					<f:selectItems value="#{GestorPrestadorView.prestadorasRucaf}" />
+					<f:selectItems value="#{GestorPrestadorView.prestadorasRucaf}"
+					var="prestRucaf" itemLabel="#{prestRucaf}" itemValue="#{prestRucaf.id}"/>
 				</p:selectOneMenu>
 
 
