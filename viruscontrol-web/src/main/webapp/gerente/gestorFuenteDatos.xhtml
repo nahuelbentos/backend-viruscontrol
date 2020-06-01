@@ -10,8 +10,31 @@
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	<ui:define name="content">
-		<h:form>
-			<h:outputText value="ESTAS EN EL HOME CON LA ESTRUCTURA DEFINIDA" />
+		<h:form id="form">
+			<h4 style="text-align: left">Asociar fuente de datos a enfermedad</h4>
+			
+			<p:growl id="msg"/>
+			<p:panelGrid id="panel" columns="1" layout="grid"
+				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+				contentStyleClass="p-align-baseline ui-fluid">
+
+				<p:outputLabel for="@next" value="Enfermedad" />
+				<p:selectOneMenu id="Enfermedad"
+					value="#{GestorEnfermedadView.nombreEnfermedad}"
+					style="width:150px" required="true">
+					<f:selectItem itemLabel="Seleccione Enfermedad" itemValue="" />
+					<f:selectItems
+						value="#{GestorEnfermedadView.enfermedades}" />
+				</p:selectOneMenu>
+				
+
+
+				<p:commandButton
+					action="#{GestorEnfermedadView.aprobarEnfermedad()}"
+					value="Aprobar" 
+					update="form" />
+
+			</p:panelGrid>
 		</h:form>
 	</ui:define>
  
