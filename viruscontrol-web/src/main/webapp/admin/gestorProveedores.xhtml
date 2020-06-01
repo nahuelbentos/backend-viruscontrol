@@ -54,7 +54,7 @@
 				<p:outputLabel for="@next" value="Proveedor Externo" />
 				<p:selectOneMenu id="PerifericoRecurso"
 					value="#{GestorProveedorView.codigoPeriferico}"
-					style="width:150px" required="true">
+					style="width:150px" required="false">
 					<f:selectItem itemLabel="Seleccione Proveedor" itemValue="" />
 					<f:selectItems value="#{GestorProveedorView.proveedoresRecursosPeriferico}"
 					var="provRec" itemLabel="#{provRec}" itemValue="#{provRec.id}"/>
