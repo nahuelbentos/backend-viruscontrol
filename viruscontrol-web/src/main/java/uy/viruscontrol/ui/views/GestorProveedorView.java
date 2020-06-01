@@ -30,7 +30,6 @@ public class GestorProveedorView  implements Serializable{
 	private String barrio;
 	private String rangoHorario;
 	private String codigoPeriferico;
-	private String nombreProvRecPeriferico;
 	
 	private ProveedorRecursos proveedorRecurso;
 	private ProveedorExamen proveedorExamen;
@@ -129,15 +128,6 @@ public class GestorProveedorView  implements Serializable{
 		this.codigoPeriferico = codigoPeriferico;
 	}
 
-	
-	public String getNombreProvRecPeriferico() {
-		return nombreProvRecPeriferico;
-	}
-
-	public void setNombreProvRecPeriferico(String nombreProvRecPeriferico) {
-		this.nombreProvRecPeriferico = nombreProvRecPeriferico;
-	}
-
 	public List<ProveedorRecursos> getProveedoresRecursosPeriferico() {
 		return proveedoresRecursosPeriferico;
 	}
@@ -148,14 +138,7 @@ public class GestorProveedorView  implements Serializable{
 
 	public void agregarProveedor() {
 		
-		System.out.println(nombreProvRecPeriferico);
-		/*
-		for(ProveedorRecursos pvRrec : proveedoresRecursosPeriferico) {
-			if(pvRrec.getNombre().equals(nombreProvRecPeriferico)) {
-				 codigoPeriferico = pvRrec.getCodigoPeriferico();
-			}
-		}
-		*/
+		
 	///ALTA	
 		boolean ok = ProveedorBeanController.crearProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario, codigoPeriferico);
 		if (ok) {
@@ -168,6 +151,8 @@ public class GestorProveedorView  implements Serializable{
 		else {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error Proveedor no creado, verifique"));
 		}
+		
+		this.cleanForm();
 	}
 	
 	
@@ -247,4 +232,14 @@ public class GestorProveedorView  implements Serializable{
 					return "gestorProveedores";
 				}
 	
+				public void cleanForm() {
+					
+					setTipo(0);
+					setNombreProveedor(null);
+					setDireccion(null);
+					setBarrio(null);
+					setRangoHorario(null);
+					setCodigoPeriferico(null);
+					
+				}
 }

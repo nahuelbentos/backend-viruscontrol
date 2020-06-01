@@ -93,6 +93,8 @@ public class GestorRecursosView {
 			
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo dar de alta el Tipo de Recurso, verifique."));
 		}
+		
+		this.cleanForm();
 	}
 
 	public void agregarNuevoRecurso() {
@@ -107,6 +109,16 @@ public class GestorRecursosView {
 			
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo dar de alta el Recurso, verifique."));
 		}
+		
+		this.cleanForm();
+	}
+	
+	public void cleanForm() {
+		
+		setNombreTipoRecurso(null);
+		setDescripcionTipoRecurso(null);
+		setNombreRecurso(null);
+		setNombreTipoRecursoDropDown(null);
 	}
 
 }
