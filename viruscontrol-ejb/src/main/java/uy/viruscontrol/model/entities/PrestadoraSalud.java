@@ -68,6 +68,11 @@ public class PrestadoraSalud implements Serializable {
 		this.idPrestadoraRucaf = idPrestadoraRucaf;
 	}
 
+	@Override
+	public String toString() {
+		return nombre;
+	}
+
 	
 	
 	
