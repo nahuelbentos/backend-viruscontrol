@@ -2,6 +2,7 @@ package uy.viruscontrol.model.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -10,6 +11,18 @@ import javax.persistence.Entity;
 public class ProveedorRecursos extends Proveedor implements Serializable {
 	private static final long serialVersionUID = -1828786797063019091L;
 	
+	@Column(name="codigo_periferico")
+	private String codigoPeriferico;
+	
+	
+	public String getCodigoPeriferico() {
+		return codigoPeriferico;
+	}
+
+	public void setCodigoPeriferico(String codigoPeriferico) {
+		this.codigoPeriferico = codigoPeriferico;
+	}
+
 	public ProveedorRecursos() {
 		super();
 	}
