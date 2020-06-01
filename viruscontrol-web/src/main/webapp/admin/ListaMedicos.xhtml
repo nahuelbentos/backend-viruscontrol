@@ -32,7 +32,15 @@
 				<p:column headerText="Correo" >
 					<p:outputLabel value="#{m.correo}"/>
 				</p:column>
-				
+				<p:column headerText="Nacionalidad" >
+					<p:outputLabel value="#{m.nacionalidad}"/>
+				</p:column>
+				<p:column headerText="User Name" >
+					<p:outputLabel value="#{m.username}"/>
+				</p:column>
+				<p:column headerText="fecha de nacimiento" >
+					<p:outputLabel value="#{m.fechaNacimiento.time}"/>
+				</p:column>
 				</p:dataTable>
 				
 			<!-- 	<h:outputText value="Ciudadanos" />

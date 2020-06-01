@@ -2,6 +2,8 @@ package uy.viruscontrol.ui.views;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -29,6 +31,14 @@ public class GestorUsuariosView implements Serializable {
 	private List<Administrador> administradores;
 	private Ciudadano ciudadanoSeleccionado;
 	private String nombre;
+	private String apellido;
+	private String correo;
+	private String direccion;
+	private String userName;
+	private String nacionalidad;
+	private String password;
+	private Date fecha;
+	
 	public List<Gerente> mostrarGerentes(){
 	
 		
@@ -58,7 +68,7 @@ public class GestorUsuariosView implements Serializable {
 			return UsuarioBeanController.mostrarMedicos();
 		}
 
-public void editarUsuario() {
+public void editarCiudadano() {
 	if(ciudadanoSeleccionado!=null) {
 		System.out.println("usuario seleccionado "+ciudadanoSeleccionado.getNombre());
 	}
@@ -66,6 +76,17 @@ public void editarUsuario() {
 	if(nombre!=null) {
 		System.out.println("nombre que escribio es "+nombre);
 	}
+	if(fecha!=null) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha);
+		System.out.println(calendar.getTime());
+		UsuarioBeanController.editarCiudadano(ciudadanoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar);
+		
+	}else {
+		UsuarioBeanController.editarCiudadano(ciudadanoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null);
+	}
+	
+	
 	
 }
 
@@ -74,6 +95,63 @@ public void editarUsuario() {
 
 
 
+
+
+public Date getFecha() {
+	return fecha;
+}
+
+public void setFecha(Date fecha) {
+	this.fecha = fecha;
+}
+
+public String getNacionalidad() {
+	return nacionalidad;
+}
+
+public void setNacionalidad(String nacionalidad) {
+	this.nacionalidad = nacionalidad;
+}
+
+public String getPassword() {
+	return password;
+}
+
+public void setPassword(String password) {
+	this.password = password;
+}
+
+public String getApellido() {
+	return apellido;
+}
+
+public void setApellido(String apellido) {
+	this.apellido = apellido;
+}
+
+public String getCorreo() {
+	return correo;
+}
+
+public void setCorreo(String correo) {
+	this.correo = correo;
+}
+
+public String getDireccion() {
+	return direccion;
+}
+
+public void setDireccion(String direccion) {
+	this.direccion = direccion;
+}
+
+public String getUserName() {
+	return userName;
+}
+
+public void setUserName(String userName) {
+	this.userName = userName;
+}
 
 public String getNombre() {
 	return nombre;
