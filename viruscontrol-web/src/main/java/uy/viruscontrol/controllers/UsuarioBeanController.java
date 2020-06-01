@@ -41,6 +41,18 @@ public class UsuarioBeanController {
 		 iUsuarioBean.editarCiudadano(ciudadanoId, nombre, apellido, correo, direccion, nacionalidad, userName, fecha);
 	}
 	
+	public static void editarMedico(int medicoId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha) {
+		 iUsuarioBean.editarMedico(medicoId, nombre, apellido, correo, direccion, nacionalidad, userName, fecha);
+	}
+	public static void editarGerente(int gerenteId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
+		 iUsuarioBean.editarGerente(gerenteId, nombre, apellido, correo, direccion, nacionalidad, userName, fecha, password);
+	}
+	public static void editarAdmin(int adminId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
+		 iUsuarioBean.editarAdmin(adminId, nombre, apellido, correo, direccion, nacionalidad, userName, fecha, password);
+	}
+	
+	
+	
 	private static UsuarioBeanRemote lookupRemoteUsuarioBean(){
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");  
