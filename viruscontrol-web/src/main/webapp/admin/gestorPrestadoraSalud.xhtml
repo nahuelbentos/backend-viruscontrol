@@ -23,6 +23,16 @@
 				<p:inputText id="NombrePrestador"
 					value="#{GestorPrestadorView.nombrePrestador}" required="true"/>
 
+				
+				<p:outputLabel for="@next" value="Rucaf" />
+				<p:selectOneMenu id="Rucaf"
+					value="#{GestorPrestadorView.rucaf}"
+					style="width:150px" required="true">
+					<f:selectItem itemLabel="Seleccione Prestadora" itemValue="" />
+					<f:selectItems value="#{GestorPrestadorView.prestadorasRucaf}" />
+				</p:selectOneMenu>
+
+
 				<p:commandButton action="#{GestorPrestadorView.agregarPrestador()}"
 					value="Alta"
 					update="form"/>
@@ -48,7 +58,7 @@
 					<h:selectBooleanCheckbox value="#{p.deleted}" />
 				</p:column>
 				
-				<p:column id="column1" headerText="Actualizar Datos Prestadora">
+				<p:column id="column1" headerText="Nombre Prestadora Local">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{p.nombre}" />
@@ -56,9 +66,14 @@
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{p.nombre}"
-								placeholder="#{p.nombre}"></p:inputText>
+								placeholder="#{p.nombre}" />
 						</f:facet>
 					</p:cellEditor>
+				</p:column>
+				
+				
+				<p:column id="column2" headerText="Prestadora Rucaf">
+						<h:outputText value="#{p.idPrestadoraRucaf}" />
 				</p:column>
 
 				<p:column>
