@@ -10,6 +10,8 @@
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	<ui:define name="content">
+	
+	<h:panelGroup layout="block" id="wrapper">
 		<h:form id="form">
 			<h4 style="text-align: left">Asociar fuente de datos a enfermedad</h4>
 			
@@ -20,22 +22,74 @@
 
 				<p:outputLabel for="@next" value="Enfermedad" />
 				<p:selectOneMenu id="Enfermedad"
-					value="#{GestorEnfermedadView.seleccionada}"
+					value="#{GestorFuenteDatosEnfermedadView.enfSeleccionada}"
 					style="width:150px" required="true">
+					<p:ajax event="change" update="fuenteDeDatosPorEnfermedadList" listener="#{GestorFuenteDatosEnfermedadView.refrescarFuentesPorEnfermedad()}" />
 					<f:selectItem itemLabel="Seleccione Enfermedad" itemValue="" />
 					<f:selectItems value="#{GestorEnfermedadView.enfermedades}" var="enf"
 									itemLabel="#{enf}" itemValue="#{enf.id}"/>
 				</p:selectOneMenu>
 				
-
+				<p:outputLabel for="@next" value="Fuente de datos" />
+				<p:selectOneMenu id="FuenteDeDatos"
+					value="#{GestorFuenteDatosEnfermedadView.fuenteSeleccionada}"
+					style="width:150px" required="true">
+					<f:selectItem itemLabel="Seleccione fuente de datos" itemValue="" />
+					<f:selectItems value="#{GestorFuenteDatosEnfermedadView.fuentes}" var="fuen"
+									itemLabel="#{fuen.codigo}" itemValue="#{fuen.id}"/>
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="url" value="URL Fuente de datos" />
+				<p:inputText id="url"
+					value="#{GestorFuenteDatosEnfermedadView.url}" placeholder="URL Fuente de datos (vacío para heredar)" />
+					
+				<p:outputLabel for="filtros" value="Filtros" />
+				<p:inputText id="filtros"
+					value="#{GestorFuenteDatosEnfermedadView.filtros}" placeholder="Filtros" />
+				
 
 				<p:commandButton
-					action="#{GestorEnfermedadView.asociarEnfermedad()}"
-					value="Aprobar" 
-					update="form" />
+					action="#{GestorFuenteDatosEnfermedadView.asociarEnfermedad()}"
+					update="wrapper" 
+					value="Agregar">
+					<p:ajax oncomplete="updateDatatable()" />
+				</p:commandButton>
 
 			</p:panelGrid>
 		</h:form>
+		
+		<h4>Listado de Fuentes de datos por enfermedad</h4>
+		<p:growl id="growl" sticky="true"/>
+		<p:remoteCommand name="updateDatatable" update="fuenteDeDatosPorEnfermedadList" />
+		<p:dataTable id="fuenteDeDatosPorEnfermedadList" var="fuentePorEnf"
+			value="#{GestorFuenteDatosEnfermedadView.fuentesEnfermedad}"
+			widgetVar="fuenteDeDatosPorEnfermedadTable1">
+			
+			<p:column headerText="Id" sortBy="#{fuentePorEnf.id}">
+				<h:outputText value="#{fuentePorEnf.id}" />
+			</p:column>
+
+			<p:column filterBy="#{fuentePorEnf.url}" headerText="URL" 
+				filterMatchMode="contains">
+				<h:outputLink value="#{fuentePorEnf.url}" target="_blank">
+					<h:outputText value="#{fuentePorEnf.url}"/>
+				</h:outputLink>
+			</p:column>
+
+			<p:column filterBy="#{fuentePorEnf.filtros}" headerText="Filtros" 
+				filterMatchMode="contains">
+				<h:outputText value="#{fuentePorEnf.filtros}" />
+			</p:column>
+			
+			<p:column>
+				<p:commandButton id="edit" actionListener = "#{GestorFuenteDatosEnfermedadView.deleteListener}" value="Eliminar">
+	      			<f:attribute name="idEliminar" value="#{fuentePorEnf.id}"/>
+	      			<p:ajax oncomplete="updateDatatable()" />
+	      		</p:commandButton>
+			</p:column>
+
+		</p:dataTable>
+	</h:panelGroup>	
 	</ui:define>
  
 </ui:composition>
