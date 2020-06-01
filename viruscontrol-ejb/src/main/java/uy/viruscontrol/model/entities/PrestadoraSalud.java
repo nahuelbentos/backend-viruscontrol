@@ -20,6 +20,8 @@ public class PrestadoraSalud implements Serializable {
 	
 	@Column
 	private String nombre;
+	@Column(name="\"id_prestadora_rucaf\"")
+	private int idPrestadoraRucaf;
 	
 	private boolean deleted;
 	
@@ -31,6 +33,7 @@ public class PrestadoraSalud implements Serializable {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		
 	}
 
 	public int getId() {
@@ -57,5 +60,15 @@ public class PrestadoraSalud implements Serializable {
 		this.deleted = deleted;
 	}
 
+	public int getIdPrestadoraRucaf() {
+		return idPrestadoraRucaf;
+	}
+
+	public void setIdPrestadoraRucaf(int idPrestadoraRucaf) {
+		this.idPrestadoraRucaf = idPrestadoraRucaf;
+	}
+
+	
+	
 	
 }

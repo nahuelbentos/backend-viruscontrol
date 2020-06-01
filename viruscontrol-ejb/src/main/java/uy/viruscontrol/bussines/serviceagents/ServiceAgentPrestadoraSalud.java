@@ -15,7 +15,7 @@ import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 @Stateless
 @Local(ServiceAgentPrestadoraSaludLocal.class)
-public class ServiceAgentPrestadoraSalud implements ServiceAgentPrestadoraSaludLocal {
+public class ServiceAgentPrestadoraSalud implements ServiceAgentPrestadoraSaludLocal, ServiceAgentPrestadoraSaludRemote {
 	private PerifericoPrestadoraSalud servicioPS;
 	private IWSPerifericoPrestadoraSalud clientePS;
 	private RucafService servicioRucaf;

@@ -35,11 +35,12 @@ public class PrestadorBeanTest extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
+		/*
 		System.out.println("creando prestadora carlitox");
 		prestadorBean.nuevoPrestador("carlitox");
 		System.out.println("creando prestadora alejo");
 		prestadorBean.nuevoPrestador("alejo");
+		*/
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 

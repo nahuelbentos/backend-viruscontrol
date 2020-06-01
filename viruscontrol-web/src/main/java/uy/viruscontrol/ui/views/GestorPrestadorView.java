@@ -31,7 +31,9 @@ public class GestorPrestadorView implements Serializable{
 		
 	//Datos Alta
 	private String nombrePrestador;
+	private String rucaf;
 	private List<PrestadoraSalud> prestadorasSalud;
+	private List<PrestadoraSalud> prestadorasRucaf;
 
 	private PrestadoraSalud prestadora;
 	
@@ -43,6 +45,8 @@ public class GestorPrestadorView implements Serializable{
 		prestadorasSalud = new ArrayList<PrestadoraSalud>();
 		prestadorasSalud = PrestadorBeanController.obtenerPrestadorasSalud();
 		
+		prestadorasRucaf = new ArrayList<PrestadoraSalud>();
+		prestadorasRucaf = PrestadorBeanController.obtenerPrestadorasRucaf();
 		
 	}
 	
@@ -63,7 +67,18 @@ public class GestorPrestadorView implements Serializable{
 	public void setPrestadorasSalud(List<PrestadoraSalud> prestadorasSalud) {
 		this.prestadorasSalud = prestadorasSalud;
 	}
+	
+	
 
+
+	public List<PrestadoraSalud> getPrestadorasRucaf() {
+		return prestadorasRucaf;
+	}
+
+
+	public void setPrestadorasRucaf(List<PrestadoraSalud> prestadorasRucaf) {
+		this.prestadorasRucaf = prestadorasRucaf;
+	}
 
 
 	public String getNombrePrestador() {
@@ -75,7 +90,16 @@ public class GestorPrestadorView implements Serializable{
 	}
 	
 	
-	
+	public String getRucaf() {
+		return rucaf;
+	}
+
+
+	public void setRucaf(String rucaf) {
+		this.rucaf = rucaf;
+	}
+
+
 	public UserManager getUserManager() {
 		return userManager;
 	}
@@ -86,7 +110,15 @@ public class GestorPrestadorView implements Serializable{
 
 	public void agregarPrestador() {
 		
-		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador);
+		int idRucaf = 0;
+		
+		for(PrestadoraSalud psRucaf : prestadorasRucaf) {
+			if(psRucaf.getNombre().equals(rucaf)) {
+				idRucaf = psRucaf.getId();
+			}
+		}
+		
+		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador, idRucaf);
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Prestadora de nombre "+ this.nombrePrestador +" creada."));
 		}
