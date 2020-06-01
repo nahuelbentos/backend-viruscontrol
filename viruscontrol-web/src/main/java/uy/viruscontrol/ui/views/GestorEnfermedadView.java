@@ -47,6 +47,8 @@ public class GestorEnfermedadView implements Serializable{
 	private List<String> enfermedadesNoAprobadas;
 	private String nombreEnfermedadNoAprobada;
 	
+	private int seleccionada;
+	
 	public GestorEnfermedadView() {
 		super();
 		
@@ -58,7 +60,7 @@ public class GestorEnfermedadView implements Serializable{
 			enfermedadesNoAprobadas=new ArrayList<String>();
 			for(Enfermedad enfermedad :EnfermedadBeanController.obtenerEnfermedadesNoAprobadas()) {
 				enfermedadesNoAprobadas.add(enfermedad.getNombre());
-			}	
+			}
 			
 			enfermedades=new ArrayList<Enfermedad>();
 			enfermedades = EnfermedadBeanController.obtenerEnfermedades();
@@ -200,6 +202,18 @@ public class GestorEnfermedadView implements Serializable{
 		}
 				
 		return opciones;
+	}
+	
+	public void asociarEnfermedad() {
+		System.out.println("Se ha seleccionado la enfermedad: "+this.seleccionada);
+	}
+
+	public int getSeleccionada() {
+		return seleccionada;
+	}
+
+	public void setSeleccionada(int seleccionada) {
+		this.seleccionada = seleccionada;
 	}
 	
 }

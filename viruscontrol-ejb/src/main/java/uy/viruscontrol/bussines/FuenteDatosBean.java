@@ -9,7 +9,10 @@ import javax.ejb.Stateless;
 
 import uy.viruscontrol.bussines.interfaces.FuenteDatosBeanRemote;
 import uy.viruscontrol.model.dao.interfaces.FuenteDeDatosDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.FuenteDeDatosEnfermedadDAOLocal;
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.FuenteDeDatos;
+import uy.viruscontrol.model.entities.FuenteDeDatosEnfermedad;
 /**
  * Session Bean implementation class FuenteDatosBean
  */
@@ -18,6 +21,7 @@ import uy.viruscontrol.model.entities.FuenteDeDatos;
 public class FuenteDatosBean implements FuenteDatosBeanRemote {
 
    @EJB FuenteDeDatosDAOLocal daoFuenteDatosLocal;
+   @EJB FuenteDeDatosEnfermedadDAOLocal daoFuenteEnfermedad;
    
    
     public FuenteDatosBean() {
@@ -106,6 +110,50 @@ public class FuenteDatosBean implements FuenteDatosBeanRemote {
 			return true;
 		}else {
 			System.out.println("Error, la Fuente de Datos no existe.");
+			return false;
+		}
+	}
+	
+	@Override
+	public List<FuenteDeDatosEnfermedad> obtenerTodosFuenteDeDatosEnfermedad() {
+		List<FuenteDeDatosEnfermedad> ret;
+		ret = daoFuenteEnfermedad.findAll();
+		if (ret != null)
+			return ret;
+		else
+			return new ArrayList<FuenteDeDatosEnfermedad>();
+	}
+	
+	@Override
+	public List<FuenteDeDatosEnfermedad> obtenerFuentesPorEnfermedad(Enfermedad enfermedad) {
+		List<FuenteDeDatosEnfermedad> ret;
+		ret = daoFuenteEnfermedad.findAllByEnfermedad(enfermedad);
+		if (ret != null)
+			return ret;
+		else
+			return new ArrayList<FuenteDeDatosEnfermedad>();
+	}
+
+	@Override
+	public boolean crearFuenteParaEnfermedad(FuenteDeDatosEnfermedad fuenteEnfermedad) {
+		try {
+			daoFuenteEnfermedad.persist(fuenteEnfermedad);
+			return true;
+		} catch (Exception e) {
+			//e.printStackTrace();
+			System.out.println("["+getClass().getCanonicalName()+"] Ocurrió un error al persistir. Habilitar la traza para mayor detalle.");
+			return false;
+		}
+	}
+
+	@Override
+	public boolean eliminarFuenteDeDatosEnfermedad(int idEliminar) {
+		try {
+			daoFuenteEnfermedad.delete(daoFuenteEnfermedad.findById(idEliminar));
+			return true;
+		} catch (Exception e) {
+//			e.printStackTrace();
+			System.out.println("["+getClass().getCanonicalName()+"] ERROR: No se pudo eliminar la fuente de datos de la enfermedad. Habilitar la traza para mas información");
 			return false;
 		}
 	}
