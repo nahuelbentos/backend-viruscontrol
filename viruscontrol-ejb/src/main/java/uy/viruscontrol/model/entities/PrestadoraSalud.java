@@ -70,7 +70,7 @@ public class PrestadoraSalud implements Serializable {
 
 	@Override
 	public String toString() {
-		return nombre;
+		return id + " - " + nombre;
 	}
 
 	

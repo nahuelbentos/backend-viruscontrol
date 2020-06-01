@@ -23,7 +23,7 @@ import uy.viruscontrol.utils.CaracteresDeEscapePersonalizados;
 
 @Stateless
 @LocalBean
-public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecursoLocal {
+public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecursoLocal,ServiceAgentProveedorRecursoRemote {
 
 	private static final String urlProvExRest = "http://localhost:8080/proveedores-recursos/rest/proveedor/";
 	private static ObjectMapper mapper;

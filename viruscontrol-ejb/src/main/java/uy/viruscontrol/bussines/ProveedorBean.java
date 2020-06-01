@@ -34,7 +34,7 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     //Funcion adaptada para que tome en cuenta que si el proveedor a dar de alta ya existe en la base, se fije si este esta eliminado o no
     //Si loo está, lo reactiva sino no hace anda dado que el mismo ya existe activo
     @Override
-    public boolean nuevoProveedor(int tipo,String nombre,String direccion,String barrio,String rangoHorario) {
+    public boolean nuevoProveedor(int tipo,String nombre,String direccion,String barrio,String rangoHorario, String codigoPeriferico) {
     	if(tipo==1) {
     		List<ProveedorRecursos> proveedoresRecurso=daoProveedorRecurso.findAll();
     		for(ProveedorRecursos pr:proveedoresRecurso) {
@@ -45,6 +45,7 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     	    		pr.setDireccion(direccion);
     	    		pr.setNombre(nombre);
     	    		pr.setRangoHorario(rangoHorario);
+    	    		pr.setCodigoPeriferico(codigoPeriferico);
     	    		
     	    		daoProveedorRecurso.merge(pr);
     				
@@ -62,6 +63,7 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     		p.setDireccion(direccion);
     		p.setNombre(nombre);
     		p.setRangoHorario(rangoHorario);
+    		p.setCodigoPeriferico(codigoPeriferico);
     		
     		daoProveedorRecurso.persist(p);
     	
@@ -77,6 +79,7 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     				pe.setDireccion(direccion);
     				pe.setNombre(nombre);
     				pe.setRangoHorario(rangoHorario);
+    				
     	    		
     	    		daoProveedorExamen.merge(pe);
     				
