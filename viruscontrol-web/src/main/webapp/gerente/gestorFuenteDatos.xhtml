@@ -20,17 +20,17 @@
 
 				<p:outputLabel for="@next" value="Enfermedad" />
 				<p:selectOneMenu id="Enfermedad"
-					value="#{GestorEnfermedadView.nombreEnfermedad}"
+					value="#{GestorEnfermedadView.seleccionada}"
 					style="width:150px" required="true">
 					<f:selectItem itemLabel="Seleccione Enfermedad" itemValue="" />
-					<f:selectItems
-						value="#{GestorEnfermedadView.enfermedades}" />
+					<f:selectItems value="#{GestorEnfermedadView.enfermedades}" var="enf"
+									itemLabel="#{enf}" itemValue="#{enf.id}"/>
 				</p:selectOneMenu>
 				
 
 
 				<p:commandButton
-					action="#{GestorEnfermedadView.aprobarEnfermedad()}"
+					action="#{GestorEnfermedadView.asociarEnfermedad()}"
 					value="Aprobar" 
 					update="form" />
 
