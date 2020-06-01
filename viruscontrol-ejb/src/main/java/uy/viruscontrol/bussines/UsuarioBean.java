@@ -2,12 +2,15 @@ package uy.viruscontrol.bussines;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.xml.bind.DatatypeConverter;
+
+import com.restfb.util.StringUtils;
 
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.UsuarioBeanLocal;
@@ -175,6 +178,176 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 		 return adminDAO.findAll();
 	    }
 	 
+	 @Override
+	 public void editarCiudadano(int ciudadanoId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha) {
+		 
+		 Ciudadano c=ciudadanoDAO.findById(ciudadanoId);
+		if (c!=null) {
+			
+		
+		 if(!( nombre==null  || nombre.isEmpty() ) ) {
+			 c.setNombre(nombre);
+		 }
+		 if(!( apellido==null  || apellido.isEmpty() ) ) {
+			 c.setApellido(apellido);
+		 }
+		 if(!( correo==null  || correo.isEmpty() ) ) {
+			 c.setCorreo(correo);
+		 }
+		 if(!( direccion==null  || direccion.isEmpty() ) ) {
+			 c.setDireccion(direccion);
+		 }
+		 if(!( nacionalidad==null  || nacionalidad.isEmpty() ) ) {
+			 c.setNacionalidad(nacionalidad);
+		 }
+		 if(!( userName==null  || userName.isEmpty() ) ) {
+			 c.setUsername(userName);
+		 }
+		 if( fecha!=null   ) {
+			c.setFechaNacimiento(fecha);
+		 }
+		 
+		 
+		 
+		 ciudadanoDAO.merge(c);
+		}
+	 }
+	 
+	 @Override
+	 public void editarMedico(int medicoId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha) {
+		 
+		Medico c=medicoDAO.findById(medicoId);
+		 
+		if (c!=null) {
+			
+			
+			 if(!( nombre==null  || nombre.isEmpty() ) ) {
+				 c.setNombre(nombre);
+			 }
+			 if(!( apellido==null  || apellido.isEmpty() ) ) {
+				 c.setApellido(apellido);
+			 }
+			 if(!( correo==null  || correo.isEmpty() ) ) {
+				 c.setCorreo(correo);
+			 }
+			 if(!( direccion==null  || direccion.isEmpty() ) ) {
+				 c.setDireccion(direccion);
+			 }
+			 if(!( nacionalidad==null  || nacionalidad.isEmpty() ) ) {
+				 c.setNacionalidad(nacionalidad);
+			 }
+			 if(!( userName==null  || userName.isEmpty() ) ) {
+				 c.setUsername(userName);
+			 }
+			 if( fecha!=null   ) {
+				c.setFechaNacimiento(fecha);
+			 }
+			 
+			 
+			 
+			 medicoDAO.merge(c);
+			}
+		 
+	 }
+	 
+	 @Override
+	 public void editarGerente(int gerenteId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
+		 
+		 Gerente c=gteDAO.findById(gerenteId);
+		 
+		 if (c!=null) {
+				
+				
+			 if(!( nombre==null  || nombre.isEmpty() ) ) {
+				 c.setNombre(nombre);
+			 }
+			 if(!( apellido==null  || apellido.isEmpty() ) ) {
+				 c.setApellido(apellido);
+			 }
+			 if(!( correo==null  || correo.isEmpty() ) ) {
+				 c.setCorreo(correo);
+			 }
+			 if(!( direccion==null  || direccion.isEmpty() ) ) {
+				 c.setDireccion(direccion);
+			 }
+			 if(!( nacionalidad==null  || nacionalidad.isEmpty() ) ) {
+				 c.setNacionalidad(nacionalidad);
+			 }
+			 if(!( userName==null  || userName.isEmpty() ) ) {
+				 c.setUsername(userName);
+			 }
+			 if( fecha!=null   ) {
+				c.setFechaNacimiento(fecha);
+			 }
+			 if( password!=null   ) {
+					try {
+						String hash=hashPassword(password);
+						c.setPassword(hash);
+					} catch (NoSuchAlgorithmException e) {
+						// TODO Auto-generated catch block
+						System.out.println("error al hashear password");
+						e.printStackTrace();
+					}
+				 }
+			 
+			 
+			 
+			gteDAO.merge(c);
+			}
+		 
+
+		 
+	 }
+	 
+	 
+@Override	 
+ public void editarAdmin(int adminId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
+		 
+		 Administrador c=adminDAO.findById(adminId);
+		 
+		 if (c!=null) {
+				
+				
+			 if(!( nombre==null  || nombre.isEmpty() ) ) {
+				 c.setNombre(nombre);
+			 }
+			 if(!( apellido==null  || apellido.isEmpty() ) ) {
+				 c.setApellido(apellido);
+			 }
+			 if(!( correo==null  || correo.isEmpty() ) ) {
+				 c.setCorreo(correo);
+			 }
+			 if(!( direccion==null  || direccion.isEmpty() ) ) {
+				 c.setDireccion(direccion);
+			 }
+			 if(!( nacionalidad==null  || nacionalidad.isEmpty() ) ) {
+				 c.setNacionalidad(nacionalidad);
+			 }
+			 if(!( userName==null  || userName.isEmpty() ) ) {
+				 c.setUsername(userName);
+			 }
+			 if( fecha!=null   ) {
+				c.setFechaNacimiento(fecha);
+			 }
+			 if( password!=null   ) {
+					try {
+						String hash=hashPassword(password);
+						c.setPassword(hash);
+					} catch (NoSuchAlgorithmException e) {
+						// TODO Auto-generated catch block
+						System.out.println("error al hashear password");
+						e.printStackTrace();
+					}
+				 }
+			 
+			 
+			 
+		adminDAO.merge(c);
+		}
 	 
 
+ 		}
+ 
+ 
+ 
 }

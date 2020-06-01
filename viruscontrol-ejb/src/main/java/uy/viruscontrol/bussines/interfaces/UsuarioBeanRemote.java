@@ -1,5 +1,6 @@
 package uy.viruscontrol.bussines.interfaces;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -22,5 +23,17 @@ public interface UsuarioBeanRemote {
 	List<Gerente> mostrarGerentes();
 	
 	List<Administrador> mostrarAdministradores();
+	
+	void editarCiudadano(int ciudadanoId, String nombre, String apellido, String correo, String direccion,
+			String nacionalidad, String userName, Calendar fecha);
+
+	void editarMedico(int medicoId, String nombre, String apellido, String correo, String direccion,
+			String nacionalidad, String userName, Calendar fecha);
+
+	void editarGerente(int medicoId, String nombre, String apellido, String correo, String direccion,
+			String nacionalidad, String userName, Calendar fecha, String password);
+
+	void editarAdmin(int adminId, String nombre, String apellido, String correo, String direccion, String nacionalidad,
+			String userName, Calendar fecha, String password);
 	
 }
