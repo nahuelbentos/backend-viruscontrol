@@ -23,9 +23,6 @@ import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.TipoEnfermedad;
 import uy.viruscontrol.model.entities.TipoRecurso;
 
-/**
- * Session Bean implementation class EnfermedadBean
- */
 @Stateful
 @LocalBean
 public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote {
@@ -37,11 +34,8 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
 	@EJB SintomaDAOLocal daoSintomaLocal;
 	@EJB TipoRecursoDAOLocal daoTipoRecursoLocal;
 	
-    /**
-     * Default constructor. 
-     */
     public EnfermedadBean() {
-        // TODO Auto-generated constructor stub
+    	super();
     }
     
     
@@ -104,7 +98,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     }
     //Caso de Uso crearEnfermedadInfecciosa
     public boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 
-    		String nombreAgente, List<Sintoma> sintomas, boolean aprobada) {
+    		String nombreAgente, List<Sintoma> sintomas, boolean aprobada, float distanciaContagio) {
     	
     	boolean altaOK=false;
     	
@@ -131,7 +125,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
 	        	
 	        	
 	        	//persisto enfermedad sin Sintomas y sin Tipo
-	        	Enfermedad enfermedad = new Enfermedad(nombreEnfermedad, false, nombreAgente, null, null,false);
+	        	Enfermedad enfermedad = new Enfermedad(nombreEnfermedad, false, nombreAgente, null, null,false, distanciaContagio);
 	        	daoEnfermedadLocal.persist(enfermedad);
 	        	
 	        	//Asocio la enfermedad con los sintomas

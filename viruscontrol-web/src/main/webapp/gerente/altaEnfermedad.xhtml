@@ -39,6 +39,11 @@
 				<p:outputLabel for="Sintomas" value="Sintomas (separados por ',')" />
 				<p:inputText id="Sintomas"
 					value="#{GestorEnfermedadView.sintomasStr}" required="true" />
+				
+				<p:outputLabel for="Distancia" value="Distancia de contagio (en metros)" />
+				<p:inputNumber id="Distancia"
+					value="#{GestorEnfermedadView.distanciaContagio}" 
+					converterMessage="Ingresar un número válido" required="true" />
                 
 				<p:commandButton
 					value="Alta"
@@ -84,6 +89,11 @@
 				<p:column filterBy="#{enfermedad.tipoEnfermedad.nombre}" headerText="Tipo" 
 					filterMatchMode="contains">
 					<h:outputText value="#{enfermedad.tipoEnfermedad.nombre}" />
+				</p:column>
+				
+				<p:column filterBy="#{enfermedad.distanciaContagio}" headerText="Distancia contagio" 
+					filterMatchMode="contains">
+					<h:outputText value="#{enfermedad.distanciaContagio}" />
 				</p:column>
 
 			</p:dataTable>

@@ -23,9 +23,8 @@ import uy.viruscontrol.model.entities.Sintoma;
 @Named("GestorEnfermedadView")
 @RequestScoped
 public class GestorEnfermedadView implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -1546397945313372054L;
+
 	@Inject
 	private UserManager userManager;
 	// Datos para la vista
@@ -38,6 +37,7 @@ public class GestorEnfermedadView implements Serializable{
 	private String nombreAgente;
 	private List<Sintoma> sintomas;
 	private String sintomasStr;
+	private Float distanciaContagio=Float.valueOf(0);
 	
 	//Datos para listar enfermedades
 	private List<Enfermedad>enfermedades;
@@ -51,8 +51,6 @@ public class GestorEnfermedadView implements Serializable{
 	
 	public GestorEnfermedadView() {
 		super();
-		
-		
 	}
 	
 	@PostConstruct
@@ -127,12 +125,19 @@ public class GestorEnfermedadView implements Serializable{
 		this.nombreAgente = nombreAgente;
 	}
 	
-	
 	public String getSintomasStr() {
 		return sintomasStr;
 	}
 	public void setSintomasStr(String sintomasStr) {
 		this.sintomasStr = sintomasStr;
+	}
+	
+	public Float getDistanciaContagio() {
+		return distanciaContagio;
+	}
+
+	public void setDistanciaContagio(Float distanciaContagio) {
+		this.distanciaContagio = distanciaContagio;
 	}
 	
 	public void agregarNuevaEnfermedad() {
@@ -144,7 +149,7 @@ public class GestorEnfermedadView implements Serializable{
 			this.sintomas.add(s);
 		}
 		
-		boolean ok = EnfermedadBeanController.crearEnfermedadInfecciosa(this.nombreEnfermedad, this.nombreTipoEnfermedad, this.nombreAgente, this.sintomas);
+		boolean ok = EnfermedadBeanController.crearEnfermedadInfecciosa(this.nombreEnfermedad, this.nombreTipoEnfermedad, this.nombreAgente, this.sintomas, this.distanciaContagio);
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Se agrego la solicitud de alta de la enfermedad " + this.nombreEnfermedad + ". Un administrador debe aprobarla para que quede dada de alta."));
 		
@@ -227,5 +232,6 @@ public class GestorEnfermedadView implements Serializable{
 		setNombreTipoEnfermedad(null);
 		setNombreAgente(null);
 		setSintomasStr(null);
+		setDistanciaContagio(Float.valueOf(0));
 	}
 }
