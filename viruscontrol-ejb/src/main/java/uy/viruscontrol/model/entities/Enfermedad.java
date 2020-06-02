@@ -61,16 +61,18 @@ public class Enfermedad implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER,
 	        mappedBy = "enfermedad",
 	        orphanRemoval = true
-	    )
-	    private List<RecursoEnfermedad> recursos = new ArrayList<>();
+    )
+    private List<RecursoEnfermedad> recursos = new ArrayList<>();
+	
+	@Column(name = "distancia_contagio")
+	private float distanciaContagio;
 	
 	public Enfermedad() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Enfermedad(String nombre, boolean aprobada, String nombreAgente, TipoEnfermedad tipoEnfermedad,
-			List<Sintoma> sintomas, boolean rechazada) {
+			List<Sintoma> sintomas, boolean rechazada, float distanciaContagio) {
 		super();
 		this.nombre = nombre;
 		this.aprobada = aprobada;
@@ -78,13 +80,17 @@ public class Enfermedad implements Serializable{
 		this.tipoEnfermedad = tipoEnfermedad;
 		this.sintomas = sintomas;
 		this.rechazada = rechazada;
-		
+		this.distanciaContagio = distanciaContagio;
+	}
+	
+	public float getDistanciaContagio() {
+		return distanciaContagio;
 	}
 
-	
-	
-	
-	
+	public void setDistanciaContagio(float distanciaContagio) {
+		this.distanciaContagio = distanciaContagio;
+	}
+
 	public boolean isRechazada() {
 		return rechazada;
 	}
@@ -211,12 +217,4 @@ public class Enfermedad implements Serializable{
 	public String toString() {
 		return this.getId() + " - " + this.getNombre();
 	}
-	
-
-	
-
-	
-	
-	
-	
 }

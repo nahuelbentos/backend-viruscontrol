@@ -20,8 +20,8 @@ public class EnfermedadBeanController {
 	
 	//Operaciones
 	//Enfermedades
-	public static boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, String nombreAgente, List<Sintoma> sintomas) {
-		return iEnfermedadBean.crearEnfermedadInfecciosa(nombreEnfermedad, nombreTipoEnfermedad, nombreAgente, sintomas, false);
+	public static boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, String nombreAgente, List<Sintoma> sintomas, float distanciaContagio) {
+		return iEnfermedadBean.crearEnfermedadInfecciosa(nombreEnfermedad, nombreTipoEnfermedad, nombreAgente, sintomas, false, distanciaContagio);
 	}
 	
 	
