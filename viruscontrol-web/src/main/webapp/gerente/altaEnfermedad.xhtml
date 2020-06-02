@@ -43,8 +43,9 @@
 				<p:commandButton
 					value="Alta"
                 	action="#{GestorEnfermedadView.agregarNuevaEnfermedad()}"
-                	update="form"
-                	/>
+                	update="form">
+                	<p:ajax oncomplete="updateDatatable()" />
+				</p:commandButton>
               
 				
 			</p:panelGrid>
@@ -54,6 +55,9 @@
 		<h4>Listado de enfermedades</h4>
 		<h:form id="enfermedades">
 			<p:growl id="growl" sticky="true" />
+			
+			<p:remoteCommand name="updateDatatable" update="enfermedadesList" />
+			
 			<p:dataTable id="enfermedadesList" var="enfermedad"
 				value="#{GestorEnfermedadView.enfermedades}"
 				widgetVar="enfermedadesTable1">

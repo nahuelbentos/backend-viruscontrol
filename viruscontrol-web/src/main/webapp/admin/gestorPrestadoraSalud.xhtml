@@ -12,7 +12,7 @@
 	</ui:define>
 	
 	<ui:define name="content">
-	<h:form>
+	<h:form id="form1">
 			<h4 style="text-align: left">Alta Prestadora de Salud</h4>
 			
 			<p:panelGrid columns="1" layout="grid"
@@ -36,7 +36,9 @@
 
 				<p:commandButton action="#{GestorPrestadorView.agregarPrestador()}"
 					value="Alta"
-					update="form"/>
+					update="form1">
+					<p:ajax oncomplete="updateDatatable()" />
+				</p:commandButton>
 			</p:panelGrid>
 		</h:form>
 
@@ -47,7 +49,10 @@
 			<h4 style="text-align: left">Actualizar / Eliminar Prestadora de Salud</h4>
 
 			<p:growl id="msg" />
-			<p:dataTable id="table1" tableStyle="width:auto" var="p"
+			
+			<p:remoteCommand name="updateDatatable" update="prestadorasTable" />
+			
+			<p:dataTable id="prestadorasTable" tableStyle="width:auto" var="p"
 				value="#{GestorPrestadorView.prestadorasSalud}" editable="true">
 
 				<p:ajax event="rowEdit" listener="#{GestorPrestadorView.actualizar}"
