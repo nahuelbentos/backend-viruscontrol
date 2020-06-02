@@ -31,7 +31,6 @@ public class GestorPrestadorView implements Serializable{
 		
 	//Datos Alta
 	private String nombrePrestador;
-	private String rucaf;
 	private List<PrestadoraSalud> prestadorasSalud;
 	private List<PrestadoraSalud> prestadorasRucaf;
 	private int idRucaf;
@@ -90,17 +89,6 @@ public class GestorPrestadorView implements Serializable{
 	}
 	
 	
-	public String getRucaf() {
-		return rucaf;
-	}
-
-
-	public void setRucaf(String rucaf) {
-		this.rucaf = rucaf;
-	}
-
-	
-
 	public int getIdRucaf() {
 		return idRucaf;
 	}
@@ -121,14 +109,6 @@ public class GestorPrestadorView implements Serializable{
 
 	public void agregarPrestador() {
 		
-		/*
-		System.out.println(rucaf);
-		for(PrestadoraSalud psRucaf : prestadorasRucaf) {
-			if(psRucaf.getNombre().equals(rucaf)) {
-				 idRucaf = psRucaf.getId();
-			}
-		}
-		*/
 		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador, this.idRucaf);
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Prestadora de nombre "+ this.nombrePrestador +" creada."));
@@ -136,6 +116,8 @@ public class GestorPrestadorView implements Serializable{
 		else {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, Prestador no creado, verifique."));
 		}
+		
+		this.cleanForm();
 	}
 	
 	
@@ -201,4 +183,8 @@ public class GestorPrestadorView implements Serializable{
 		return "gestorPrestadoraSalud";
 	}
 	
+	public void cleanForm() {
+		setIdRucaf(0);
+		setNombrePrestador(null);
+	}
 }
