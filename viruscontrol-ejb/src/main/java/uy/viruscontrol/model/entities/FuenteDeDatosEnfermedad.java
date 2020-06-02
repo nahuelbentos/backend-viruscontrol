@@ -5,6 +5,7 @@ import java.lang.String;
 import javax.persistence.*;
 import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.FuenteDeDatos;
+import uy.viruscontrol.utils.DtFuenteDeDatosEnfermedad;
 
 @Entity
 @Table(name="fuente_de_datos_enfermedad")
@@ -59,5 +60,14 @@ public class FuenteDeDatosEnfermedad implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-   
+	
+	public DtFuenteDeDatosEnfermedad getDt() {
+		DtFuenteDeDatosEnfermedad dt = new DtFuenteDeDatosEnfermedad();
+		dt.setId(this.getId());
+		dt.setEnfermedad(this.getEnfermedad().getId());
+		dt.setFuente(this.getFuente().getId());
+		dt.setFiltros(this.getFiltros());
+		dt.setUrl(this.getUrl());
+		return dt;
+	}
 }

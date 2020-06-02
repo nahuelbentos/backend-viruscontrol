@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.LocalBean;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
+import uy.viruscontrol.bussines.interfaces.FuenteDatosBeanLocal;
 import uy.viruscontrol.bussines.interfaces.FuenteDatosBeanRemote;
 import uy.viruscontrol.model.dao.interfaces.FuenteDeDatosDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.FuenteDeDatosEnfermedadDAOLocal;
@@ -18,10 +21,12 @@ import uy.viruscontrol.model.entities.FuenteDeDatosEnfermedad;
  */
 @Stateless
 @LocalBean
-public class FuenteDatosBean implements FuenteDatosBeanRemote {
+@Local(FuenteDatosBeanLocal.class)
+@Remote(FuenteDatosBeanRemote.class)
+public class FuenteDatosBean implements FuenteDatosBeanRemote, FuenteDatosBeanLocal {
 
    @EJB FuenteDeDatosDAOLocal daoFuenteDatosLocal;
-   @EJB FuenteDeDatosEnfermedadDAOLocal daoFuenteEnfermedad;
+   @EJB private FuenteDeDatosEnfermedadDAOLocal daoFuenteEnfermedad;
    
    
     public FuenteDatosBean() {
@@ -116,8 +121,7 @@ public class FuenteDatosBean implements FuenteDatosBeanRemote {
 	
 	@Override
 	public List<FuenteDeDatosEnfermedad> obtenerTodosFuenteDeDatosEnfermedad() {
-		List<FuenteDeDatosEnfermedad> ret;
-		ret = daoFuenteEnfermedad.findAll();
+		List<FuenteDeDatosEnfermedad> ret = daoFuenteEnfermedad.findAll();
 		if (ret != null)
 			return ret;
 		else
@@ -126,8 +130,7 @@ public class FuenteDatosBean implements FuenteDatosBeanRemote {
 	
 	@Override
 	public List<FuenteDeDatosEnfermedad> obtenerFuentesPorEnfermedad(Enfermedad enfermedad) {
-		List<FuenteDeDatosEnfermedad> ret;
-		ret = daoFuenteEnfermedad.findAllByEnfermedad(enfermedad);
+		List<FuenteDeDatosEnfermedad> ret = daoFuenteEnfermedad.findAllByEnfermedad(enfermedad);
 		if (ret != null)
 			return ret;
 		else
