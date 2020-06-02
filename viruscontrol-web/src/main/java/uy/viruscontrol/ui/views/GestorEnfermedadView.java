@@ -151,6 +151,8 @@ public class GestorEnfermedadView implements Serializable{
 		}else {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo crear la enfermedad, verifique."));
 		}
+		
+		this.cleanForm();
 	}
 	
 	//CU Aprobar Enfermedad
@@ -167,6 +169,7 @@ public class GestorEnfermedadView implements Serializable{
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo aprobar la enfermedad, verifique."));
 			
 		}
+		this.cleanForm();
 	}
 	
 	//Rechazar Enfermedad
@@ -182,6 +185,8 @@ public class GestorEnfermedadView implements Serializable{
 				
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo rechazar la enfermedad, verifique."));
 			}
+			
+			this.cleanForm();
 		}
 	
 	
@@ -216,4 +221,11 @@ public class GestorEnfermedadView implements Serializable{
 		this.seleccionada = seleccionada;
 	}
 	
+	public void cleanForm() {
+		setNombreEnfermedadNoAprobada(null);
+		setNombreEnfermedad(null);
+		setNombreTipoEnfermedad(null);
+		setNombreAgente(null);
+		setSintomasStr(null);
+	}
 }

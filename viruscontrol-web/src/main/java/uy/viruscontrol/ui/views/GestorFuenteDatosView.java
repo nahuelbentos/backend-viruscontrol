@@ -13,9 +13,7 @@ import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
 
 import uy.viruscontrol.controllers.FuenteDatosBeanController;
-import uy.viruscontrol.controllers.PrestadorBeanController;
 import uy.viruscontrol.model.entities.FuenteDeDatos;
-import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 @Named("GestorFuenteDatosView")
 @RequestScoped
@@ -80,6 +78,7 @@ public class GestorFuenteDatosView implements Serializable{
 		else {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error!, Fuente de Datos no creada, verifique"));
 		}
+		this.cleanForm();
 	}
 	
 	//ACTUALIZAR - METODO ACTUALIZAR AJAX EVENT DATATABLE
@@ -116,10 +115,15 @@ public class GestorFuenteDatosView implements Serializable{
 				for(FuenteDeDatos fd : fuentesDeDatosEliminadas) {
 					FuenteDatosBeanController.eliminarFuenteDeDatos(fd);
 				}
-				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor Eliminado."));
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Fuente de Datos Eliminado."));
 			}
 			
 			
 			return "gestorFuenteDatos";
+		}
+		
+		private void cleanForm() {
+			setCodigo(null);
+			setUrl(null);
 		}
 }

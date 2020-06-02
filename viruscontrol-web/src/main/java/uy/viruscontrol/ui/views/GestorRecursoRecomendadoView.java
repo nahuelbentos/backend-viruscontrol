@@ -112,6 +112,14 @@ public class GestorRecursoRecomendadoView {
 				
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Recurso ya se encuentra asociadoa la Enfermedad."));
 			}
-					
+				
+			this.cleanForm();
+		}
+		
+		public void cleanForm() {
+			setNombreRecurso(null);
+			setNombreEnfermedad(null);
+			setRecursoPreviene(false);
+			setRecursoTrata(false);
 		}
 }
