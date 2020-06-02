@@ -19,8 +19,9 @@
 				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
 				contentStyleClass="p-align-baseline ui-fluid">
 
+				<p:remoteCommand name="updateDropDown" update="dropDownEnfermedadesNoAprobadas" />
 				<p:outputLabel for="@next" value="Enfermedad" />
-				<p:selectOneMenu id="Enfermedad"
+				<p:selectOneMenu id="dropDownEnfermedadesNoAprobadas"
 					value="#{GestorEnfermedadView.nombreEnfermedadNoAprobada}"
 					style="width:150px" required="true">
 					<f:selectItem itemLabel="Seleccione Enfermedad" itemValue="" />
@@ -32,13 +33,15 @@
 
 				<p:commandButton
 					action="#{GestorEnfermedadView.aprobarEnfermedad()}"
-					value="Aprobar" 
-					update="form" />
+					value="Aprobar">
+					<p:ajax oncomplete="updateDropDown()" />
+				</p:commandButton>
 
 				<p:commandButton
 					action="#{GestorEnfermedadView.rechazarEnfermedad()}"
-					value="Rechazar" update="form" 
-					/>
+					value="Rechazar">
+					<p:ajax oncomplete="updateDropDown()" />
+				</p:commandButton>
 
 			</p:panelGrid>
 

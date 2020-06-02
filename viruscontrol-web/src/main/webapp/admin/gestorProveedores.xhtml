@@ -63,7 +63,10 @@
 
 				<p:commandButton action="#{GestorProveedorView.agregarProveedor()}"
 					value="Alta"
-					update="alta"/>
+					update="alta">
+					<p:ajax oncomplete="updateDatatable1()" />
+					<p:ajax oncomplete="updateDatatable2()" />
+				</p:commandButton>
 			</p:panelGrid>
 		</h:form>
 		
@@ -72,6 +75,9 @@
 			<h5 style="text-align: left">Actualizar / Eliminar Proveedor Recurso</h5>
 
 			<p:growl id="msg" />
+			
+			<p:remoteCommand name="updateDatatable1" update="table1" />
+			
 			<p:dataTable id="table1" tableStyle="width:auto" var="p"
 				value="#{GestorProveedorView.proveedoresRecursos}" editable="true">
 
@@ -174,6 +180,9 @@
 			<h5 style="text-align: left">Actualizar / Eliminar Proveedor Exámen</h5>
 
 			<p:growl id="msg" />
+			
+			<p:remoteCommand name="updateDatatable2" update="table2" />
+			
 			<p:dataTable id="table2" tableStyle="width:auto" var="p"
 				value="#{GestorProveedorView.proveedoresExamenes}" editable="true">
 
