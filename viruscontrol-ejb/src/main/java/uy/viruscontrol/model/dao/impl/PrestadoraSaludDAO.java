@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.PrestadoraSaludDAOLocal;
-import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 
 @Stateless

@@ -9,7 +9,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.UbicacionDAOLocal;
-import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.Ubicacion;
 
 @Stateless
