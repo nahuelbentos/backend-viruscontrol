@@ -41,10 +41,11 @@ public class CasoDAO implements CasoDAOLocal {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Caso> findAll() {
 		
-		Query q = em.createQuery("SELECT c FROM Caso");
+		Query q = em.createQuery("FROM Caso");
 		return q.getResultList();
 	}
 
@@ -60,6 +61,14 @@ public class CasoDAO implements CasoDAOLocal {
 		em.remove(em.contains(caso) ? caso : em.merge(caso));
 		
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Caso> findAllOrderByDepartamento() {
+		
+		Query q = em.createQuery("SELECT c FROM Caso c ORDER BY c.departamento,c.enfermedad,c.tipoCaso");
+		return q.getResultList();
 	}
 
 	
