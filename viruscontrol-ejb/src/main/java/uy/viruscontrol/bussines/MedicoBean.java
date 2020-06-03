@@ -20,6 +20,7 @@ import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.DepartamentoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ExamenDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.ProveedorExamenDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
 import uy.viruscontrol.model.entities.Caso;
@@ -31,7 +32,9 @@ import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.VisitaMedico;
+import uy.viruscontrol.utils.DtEnfermedad;
 import uy.viruscontrol.utils.DtExamen;
+import uy.viruscontrol.utils.DtProveedorExamen;
 import uy.viruscontrol.utils.VisitaPendiente;
 
 /**
@@ -50,7 +53,7 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     @EJB private CasoDAOLocal casoDao;
     @EJB private UsuarioDAOLocal usuarioDao;
     @EJB private VisitaMedicoDAOLocal visitaMedicoDao;
-    
+    @EJB private ProveedorExamenDAOLocal provExamenDao;
 	/**
      * Default constructor. 
      */
@@ -60,7 +63,8 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     
     @Override
     public List<DtExamen> obtenerExamenesDeEnfermedad(int idEnfermedad){
-    	
+    
+    	//esto hablarlo con jhona
     	try {
 			List<DtExamen> listEx = saProvEx.obtenerExamenesParaUnaEnfermedad(idEnfermedad);
 			if(listEx!=null) {
@@ -88,30 +92,40 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     }
     
     @Override
-    public List<ProveedorExamen> ObtenerProveedoresExamen(int idEnfermedad) {
-    	try {
-    		//esto va a cambiar cuando jhona cambie lo de service agents
-    		List<ProveedorExamen> listaProv =saProvEx.obtenerProveedores(idEnfermedad);
+    public List<DtProveedorExamen> ObtenerProveedoresExamen() {
     	
-    	//	ProveedorExamen pe=saProvEx.obtenerProveedor(idEnfermedad);
+    	List<ProveedorExamen> proveedores=provExamenDao.findAll();
+    	List<DtProveedorExamen> prov = new ArrayList<DtProveedorExamen>();
+    	for(ProveedorExamen pe:proveedores) {
+    		if(pe.isDeleted()==false) {
+    			DtProveedorExamen dtpe=new DtProveedorExamen(pe.getId(), pe.getNombre(), pe.getDireccion(), pe.getBarrio(), pe.getRangoHorario());
+    			prov.add(dtpe);
+    		}
+    		
+    		
+    	}
     	
-	//		listaProv.add(pe) ;
-			
-			
-			
-			return listaProv;
-			
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	
-    	List<ProveedorExamen> listaProv2 =new ArrayList<ProveedorExamen>();
-    	return listaProv2;
+    	return prov;
+		/*
+		 * try { //esto va a cambiar cuando jhona cambie lo de service agents
+		 * List<ProveedorExamen> listaProv =saProvEx.obtenerProveedores(idEnfermedad);
+		 * 
+		 * // ProveedorExamen pe=saProvEx.obtenerProveedor(idEnfermedad);
+		 * 
+		 * // listaProv.add(pe) ;
+		 * 
+		 * 
+		 * 
+		 * return listaProv;
+		 * 
+		 * } catch (ClientProtocolException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } catch (IOException e) { // TODO Auto-generated catch
+		 * block e.printStackTrace(); }
+		 * 
+		 * 
+		 * List<ProveedorExamen> listaProv2 =new ArrayList<ProveedorExamen>(); return
+		 * listaProv2;
+		 */
     }
     
     @Override
@@ -198,6 +212,47 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
 		return true;
 		
 	}
-   
+	
+	
+	@Override
+	public List<DtEnfermedad> enfermerdadesAprobadas(){
+		List<Enfermedad> enfermedades=enfermedadDao.findAll();
+		List<DtEnfermedad> enfAprobadas=new ArrayList<DtEnfermedad>();
+		if(enfermedades!=null) {
+			
+			for(Enfermedad e:enfermedades) {
+				
+				if(e.isAprobada()) {
+					DtEnfermedad dtenf=new DtEnfermedad(e.getId(), e.getNombre());
+					enfAprobadas.add(dtenf);
+				}
+			}
+		
+		}
+		
+		return enfAprobadas;
+	}
+	
+	@Override
+	public List<DtExamen> examenesEnfermedad(int idEnfermedad){
+		
+		List<Examen> examenes=examenDao.findAll();
+		
+
+		List<DtExamen> examenesenf= new ArrayList<DtExamen>();
+	
+
+		for(Examen e:examenes) {
+
+			if(e.getEnfermedad().getId()==idEnfermedad) {
+				DtExamen dtexamen= new DtExamen(e.getId(), e.getNombre(), e.getEnfermedad().getId(), e.getEnfermedad().getNombre());
+				examenesenf.add(dtexamen);
+			}
+		}
+		
+	
+
+		return examenesenf;
+	}
 
 }

@@ -17,9 +17,12 @@ import javax.ws.rs.core.Response.Status;
 
 import uy.viruscontrol.bussines.interfaces.MedicoBeanLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
+import uy.viruscontrol.model.entities.Examen;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.utils.DtCaso;
+import uy.viruscontrol.utils.DtEnfermedad;
 import uy.viruscontrol.utils.DtExamen;
+import uy.viruscontrol.utils.DtProveedorExamen;
 import uy.viruscontrol.utils.VisitaPendiente;
 
 @ApplicationScoped
@@ -41,21 +44,31 @@ public class ServicesMedico {
 	
 	
 	//http://localhost:8080/viruscontrol-web/rest/medico/examenesenfermedad/{idEnfermedad}
-	@GET
+/*	@GET
 	@Path("/examenesenfermedad/{idEnfermedad}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<DtExamen> obtenerExamenesDeEnfermedad(@PathParam("idEnfermedad")int idEnfermedad) {
 	
 		return medicoBean.obtenerExamenesDeEnfermedad(idEnfermedad);
 		
-	}
+	}*/
 	
 	@GET
-	@Path("/proveedoresexamen/{idEnfermedad}")
+	@Path("/examenesenfermedades/{idEnfermedad}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ProveedorExamen> ObtenerProveedoresExamen(@PathParam("idEnfermedad")int idEnfermedad)  {
+	public List<DtExamen> ExamenesDeEnfermedad(@PathParam("idEnfermedad")int idEnfermedad) {
 	
-		return medicoBean.ObtenerProveedoresExamen(idEnfermedad);
+		return medicoBean.examenesEnfermedad(idEnfermedad);
+		
+	}
+	
+	
+	@GET
+	@Path("/proveedoresexamen")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<DtProveedorExamen> ObtenerProveedoresExamen()  {
+	
+		return medicoBean.ObtenerProveedoresExamen();
 		
 	}
 	
@@ -111,4 +124,18 @@ public class ServicesMedico {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}
 	}
+	
+	
+	//http://localhost:8080/viruscontrol-web/rest/medico/enfermedadesaprobadas
+	@GET
+	@Path("/enfermedadesaprobadas")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<DtEnfermedad> enfermedadesAprobadas()  {
+	
+		return medicoBean.enfermerdadesAprobadas();
+		
+	}
+	
+	
+	
 }

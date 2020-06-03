@@ -35,6 +35,12 @@ public class Caso implements Serializable  {
 	
 	@ManyToOne
 	private Enfermedad enfermedad;
+	
+	@ManyToOne
+	private Medico medico;
+	
+	@ManyToOne
+	private Ciudadano ciudadano;
 
 	public Caso() {
 	}
@@ -46,6 +52,24 @@ public class Caso implements Serializable  {
 		this.departamento = departamento;
 		this.examen = examen;
 		this.enfermedad = enfermedad;
+	}
+
+	
+	
+	public Ciudadano getCiudadano() {
+		return ciudadano;
+	}
+
+	public void setCiudadano(Ciudadano ciudadano) {
+		this.ciudadano = ciudadano;
+	}
+
+	public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
 	}
 
 	public int getId() {
