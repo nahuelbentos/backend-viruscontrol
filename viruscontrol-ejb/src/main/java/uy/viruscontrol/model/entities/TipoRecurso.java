@@ -24,9 +24,10 @@ public class TipoRecurso implements Serializable{
 	private String descripcion;
 	
 	//bi-directional many-to-one association to Recurso
+	/*
 	@OneToMany(mappedBy="tipoRecurso", fetch = FetchType.EAGER)
 	List<Recurso> recursos;
-	
+	*/
 	public TipoRecurso() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -65,7 +66,7 @@ public class TipoRecurso implements Serializable{
 	}
 
 	
-
+/*
 	public List<Recurso> getRecursos() {
 		return recursos;
 	}
@@ -73,7 +74,7 @@ public class TipoRecurso implements Serializable{
 	public void setRecursos(List<Recurso> recursos) {
 		this.recursos = recursos;
 	}
-
+*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -81,7 +82,7 @@ public class TipoRecurso implements Serializable{
 		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((recursos == null) ? 0 : recursos.hashCode());
+		//result = prime * result + ((recursos == null) ? 0 : recursos.hashCode());
 		return result;
 	}
 
@@ -106,11 +107,13 @@ public class TipoRecurso implements Serializable{
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		/*
 		if (recursos == null) {
 			if (other.recursos != null)
 				return false;
 		} else if (!recursos.equals(other.recursos))
 			return false;
+		*/
 		return true;
 	}
 

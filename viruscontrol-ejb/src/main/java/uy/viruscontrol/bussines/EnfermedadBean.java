@@ -198,6 +198,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
         	recurso.setTipoRecurso(daoTipoRecursoLocal.findById(idTipoRecurso));
         	daoRecursoLocal.persist(recurso);
         	System.out.println("Recurso creado");
+        	
         	return true;
     	}else {
     		System.out.println("El Recurso ya existe");
@@ -220,9 +221,16 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     
     @Override
     //Obtener recursos de un tipo de recurso
-    public List<Recurso> obtenerRecursosPorTipoRecurso(String  nombreTipoRecurso) { 
+    public List<Recurso> obtenerRecursosPorTipoRecurso(TipoRecurso tipoRecurso) { 
     	
-    	return daoTipoRecursoLocal.findById(getIdTipoRecursoByName(nombreTipoRecurso)).getRecursos();
+    	return daoRecursoLocal.findRecursoByTipoRecurso(tipoRecurso);
+    }
+    
+    @Override
+    //Obtener todos los recursos
+    public List<Recurso> obtenerRecursosDisponibles(){
+    	return daoRecursoLocal.getAllRecursos();
+    	
     }
    
     //*/*/*/*/*/*/*/*/*/AUXILIARES*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
