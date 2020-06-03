@@ -13,7 +13,7 @@ import uy.viruscontrol.model.entities.TipoRecurso;
 public interface EnfermedadBeanRemote {
 
 	boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 
-    		String nombreAgente, List<Sintoma> sintomas, boolean aprobada);
+    		String nombreAgente, List<Sintoma> sintomas, boolean aprobada, float distanciaContagio);
 
 	boolean aprobarEnfermedadInfecciosa(int idEnfermedad);
 
