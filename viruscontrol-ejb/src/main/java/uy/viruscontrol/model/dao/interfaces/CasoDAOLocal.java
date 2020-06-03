@@ -18,4 +18,6 @@ public interface CasoDAOLocal {
 	Caso findById(Integer id);
 
 	void delete(Caso caso);
+	
+	List<Caso> findAllOrderByDepartamento();
 }
