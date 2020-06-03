@@ -11,6 +11,8 @@ import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
 import uy.viruscontrol.model.entities.Recurso;
+import uy.viruscontrol.model.entities.TipoRecurso;
+
 
 /**
  * Session Bean implementation class RecursoDAO
@@ -77,5 +79,51 @@ public class RecursoDAO implements RecursoDAOLocal {
     	}
     	return false;
 	}
-
-}
+	
+	
+	@Override
+	public List<Recurso> findRecursoByTipoRecurso(TipoRecurso tipoRecurso) {
+		/*
+		@SuppressWarnings("unchecked")
+		List<Recurso> lista = em.createQuery("FROM Recurso r WHERE r.tipoRecurso = :tipoRecurso")
+				.setParameter("tipoRecurso", tipoRecurso)
+				.getResultList();
+		return lista;
+	}
+	*/	List<Recurso> listaRecursosPorTipo = new ArrayList<Recurso>();
+		List<Recurso> listaRecursos = findAll();
+		for(Recurso lr : listaRecursos) {
+			if(lr.getTipoRecurso().getId() == tipoRecurso.getId()) {
+				Recurso recAux = new Recurso();
+				recAux.setId(lr.getId());
+				recAux.setNombre(lr.getNombre());
+				recAux.setTipoRecurso(lr.getTipoRecurso());
+				listaRecursosPorTipo.add(recAux);
+			}
+		}
+		
+		return listaRecursosPorTipo;
+	}
+	
+	
+	@Override
+	public List<Recurso> getAllRecursos() {
+		
+		List<Recurso> listaRecursosDisponibles = new ArrayList<Recurso>();
+		//listaRecursosDisponibles = em.createQuery("SELECT r.id, r.nombre, r.tipoRecurso FROM Recurso r").getResultList();
+		
+		List<Recurso> listaRecursos = findAll();
+		for(Recurso lr : listaRecursos) {
+			
+			Recurso recAux = new Recurso();
+			recAux.setId(lr.getId());
+			recAux.setNombre(lr.getNombre());
+			recAux.setTipoRecurso(lr.getTipoRecurso());
+			listaRecursosDisponibles.add(recAux);
+			
+		}
+		
+		return listaRecursosDisponibles;
+	}
+	
+}	

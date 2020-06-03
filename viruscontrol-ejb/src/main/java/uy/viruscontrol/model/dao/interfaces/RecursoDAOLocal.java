@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import uy.viruscontrol.model.entities.Recurso;
+import uy.viruscontrol.model.entities.TipoRecurso;
 
 @Local
 public interface RecursoDAOLocal {
@@ -20,4 +21,8 @@ public interface RecursoDAOLocal {
 	void delete(Recurso recurso);
 
 	boolean exist(String nombre);
+
+	List<Recurso> findRecursoByTipoRecurso(TipoRecurso tipoRecurso);
+
+	List<Recurso> getAllRecursos();
 }
