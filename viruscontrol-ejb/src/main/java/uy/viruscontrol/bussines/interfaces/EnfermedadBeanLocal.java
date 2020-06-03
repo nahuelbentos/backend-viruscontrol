@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.Sintoma;
+import uy.viruscontrol.model.entities.TipoRecurso;
 
 
 @Local
@@ -16,7 +17,7 @@ public interface EnfermedadBeanLocal {
 			boolean recursoPreviene);
 	
 	boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 
-    		String nombreAgente, List<Sintoma> sintomas, boolean aprobada);
+    		String nombreAgente, List<Sintoma> sintomas, boolean aprobada, float distanciaContagio);
 
 	boolean aprobarEnfermedadInfecciosa(int idEnfermedad);
 
@@ -34,7 +35,9 @@ public interface EnfermedadBeanLocal {
 
 	boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso);
 
-	List<Recurso> obtenerRecursosPorTipoRecurso(String nombreTipoRecurso);
+	List<Recurso> obtenerRecursosPorTipoRecurso(TipoRecurso tipoRecurso);
+
+	List<Recurso> obtenerRecursosDisponibles();
 
 	
 	

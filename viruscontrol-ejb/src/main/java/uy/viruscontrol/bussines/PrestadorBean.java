@@ -36,7 +36,7 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
     }
     
     @Override
-    public boolean nuevoPrestador(String nombre) {
+    public boolean nuevoPrestador(String nombre, int idRucaf) {
     	
     	
     	if(daoprestadorlocal.findAll().isEmpty()) {
@@ -44,6 +44,7 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
     		System.out.println("Prestadora de nombre: "+nombre+" creada.");
     		PrestadoraSalud  ps= new PrestadoraSalud();
     		ps.setNombre(nombre);
+    		ps.setIdPrestadoraRucaf(idRucaf);
     		daoprestadorlocal.persist(ps);
     		return true;
     		
@@ -53,6 +54,7 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
     			if((p.getNombre().contentEquals(nombre)) && (p.isDeleted())) {
     				p.setDeleted(false);
     				p.setNombre(nombre);
+    				p.setIdPrestadoraRucaf(idRucaf);
     				
     				daoprestadorlocal.merge(p);
     				return true;
@@ -67,6 +69,7 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
     		System.out.println("Prestadora de nombre: "+nombre+" creada.");
     		PrestadoraSalud  ps= new PrestadoraSalud();
     		ps.setNombre(nombre);
+    		ps.setIdPrestadoraRucaf(idRucaf);
     		daoprestadorlocal.persist(ps);
     		return true;
     		
@@ -102,6 +105,7 @@ public class PrestadorBean implements PrestadorBeanRemote, PrestadorBeanLocal {
 		
 		if(ps != null) {
 			ps.setNombre(prestadoraSalud.getNombre());
+			ps.setIdPrestadoraRucaf(prestadoraSalud.getIdPrestadoraRucaf());
 			daoprestadorlocal.merge(ps);
 			System.out.println("Prestadora de Salud actualizada correctamente.");
 			return true;

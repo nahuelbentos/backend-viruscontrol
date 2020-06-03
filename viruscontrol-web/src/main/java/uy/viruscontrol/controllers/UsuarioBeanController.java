@@ -1,5 +1,6 @@
 package uy.viruscontrol.controllers;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -36,6 +37,21 @@ public class UsuarioBeanController {
 	public static List<Administrador> mostrarAdministradores(){
 		return iUsuarioBean.mostrarAdministradores();
 	}
+	public static void editarCiudadano(int ciudadanoId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha) {
+		 iUsuarioBean.editarCiudadano(ciudadanoId, nombre, apellido, correo, direccion, nacionalidad, userName, fecha);
+	}
+	
+	public static void editarMedico(int medicoId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha) {
+		 iUsuarioBean.editarMedico(medicoId, nombre, apellido, correo, direccion, nacionalidad, userName, fecha);
+	}
+	public static void editarGerente(int gerenteId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
+		 iUsuarioBean.editarGerente(gerenteId, nombre, apellido, correo, direccion, nacionalidad, userName, fecha, password);
+	}
+	public static void editarAdmin(int adminId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
+		 iUsuarioBean.editarAdmin(adminId, nombre, apellido, correo, direccion, nacionalidad, userName, fecha, password);
+	}
+	
+	
 	
 	private static UsuarioBeanRemote lookupRemoteUsuarioBean(){
 		Properties props = new Properties();

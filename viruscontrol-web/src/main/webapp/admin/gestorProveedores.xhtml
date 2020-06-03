@@ -16,7 +16,7 @@
 	</ui:define>
 	
 	<ui:define name="content">
-	<h:form>
+	<h:form id="alta">
 			<h4 style="text-align: left">Alta Proveedor Recurso / Alta
 				Proveedor Examen</h4>
 			
@@ -50,10 +50,23 @@
 				<p:outputLabel for="RangoHorarioProveedor" value="Rango Horario" />
 				<p:inputText id="RangoHorarioProveedor"
 					value="#{GestorProveedorView.rangoHorario}" required="true"/>
+					
+				<p:outputLabel for="@next" value="Proveedor Externo" />
+				<p:selectOneMenu id="PerifericoRecurso"
+					value="#{GestorProveedorView.codigoPeriferico}"
+					style="width:150px" required="false">
+					<f:selectItem itemLabel="Seleccione Proveedor" itemValue="" />
+					<f:selectItems value="#{GestorProveedorView.proveedoresRecursosPeriferico}"
+					var="provRec" itemLabel="#{provRec}" itemValue="#{provRec.id}"/>
+				</p:selectOneMenu>
+				
 
 				<p:commandButton action="#{GestorProveedorView.agregarProveedor()}"
 					value="Alta"
-					update="form form2"/>
+					update="alta">
+					<p:ajax oncomplete="updateDatatable1()" />
+					<p:ajax oncomplete="updateDatatable2()" />
+				</p:commandButton>
 			</p:panelGrid>
 		</h:form>
 		
@@ -62,6 +75,9 @@
 			<h5 style="text-align: left">Actualizar / Eliminar Proveedor Recurso</h5>
 
 			<p:growl id="msg" />
+			
+			<p:remoteCommand name="updateDatatable1" update="table1" />
+			
 			<p:dataTable id="table1" tableStyle="width:auto" var="p"
 				value="#{GestorProveedorView.proveedoresRecursos}" editable="true">
 
@@ -130,6 +146,10 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
+				
+				<p:column id="column5" headerText="Proveedor Externo">
+						<h:outputText value="#{p.codigoPeriferico}" />
+				</p:column>
 
 				<p:column>
 					<p:rowEditor />
@@ -160,6 +180,9 @@
 			<h5 style="text-align: left">Actualizar / Eliminar Proveedor Exámen</h5>
 
 			<p:growl id="msg" />
+			
+			<p:remoteCommand name="updateDatatable2" update="table2" />
+			
 			<p:dataTable id="table2" tableStyle="width:auto" var="p"
 				value="#{GestorProveedorView.proveedoresExamenes}" editable="true">
 

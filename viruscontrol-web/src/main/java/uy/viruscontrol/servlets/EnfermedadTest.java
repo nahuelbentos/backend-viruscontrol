@@ -42,11 +42,11 @@ public class EnfermedadTest extends HttpServlet {
 		sintomas.add(s);
 		
 		//SE CREA ENFERMEDAD, TIPOENFERMEDAD NO EXISTE, SINTOMAS EXISTEN + 1 SINTOMA NUEVO, CASO POSITIVO
-		boolean casoPositivo = enfermedadBeanLocal.crearEnfermedadInfecciosa("Enfermedad Test", "Tipo Test", "Agente Test", sintomas, false);
+		boolean casoPositivo = enfermedadBeanLocal.crearEnfermedadInfecciosa("Enfermedad Test", "Tipo Test", "Agente Test", sintomas, false, Float.valueOf(0));
 		//SE CREA ENFERMEDAD CASO NEGATIVO
 		Enfermedad e = new Enfermedad();
 		e=daoEnfermedadLocal.findById(100);
-		boolean casoNegativo = enfermedadBeanLocal.crearEnfermedadInfecciosa(e.getNombre(),e.getTipoEnfermedad().getNombre(),e.getNombreAgente(), e.getSintomas(), false);
+		boolean casoNegativo = enfermedadBeanLocal.crearEnfermedadInfecciosa(e.getNombre(),e.getTipoEnfermedad().getNombre(),e.getNombreAgente(), e.getSintomas(), false, Float.valueOf(0));
 		
 		
 		//SE APRUEBA ENFERMEDAD CREADA

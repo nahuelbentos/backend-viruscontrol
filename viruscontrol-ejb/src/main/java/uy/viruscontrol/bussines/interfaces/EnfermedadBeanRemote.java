@@ -13,7 +13,7 @@ import uy.viruscontrol.model.entities.TipoRecurso;
 public interface EnfermedadBeanRemote {
 
 	boolean crearEnfermedadInfecciosa(String nombreEnfermedad, String nombreTipoEnfermedad, 
-    		String nombreAgente, List<Sintoma> sintomas, boolean aprobada);
+    		String nombreAgente, List<Sintoma> sintomas, boolean aprobada, float distanciaContagio);
 
 	boolean aprobarEnfermedadInfecciosa(int idEnfermedad);
 
@@ -29,7 +29,7 @@ public interface EnfermedadBeanRemote {
 	
 	boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso);
 	
-	List<Recurso> obtenerRecursosPorTipoRecurso(String nombreTipoRecurso);
+	List<Recurso> obtenerRecursosPorTipoRecurso(TipoRecurso tipoRecurso);
 	
 	boolean altaTipoRecurso (String nombre, String descripcion);
 

@@ -29,12 +29,14 @@ public class GestorProveedorView  implements Serializable{
 	private String direccion;
 	private String barrio;
 	private String rangoHorario;
+	private String codigoPeriferico;
 	
 	private ProveedorRecursos proveedorRecurso;
 	private ProveedorExamen proveedorExamen;
 	
 	private List<ProveedorRecursos> proveedoresRecursos;
 	private List<ProveedorExamen> proveedoresExamenes;
+	private List<ProveedorRecursos> proveedoresRecursosPeriferico;
 	
 	//Eliminar
 	private List<ProveedorRecursos> proveedoresRecursosEliminados = new ArrayList<>();
@@ -47,6 +49,9 @@ public class GestorProveedorView  implements Serializable{
 		
 		proveedoresExamenes = new ArrayList<ProveedorExamen>();
 		proveedoresExamenes = ProveedorBeanController.obtenerProveedoresExamenes();
+		
+		proveedoresRecursosPeriferico = new ArrayList<ProveedorRecursos>();
+		proveedoresRecursosPeriferico = ProveedorBeanController.obtenerProveedoresPeriferico();
 	}
 	
 	public String getNombreProveedor() {
@@ -74,10 +79,6 @@ public class GestorProveedorView  implements Serializable{
 		this.rangoHorario = rangoHorario;
 	}
 	
-	
-	
-
-
 	public List<ProveedorRecursos> getProveedoresRecursos() {
 		return proveedoresRecursos;
 	}
@@ -86,8 +87,6 @@ public class GestorProveedorView  implements Serializable{
 		this.proveedoresRecursos = proveedoresRecursos;
 	}
 
-	
-	
 	
 	public ProveedorRecursos getProveedorRecurso() {
 		return proveedorRecurso;
@@ -119,11 +118,29 @@ public class GestorProveedorView  implements Serializable{
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
+	
+	
+	public String getCodigoPeriferico() {
+		return codigoPeriferico;
+	}
+
+	public void setCodigoPeriferico(String codigoPeriferico) {
+		this.codigoPeriferico = codigoPeriferico;
+	}
+
+	public List<ProveedorRecursos> getProveedoresRecursosPeriferico() {
+		return proveedoresRecursosPeriferico;
+	}
+
+	public void setProveedoresRecursosPeriferico(List<ProveedorRecursos> proveedoresRecursosPeriferico) {
+		this.proveedoresRecursosPeriferico = proveedoresRecursosPeriferico;
+	}
+
 	public void agregarProveedor() {
 		
 		
 	///ALTA	
-		boolean ok = ProveedorBeanController.crearProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario);
+		boolean ok = ProveedorBeanController.crearProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario, codigoPeriferico);
 		if (ok) {
 			if (tipo==1) {
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor de Recurso "+this.nombreProveedor+" creado."));
@@ -134,6 +151,8 @@ public class GestorProveedorView  implements Serializable{
 		else {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error Proveedor no creado, verifique"));
 		}
+		
+		this.cleanForm();
 	}
 	
 	
@@ -213,4 +232,14 @@ public class GestorProveedorView  implements Serializable{
 					return "gestorProveedores";
 				}
 	
+				public void cleanForm() {
+					
+					setTipo(0);
+					setNombreProveedor(null);
+					setDireccion(null);
+					setBarrio(null);
+					setRangoHorario(null);
+					setCodigoPeriferico(null);
+					
+				}
 }

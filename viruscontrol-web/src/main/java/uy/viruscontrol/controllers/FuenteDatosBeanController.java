@@ -8,7 +8,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import uy.viruscontrol.bussines.interfaces.FuenteDatosBeanRemote;
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.FuenteDeDatos;
+import uy.viruscontrol.model.entities.FuenteDeDatosEnfermedad;
 
 public class FuenteDatosBeanController {
 
@@ -30,6 +32,22 @@ public class FuenteDatosBeanController {
 
 	public static boolean eliminarFuenteDeDatos(FuenteDeDatos fuenteDatos) {
 		return fuenteDatosBeanRemote.eliminarFuenteDeDatos(fuenteDatos);
+	}
+	
+	public static List<FuenteDeDatosEnfermedad> obtenerTodosFuenteDeDatosEnfermedad() {
+		return fuenteDatosBeanRemote.obtenerTodosFuenteDeDatosEnfermedad();
+	}
+	
+	public static List<FuenteDeDatosEnfermedad> obtenerFuentesDeDatosEnfermedad(Enfermedad enfermedad){
+		return fuenteDatosBeanRemote.obtenerFuentesPorEnfermedad(enfermedad);
+	}
+	
+	public static boolean crearFuenteDeDatosEnfermedad(FuenteDeDatosEnfermedad fuenteEnfermedad) {
+		return fuenteDatosBeanRemote.crearFuenteParaEnfermedad(fuenteEnfermedad);
+	}
+
+	public static boolean eliminarFuenteDeDatosEnfermedad(int idEliminar) {
+		return fuenteDatosBeanRemote.eliminarFuenteDeDatosEnfermedad(idEliminar);
 	}
 	
 	private static FuenteDatosBeanRemote lookupRemoteFuenteDatosBean(){

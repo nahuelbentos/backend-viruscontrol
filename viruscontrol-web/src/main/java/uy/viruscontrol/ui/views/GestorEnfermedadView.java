@@ -23,9 +23,8 @@ import uy.viruscontrol.model.entities.Sintoma;
 @Named("GestorEnfermedadView")
 @RequestScoped
 public class GestorEnfermedadView implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -1546397945313372054L;
+
 	@Inject
 	private UserManager userManager;
 	// Datos para la vista
@@ -38,6 +37,7 @@ public class GestorEnfermedadView implements Serializable{
 	private String nombreAgente;
 	private List<Sintoma> sintomas;
 	private String sintomasStr;
+	private Float distanciaContagio=Float.valueOf(0);
 	
 	//Datos para listar enfermedades
 	private List<Enfermedad>enfermedades;
@@ -47,10 +47,10 @@ public class GestorEnfermedadView implements Serializable{
 	private List<String> enfermedadesNoAprobadas;
 	private String nombreEnfermedadNoAprobada;
 	
+	private int seleccionada;
+	
 	public GestorEnfermedadView() {
 		super();
-		
-		
 	}
 	
 	@PostConstruct
@@ -58,7 +58,7 @@ public class GestorEnfermedadView implements Serializable{
 			enfermedadesNoAprobadas=new ArrayList<String>();
 			for(Enfermedad enfermedad :EnfermedadBeanController.obtenerEnfermedadesNoAprobadas()) {
 				enfermedadesNoAprobadas.add(enfermedad.getNombre());
-			}	
+			}
 			
 			enfermedades=new ArrayList<Enfermedad>();
 			enfermedades = EnfermedadBeanController.obtenerEnfermedades();
@@ -125,12 +125,19 @@ public class GestorEnfermedadView implements Serializable{
 		this.nombreAgente = nombreAgente;
 	}
 	
-	
 	public String getSintomasStr() {
 		return sintomasStr;
 	}
 	public void setSintomasStr(String sintomasStr) {
 		this.sintomasStr = sintomasStr;
+	}
+	
+	public Float getDistanciaContagio() {
+		return distanciaContagio;
+	}
+
+	public void setDistanciaContagio(Float distanciaContagio) {
+		this.distanciaContagio = distanciaContagio;
 	}
 	
 	public void agregarNuevaEnfermedad() {
@@ -142,13 +149,15 @@ public class GestorEnfermedadView implements Serializable{
 			this.sintomas.add(s);
 		}
 		
-		boolean ok = EnfermedadBeanController.crearEnfermedadInfecciosa(this.nombreEnfermedad, this.nombreTipoEnfermedad, this.nombreAgente, this.sintomas);
+		boolean ok = EnfermedadBeanController.crearEnfermedadInfecciosa(this.nombreEnfermedad, this.nombreTipoEnfermedad, this.nombreAgente, this.sintomas, this.distanciaContagio);
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Se agrego la solicitud de alta de la enfermedad " + this.nombreEnfermedad + ". Un administrador debe aprobarla para que quede dada de alta."));
 		
 		}else {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo crear la enfermedad, verifique."));
 		}
+		
+		this.cleanForm();
 	}
 	
 	//CU Aprobar Enfermedad
@@ -165,6 +174,7 @@ public class GestorEnfermedadView implements Serializable{
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo aprobar la enfermedad, verifique."));
 			
 		}
+		this.cleanForm();
 	}
 	
 	//Rechazar Enfermedad
@@ -180,6 +190,8 @@ public class GestorEnfermedadView implements Serializable{
 				
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo rechazar la enfermedad, verifique."));
 			}
+			
+			this.cleanForm();
 		}
 	
 	
@@ -202,4 +214,24 @@ public class GestorEnfermedadView implements Serializable{
 		return opciones;
 	}
 	
+	public void asociarEnfermedad() {
+		System.out.println("Se ha seleccionado la enfermedad: "+this.seleccionada);
+	}
+
+	public int getSeleccionada() {
+		return seleccionada;
+	}
+
+	public void setSeleccionada(int seleccionada) {
+		this.seleccionada = seleccionada;
+	}
+	
+	public void cleanForm() {
+		setNombreEnfermedadNoAprobada(null);
+		setNombreEnfermedad(null);
+		setNombreTipoEnfermedad(null);
+		setNombreAgente(null);
+		setSintomasStr(null);
+		setDistanciaContagio(Float.valueOf(0));
+	}
 }

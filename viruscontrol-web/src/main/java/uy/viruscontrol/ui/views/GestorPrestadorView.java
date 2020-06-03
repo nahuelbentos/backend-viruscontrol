@@ -32,7 +32,8 @@ public class GestorPrestadorView implements Serializable{
 	//Datos Alta
 	private String nombrePrestador;
 	private List<PrestadoraSalud> prestadorasSalud;
-
+	private List<PrestadoraSalud> prestadorasRucaf;
+	private int idRucaf;
 	private PrestadoraSalud prestadora;
 	
 	//Datos Eliminar
@@ -43,6 +44,8 @@ public class GestorPrestadorView implements Serializable{
 		prestadorasSalud = new ArrayList<PrestadoraSalud>();
 		prestadorasSalud = PrestadorBeanController.obtenerPrestadorasSalud();
 		
+		prestadorasRucaf = new ArrayList<PrestadoraSalud>();
+		prestadorasRucaf = PrestadorBeanController.obtenerPrestadorasRucaf();
 		
 	}
 	
@@ -63,7 +66,18 @@ public class GestorPrestadorView implements Serializable{
 	public void setPrestadorasSalud(List<PrestadoraSalud> prestadorasSalud) {
 		this.prestadorasSalud = prestadorasSalud;
 	}
+	
+	
 
+
+	public List<PrestadoraSalud> getPrestadorasRucaf() {
+		return prestadorasRucaf;
+	}
+
+
+	public void setPrestadorasRucaf(List<PrestadoraSalud> prestadorasRucaf) {
+		this.prestadorasRucaf = prestadorasRucaf;
+	}
 
 
 	public String getNombrePrestador() {
@@ -75,7 +89,16 @@ public class GestorPrestadorView implements Serializable{
 	}
 	
 	
-	
+	public int getIdRucaf() {
+		return idRucaf;
+	}
+
+
+	public void setIdRucaf(int idRucaf) {
+		this.idRucaf = idRucaf;
+	}
+
+
 	public UserManager getUserManager() {
 		return userManager;
 	}
@@ -86,13 +109,15 @@ public class GestorPrestadorView implements Serializable{
 
 	public void agregarPrestador() {
 		
-		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador);
+		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador, this.idRucaf);
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Prestadora de nombre "+ this.nombrePrestador +" creada."));
 		}
 		else {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, Prestador no creado, verifique."));
 		}
+		
+		this.cleanForm();
 	}
 	
 	
@@ -158,4 +183,8 @@ public class GestorPrestadorView implements Serializable{
 		return "gestorPrestadoraSalud";
 	}
 	
+	public void cleanForm() {
+		setIdRucaf(0);
+		setNombrePrestador(null);
+	}
 }
