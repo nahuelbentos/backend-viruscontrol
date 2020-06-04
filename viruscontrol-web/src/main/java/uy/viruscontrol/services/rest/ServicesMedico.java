@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response.Status;
 
 import uy.viruscontrol.bussines.interfaces.MedicoBeanLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
+import uy.viruscontrol.model.entities.Departamento;
 import uy.viruscontrol.model.entities.Examen;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.utils.DtCaso;
@@ -81,16 +82,17 @@ public class ServicesMedico {
 			 http://localhost:8080/viruscontrol-web/rest/medico/nuevocaso
 		Para crear un caso el json tiene que tener en el body los datos del caso asi:
 		
-			 {
+	{
     "idDepartamento": 100,
     "idExamen": 100,
     "idEnfermedad": 100,
     "idPaciente": 102,
-    "idMedico": 103
-} 
+    "idMedico": 103,
+    "idProveedorExamen": 300
+}
 			 
 			*/
-		return medicoBean.nuevoCaso(dtcaso.getIdDepartamento(), dtcaso.getIdExamen(), dtcaso.getIdEnfermedad(), dtcaso.getIdPaciente(), dtcaso.getIdMedico());
+		return medicoBean.nuevoCaso(dtcaso.getIdDepartamento(), dtcaso.getIdExamen(), dtcaso.getIdEnfermedad(), dtcaso.getIdPaciente(), dtcaso.getIdMedico(),dtcaso.getIdProveedorExamen());
 			
 	}
 	
@@ -99,7 +101,7 @@ public class ServicesMedico {
 	@Path("/dtcaso")
 	@Produces(MediaType.APPLICATION_JSON)
 	public DtCaso unDtCaso()  {
-			DtCaso dtc=new DtCaso(100, 100, 100, 102, 103);
+			DtCaso dtc=new DtCaso(100, 100, 100, 102, 103,300);
 			
 		
 			return dtc;
@@ -137,5 +139,14 @@ public class ServicesMedico {
 	}
 	
 	
+	//http://localhost:8080/viruscontrol-web/rest/medico/departamentos
+	@GET
+	@Path("/departamentos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Departamento> obtenerDepartamentos()  {
+	
+		return medicoBean.obtenerDepartamentos();
+		
+	}
 	
 }
