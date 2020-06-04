@@ -8,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.controllers.SessionBeanController;
@@ -18,14 +19,16 @@ import uy.viruscontrol.model.entities.Usuario;
 @Named("UserManager")
 @SessionScoped
 public class UserManager implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4166151468721069760L;
 	
 	private String username;
 	private String password;
 	private String mensaje;
 	
 	private Usuario currentUser;
+	
+	// Acceso a la sesión desde el facelet
+	private static HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 	public UserManager() {
 		super();
@@ -54,6 +57,8 @@ public class UserManager implements Serializable {
 		AuthResponse res = SessionBeanController.iniciarSesion(username, password);
 		if (res.equals(AuthResponse.OK)) {
 			currentUser = SessionBeanController.getUsuarioLogeado(username);
+			// guardo el usuario logueado en sesión
+			session.setAttribute("currentUser", currentUser);
 			return "exito";
 		} else {
 			this.mensaje = "Usuario inexistente o las credenciales son incorrectas.";
@@ -65,6 +70,7 @@ public class UserManager implements Serializable {
 	public String logout() {
 		SessionBeanController.cerrarSesion(username);
 		currentUser = null;
+		session.removeAttribute("currentUser");
 		return "login";
 	}
 	
