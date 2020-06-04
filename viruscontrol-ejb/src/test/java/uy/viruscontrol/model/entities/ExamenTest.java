@@ -20,7 +20,7 @@ public class ExamenTest {
     public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 	    
-		enfermedad = new Enfermedad("enfermedadTest", false, null, null, null,false);
+		enfermedad = new Enfermedad("enfermedadTest", false, null, null, null,false, Float.valueOf(0));
 		expected = new Examen(enfermedad);
 		expected.setNombre("nombreTest");
 	}
