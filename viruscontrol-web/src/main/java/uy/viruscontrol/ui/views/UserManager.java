@@ -1,5 +1,6 @@
 package uy.viruscontrol.ui.views;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
@@ -71,7 +72,20 @@ public class UserManager implements Serializable {
 		SessionBeanController.cerrarSesion(username);
 		currentUser = null;
 		session.removeAttribute("currentUser");
-		return "login";
+		
+		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String redirectUri = "login.xhtml";
+		if (origRequest.getRequestURI().contains("admin") || origRequest.getRequestURI().contains("gerente"))
+			redirectUri = "../"+redirectUri;
+		
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(redirectUri);
+			FacesContext.getCurrentInstance().responseComplete();
+			return "login";
+		} catch (IOException e) {
+			//e.printStackTrace();
+			return "login";
+		}
 	}
 	
 	public Usuario getCurrentUser() {

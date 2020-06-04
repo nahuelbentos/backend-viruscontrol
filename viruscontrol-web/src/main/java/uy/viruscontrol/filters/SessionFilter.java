@@ -57,11 +57,11 @@ public class SessionFilter implements Filter {
 			}
 			 
 			if (!success) {
-				this.log("ERROR: Acceso no autorizado. Redireccionando al login");
+				this.log("ERROR: Acceso no autorizado.");
 				res.sendRedirect((uri.contains("admin") || uri.contains("gerente")) ? "../noAutorizado.xhtml" : "noAutorizado.xhtml");
 			}
 		} else {
-			this.log("ERROR: Acceso no autorizado. Redireccionando al login");
+			this.log("ERROR: No autenticado. Redireccionando al login.");
 			res.sendRedirect((uri.contains("admin") || uri.contains("gerente")) ? "../login.xhtml" : "login.xhtml");
 		}
 		
