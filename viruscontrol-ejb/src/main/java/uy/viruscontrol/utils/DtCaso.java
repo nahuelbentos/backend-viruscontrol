@@ -13,20 +13,38 @@ public class DtCaso implements Serializable{
 	private int idEnfermedad;
 	private int idPaciente;
 	private int idMedico;
+	private int idProveedorExamen;
 	
 	public DtCaso() {
 		
 	}
 	
-	public DtCaso(int idDepartamento, int idExamen, int idEnfermedad, int idPaciente, int idMedico) {
+
+
+	
+	
+	public DtCaso(int idDepartamento, int idExamen, int idEnfermedad, int idPaciente, int idMedico,
+			int idProveedorExamen) {
 		super();
 		this.idDepartamento = idDepartamento;
 		this.idExamen = idExamen;
 		this.idEnfermedad = idEnfermedad;
 		this.idPaciente = idPaciente;
 		this.idMedico = idMedico;
+		this.idProveedorExamen = idProveedorExamen;
 	}
 
+
+
+
+
+	public int getIdProveedorExamen() {
+		return idProveedorExamen;
+	}
+
+	public void setIdProveedorExamen(int idProveedorExamen) {
+		this.idProveedorExamen = idProveedorExamen;
+	}
 
 	public int getIdDepartamento() {
 		return idDepartamento;

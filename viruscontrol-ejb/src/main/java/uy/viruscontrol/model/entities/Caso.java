@@ -41,6 +41,9 @@ public class Caso implements Serializable  {
 	
 	@ManyToOne
 	private Ciudadano ciudadano;
+	
+	@ManyToOne
+	private ProveedorExamen proveedorExamen;
 
 	public Caso() {
 	}
@@ -56,6 +59,14 @@ public class Caso implements Serializable  {
 
 	
 	
+	public ProveedorExamen getProveedorExamen() {
+		return proveedorExamen;
+	}
+
+	public void setProveedorExamen(ProveedorExamen proveedorExamen) {
+		this.proveedorExamen = proveedorExamen;
+	}
+
 	public Ciudadano getCiudadano() {
 		return ciudadano;
 	}
