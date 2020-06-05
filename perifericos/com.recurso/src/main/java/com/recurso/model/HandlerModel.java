@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
@@ -62,6 +63,29 @@ public class HandlerModel {
     	return drrdd;
     }
     
+    public List<DummyRecursoDisponible> getRecursosDisponiblesPorCiudadBarrio(String ciudad, String barrio){
+    	List<DummyRecursoDisponible> drrdd = new ArrayList<DummyRecursoDisponible>();
+    	boolean fullCheck = false;
+    	
+	    for (Entry<String, Proveedor> it : proveedores.entrySet()) {
+	    	fullCheck = (!ciudad.equals("") && !ciudad.equals("0") && !ciudad.equals("-") && !barrio.equals("") && !barrio.equals("0") && !barrio.equals("-"));
+	    	
+	    	if ((!fullCheck && ciudad.equals(it.getValue().getCiudad()) || barrio.equals(it.getValue().getBarrio())) ||
+	    		 (fullCheck && ciudad.equals(it.getValue().getCiudad()) && barrio.equals(it.getValue().getBarrio()))) {
+		    	for (ProveedorRecurso pr : it.getValue().getRecursosDisponibles()) {
+		    		DummyRecursoDisponible drd = new DummyRecursoDisponible();
+		    		
+		    		drd.setCantidadDisponible(pr.getCantidadDisponible());
+		    		drd.setPrecio(pr.getPrecio());
+		    		drd.setRecurso(pr.getRecurso());
+		    		if (!drrdd.contains(drd))
+		    			drrdd.add(drd);
+				}
+	    	}
+    	}
+    	return drrdd;
+    }
+    
     public List<DummyProveedor> getProveedores(){
 		List<Proveedor> proveedores = new ArrayList<Proveedor>();
 		
@@ -75,6 +99,7 @@ public class HandlerModel {
 			dp.setBarrio(proveedor.getBarrio());
 			dp.setDireccion(proveedor.getDireccion());
 			dp.setHorarioAtencion(proveedor.getHorarioAtencion());
+			dp.setCiudad(proveedor.getCiudad());
 			dummies.add(dp);
 		}
 		
@@ -96,6 +121,7 @@ public class HandlerModel {
 				dp.setBarrio(proveedor.getBarrio());
 				dp.setDireccion(proveedor.getDireccion());
 				dp.setHorarioAtencion(proveedor.getHorarioAtencion());
+				dp.setCiudad(proveedor.getCiudad());
 				dummies.add(dp);
 			}
 		}
@@ -148,7 +174,7 @@ public class HandlerModel {
     
     
     /*************************** AUXILIARES ***************************/
-        private void iniciarProveedores() {
+    private void iniciarProveedores() {
     	proveedores = new HashMap<String,Proveedor>();
     	
     	readCsvProveedores();
@@ -220,6 +246,7 @@ public class HandlerModel {
     			
     			TipoProveedor tp = this.tiposProveedor.get(record[5]);
     			p.setTipoProveedor(tp);
+    			p.setCiudad(record[6]);
     			
     			this.proveedores.put(p.getCodigo(), p);
     		}

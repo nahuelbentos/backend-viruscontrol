@@ -1,6 +1,6 @@
-FSANMA;Farmashop - San Martin;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Brazo Oriental;San Martin 3020;FARMACIA
-DROPAY;Drogueria Paysandú;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Centro;Paysandu 1076;DROGUERIA
-OSCMAX;Cooperativa Maximo Cosseti;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Villa Española;Varela 2022;OSC
-LABCLA;Laboratorio Clausen;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Reducto;Blvr. Artigas 9850;LABORATORIO
-PRJUAN;Juan Antonio Propio;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Cerrito;Jose Batlle y Ordoñez 1154;PARTICULAR
-COMCHI;Lo del chino;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Punta Gorda;Bolivia 5541;COMERCIO
+FSANMA;Farmashop - San Martin;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Brazo Oriental;San Martin 3020;FARMACIA;Montevideo
+DROPAY;Drogueria Paysandú;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Centro;Paysandu 1076;DROGUERIA;Montevideo
+OSCMAX;Cooperativa Maximo Cosseti;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Villa Española;Varela 2022;OSC;Montevideo
+LABCLA;Laboratorio Clausen;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Reducto;Blvr. Artigas 9850;LABORATORIO;Montevideo
+PRJUAN;Juan Antonio Propio;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Cerrito;Jose Batlle y Ordoñez 1154;PARTICULAR;Montevideo
+COMCHI;Lo del chino;{"dias": "lunes-viernes","hora-apertura": "8:00","hora-cierre": "18:00"};Punta Gorda;Bolivia 5541;COMERCIO;Montevideo

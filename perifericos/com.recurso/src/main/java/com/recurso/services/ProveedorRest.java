@@ -24,6 +24,11 @@ public class ProveedorRest implements IProveedorRest{
 	public List<DummyRecursoDisponible> getRecursosDisponibles(String codigoProveedor) {
 		return handler.getRecursosDisponiblesPorProveedor(codigoProveedor);
 	}
+	
+	@Override
+	public List<DummyRecursoDisponible> getRecursosDisponiblesPorCiudadBarrio(String ciudad, String barrio) {
+		return handler.getRecursosDisponiblesPorCiudadBarrio(ciudad, barrio);
+	}
 
 	@Override
 	public List<DummyProveedor> getProveedoresDeTipo(String codigoTipo) {
