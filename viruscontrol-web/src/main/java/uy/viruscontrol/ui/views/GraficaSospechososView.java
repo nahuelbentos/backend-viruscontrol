@@ -3,6 +3,7 @@ package uy.viruscontrol.ui.views;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -46,6 +47,9 @@ import org.primefaces.model.charts.polar.PolarAreaChartModel;
 import org.primefaces.model.charts.radar.RadarChartDataSet;
 import org.primefaces.model.charts.radar.RadarChartModel;
 import org.primefaces.model.charts.radar.RadarChartOptions;
+
+import uy.viruscontrol.controllers.GerenteBeanController;
+import uy.viruscontrol.model.entities.Caso;
 
 @Named("GraficaSospechososView")
 @RequestScoped
@@ -167,18 +171,64 @@ public class GraficaSospechososView implements Serializable {
 	    }
 	     ///////////////////////////////ESTA ES LA GRAFICA QUE ESTOY USANDO/////////////////////////////////////////
 	    public void createLineModel() {	
+	    	List<Caso> casos=GerenteBeanController.obtenerCasos();
+	    	int enero=0;
+	    	int febrero=0;
+	    	int marzo=0;
+	    	int abril=0;
+	    	int mayo=0;
+	    	int junio=0;
+	    	int julio=0;
+	    	if(casos.isEmpty()) {
+	    		System.out.println("no hay casos");
+	    	}else {
+	    		for(Caso c:casos) {
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==0) {
+	    				enero++;
+	    				System.out.println("hay un caso en enero");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==1) {
+	    				febrero++;
+	    				System.out.println("hay un caso en febrero");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==2) {
+	    				marzo++;
+	    				System.out.println("hay un caso en marzo");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==3) {
+	    				abril++;
+	    				System.out.println("hay un caso en abril");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==4) {
+	    				mayo++;
+	    				System.out.println("hay un caso en mayo");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==5) {
+	    				junio++;
+	    				System.out.println("hay un caso en junio");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==6) {
+	    				julio++;
+	    				System.out.println("hay un caso en julio");
+	    			}
+		    	}
+	    	}
+	    	
+	    	
+	    	
+	    	
 	        lineModel = new LineChartModel();
 	        ChartData data = new ChartData();
 	         
 	        LineChartDataSet dataSet = new LineChartDataSet();
 	        List<Number> values = new ArrayList<>();
-	        values.add(1);
-	        values.add(3);
-	        values.add(0);
-	       // values.add(5);
-	      //  values.add(2);
-	        values.add(1);
-	        values.add(0);
+	        values.add(enero);
+	        values.add(febrero);
+	        values.add(marzo);
+	        values.add(abril);
+	        values.add(mayo);
+	        values.add(junio);
+	        values.add(julio);
 	        dataSet.setData(values);
 	        dataSet.setFill(false);
 	        dataSet.setLabel("Casos Sospechosos");
