@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.TipoRecurso;
@@ -38,6 +39,8 @@ public interface EnfermedadBeanLocal {
 	List<Recurso> obtenerRecursosPorTipoRecurso(TipoRecurso tipoRecurso);
 
 	List<Recurso> obtenerRecursosDisponibles();
+
+	List<Recurso> obtenerRecursoPorEnfermedad(int idEnfermedad);
 
 	
 	

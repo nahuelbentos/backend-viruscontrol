@@ -25,4 +25,6 @@ public interface RecursoDAOLocal {
 	List<Recurso> findRecursoByTipoRecurso(TipoRecurso tipoRecurso);
 
 	List<Recurso> getAllRecursos();
+
+	List<Recurso> findAllByEnfermedad(int idEnfermedad);
 }
