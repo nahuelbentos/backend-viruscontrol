@@ -2,6 +2,7 @@ package uy.viruscontrol.bussines;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -85,6 +86,18 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 	@Override
 	public Usuario getUsuarioLogueado(String token) {
 		return userConectados.get(token);
+	}
+	
+	@Override
+	public String getTokenByUsername(String username) {
+		/* No usar esta función. Solamente se deberá usar desde el backoffice. 
+		 * Desde otro lugar, siempre obtener por token
+		 */
+		for(Entry<String, Usuario> it : userConectados.entrySet()) {
+			if (it.getValue().getUsername().equals(username))
+				return it.getKey();
+		}
+		return "";
 	}
 
 	@Override

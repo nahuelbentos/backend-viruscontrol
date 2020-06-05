@@ -68,7 +68,7 @@ public class SessionFilter implements Filter {
 	}
 	
 	private void log(String msg) {
-		//System.out.println("["+getClass().getCanonicalName()+"] "+msg);
+//		System.out.println("["+getClass().getCanonicalName()+"] "+msg);
 	}
 
 }

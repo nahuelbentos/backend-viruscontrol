@@ -23,6 +23,7 @@ public class UserManager implements Serializable {
 	private static final long serialVersionUID = -4166151468721069760L;
 	
 	private String username;
+	private String sessionToken;
 	private String password;
 	private String mensaje;
 	
@@ -57,7 +58,8 @@ public class UserManager implements Serializable {
 	public String login() {
 		AuthResponse res = SessionBeanController.iniciarSesion(username, password);
 		if (res.equals(AuthResponse.OK)) {
-			currentUser = SessionBeanController.getUsuarioLogeado(username);
+			this.sessionToken = SessionBeanController.getTokenByUsername(username);
+			currentUser = SessionBeanController.getUsuarioLogeado(sessionToken);
 			// guardo el usuario logueado en sesión
 			session.setAttribute("currentUser", currentUser);
 			return "exito";
@@ -69,7 +71,7 @@ public class UserManager implements Serializable {
 	}
 	
 	public String logout() {
-		SessionBeanController.cerrarSesion(username);
+		SessionBeanController.cerrarSesion(this.sessionToken);
 		currentUser = null;
 		session.removeAttribute("currentUser");
 		

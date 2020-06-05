@@ -18,6 +18,8 @@ public interface SessionBeanRemote {
 
 	public Usuario getUsuarioLogueado(String token);
 	
+	public String getTokenByUsername(String username);
+	
 	public void cerrarSesion(String token);
 
 //	public DtSessionToken getTokenUsuarioLogueado(String username);
