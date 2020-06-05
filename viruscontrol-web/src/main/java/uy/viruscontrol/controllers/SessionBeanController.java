@@ -18,12 +18,16 @@ public class SessionBeanController {
 		return iSessionBean.iniciarSesion(username, password);
 	}
 	
-	public static Usuario getUsuarioLogeado(String username) {
-		return iSessionBean.getUsuarioLogueado(username);
+	public static Usuario getUsuarioLogeado(String token) {
+		return iSessionBean.getUsuarioLogueado(token);
 	}
 	
-	public static void cerrarSesion(String username) {
-		iSessionBean.cerrarSesion(username);
+	public static String getTokenByUsername(String username) {
+		return iSessionBean.getTokenByUsername(username);
+	}
+	
+	public static void cerrarSesion(String token) {
+		iSessionBean.cerrarSesion(token);
 	}
 	
 	private static SessionBeanRemote lookupRemoteSessionBean(){
