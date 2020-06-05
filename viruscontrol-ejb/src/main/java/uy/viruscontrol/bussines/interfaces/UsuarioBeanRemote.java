@@ -35,5 +35,7 @@ public interface UsuarioBeanRemote {
 
 	void editarAdmin(int adminId, String nombre, String apellido, String correo, String direccion, String nacionalidad,
 			String userName, Calendar fecha, String password);
+
+	boolean eliminarUsuario(Usuario user);
 	
 }
