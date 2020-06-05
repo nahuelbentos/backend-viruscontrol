@@ -30,6 +30,9 @@ public abstract class Usuario implements Serializable{
 	private String nacionalidad;
 	private String correo;
 	
+	private boolean deleted=false;
+	
+	
 	/** atributos del negocio VirusControl **/
 	private String username;
 	private String password;
@@ -99,6 +102,16 @@ public abstract class Usuario implements Serializable{
 	public void setPrimerIngreso(boolean primerIngreso) {
 		this.primerIngreso = primerIngreso;
 	}
+	
+	
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	public Usuario(int idUsuario, String nombre, String apellido, String direccion, Calendar fechaNacimiento,
 			String nacionalidad, String correo, String username, String password, boolean primerIngreso) {
 		super();

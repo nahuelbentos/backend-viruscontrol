@@ -1,88 +1,119 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+<ui:composition
+	template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
 	<ui:define name="title">
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	<ui:define name="content">
-		<h:form>
-				<h4 style="text-align: left">Lista de Medicos</h4>
-					
-			
-				 <a href="ListaCiudadanos.xhtml">Ciudadanos</a>
-				 <a href="ListaMedicos.xhtml">Medicos</a>
-				  <a href="ListaGerentes.xhtml">Gerentes</a>
-				   <a href="ListaAdministradores.xhtml">Administradores</a>
-				   
-				<p:dataTable id="checkboxDT" value="#{GestorUsuariosView.mostrarMedicos()}" var="m" selection="#{GestorUsuariosView.medicoSeleccionado}" rowKey="#{m.idUsuario}">
-			<p:column selectionMode="single" style="width:16px;text-align:center"/> 
-				
-				<p:column headerText="Nombre" >
-					<p:outputLabel value="#{m.nombre}"/>
+		<h:form id="form">
+			<p:growl id="msg" />
+			<p:remoteCommand name="updateDatatable" update="checkboxDT" />
+
+			<h4 style="text-align: left">Lista de Medicos</h4>
+
+
+			<a href="ListaCiudadanos.xhtml">Ciudadanos</a>
+			<a href="ListaMedicos.xhtml">Medicos</a>
+			<a href="ListaGerentes.xhtml">Gerentes</a>
+			<a href="ListaAdministradores.xhtml">Administradores</a>
+
+			<p:dataTable id="checkboxDT" value="#{GestorUsuariosView.medicos}"
+				var="m" selection="#{GestorUsuariosView.medicoSeleccionado}"
+				rowKey="#{m.idUsuario}">
+				<p:column selectionMode="single"
+					style="width:16px;text-align:center" />
+
+				<p:column headerText="Nombre">
+					<p:outputLabel value="#{m.nombre}" />
 				</p:column>
-				<p:column headerText="Apellido" >
-					<p:outputLabel value="#{m.apellido}"/>
+				<p:column headerText="Apellido">
+					<p:outputLabel value="#{m.apellido}" />
 				</p:column>
-				<p:column headerText="Direccion" >
-					<p:outputLabel value="#{m.direccion}"/>
+				<p:column headerText="Direccion">
+					<p:outputLabel value="#{m.direccion}" />
 				</p:column>
-				<p:column headerText="Correo" >
-					<p:outputLabel value="#{m.correo}"/>
+				<p:column headerText="Correo">
+					<p:outputLabel value="#{m.correo}" />
 				</p:column>
-				<p:column headerText="Nacionalidad" >
-					<p:outputLabel value="#{m.nacionalidad}"/>
+				<p:column headerText="Nacionalidad">
+					<p:outputLabel value="#{m.nacionalidad}" />
 				</p:column>
-				<p:column headerText="User Name" >
-					<p:outputLabel value="#{m.username}"/>
+				<p:column headerText="User Name">
+					<p:outputLabel value="#{m.username}" />
 				</p:column>
-				<p:column headerText="Fecha de nacimiento" >
-					<p:outputLabel value="#{m.fechaNacimiento.time}"/>
+				<p:column headerText="Fecha de nacimiento">
+					<p:outputLabel value="#{m.fechaNacimiento.time}" />
 				</p:column>
-					 <f:facet name="footer">
-				 
-				 
-				 <p>Nombre</p>
-			
-				  <p:inputText  id="Nombre" value="#{GestorUsuariosView.nombre}"/>
-				  	<br/>
-				  		<br/>
-				  	 <p>Apellido</p>
-				  	 <p:inputText  id="Apellido" value="#{GestorUsuariosView.apellido}"/>
-				  	<br/>
-				  	<br/>
-				  	 <p>Correo</p>
-				  	 <p:inputText  id="Correo" value="#{GestorUsuariosView.correo}"/>
-				  	<br/>
-				  	<br/>
-				  	 <p>Direccion</p>
-				  	 <p:inputText  id="direccion" value="#{GestorUsuariosView.direccion}"/>
-				  	<br/>
-				  	<br/>
-					 <p>Nacionalidad</p>
-				  	 <p:inputText  id="nacionalidad" value="#{GestorUsuariosView.nacionalidad}"/>
-				  	<br/>	
-				  	<br/>
-				  	<p>UserName</p>
-				  	 <p:inputText  id="username" value="#{GestorUsuariosView.userName}"/>
-				  	<br/>
-				  	<br/>
-				  	<p>fecha</p>
-				  	 <p:calendar id="fecha" value="#{GestorUsuariosView.fecha}"/> 
-				  	<br/>
-            <p:commandButton action="#{GestorUsuariosView.editarMedico()}" value="EDITAR" update="checkboxDT"/>
-        </f:facet>
-				</p:dataTable>
-				
-		
-			
+
+				<!-- Se agrega para caso Eliminar -->
+				<p:column id="del" headerText="Eliminar">
+					<h:selectBooleanCheckbox value="#{m.deleted}" />
+				</p:column>
+
+
+				<f:facet name="footer">
+
+
+					<p>Nombre</p>
+
+					<p:inputText id="Nombre" value="#{GestorUsuariosView.nombre}" />
+					<br />
+					<br />
+					<p>Apellido</p>
+					<p:inputText id="Apellido" value="#{GestorUsuariosView.apellido}" />
+					<br />
+					<br />
+					<p>Correo</p>
+					<p:inputText id="Correo" value="#{GestorUsuariosView.correo}" />
+					<br />
+					<br />
+					<p>Direccion</p>
+					<p:inputText id="direccion" value="#{GestorUsuariosView.direccion}" />
+					<br />
+					<br />
+					<p>Nacionalidad</p>
+					<p:inputText id="nacionalidad"
+						value="#{GestorUsuariosView.nacionalidad}" />
+					<br />
+					<br />
+					<p>UserName</p>
+					<p:inputText id="username" value="#{GestorUsuariosView.userName}" />
+					<br />
+					<br />
+					<p>fecha</p>
+					<p:calendar id="fecha" value="#{GestorUsuariosView.fecha}" />
+					<br />
+					<p:commandButton action="#{GestorUsuariosView.editarMedico()}"
+						value="EDITAR">
+						<p:ajax oncomplete="updateDatatable()" />
+					</p:commandButton>
+				</f:facet>
+			</p:dataTable>
+
+			<!-- Se agrega para caso Eliminar -->
+			<p:commandButton value="Eliminar"
+				actionListener="#{GestorUsuariosView.eliminarMedico()}"
+				update="form" icon="ui-icon-trash">
+				<p:confirm message="Seguro que desea eliminar?" header="Aviso"
+					icon="ui-icon-alert" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true">
+				<p:commandButton value="Si" type="button" icon="ui-icon-check"
+					styleClass="ui-confirmdialog-yes" />
+				<p:commandButton value="No" type="button" icon="ui-icon-close"
+					styleClass="ui-confirmdialog-no" />
+			</p:confirmDialog>
+
 		</h:form>
 	</ui:define>
- 
+
 </ui:composition>
 
 </html>

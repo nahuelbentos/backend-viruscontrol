@@ -51,7 +51,9 @@ public class UsuarioBeanController {
 		 iUsuarioBean.editarAdmin(adminId, nombre, apellido, correo, direccion, nacionalidad, userName, fecha, password);
 	}
 	
-	
+	public static boolean eliminarUsuario(Usuario user) {
+		return iUsuarioBean.eliminarUsuario(user);
+	}
 	
 	private static UsuarioBeanRemote lookupRemoteUsuarioBean(){
 		Properties props = new Properties();

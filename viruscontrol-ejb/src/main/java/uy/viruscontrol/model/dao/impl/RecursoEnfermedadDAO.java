@@ -1,5 +1,6 @@
 package uy.viruscontrol.model.dao.impl;
 
+
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -20,27 +21,28 @@ import uy.viruscontrol.model.entities.RecursoEnfermedad;
 @Stateless
 @LocalBean
 public class RecursoEnfermedadDAO implements RecursoEnfermedadDAOLocal {
-	
+
 	@PersistenceContext(unitName = "viruscontrolPersistenceUnit")
-    protected EntityManager em;
-    /**
-     * Default constructor. 
-     */
-    public RecursoEnfermedadDAO() {
-        // TODO Auto-generated constructor stub
-    }
+	protected EntityManager em;
+
+	/**
+	 * Default constructor.
+	 */
+	public RecursoEnfermedadDAO() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void persist(RecursoEnfermedad recursoEnfermedad) {
 		em.persist(recursoEnfermedad);
-		
+
 	}
-	
+
 	@Override
 	public void merge(RecursoEnfermedad recursoEnfermedad) {
-		
+
 		em.merge(recursoEnfermedad);
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -52,8 +54,8 @@ public class RecursoEnfermedadDAO implements RecursoEnfermedadDAOLocal {
 
 	@Override
 	public RecursoEnfermedad findById(Recurso recurso, Enfermedad enfermedad) {
-		
-		IdRecursoEnfermedad idAux = new IdRecursoEnfermedad(enfermedad.getId(),recurso.getId());
+
+		IdRecursoEnfermedad idAux = new IdRecursoEnfermedad(enfermedad.getId(), recurso.getId());
 		return em.find(RecursoEnfermedad.class, idAux);
 	}
 
@@ -61,7 +63,9 @@ public class RecursoEnfermedadDAO implements RecursoEnfermedadDAOLocal {
 	public void delete(RecursoEnfermedad recursoEnfermedad) {
 
 		em.remove(em.contains(recursoEnfermedad) ? recursoEnfermedad : em.merge(recursoEnfermedad));
-		
+
 	}
+
+	
 
 }

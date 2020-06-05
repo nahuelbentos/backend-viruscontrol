@@ -232,6 +232,12 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     	return daoRecursoLocal.getAllRecursos();
     	
     }
+    
+    @Override
+    public List<Recurso> obtenerRecursoPorEnfermedad(int idEnfermedad){
+    	return daoRecursoLocal.findAllByEnfermedad(idEnfermedad);
+    }
+  
    
     //*/*/*/*/*/*/*/*/*/AUXILIARES*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
     
