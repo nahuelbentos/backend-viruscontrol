@@ -41,6 +41,11 @@ public interface IProveedorRest {
 											 @PathParam("codigoRecurso") String codigoRecurso,
 											 int cantidad);
 	
+	@GET
+	@Path("/ciudad/{ciudad}/barrio/{barrio}")
+	List<DummyRecursoDisponible> getRecursosDisponiblesPorCiudadBarrio(@PathParam("ciudad") String ciudad, 
+																		@PathParam("barrio") String barrio);
+	
 	
 	
 }

@@ -5,29 +5,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Proveedor implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2020480372753741772L;
 	
 	private String nombre;
 	private String codigo;
-	public String getCodigo() {
-		return codigo;
-	}
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
 	private String direccion;
 	private String barrio;
 	private String horarioAtencion;
 	
 	private List<ProveedorRecurso> recursosDisponibles;
 	private TipoProveedor tipoProveedor;
+	private String ciudad;
 	
+	public Proveedor() {
+		super();
+		this.recursosDisponibles = new ArrayList<ProveedorRecurso>();
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 	public String getDireccion() {
 		return direccion;
@@ -59,10 +64,6 @@ public class Proveedor implements Serializable{
 	public void setTipoProveedor(TipoProveedor tipoProveedor) {
 		this.tipoProveedor = tipoProveedor;
 	}
-	public Proveedor() {
-		super();
-		this.recursosDisponibles = new ArrayList<ProveedorRecurso>();
-	}
 	public void addRecursoDisponible(ProveedorRecurso pr) {
 		this.recursosDisponibles.add(pr);
 	}
@@ -88,6 +89,12 @@ public class Proveedor implements Serializable{
 			this.recursosDisponibles.remove(index);
 		
 		this.recursosDisponibles.add(pr);
+	}
+	public String getCiudad() {
+		return ciudad;
+	}
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 	
 

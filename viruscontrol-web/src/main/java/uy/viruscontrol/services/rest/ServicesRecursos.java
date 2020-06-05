@@ -27,7 +27,7 @@ public class ServicesRecursos {
 	
 	//http://localhost:8080/viruscontrol-web/rest/recursos/obtenerRecursos
 	@GET
-	@Path("/obtenerRecursos")
+	@Path("/obtener")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Recurso> obtenerRecursos(){
 		return enfermedadBeanLocal.obtenerRecursosDisponibles();
@@ -37,7 +37,7 @@ public class ServicesRecursos {
 	
 	//http://localhost:8080/viruscontrol-web/rest/recursos/obtenerRecursosPorTipoRecurso/100	
 	@GET
-	@Path("obtenerRecursosPorTipoRecurso/{idTipoRecurso}")
+	@Path("obtener/porTipo/{idTipoRecurso}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Recurso> obtenerRecursosPorTipoRecurso(@PathParam("idTipoRecurso") int idTipoRecurso){
 		TipoRecurso tr = daoTipoRecursoLocal.findById(idTipoRecurso);
