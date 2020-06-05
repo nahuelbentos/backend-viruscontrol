@@ -9,7 +9,7 @@ import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Medico;
-import uy.viruscontrol.utils.UserAuthFE;
+import uy.viruscontrol.security.UserAuthFE;
 
 @ApplicationScoped
 public class AuthRest implements IAuthRest {
@@ -44,9 +44,9 @@ public class AuthRest implements IAuthRest {
 	}
 
 	@Override
-	public Response cerrarSesion(String username) {
+	public Response cerrarSesion(String token) {
 		try {
-			sessionEjb.cerrarSesion(username);
+			sessionEjb.cerrarSesion(token);
 			return Response.status(Status.OK).build();
 		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
