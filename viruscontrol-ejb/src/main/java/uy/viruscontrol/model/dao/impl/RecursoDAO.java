@@ -3,14 +3,18 @@ package uy.viruscontrol.model.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
+import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Recurso;
+import uy.viruscontrol.model.entities.RecursoEnfermedad;
 import uy.viruscontrol.model.entities.TipoRecurso;
 
 
@@ -24,6 +28,7 @@ public class RecursoDAO implements RecursoDAOLocal {
 	@PersistenceContext(unitName = "viruscontrolPersistenceUnit")
     protected EntityManager em;
 	
+	@EJB private EnfermedadDAOLocal daoEnfermedad;
     /**
      * Default constructor. 
      */
@@ -124,6 +129,31 @@ public class RecursoDAO implements RecursoDAOLocal {
 		}
 		
 		return listaRecursosDisponibles;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Recurso> findAllByEnfermedad(int idEnfermedad) {
+		
+		Enfermedad enfermedad = daoEnfermedad.findById(idEnfermedad);
+		List<Recurso> recursos = new ArrayList<Recurso>();
+		List<RecursoEnfermedad> recEnfList = new ArrayList<RecursoEnfermedad>();
+		
+		if (enfermedad != null) {
+			
+			 recEnfList = em.createQuery("FROM RecursoEnfermedad WHERE enfermedad = :enfermedad")
+					.setParameter("enfermedad", enfermedad)
+					.getResultList();
+			
+			 for(RecursoEnfermedad re : recEnfList) {
+				 Recurso recAux = new Recurso();
+				 recAux.setId(re.getRecurso().getId());
+				 recAux.setNombre(re.getRecurso().getNombre());
+				 
+				 recursos.add(recAux);
+			 }
+		}
+		return recursos;
 	}
 	
 }	

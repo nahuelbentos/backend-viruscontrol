@@ -21,5 +21,4 @@ public interface RecursoEnfermedadDAOLocal {
 
 	void delete(RecursoEnfermedad recursoEnfermedad);
 
-
 }
