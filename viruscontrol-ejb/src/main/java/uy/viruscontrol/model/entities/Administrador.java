@@ -10,7 +10,9 @@ import javax.persistence.Entity;
 @DiscriminatorValue("administrador")
 public class Administrador extends Usuario implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	
+	
+	private static final long serialVersionUID = -5754916204104481261L;
 
 	public Administrador() {
 		super();
