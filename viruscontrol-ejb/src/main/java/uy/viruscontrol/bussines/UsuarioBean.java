@@ -10,8 +10,6 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.xml.bind.DatatypeConverter;
 
-import com.restfb.util.StringUtils;
-
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.bussines.interfaces.UsuarioBeanLocal;
 import uy.viruscontrol.bussines.interfaces.UsuarioBeanRemote;
@@ -25,7 +23,6 @@ import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.Usuario;
-import uy.viruscontrol.utils.VisitaPendiente;
 
 @Stateless
 @LocalBean
