@@ -2,6 +2,7 @@ package uy.viruscontrol.bussines;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -15,18 +16,17 @@ import uy.viruscontrol.bussines.interfaces.UsuarioBeanLocal;
 import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
 import uy.viruscontrol.model.entities.Usuario;
 import uy.viruscontrol.proxies.ProxyRedesSocialesLocal;
-import uy.viruscontrol.utils.UserAuthFE;
+import uy.viruscontrol.security.TokensBeanLocal;
+import uy.viruscontrol.security.UserAuthFE;
 
 @Singleton
 @LocalBean
 public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
-
-	@EJB
-	private UsuarioBeanLocal usuEJB;
-	@EJB
-	private ProxyRedesSocialesLocal socialMediaClient;
-	@EJB
-	private UsuarioDAOLocal usuDAO;
+	
+	@EJB private UsuarioBeanLocal usuEJB;
+	@EJB private ProxyRedesSocialesLocal socialMediaClient;
+	@EJB private UsuarioDAOLocal usuDAO;
+	@EJB private TokensBeanLocal beanToken;
 	
 	private Map<String,Usuario> userConectados = new HashMap<String, Usuario>();
 	
@@ -36,7 +36,8 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 	public AuthResponse iniciarSesion(String username, String password) {
 		
 		if (usuEJB.autenticarUsuario(username, password)) {
-			userConectados.put(username, usuEJB.getUsuario(username));
+			Usuario usu = usuEJB.getUsuario(username);
+			userConectados.put(beanToken.getToken(usu), usu);
 			return AuthResponse.OK;
 		}else
 			return AuthResponse.FAILED;
@@ -49,6 +50,7 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 		if (!socialMediaClient.authUsuario(user.getUsername())) {
 			ret.setResponse(AuthResponse.FAILED);
 			ret.setUsuario(null);
+			ret.setSessionToken("");
 		} else {
 			if (usuEJB.registrarPrimerIngreso(user, tipoUser))
 				ret.setResponse(AuthResponse.PRIMERINGRESO);
@@ -56,7 +58,9 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 				ret.setResponse(AuthResponse.OK);
 			
 			ret.setUsuario(usuDAO.findByUsername(user.getUsername()));
-			userConectados.put(user.getUsername(),user);
+			ret.setSessionToken(beanToken.getToken(user));
+			
+			userConectados.put(beanToken.getToken(user),user);
 		}
 		return ret;
 	}
@@ -80,16 +84,35 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 	}
 	
 	@Override
-	public Usuario getUsuarioLogueado(String username) {
-		return userConectados.get(username);
+	public Usuario getUsuarioLogueado(String token) {
+		return userConectados.get(token);
+	}
+	
+	@Override
+	public String getTokenByUsername(String username) {
+		/* No usar esta función. Solamente se deberá usar desde el backoffice. 
+		 * Desde otro lugar, siempre obtener por token
+		 */
+		for(Entry<String, Usuario> it : userConectados.entrySet()) {
+			if (it.getValue().getUsername().equals(username))
+				return it.getKey();
+		}
+		return "";
 	}
 
 	@Override
-	public void cerrarSesion(String username) {
-		
-		Usuario u = userConectados.get(username);
-		userConectados.remove(username, u);
-		
+	public void cerrarSesion(String token) {
+		Usuario u = userConectados.get(token);
+		userConectados.remove(token, u);
 	}
 	
+	@Override
+	public boolean validateAuthentication(String token) {
+		Usuario u = userConectados.get(token);
+		if (u != null) {
+			String tmpToken = beanToken.getToken(u);
+			return token.equals(tmpToken);
+		} else
+			return false;
+	}
 }

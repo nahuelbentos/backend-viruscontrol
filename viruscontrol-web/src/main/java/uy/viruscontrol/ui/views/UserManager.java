@@ -1,5 +1,6 @@
 package uy.viruscontrol.ui.views;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
@@ -8,6 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.controllers.SessionBeanController;
@@ -18,14 +20,17 @@ import uy.viruscontrol.model.entities.Usuario;
 @Named("UserManager")
 @SessionScoped
 public class UserManager implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4166151468721069760L;
 	
 	private String username;
+	private String sessionToken;
 	private String password;
 	private String mensaje;
 	
 	private Usuario currentUser;
+	
+	// Acceso a la sesión desde el facelet
+	private static HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
 	public UserManager() {
 		super();
@@ -53,7 +58,10 @@ public class UserManager implements Serializable {
 	public String login() {
 		AuthResponse res = SessionBeanController.iniciarSesion(username, password);
 		if (res.equals(AuthResponse.OK)) {
-			currentUser = SessionBeanController.getUsuarioLogeado(username);
+			this.sessionToken = SessionBeanController.getTokenByUsername(username);
+			currentUser = SessionBeanController.getUsuarioLogeado(sessionToken);
+			// guardo el usuario logueado en sesión
+			session.setAttribute("currentUser", currentUser);
 			return "exito";
 		} else {
 			this.mensaje = "Usuario inexistente o las credenciales son incorrectas.";
@@ -63,9 +71,23 @@ public class UserManager implements Serializable {
 	}
 	
 	public String logout() {
-		SessionBeanController.cerrarSesion(username);
+		SessionBeanController.cerrarSesion(this.sessionToken);
 		currentUser = null;
-		return "login";
+		session.removeAttribute("currentUser");
+		
+		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String redirectUri = "login.xhtml";
+		if (origRequest.getRequestURI().contains("admin") || origRequest.getRequestURI().contains("gerente"))
+			redirectUri = "../"+redirectUri;
+		
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(redirectUri);
+			FacesContext.getCurrentInstance().responseComplete();
+			return "login";
+		} catch (IOException e) {
+			//e.printStackTrace();
+			return "login";
+		}
 	}
 	
 	public Usuario getCurrentUser() {

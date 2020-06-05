@@ -5,7 +5,7 @@ import javax.ejb.Local;
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
 import uy.viruscontrol.model.entities.Usuario;
-import uy.viruscontrol.utils.UserAuthFE;
+import uy.viruscontrol.security.UserAuthFE;
 
 @Local
 public interface SessionBeanLocal {
@@ -16,8 +16,16 @@ public interface SessionBeanLocal {
 	
 	public void validarDatosConRedes(Usuario user);
 	
-	public Usuario getUsuarioLogueado(String username);
+	public Usuario getUsuarioLogueado(String token);
 	
-	public void cerrarSesion(String username);
+	public String getTokenByUsername(String username);
 	
+	public void cerrarSesion(String token);
+
+//	public DtSessionToken getTokenUsuarioLogueado(String username);
+
+//	public boolean validateAuthentication(DtSessionToken token);
+	
+	public boolean validateAuthentication(String token);
+
 }

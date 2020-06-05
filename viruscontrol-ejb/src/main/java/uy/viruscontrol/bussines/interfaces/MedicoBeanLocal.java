@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import uy.viruscontrol.model.entities.Ciudadano;
+import uy.viruscontrol.model.entities.Departamento;
 import uy.viruscontrol.model.entities.Examen;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.utils.DtEnfermedad;
@@ -21,7 +22,7 @@ public interface MedicoBeanLocal {
 
 	List<DtProveedorExamen> ObtenerProveedoresExamen();
 
-	boolean nuevoCaso(int idDepartamento, int idExamen, int idEnfermedad,int idPaciente,int idMedico);
+	boolean nuevoCaso(int idDepartamento, int idExamen, int idEnfermedad,int idPaciente,int idMedico,int idProveedorExamen);
 	
 	public List<VisitaPendiente> getVisitaPendiente(String username);
 
@@ -30,6 +31,8 @@ public interface MedicoBeanLocal {
 	List<DtEnfermedad> enfermerdadesAprobadas();
 
 	List<DtExamen> examenesEnfermedad(int idEnfermedad);
+
+	List<Departamento> obtenerDepartamentos();
 	
 	
 	

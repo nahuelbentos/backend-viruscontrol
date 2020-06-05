@@ -2,6 +2,7 @@ package uy.viruscontrol.bussines;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Medico;
+import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.model.entities.Usuario;
 
 @Stateless
@@ -154,26 +156,64 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 	
 	 @Override
 	    public List<Ciudadano> mostrarCiudadanos(){
-	    	return ciudadanoDAO.findAll();
-	    }
+		 	List<Ciudadano> ciudadanos = ciudadanoDAO.findAll();
+		 	List<Ciudadano> ciudadanosActivos = new ArrayList<Ciudadano>();
+		 	
+		 	for(Ciudadano c : ciudadanos) 
+		 		if(!c.isDeleted())
+		 		ciudadanosActivos.add(c);
+		 	
+		 	return (ciudadanosActivos != null) ? ciudadanosActivos : new ArrayList<Ciudadano>();
+		}
+	 
+	 /* @Override
+	    public List<PrestadoraSalud> obtenerPrestadorasSalud(){
+	    	
+	    	 List<PrestadoraSalud> prestadorasSalud = daoprestadorlocal.findAll();
+	    	 List<PrestadoraSalud> prestadorasSaludExamenNoEliminadas = new ArrayList<PrestadoraSalud>();
+	    	for(PrestadoraSalud ps : prestadorasSalud)
+	    		if(!ps.isDeleted())
+	    			prestadorasSaludExamenNoEliminadas.add(ps);
+	    	
+	    	return (prestadorasSaludExamenNoEliminadas != null) ? prestadorasSaludExamenNoEliminadas : new ArrayList<PrestadoraSalud>();
+		 }*/
 	 
 	 @Override
 	    public List<Medico> mostrarMedicos(){
-	    	
-		 return medicoDAO.findAll();
-	    }
+		 	List<Medico> medicos = medicoDAO.findAll();
+		 	List<Medico> medicosActivos = new ArrayList<Medico>();
+		 	
+		 	for(Medico m : medicos) 
+		 		if(!m.isDeleted())
+		 			medicosActivos.add(m);
+		 	
+		 	return (medicosActivos != null) ? medicosActivos : new ArrayList<Medico>();
+		}
+	    
 	 
 	 @Override
 	    public List<Gerente> mostrarGerentes(){
-	    	
-		 return gteDAO.findAll();
-	    }
+		 	List<Gerente> gerentes = gteDAO.findAll();
+		 	List<Gerente> gerentesActivos = new ArrayList<Gerente>();
+		 	
+		 	for(Gerente g : gerentes) 
+		 		if(!g.isDeleted())
+		 			gerentesActivos.add(g);
+		 	
+		 	return (gerentesActivos != null) ? gerentesActivos : new ArrayList<Gerente>();
+		}
 	 
 	 @Override
 	    public List<Administrador> mostrarAdministradores(){
-	    	
-		 return adminDAO.findAll();
-	    }
+		 	List<Administrador> administradores = adminDAO.findAll();
+		 	List<Administrador> administradoresActivos = new ArrayList<Administrador>();
+		 	
+		 	for(Administrador a : administradores) 
+		 		if(!a.isDeleted())
+		 			administradoresActivos.add(a);
+		 	
+		 	return (administradoresActivos != null) ? administradoresActivos : new ArrayList<Administrador>();
+		}
 	 
 	 @Override
 	 public void editarCiudadano(int ciudadanoId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha) {
@@ -342,9 +382,85 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 		adminDAO.merge(c);
 		}
 	 
+    }
 
- 		}
- 
- 
+
+ 	
+	@Override
+	public boolean eliminarUsuario(Usuario user) {
+		
+		if(user instanceof Administrador) {
+			
+			Administrador adminAux = new Administrador();
+			adminAux=adminDAO.findById(user.getIdUsuario());
+			
+			if(adminAux != null) {
+				adminAux.setDeleted(true);
+				adminDAO.merge(adminAux);
+				System.out.println("Usuario Administrador eliminado.");
+				return true;
+			}else {
+				System.out.println("Error, el usuario Administrador no existe.");
+				return false;
+			}
+			
+		}
+		
+		if(user instanceof Medico) {
+			Medico medicoAux = new Medico();
+			medicoAux=medicoDAO.findById(user.getIdUsuario());
+				
+			if(medicoAux != null) {
+				medicoAux.setDeleted(true);
+				medicoDAO.merge(medicoAux);
+				System.out.println("Usuario Medico eliminado.");
+				return true;
+			}else {
+				System.out.println("Error, el usuario Medico no existe.");
+				return false;
+			}
+		}
+			
+			
+		
+		if(user instanceof Gerente) {
+		
+			Gerente gerenteAux = new Gerente();
+			gerenteAux=gteDAO.findById(user.getIdUsuario());
+			
+			if(gerenteAux != null) {
+				gerenteAux.setDeleted(true);
+				gteDAO.merge(gerenteAux);
+				System.out.println("Usuario Gerente eliminado.");
+				return true;
+			}else {
+				System.out.println("Error, el usuario Gerente no existe.");
+				return false;
+			}
+		}
+		
+		if(user instanceof Ciudadano) {
+			
+			Ciudadano ciudadanoAux = new Ciudadano();
+			ciudadanoAux=ciudadanoDAO.findById(user.getIdUsuario());
+			
+			if(ciudadanoAux != null) {
+				ciudadanoAux.setDeleted(true);
+				ciudadanoDAO.merge(ciudadanoAux);
+				System.out.println("Usuario Ciudadano eliminado.");
+				return true;
+			}else {
+				System.out.println("Error, el usuario Ciudadano no existe.");
+				return false;
+			}
+		}
+		return false;
+		
+	}	
+		
+		
+		
+		
+	
  
 }

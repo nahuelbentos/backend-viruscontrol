@@ -20,6 +20,7 @@ import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.DepartamentoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ExamenDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ProveedorExamenDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
@@ -54,6 +55,7 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     @EJB private UsuarioDAOLocal usuarioDao;
     @EJB private VisitaMedicoDAOLocal visitaMedicoDao;
     @EJB private ProveedorExamenDAOLocal provExamenDao;
+    @EJB private MedicoDAOLocal medicoDao;
 	/**
      * Default constructor. 
      */
@@ -129,28 +131,35 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     }
     
     @Override
-    public boolean nuevoCaso(int idDepartamento,int idExamen,int idEnfermedad,int idPaciente,int idMedico) {
+    public boolean nuevoCaso(int idDepartamento,int idExamen,int idEnfermedad,int idPaciente,int idMedico,int idProveedorExamen) {
     	 System.out.println("nuevo caso");
     	 try {
 			DtExamen solEx = saProvEx.altaDeExamen(idPaciente, idExamen, idMedico);
-		
+			
+			System.out.println("soleEx "+solEx.getId());
+			System.out.println("solEx "+solEx.getIdEnfermedad());
+			
+			
 			System.out.println("idDepartamento: "+idDepartamento);
 			System.out.println("idExamen: "+idExamen);
 			System.out.println("idEnfermedad"+idEnfermedad);
-			System.out.println("idexamen solex: "+solEx.getId());
+			
 			
 			Departamento depa=departamentoDao.findById(idDepartamento);
-		    
-		    Examen ex=examenDao.findById(solEx.getId());
-		    
+		    Ciudadano ciudadano=ciudadanoDao.findById(idPaciente);
+		    Examen ex=examenDao.findById(idExamen);
+		    ProveedorExamen pe=provExamenDao.findById(idProveedorExamen);
 		    Enfermedad enf=enfermedadDao.findById(idEnfermedad);
-		    	
+		    Medico med=medicoDao.findById(idMedico);
+		    
 		   	Caso c=new Caso();
 		   	c.setDepartamento(depa);
 		   	c.setEnfermedad(enf);
 		   	c.setExamen(ex);
 		   	c.setTipoCaso(TipoCaso.SOSPECHOSO);
-		   	
+		   	c.setProveedorExamen(pe);
+		   	c.setCiudadano(ciudadano);
+		   	c.setMedico(med);
 		   	casoDao.persist(c);
     	 
     	 } catch (ClientProtocolException e) {
@@ -255,4 +264,10 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
 		return examenesenf;
 	}
 
+	@Override
+	public List<Departamento> obtenerDepartamentos(){
+		
+		return departamentoDao.findAll();
+	}
+	
 }
