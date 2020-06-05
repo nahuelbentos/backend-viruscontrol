@@ -1,4 +1,4 @@
-package uy.viruscontrol.utils;
+package uy.viruscontrol.security;
 
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
 import uy.viruscontrol.model.entities.Usuario;
@@ -7,6 +7,11 @@ public class UserAuthFE {
 
 	private AuthResponse response;
 	private Usuario usuario;
+	private String sessionToken;
+
+	public UserAuthFE() {
+		super();
+	}
 	public AuthResponse getResponse() {
 		return response;
 	}
@@ -19,8 +24,11 @@ public class UserAuthFE {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public UserAuthFE() {
-		super();
+	public String getSessionToken() {
+		return sessionToken;
+	}
+	public void setSessionToken(String sessionToken) {
+		this.sessionToken = sessionToken;
 	}
 	
 	

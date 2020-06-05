@@ -18,7 +18,7 @@ import uy.viruscontrol.model.dao.interfaces.PrestadoraSaludDAOLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.model.entities.Usuario;
-import uy.viruscontrol.utils.UserAuthFE;
+import uy.viruscontrol.security.UserAuthFE;
 
 @WebServlet("/IniciarSesionTest")
 public class IniciarSesionTest extends HttpServlet {
