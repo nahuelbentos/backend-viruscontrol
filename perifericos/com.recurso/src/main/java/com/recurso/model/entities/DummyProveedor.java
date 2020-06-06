@@ -1,6 +1,8 @@
 package com.recurso.model.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DummyProveedor implements Serializable{
 	private static final long serialVersionUID = -4814859568972226804L;
@@ -11,6 +13,7 @@ public class DummyProveedor implements Serializable{
 	private String barrio;
 	private String horarioAtencion;
 	private String ciudad;
+	private List<DummyRecursoDisponible> recursosDisponibles = new ArrayList<DummyRecursoDisponible>();
 	
 	public DummyProveedor() {
 		super();
@@ -52,7 +55,13 @@ public class DummyProveedor implements Serializable{
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	
-	
-	
+	public List<DummyRecursoDisponible> getRecursosDisponibles() {
+		return recursosDisponibles;
+	}
+	public void setRecursosDisponibles(List<DummyRecursoDisponible> recursosDisponibles) {
+		this.recursosDisponibles = recursosDisponibles;
+	}
+	public void addRecursoDisponible(DummyRecursoDisponible recursoDisponible) {
+		this.recursosDisponibles.add(recursoDisponible);
+	}
 }

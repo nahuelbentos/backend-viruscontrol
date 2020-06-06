@@ -63,8 +63,8 @@ public class HandlerModel {
     	return drrdd;
     }
     
-    public List<DummyRecursoDisponible> getRecursosDisponiblesPorCiudadBarrio(String ciudad, String barrio){
-    	List<DummyRecursoDisponible> drrdd = new ArrayList<DummyRecursoDisponible>();
+    public List<DummyProveedor> getRecursosDisponiblesPorCiudadBarrio(String ciudad, String barrio){
+    	List<DummyProveedor> ret = new ArrayList<DummyProveedor>();
     	boolean fullCheck = false;
     	
 	    for (Entry<String, Proveedor> it : proveedores.entrySet()) {
@@ -72,18 +72,27 @@ public class HandlerModel {
 	    	
 	    	if ((!fullCheck && ciudad.equals(it.getValue().getCiudad()) || barrio.equals(it.getValue().getBarrio())) ||
 	    		 (fullCheck && ciudad.equals(it.getValue().getCiudad()) && barrio.equals(it.getValue().getBarrio()))) {
+	    		DummyProveedor item = new DummyProveedor();
+	    		item.setNombre(it.getValue().getNombre());
+	    		item.setCodigo(it.getValue().getCodigo());
+	    		item.setDireccion(it.getValue().getDireccion());
+	    		item.setBarrio(it.getValue().getBarrio());
+	    		item.setHorarioAtencion(it.getValue().getHorarioAtencion());
+	    		item.setCiudad(it.getValue().getCiudad());
+	    		
 		    	for (ProveedorRecurso pr : it.getValue().getRecursosDisponibles()) {
 		    		DummyRecursoDisponible drd = new DummyRecursoDisponible();
 		    		
 		    		drd.setCantidadDisponible(pr.getCantidadDisponible());
 		    		drd.setPrecio(pr.getPrecio());
 		    		drd.setRecurso(pr.getRecurso());
-		    		if (!drrdd.contains(drd))
-		    			drrdd.add(drd);
+		    		if (!item.getRecursosDisponibles().contains(drd))
+		    			item.addRecursoDisponible(drd);
 				}
+		    	ret.add(item);
 	    	}
     	}
-    	return drrdd;
+    	return ret;
     }
     
     public List<DummyProveedor> getProveedores(){
