@@ -19,4 +19,6 @@ public interface ProveedorRecursoDAOLocal {
 
 	void delete(ProveedorRecursos proveedorRecursos);
 
+	public ProveedorRecursos findByExternalId(String codigo);
+
 }
