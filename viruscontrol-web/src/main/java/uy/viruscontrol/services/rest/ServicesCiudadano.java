@@ -1,5 +1,6 @@
 package uy.viruscontrol.services.rest;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -18,12 +19,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.http.client.ClientProtocolException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
 import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
 import uy.viruscontrol.bussines.interfaces.PrestadorBeanLocal;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
 import uy.viruscontrol.model.entities.Sintoma;
 
 @ApplicationScoped
@@ -33,6 +37,7 @@ public class ServicesCiudadano {
 	@EJB private PrestadorBeanLocal beanPrestador;
 	@EJB private CiudadanoBeanLocal beanCiudadano;
 	@EJB private SessionBeanLocal beanSesion;
+	@EJB private ServiceAgentProveedorExamenLocal saProvExamenLocal;
 	
 	private static ObjectMapper mapper;
 	
@@ -83,6 +88,17 @@ public class ServicesCiudadano {
 				return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 			}
 		} else
+			return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	
+	@GET
+	@Path("/examen/obtenerresultado/{idCaso}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response obtenerResultadoExamen(@HeaderParam("authorization") String token,@PathParam("idCaso") int idCaso) throws ClientProtocolException, IOException {
+		if (beanSesion.validateAuthentication(token))
+			return Response.status(Status.OK).entity(saProvExamenLocal.obtenerResultadoExamen(idCaso)).build();
+		else
 			return Response.status(Status.UNAUTHORIZED).build();
 	}
 
