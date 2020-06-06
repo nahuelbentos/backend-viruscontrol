@@ -65,6 +65,7 @@ public class FuenteDeDatosEnfermedad implements Serializable {
 		DtFuenteDeDatosEnfermedad dt = new DtFuenteDeDatosEnfermedad();
 		dt.setId(this.getId());
 		dt.setEnfermedad(this.getEnfermedad().getId());
+		dt.setEnfermedadNombre(this.getEnfermedad().getNombre());
 		dt.setFuente(this.getFuente().getId());
 		dt.setFiltros(this.getFiltros());
 		dt.setUrl(this.getUrl());
