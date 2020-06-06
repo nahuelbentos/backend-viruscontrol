@@ -1,7 +1,9 @@
 package uy.viruscontrol.model.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -45,6 +47,12 @@ public class Caso implements Serializable  {
 	@ManyToOne
 	private ProveedorExamen proveedorExamen;
 
+	@Column(name="fecha_sospechoso")
+	private Calendar fechaSospechoso;
+	
+	@Column(name="fecha_confirmado")
+	private Calendar fechaConfirmado;
+	
 	public Caso() {
 	}
 
@@ -59,6 +67,22 @@ public class Caso implements Serializable  {
 
 	
 	
+	public Calendar getFechaConfirmado() {
+		return fechaConfirmado;
+	}
+
+	public void setFechaConfirmado(Calendar fechaConfirmado) {
+		this.fechaConfirmado = fechaConfirmado;
+	}
+
+	public Calendar getFechaSospechoso() {
+		return fechaSospechoso;
+	}
+
+	public void setFechaSospechoso(Calendar fechaSospechoso) {
+		this.fechaSospechoso = fechaSospechoso;
+	}
+
 	public ProveedorExamen getProveedorExamen() {
 		return proveedorExamen;
 	}
