@@ -65,3 +65,6 @@ insert into usuario (tipo_usuario, id, apellido, correo, direccion, fecha_nacimi
 
 -- Fuentes de datos
 insert into fuente_de_datos (id, codigo, deleted, url) values (100, 'Twitter', false, 'https://twitter.com/');
+
+--Casos
+insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, departamento_id,enfermedad_id, examen_id, medico_id,proveedorexamen_id ) values(100,'2020-6-6 00:00:00','2020-6-6 00:00:00',0,105,200,100, 100,103,300);
