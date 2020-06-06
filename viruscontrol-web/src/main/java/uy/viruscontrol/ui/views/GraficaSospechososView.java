@@ -66,6 +66,8 @@ public class GraficaSospechososView implements Serializable {
 	    private PolarAreaChartModel polarAreaModel;
 	     
 	    private LineChartModel lineModel;
+	    
+	    private LineChartModel lineModel2;
 	     
 	    private LineChartModel cartesianLinerModel;
 	     
@@ -88,6 +90,8 @@ public class GraficaSospechososView implements Serializable {
 	    private BarChartModel mixedModel;
 	     
 	    private DonutChartModel donutModel;
+	    
+	    private List<Caso> reportecasos;
 	     
 	/* private ScatterChartModel scatterModel; */
 	 
@@ -108,6 +112,8 @@ public class GraficaSospechososView implements Serializable {
 	        createMixedModel();
 	        createDonutModel();
 	        createScatterModel();
+	        createLineModel2();
+	        reportecasos=GerenteBeanController.obtenerCasos();
 	    }
 	     
 	    private void createPieModel() {
@@ -136,7 +142,10 @@ public class GraficaSospechososView implements Serializable {
 	         
 	        pieModel.setData(data);
 	    }
-	     
+	     private List<Caso> reporteCasos(){
+	    	 return GerenteBeanController.obtenerCasos();
+	    			
+	     }
 	    private void createPolarAreaModel() {
 	        polarAreaModel = new PolarAreaChartModel();
 	        ChartData data = new ChartData();
@@ -169,7 +178,7 @@ public class GraficaSospechososView implements Serializable {
 	         
 	        polarAreaModel.setData(data);
 	    }
-	     ///////////////////////////////ESTA ES LA GRAFICA QUE ESTOY USANDO/////////////////////////////////////////
+	     ///////////////////////////////ESTA ES LA GRAFICA CASOS SOSPECHOSOS (ABAJO)/////////////////////////////////////////
 	    public void createLineModel() {	
 	    	List<Caso> casos=GerenteBeanController.obtenerCasos();
 	    	int enero=0;
@@ -179,6 +188,12 @@ public class GraficaSospechososView implements Serializable {
 	    	int mayo=0;
 	    	int junio=0;
 	    	int julio=0;
+	    	int agosto=0;
+	    	int setiembre=0;
+	    	int octubre=0;
+	    	int noviembre=0;
+	    	int diciembre=0;
+	    	
 	    	if(casos.isEmpty()) {
 	    		System.out.println("no hay casos");
 	    	}else {
@@ -211,6 +226,26 @@ public class GraficaSospechososView implements Serializable {
 	    				julio++;
 	    				System.out.println("hay un caso en julio");
 	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==7) {
+	    				agosto++;
+	    				System.out.println("hay un caso en agosto");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==8) {
+	    				setiembre++;
+	    				System.out.println("hay un caso en setiembre");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==9) {
+	    				octubre++;
+	    				System.out.println("hay un caso en octubre");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==10) {
+	    				noviembre++;
+	    				System.out.println("hay un caso en noviembre");
+	    			}
+	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==11) {
+	    				diciembre++;
+	    				System.out.println("hay un caso en setiembre");
+	    			}
 		    	}
 	    	}
 	    	
@@ -229,6 +264,11 @@ public class GraficaSospechososView implements Serializable {
 	        values.add(mayo);
 	        values.add(junio);
 	        values.add(julio);
+	        values.add(agosto);
+	        values.add(setiembre);
+	        values.add(octubre);
+	        values.add(noviembre);
+	        values.add(diciembre);
 	        dataSet.setData(values);
 	        dataSet.setFill(false);
 	        dataSet.setLabel("Casos Sospechosos");
@@ -244,6 +284,11 @@ public class GraficaSospechososView implements Serializable {
 	        labels.add("Mayo");
 	        labels.add("Junio");
 	        labels.add("Julio");
+	        labels.add("Agosto");
+	        labels.add("Setiembre");
+	        labels.add("Octubre");
+	        labels.add("Noviembre");
+	        labels.add("Diciembre");
 	        data.setLabels(labels);
 	         
 	        //Options
@@ -256,7 +301,139 @@ public class GraficaSospechososView implements Serializable {
 	        lineModel.setOptions(options);
 	        lineModel.setData(data);
 	    }
-	     /////////////////////////////////////////////////////////////////////////////////////////////
+	     //////////////////////////////////////////////// GRAFICA CONFIRMADOS ACA ABAJO 
+	    public void createLineModel2() {	
+	    	List<Caso> casos=GerenteBeanController.obtenerCasos();
+	    	int enero=0;
+	    	int febrero=0;
+	    	int marzo=0;
+	    	int abril=0;
+	    	int mayo=0;
+	    	int junio=0;
+	    	int julio=0;
+	    	int agosto=0;
+	    	int setiembre=0;
+	    	int octubre=0;
+	    	int noviembre=0;
+	    	int diciembre=0;
+	    	
+	    	if(casos.isEmpty()) {
+	    		System.out.println("no hay casos");
+	    	}else {
+	    		for(Caso c:casos) {
+	    			if(c.getFechaConfirmado()!=null) {
+	    				
+	    			
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==0) {
+	    				enero++;
+	    				System.out.println("hay un caso en enero");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==1) {
+	    				febrero++;
+	    				System.out.println("hay un caso en febrero");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==2) {
+	    				marzo++;
+	    				System.out.println("hay un caso en marzo");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==3) {
+	    				abril++;
+	    				System.out.println("hay un caso en abril");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==4) {
+	    				mayo++;
+	    				System.out.println("hay un caso en mayo");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==5) {
+	    				junio++;
+	    				System.out.println("hay un caso en junio");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==6) {
+	    				julio++;
+	    				System.out.println("hay un caso en julio");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==7) {
+	    				agosto++;
+	    				System.out.println("hay un caso en agosto");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==8) {
+	    				setiembre++;
+	    				System.out.println("hay un caso en setiembre");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==9) {
+	    				octubre++;
+	    				System.out.println("hay un caso en octubre");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==10) {
+	    				noviembre++;
+	    				System.out.println("hay un caso en noviembre");
+	    			}
+	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==11) {
+	    				diciembre++;
+	    				System.out.println("hay un caso en setiembre");
+	    			}
+	    			
+	    			}
+		    	}
+	    	}
+	    	
+	    	
+	    	
+	    	
+	        lineModel2 = new LineChartModel();
+	        ChartData data = new ChartData();
+	         
+	        LineChartDataSet dataSet = new LineChartDataSet();
+	        List<Number> values = new ArrayList<>();
+	        values.add(enero);
+	        values.add(febrero);
+	        values.add(marzo);
+	        values.add(abril);
+	        values.add(mayo);
+	        values.add(junio);
+	        values.add(julio);
+	        values.add(agosto);
+	        values.add(setiembre);
+	        values.add(octubre);
+	        values.add(noviembre);
+	        values.add(diciembre);
+	        dataSet.setData(values);
+	        dataSet.setFill(false);
+	        dataSet.setLabel("Casos Confirmados");
+	        dataSet.setBorderColor("rgb(255, 55, 81)");
+	        dataSet.setLineTension(0.4);
+	        data.addChartDataSet(dataSet);
+	         
+	        List<String> labels = new ArrayList<>();
+	        labels.add("Enero");
+	        labels.add("Febrero");
+	        labels.add("Marzo");
+	        labels.add("Abril");
+	        labels.add("Mayo");
+	        labels.add("Junio");
+	        labels.add("Julio");
+	        labels.add("Agosto");
+	        labels.add("Setiembre");
+	        labels.add("Octubre");
+	        labels.add("Noviembre");
+	        labels.add("Diciembre");
+	        data.setLabels(labels);
+	         
+	        //Options
+	        LineChartOptions options = new LineChartOptions();        
+	        Title title = new Title();
+	        title.setDisplay(true);
+	        title.setText("Grafica de casos Confirmados");
+	        options.setTitle(title);
+	         
+	        lineModel2.setOptions(options);
+	        lineModel2.setData(data);
+	    }
+	    
+	    
+	    
+	    
+	    ///////////////////////////////////////////GRAFICA CONFIRMADOS ACA ARRIBA///////////////////////////
 	    public void createScatterModel() {
 	   //     scatterModel = new ScatterChartModel();
 	        ChartData data = new ChartData();
@@ -1083,6 +1260,23 @@ public class GraficaSospechososView implements Serializable {
 	    public DonutChartModel getDonutModel() {
 	        return donutModel;
 	    }
+
+		public LineChartModel getLineModel2() {
+			return lineModel2;
+		}
+
+		public void setLineModel2(LineChartModel lineModel2) {
+			this.lineModel2 = lineModel2;
+		}
+
+		public List<Caso> getReportecasos() {
+			return reportecasos;
+		}
+
+		public void setReportecasos(List<Caso> reportecasos) {
+			this.reportecasos = reportecasos;
+		}
+	    
 	 
 	/*
 	 * public void setDonutModel(DonutChartModel donutModel) { this.donutModel =
