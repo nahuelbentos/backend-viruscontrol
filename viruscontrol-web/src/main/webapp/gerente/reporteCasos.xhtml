@@ -20,15 +20,15 @@
 </style>
  
 			<p:dataTable id="checkboxDT" value="#{GraficaSospechososView.reportecasos}"	var="p" rowKey="#{p.id}">
-					<p:column headerText="departamento">
+					<p:column headerText="Departamento" filterBy="#{p.departamento.nombre}" filterMatchMode="contains">
 					<p:outputLabel value="#{p.departamento.nombre}" />
 				</p:column>
-					<p:column headerText="Enfermedad">
+					<p:column headerText="Enfermedad" filterBy="#{p.enfermedad.nombre}" filterMatchMode="contains">
 					<p:outputLabel value="#{p.enfermedad.nombre}" />
 				</p:column>
 				
 				
-					<p:column headerText="Estado">
+					<p:column headerText="Estado" filterBy="#{p.tipoCaso.toString()}" filterMatchMode="contains">
 					<p:outputLabel value="#{p.tipoCaso.toString()}" />
 				</p:column>
 				

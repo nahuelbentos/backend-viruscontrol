@@ -200,51 +200,51 @@ public class GraficaSospechososView implements Serializable {
 	    		for(Caso c:casos) {
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==0) {
 	    				enero++;
-	    				System.out.println("hay un caso en enero");
+	    				//System.out.println("hay un caso en enero");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==1) {
 	    				febrero++;
-	    				System.out.println("hay un caso en febrero");
+	    				//System.out.println("hay un caso en febrero");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==2) {
 	    				marzo++;
-	    				System.out.println("hay un caso en marzo");
+	    				//System.out.println("hay un caso en marzo");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==3) {
 	    				abril++;
-	    				System.out.println("hay un caso en abril");
+	    				//System.out.println("hay un caso en abril");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==4) {
 	    				mayo++;
-	    				System.out.println("hay un caso en mayo");
+	    				//System.out.println("hay un caso en mayo");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==5) {
 	    				junio++;
-	    				System.out.println("hay un caso en junio");
+	    				//System.out.println("hay un caso en junio");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==6) {
 	    				julio++;
-	    				System.out.println("hay un caso en julio");
+	    				//System.out.println("hay un caso en julio");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==7) {
 	    				agosto++;
-	    				System.out.println("hay un caso en agosto");
+	    				//System.out.println("hay un caso en agosto");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==8) {
 	    				setiembre++;
-	    				System.out.println("hay un caso en setiembre");
+	    				//System.out.println("hay un caso en setiembre");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==9) {
 	    				octubre++;
-	    				System.out.println("hay un caso en octubre");
+	    				//System.out.println("hay un caso en octubre");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==10) {
 	    				noviembre++;
-	    				System.out.println("hay un caso en noviembre");
+	    				//System.out.println("hay un caso en noviembre");
 	    			}
 	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==11) {
 	    				diciembre++;
-	    				System.out.println("hay un caso en setiembre");
+	    				//System.out.println("hay un caso en setiembre");
 	    			}
 		    	}
 	    	}
@@ -326,51 +326,51 @@ public class GraficaSospechososView implements Serializable {
 	    			
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==0) {
 	    				enero++;
-	    				System.out.println("hay un caso en enero");
+	    				//System.out.println("hay un caso en enero");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==1) {
 	    				febrero++;
-	    				System.out.println("hay un caso en febrero");
+	    				//System.out.println("hay un caso en febrero");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==2) {
 	    				marzo++;
-	    				System.out.println("hay un caso en marzo");
+	    				//System.out.println("hay un caso en marzo");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==3) {
 	    				abril++;
-	    				System.out.println("hay un caso en abril");
+	    				//System.out.println("hay un caso en abril");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==4) {
 	    				mayo++;
-	    				System.out.println("hay un caso en mayo");
+	    				//System.out.println("hay un caso en mayo");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==5) {
 	    				junio++;
-	    				System.out.println("hay un caso en junio");
+	    				//System.out.println("hay un caso en junio");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==6) {
 	    				julio++;
-	    				System.out.println("hay un caso en julio");
+	    				//System.out.println("hay un caso en julio");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==7) {
 	    				agosto++;
-	    				System.out.println("hay un caso en agosto");
+	    				//System.out.println("hay un caso en agosto");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==8) {
 	    				setiembre++;
-	    				System.out.println("hay un caso en setiembre");
+	    				//System.out.println("hay un caso en setiembre");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==9) {
 	    				octubre++;
-	    				System.out.println("hay un caso en octubre");
+	    				//System.out.println("hay un caso en octubre");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==10) {
 	    				noviembre++;
-	    				System.out.println("hay un caso en noviembre");
+	    				//System.out.println("hay un caso en noviembre");
 	    			}
 	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==11) {
 	    				diciembre++;
-	    				System.out.println("hay un caso en setiembre");
+	    				//System.out.println("hay un caso en setiembre");
 	    			}
 	    			
 	    			}
