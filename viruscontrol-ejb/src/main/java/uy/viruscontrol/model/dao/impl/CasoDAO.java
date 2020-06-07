@@ -1,7 +1,9 @@
 package uy.viruscontrol.model.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,7 +11,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.entities.Caso;
+import uy.viruscontrol.model.entities.Ciudadano;
+import uy.viruscontrol.utils.DtExamenCiudadano;
 
 /**
  * Session Bean implementation class CasoDAO
@@ -20,6 +25,8 @@ public class CasoDAO implements CasoDAOLocal {
 
 	@PersistenceContext(unitName = "viruscontrolPersistenceUnit")
     protected EntityManager em;
+	
+	@EJB CiudadanoDAOLocal daoCiudadanoLocal;
     /**
      * Default constructor. 
      */
@@ -71,5 +78,28 @@ public class CasoDAO implements CasoDAOLocal {
 		return q.getResultList();
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<DtExamenCiudadano> findAllExamenesByCiudadano(int idCiudadano){
+		
+		Ciudadano ciudadano = daoCiudadanoLocal.findById(idCiudadano);
+		List<Caso> casosCiudadano = new ArrayList<Caso>();
+		List<DtExamenCiudadano> examenesCiudadano = new ArrayList<DtExamenCiudadano>();
+		
+		
+		if(ciudadano != null) {
+		casosCiudadano = em.createQuery("SELECT c FROM Caso c WHERE ciudadano = :ciudadano")
+				.setParameter("ciudadano", ciudadano)
+				.getResultList();
+		}
+		for(Caso c : casosCiudadano) {
+			DtExamenCiudadano dtExamCiudadano = new DtExamenCiudadano(c.getExamen().getId(), c.getExamen().getNombre(),c.getTipoCaso());
+			examenesCiudadano.add(dtExamCiudadano);
+		}
+		
+		
+		return examenesCiudadano;
+	}
+	
 	
 }
