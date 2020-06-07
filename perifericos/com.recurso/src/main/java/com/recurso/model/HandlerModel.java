@@ -212,8 +212,9 @@ public class HandlerModel {
     private void readCsvTipoProveedores() {
     	CSVReader reader = null;
     	try {
-    		ClassLoader classLoader = this.getClass().getClassLoader();
-    		FileReader file = new FileReader(classLoader.getResource("tipoProveedores.csv").getFile());
+    		//ClassLoader classLoader = this.getClass().getClassLoader();
+    		//FileReader file = new FileReader(classLoader.getResource("tipoProveedores.csv").getFile());
+    		FileReader file = new FileReader("/home/jboss/contenido/tipoProveedores.csv");
     		reader = new CSVReader(file,';');
     		
     		List<String[]> records = reader.readAll();
@@ -240,8 +241,9 @@ public class HandlerModel {
     private void readCsvProveedores() {
     	CSVReader reader = null;
     	try {
-    		ClassLoader classLoader = this.getClass().getClassLoader();
-    		FileReader file = new FileReader(classLoader.getResource("proveedores.csv").getFile());
+    		//ClassLoader classLoader = this.getClass().getClassLoader();
+    		//FileReader file = new FileReader(classLoader.getResource("proveedores.csv").getFile());
+    		FileReader file = new FileReader("/home/jboss/contenido/proveedores.csv");
     		reader = new CSVReader(file,';');
     		
     		List<String[]> records = reader.readAll();
@@ -276,8 +278,9 @@ public class HandlerModel {
     private void readCsvTipoRecursos() {
     	CSVReader reader = null;
     	try {
-    		ClassLoader classLoader = this.getClass().getClassLoader();
-    		FileReader file = new FileReader(classLoader.getResource("tipoRecursos.csv").getFile());
+    		//ClassLoader classLoader = this.getClass().getClassLoader();
+    		//FileReader file = new FileReader(classLoader.getResource("tipoRecursos.csv").getFile());
+    		FileReader file = new FileReader("/home/jboss/contenido/tipoRecursos.csv");
     		reader = new CSVReader(file,';');
     		
     		List<String[]> records = reader.readAll();
@@ -305,8 +308,9 @@ public class HandlerModel {
     private void readCsvRecursos() {
     	CSVReader reader = null;
     	try {
-    		ClassLoader classLoader = this.getClass().getClassLoader();
-    		FileReader file = new FileReader(classLoader.getResource("recursos.csv").getFile());
+    		//ClassLoader classLoader = this.getClass().getClassLoader();
+    		//FileReader file = new FileReader(classLoader.getResource("recursos.csv").getFile());
+    		FileReader file = new FileReader("/home/jboss/contenido/recursos.csv");
     		reader = new CSVReader(file,';');
     		
     		List<String[]> records = reader.readAll();
@@ -336,8 +340,10 @@ public class HandlerModel {
     private void readCsvRecursosDeProveedor() {
     	CSVReader reader = null;
     	try {
-    		ClassLoader classLoader = this.getClass().getClassLoader();
-    		FileReader file = new FileReader(classLoader.getResource("recursosDeProveedores.csv").getFile());
+    		//ClassLoader classLoader = this.getClass().getClassLoader();
+    		//FileReader file = new FileReader(classLoader.getResource("recursosDeProveedores.csv").getFile());
+    		
+    		FileReader file = new FileReader("/home/jboss/contenido/recursosDeProveedores.csv");
     		reader = new CSVReader(file,';');
     		
     		List<String[]> records = reader.readAll();
