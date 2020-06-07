@@ -66,12 +66,14 @@ public class HandlerModel {
     public List<DummyProveedor> getRecursosDisponiblesPorCiudadBarrio(String ciudad, String barrio){
     	List<DummyProveedor> ret = new ArrayList<DummyProveedor>();
     	boolean fullCheck = false;
-    	
+    	boolean listAll = false;
 	    for (Entry<String, Proveedor> it : proveedores.entrySet()) {
 	    	fullCheck = (!ciudad.equals("") && !ciudad.equals("0") && !ciudad.equals("-") && !barrio.equals("") && !barrio.equals("0") && !barrio.equals("-"));
+	    	listAll = ((ciudad.equals("") || ciudad.equals("0") || ciudad.equals("-")) && (barrio.equals("") || barrio.equals("0") || barrio.equals("-")));
 	    	
-	    	if ((!fullCheck && ciudad.equals(it.getValue().getCiudad()) || barrio.equals(it.getValue().getBarrio())) ||
-	    		 (fullCheck && ciudad.equals(it.getValue().getCiudad()) && barrio.equals(it.getValue().getBarrio()))) {
+	    	if ((!fullCheck && (ciudad.equals(it.getValue().getCiudad()) || barrio.equals(it.getValue().getBarrio()))) ||
+	    		 (fullCheck && ciudad.equals(it.getValue().getCiudad()) && barrio.equals(it.getValue().getBarrio())) || 
+	    		 listAll) {
 	    		DummyProveedor item = new DummyProveedor();
 	    		item.setNombre(it.getValue().getNombre());
 	    		item.setCodigo(it.getValue().getCodigo());

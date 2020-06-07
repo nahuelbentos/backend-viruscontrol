@@ -19,4 +19,6 @@ public interface ServiceAgentProveedorRecursoLocal {
 
 	public List<DtRecursosProveedor> getRecursosDisponiblesPorCiudadBarrio(String ciudad, String barrio);
 
+	public ProveedorRecursos findProveedor(String codigo);
+
 }

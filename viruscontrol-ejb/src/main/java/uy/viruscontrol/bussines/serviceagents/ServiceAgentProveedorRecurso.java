@@ -71,6 +71,37 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 			return null;
 		}
 	}
+	
+	@Override
+	public ProveedorRecursos findProveedor(String codigo) {
+		
+		try {
+			HttpClient client = HttpClients.createDefault();
+			HttpGet getRequest = new HttpGet(urlProvRecRest + "all");
+		
+			HttpResponse res = client.execute(getRequest);
+			List<DummyProveedor> dummiesprov = mapper.readValue(res.getEntity().getContent(), mapper.getTypeFactory().constructCollectionType(List.class, DummyProveedor.class));
+			
+			ProveedorRecursos pr = new ProveedorRecursos();
+			
+			for (DummyProveedor dummyProveedor : dummiesprov) {
+				if (dummyProveedor.getCodigo().equals(codigo)) {
+					pr.setBarrio(dummyProveedor.getBarrio());
+					pr.setDireccion(dummyProveedor.getDireccion());
+					pr.setRangoHorario(dummyProveedor.getHorarioAtencion());
+					pr.setNombre(dummyProveedor.getNombre());
+					pr.setCodigoPeriferico(dummyProveedor.getCodigo());
+					break;
+				}
+			}
+			return pr;
+			
+		} catch (IOException e) {
+			//e.printStackTrace();
+			this.log("ERROR: "+e.getMessage()+". Para ver mas información, habilitar la traza y replicar el error.");
+			return null;
+		}
+	}
 
 	@Override
 	public List<Recurso> getRecursosProvPeriferico(String codigoPeriferico) {
@@ -127,6 +158,10 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 				// si el proveedor existe en mi sistema
 				if (provRec != null) {
 					DtRecursosProveedor dtRP = new DtRecursosProveedor();
+					provRec.setCiudad(dp.getCiudad());
+					provRec.setDireccion(dp.getDireccion());
+					provRec.setBarrio(dp.getBarrio());
+					provRec.setRangoHorario(dp.getHorarioAtencion());
 					dtRP.setProveedor(provRec);
 					
 					for (DummyRecursoDisponible it : dp.getRecursosDisponibles()) {

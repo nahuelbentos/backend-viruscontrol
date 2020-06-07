@@ -13,4 +13,6 @@ public interface ServiceAgentProveedorRecursoRemote {
 	List<ProveedorRecursos> getProveedoresPeriferico();
 
 	public List<DtRecursosProveedor> getRecursosDisponiblesPorCiudadBarrio(String ciudad, String barrio);
+
+	public ProveedorRecursos findProveedor(String codigo);
 }

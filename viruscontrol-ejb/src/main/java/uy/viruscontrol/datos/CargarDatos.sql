@@ -29,8 +29,8 @@ insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,100);
 insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,300);
 
 --Proveedor
-insert into proveedor(proveedor_tipo, id, nombre,deleted) values('RECURSO', 100, 'Roemers',false);
-insert into proveedor(proveedor_tipo, id, nombre,deleted) values('RECURSO', 200, 'Quimfa',false);
+insert into proveedor(proveedor_tipo, id, nombre,deleted,codigo_periferico) values('RECURSO', 100, 'Roemers',false,'COMCHI');
+insert into proveedor(proveedor_tipo, id, nombre,deleted,codigo_periferico) values('RECURSO', 200, 'Quimfa',false,'PRJUAN');
 insert into proveedor(proveedor_tipo, id, nombre, barrio, direccion, rangohorario, deleted) values('EXAMEN', 300, 'labSA','centro','18 y ejido','24 hs', false);
 insert into proveedor(proveedor_tipo, id, nombre, barrio , direccion, rangohorario,deleted) values('EXAMEN', 400, 'BillGates Foundation','Xanadu','Seattle','24 hs',false);
 insert into proveedor(proveedor_tipo, id, barrio, direccion, nombre, rangohorario,deleted) values ('EXAMEN', 500, 'Centro', 'Canelones 2222', 'Algun prov', '24 hs',false);
