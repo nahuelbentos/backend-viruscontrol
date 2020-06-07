@@ -93,11 +93,12 @@ public class ServicesCiudadano {
 	
 	
 	@GET
-	@Path("/examen/obtenerresultado/{idCaso}")
+	@Path("/obtenerexamenes/{idCiudadano}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response obtenerResultadoExamen(@HeaderParam("authorization") String token,@PathParam("idCaso") int idCaso) throws ClientProtocolException, IOException {
+	public Response obtenerExamenesCiudadano(@HeaderParam("authorization") String token,@PathParam("idCiudadano") int idCiudadano){
+		
 		if (beanSesion.validateAuthentication(token))
-			return Response.status(Status.OK).entity(saProvExamenLocal.obtenerResultadoExamen(idCaso)).build();
+			return Response.status(Status.OK).entity(beanCiudadano.obtenerExamenesCiudadano(idCiudadano)).build();
 		else
 			return Response.status(Status.UNAUTHORIZED).build();
 	}

@@ -8,12 +8,14 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
+import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.SintomaDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.VisitaMedico;
+import uy.viruscontrol.utils.DtExamenCiudadano;
 
 @Stateless
 @Local(CiudadanoBeanLocal.class)
@@ -22,6 +24,7 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 	@EJB private MedicoDAOLocal daoMedico;
 	@EJB private SintomaDAOLocal daoSintoma;
 	@EJB private VisitaMedicoDAOLocal daoVisita;
+	@EJB private CasoDAOLocal daoCasoLocal;
 	
 	public CiudadanoBean() {
 		super();
@@ -42,6 +45,12 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 			System.out.println(e.getMessage());
 			return false;
 		}
+	}
+	
+	@Override
+	public List<DtExamenCiudadano> obtenerExamenesCiudadano(int idCiudadano){
+		
+		return daoCasoLocal.findAllExamenesByCiudadano(idCiudadano);
 	}
 
 }
