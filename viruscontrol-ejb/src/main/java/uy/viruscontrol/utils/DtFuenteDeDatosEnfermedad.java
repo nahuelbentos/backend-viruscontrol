@@ -8,6 +8,7 @@ public class DtFuenteDeDatosEnfermedad implements Serializable {
 	
 	private int id;
 	private int enfermedadId;
+	private String enfermedadNombre;
 	private int fuenteId;
 	private String filtros;
 	private String url;
@@ -49,6 +50,12 @@ public class DtFuenteDeDatosEnfermedad implements Serializable {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	public String getEnfermedadNombre() {
+		return enfermedadNombre;
+	}
+	public void setEnfermedadNombre(String enfermedadNombre) {
+		this.enfermedadNombre = enfermedadNombre;
 	}
    
 }
