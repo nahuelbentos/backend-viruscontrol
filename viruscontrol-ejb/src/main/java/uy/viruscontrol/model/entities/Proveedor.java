@@ -134,7 +134,7 @@ public abstract class Proveedor implements Serializable {
 
 	@Override
 	public String toString() {
-		return id + " - " + nombre;
+		return nombre;
 	}
 
 	
