@@ -12,7 +12,9 @@ import javax.ws.rs.core.MediaType;
 
 import com.recurso.model.entities.DummyProveedor;
 import com.recurso.model.entities.DummyRecursoDisponible;
+import com.recurso.model.entities.Recurso;
 import com.recurso.model.entities.TipoProveedor;
+import com.recurso.model.entities.TipoRecurso;
 
 @Path("/proveedor")
 @Produces(MediaType.APPLICATION_JSON)
@@ -46,6 +48,12 @@ public interface IProveedorRest {
 	List<DummyProveedor> getRecursosDisponiblesPorCiudadBarrio(@PathParam("ciudad") String ciudad, 
 																@PathParam("barrio") String barrio);
 	
+	@GET
+	@Path("/all/recursos")
+	List<Recurso> getAllRecursos();
 	
+	@GET
+	@Path("/all/tiposrecursos")
+	List<TipoRecurso> getAllTipoDeRecursos();
 	
 }

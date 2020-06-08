@@ -117,6 +117,8 @@ public class HandlerModel {
 		return dummies;
     }
     
+   
+    
     public List<DummyProveedor> getProveedoresDeTipo(String codigoTipo){
 		List<Proveedor> proveedores = new ArrayList<Proveedor>();
 		
@@ -181,8 +183,23 @@ public class HandlerModel {
     	
     }
     
+    //Added by Naty
+    public List<Recurso> getAllRecursos(){
+    	List<Recurso> allRecursos = new ArrayList<Recurso>();
+    	
+    	this.recursos.forEach((k,v) -> allRecursos.add(v));
+    	
+    	return allRecursos;
+    }
     
-    
+    //Added by Naty
+    public List<TipoRecurso> getAllTiposDeRecursos(){
+    	List<TipoRecurso> allTiposRecursos = new ArrayList<TipoRecurso>();
+    	
+    	this.tiposRecursos.forEach((k,v) -> allTiposRecursos.add(v));
+    	
+    	return allTiposRecursos;
+    }
     
     /*************************** AUXILIARES ***************************/
     private void iniciarProveedores() {
