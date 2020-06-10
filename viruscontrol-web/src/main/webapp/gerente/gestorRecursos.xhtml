@@ -30,10 +30,21 @@
 				<p:inputText id="DescripcionTipoRecurso"
 					value="#{GestorRecursosView.descripcionTipoRecurso}"
 					required="true" />
-
+					
+				<p:outputLabel for="@next" value="Tipo Recurso Externo" />
+				<p:selectOneMenu id="PerifericoRecurso"
+					value="#{GestorRecursosView.codigoPeriferico}"
+					style="width:150px" required="false">
+					<f:selectItem itemLabel="Seleccione Tipo" itemValue="" />
+					<f:selectItems value="#{GestorRecursosView.tiposRecursosPeriferico}"
+					var="tipoRec" itemLabel="#{tipoRec}" itemValue="#{tipoRec.codigoPeriferico}"/>
+				</p:selectOneMenu>
+			
 				<p:commandButton
 					action="#{GestorRecursosView.agregarNuevoTipoRecurso()}" value="Alta"
-					update="form1"/>
+					>
+					<p:ajax oncomplete="updateDropDown()" />
+				</p:commandButton>
 			</p:panelGrid>
 		</h:form>
 	
@@ -42,7 +53,10 @@
 		
 		<h:form id="form2">
 		<p:growl id="msg" />
-			<p:panelGrid columns="1" layout="grid"
+		
+		<p:remoteCommand name="updateDropDown" update="TipoRecurso" />
+		
+			<p:panelGrid id="panel1" columns="1" layout="grid"
 				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
 				contentStyleClass="p-align-baseline ui-fluid">
 				

@@ -1,7 +1,7 @@
 --TipoRecurso
-insert into public.tipo_recurso(id, nombre, descripcion) values (100, 'Antiinflamatorio', 'Antiinflamatorio');
-insert into public.tipo_recurso(id, nombre, descripcion) values (200, 'Alcohol en Gel','Alcohol en Gel');
-insert into public.tipo_recurso(id, nombre, descripcion) values (300, 'Seguridad','Seguridad');
+insert into public.tipo_recurso(id, nombre, descripcion, codigo_periferico) values (100, 'Antiinflamatorio', 'Antiinflamatorio', null);
+insert into public.tipo_recurso(id, nombre, descripcion, codigo_periferico) values (200, 'Alcohol en Gel','Alcohol en Gel', null);
+insert into public.tipo_recurso(id, nombre, descripcion, codigo_periferico) values (300, 'Seguridad','Seguridad', null);
 
 ---Recurso
 insert into public.recurso(id, nombre, tipo_recurso) values (100, 'Ibuprofeno', 100);
