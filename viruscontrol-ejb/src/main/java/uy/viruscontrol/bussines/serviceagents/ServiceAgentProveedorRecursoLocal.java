@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import uy.viruscontrol.model.entities.ProveedorRecursos;
 import uy.viruscontrol.model.entities.Recurso;
+import uy.viruscontrol.model.entities.TipoRecurso;
 import uy.viruscontrol.utils.DtRecursosProveedor;
 
 @Local
@@ -20,5 +21,7 @@ public interface ServiceAgentProveedorRecursoLocal {
 	public List<DtRecursosProveedor> getRecursosDisponiblesPorCiudadBarrio(String ciudad, String barrio);
 
 	public ProveedorRecursos findProveedor(String codigo);
+	
+	public List<TipoRecurso> getAllTipoDeRecursosPeriferico();
 
 }

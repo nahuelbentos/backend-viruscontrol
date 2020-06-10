@@ -7,6 +7,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.recurso.model.entities.TipoRecurso;
 
 import uy.viruscontrol.bussines.interfaces.ProveedorBeanRemote;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecursoRemote;
@@ -50,6 +51,9 @@ public class ProveedorBeanController {
 		return serviceAgentProveedorRecursoRemote.getProveedoresPeriferico();
 	}
 	
+	public static List<uy.viruscontrol.model.entities.TipoRecurso> obtenerTiposRecursosPeriferico(){
+		return serviceAgentProveedorRecursoRemote.getAllTipoDeRecursosPeriferico();
+	}
 	
 	private static ProveedorBeanRemote lookupRemoteProveedorBean(){
 		Properties props = new Properties();

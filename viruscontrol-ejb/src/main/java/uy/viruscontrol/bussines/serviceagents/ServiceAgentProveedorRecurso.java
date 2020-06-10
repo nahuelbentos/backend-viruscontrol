@@ -30,6 +30,7 @@ import uy.viruscontrol.utils.DtRecursosProveedor;
 public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecursoLocal,ServiceAgentProveedorRecursoRemote {
 
 	private static final String urlProvRecRest = "http://localhost:8080/proveedores-recursos/rest/proveedor/";
+													//http://localhost:8080/com.recurso/rest/proveedor/
 	private static ObjectMapper mapper;
 	
 	@EJB private ProveedorRecursoDAOLocal daoProvRec;
@@ -187,7 +188,37 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 		}
     }
     
+    
     private void log(String ln) {
     	System.out.println("["+getClass().getCanonicalName()+"] "+ln);
     }
+    
+    @Override
+    public List<TipoRecurso> getAllTipoDeRecursosPeriferico(){
+      try {	
+	    	HttpClient client = HttpClients.createDefault();
+			HttpGet getRequest = new HttpGet(urlProvRecRest + "all/" + "tiposrecursos");
+			
+			HttpResponse res = client.execute(getRequest);
+			List<com.recurso.model.entities.TipoRecurso> tiposRecPer = mapper.readValue(res.getEntity().getContent(), mapper.getTypeFactory().constructCollectionType(List.class, com.recurso.model.entities.TipoRecurso.class));
+			
+			List<TipoRecurso> tiposRecursosPeriferico  = new ArrayList<TipoRecurso>();
+			for(com.recurso.model.entities.TipoRecurso tre : tiposRecPer) {
+				TipoRecurso trl = new TipoRecurso();
+				trl.setNombre(tre.getNombre());
+				trl.setCodigoPeriferico(tre.getCodigo());
+				tiposRecursosPeriferico.add(trl);
+			}
+		
+			return tiposRecursosPeriferico;
+     
+      } catch (IOException e) {
+			//e.printStackTrace();
+			this.log("ERROR: "+e.getMessage()+". Para ver mas información, habilitar la traza y replicar el error.");
+			return null;
+	  }
+    
+    }
+
+
 }

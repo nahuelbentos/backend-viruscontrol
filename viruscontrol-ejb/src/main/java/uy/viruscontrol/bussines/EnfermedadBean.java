@@ -208,9 +208,10 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     }
     
     //Agregar Tipo de Recurso
-    public boolean altaTipoRecurso (String nombre, String descripcion) {
+    public boolean altaTipoRecurso (String nombre, String descripcion, String codigoPeriferico) {
     	if(!daoTipoRecursoLocal.exist(nombre)) {
     		TipoRecurso tipoRecurso = new TipoRecurso(nombre, descripcion);
+    		tipoRecurso.setCodigoPeriferico(codigoPeriferico);
     		daoTipoRecursoLocal.persist(tipoRecurso);
     		return true;
     	}else {

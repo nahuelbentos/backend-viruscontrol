@@ -50,8 +50,8 @@ public class EnfermedadBeanController {
 	}
 	
 	//Recursos y Tipos de Recursos
-	public static boolean altaTipoRecurso(String nombre, String descripcion) {
-		return iEnfermedadBean.altaTipoRecurso(nombre, descripcion);
+	public static boolean altaTipoRecurso(String nombre, String descripcion, String codigoPeriferico) {
+		return iEnfermedadBean.altaTipoRecurso(nombre, descripcion,codigoPeriferico);
 	}
 	
 	public static boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso) {

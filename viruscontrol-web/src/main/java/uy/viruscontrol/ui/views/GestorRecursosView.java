@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import uy.viruscontrol.controllers.EnfermedadBeanController;
+import uy.viruscontrol.controllers.ProveedorBeanController;
 import uy.viruscontrol.model.entities.TipoRecurso;
 
 @Named("GestorRecursosView")
@@ -24,7 +25,10 @@ public class GestorRecursosView {
 	private String nombreRecurso;
 	private List<String> tiposDeRecursos;
 	private String nombreTipoRecursoDropDown;
-
+	private String codigoPeriferico;
+	
+	private List<TipoRecurso> tiposRecursosPeriferico;
+	
 	public GestorRecursosView() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -38,6 +42,8 @@ public class GestorRecursosView {
 			tiposDeRecursos.add(tipo.getNombre());
 		}
 
+		tiposRecursosPeriferico = new ArrayList<TipoRecurso>();
+		tiposRecursosPeriferico = ProveedorBeanController.obtenerTiposRecursosPeriferico();
 	}
 
 	
@@ -82,9 +88,27 @@ public class GestorRecursosView {
 	public void setNombreTipoRecursoDropDown(String nombreTipoRecursoDropDown) {
 		this.nombreTipoRecursoDropDown = nombreTipoRecursoDropDown;
 	}
+	
+	
+
+	public String getCodigoPeriferico() {
+		return codigoPeriferico;
+	}
+
+	public void setCodigoPeriferico(String codigoPeriferico) {
+		this.codigoPeriferico = codigoPeriferico;
+	}
+
+	public List<TipoRecurso> getTiposRecursosPeriferico() {
+		return tiposRecursosPeriferico;
+	}
+
+	public void setTiposRecursosPeriferico(List<TipoRecurso> tiposRecursosPeriferico) {
+		this.tiposRecursosPeriferico = tiposRecursosPeriferico;
+	}
 
 	public void agregarNuevoTipoRecurso() {
-		boolean ok = EnfermedadBeanController.altaTipoRecurso(nombreTipoRecurso, descripcionTipoRecurso);
+		boolean ok = EnfermedadBeanController.altaTipoRecurso(nombreTipoRecurso, descripcionTipoRecurso, codigoPeriferico);
 
 		if (ok) {
 			
@@ -119,6 +143,7 @@ public class GestorRecursosView {
 		setDescripcionTipoRecurso(null);
 		setNombreRecurso(null);
 		setNombreTipoRecursoDropDown(null);
+		setCodigoPeriferico(null);
 	}
 
 }

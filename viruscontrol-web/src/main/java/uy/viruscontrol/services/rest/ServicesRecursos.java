@@ -1,4 +1,4 @@
-package uy.viruscontrol.services.rest;
+ package uy.viruscontrol.services.rest;
 
 import java.util.List;
 
