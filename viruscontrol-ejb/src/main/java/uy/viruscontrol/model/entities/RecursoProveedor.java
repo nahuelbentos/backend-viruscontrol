@@ -60,4 +60,39 @@ public class RecursoProveedor implements Serializable {
 		this.proveedor = proveedor;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + cantidad;
+		result = prime * result + ((proveedor == null) ? 0 : proveedor.hashCode());
+		result = prime * result + ((recurso == null) ? 0 : recurso.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RecursoProveedor other = (RecursoProveedor) obj;
+		if (cantidad != other.cantidad)
+			return false;
+		if (proveedor == null) {
+			if (other.proveedor != null)
+				return false;
+		} else if (!proveedor.equals(other.proveedor))
+			return false;
+		if (recurso == null) {
+			if (other.recurso != null)
+				return false;
+		} else if (!recurso.equals(other.recurso))
+			return false;
+		return true;
+	}
+
+	
 }

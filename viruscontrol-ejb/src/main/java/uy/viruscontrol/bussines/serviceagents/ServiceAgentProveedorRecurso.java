@@ -24,12 +24,13 @@ import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.TipoRecurso;
 import uy.viruscontrol.utils.CaracteresDeEscapePersonalizados;
 import uy.viruscontrol.utils.DtRecursosProveedor;
+import uy.viruscontrol.utils.DtRecursoDisponibleProveedor;
 
 @Stateless
 @LocalBean
 public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecursoLocal,ServiceAgentProveedorRecursoRemote {
 
-	private static final String urlProvRecRest = "http://localhost:8080/proveedores-recursos/rest/proveedor/";
+	private static final String urlProvRecRest = "http://localhost:8080/com.recurso/rest/proveedor/";
 													//http://localhost:8080/com.recurso/rest/proveedor/ -- Naty
 													//http://localhost:8080/proveedores-recursos/rest/proveedor/ --Generica
 	private static ObjectMapper mapper;
@@ -128,6 +129,7 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 				r.setCodigoPeriferico(drd.getRecurso().getCodigo());
 				
 				recursos.add(r);
+				
 			}
 			
 			return recursos;
@@ -249,5 +251,35 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 	  }
     }
 
-
+   public DtRecursoDisponibleProveedor getRecursoDisponibleProveedor(String codigoProveedor, String codigoRecurso) {
+	   try {	
+	    	HttpClient client = HttpClients.createDefault();
+			HttpGet getRequest = new HttpGet(urlProvRecRest + codigoProveedor);
+			
+			HttpResponse res = client.execute(getRequest);
+			List<DummyRecursoDisponible> dummiesrecprov = mapper.readValue(res.getEntity().getContent(), mapper.getTypeFactory().constructCollectionType(List.class, DummyRecursoDisponible.class));
+			
+			DtRecursoDisponibleProveedor dtRecDispProv = new DtRecursoDisponibleProveedor();
+			
+			for (DummyRecursoDisponible drd : dummiesrecprov) {
+				if(drd.getRecurso().getCodigo().equals(codigoRecurso)) {
+					dtRecDispProv.setCantidadDisponible(drd.getCantidadDisponible());
+					dtRecDispProv.setPrecio(drd.getPrecio());
+					dtRecDispProv.setRecurso(drd.getRecurso());
+				}
+			}
+		
+			return dtRecDispProv;
+    
+     } catch (IOException e) {
+			//e.printStackTrace();
+			this.log("ERROR: "+e.getMessage()+". Para ver mas información, habilitar la traza y replicar el error.");
+			return null;
+	  }
+   }
+   
+   
+   
+  
+    
 }

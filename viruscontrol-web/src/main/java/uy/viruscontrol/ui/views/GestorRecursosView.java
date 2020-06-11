@@ -182,8 +182,27 @@ public class GestorRecursosView {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("No se pudo cargar la lista de Recursos del proveedor, verifique."));
 		}
 	}
-
 	
+	public void onAltaTipoRecursoAfterSubmit() {
+		tiposDeRecursos = new ArrayList<String>();
+		for (TipoRecurso tipo : EnfermedadBeanController.obtenerTiposDeRecursos()) {
+			tiposDeRecursos.add(tipo.getNombre());
+		}
+	}
+	
+	public void altaRecursoProveedor() {
+		boolean ok1 = ProveedorBeanController.altaRecursoProveedor(provRecSeleccionado, nombreRecurso);
+		
+		if (ok1) {
+			
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Recurso mapeado a Proveedor."));
+		} else {
+			
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Recurso NO mapeado a Proveedor, record ya existente."));
+		}
+		
+				
+	}
 
 	public void agregarNuevoTipoRecurso() {
 		boolean ok = EnfermedadBeanController.altaTipoRecurso(nombreTipoRecurso, descripcionTipoRecurso, codigoPeriferico);
@@ -201,7 +220,7 @@ public class GestorRecursosView {
 	}
 
 	public void agregarNuevoRecurso() {
-		System.out.println("aca llega 3"+	codigoRecursoPeriferico);
+		
 		int idAux = EnfermedadBeanController.getIdTipoRecursoByName(nombreTipoRecursoDropDown);
 
 		boolean ok = EnfermedadBeanController.altaRecursoDeUnDeterminadoTipo(nombreRecurso, idAux, codigoRecursoPeriferico);
@@ -212,6 +231,8 @@ public class GestorRecursosView {
 			
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo dar de alta el Recurso, verifique."));
 		}
+		
+		altaRecursoProveedor();
 		
 		this.cleanForm();
 	}
@@ -224,7 +245,7 @@ public class GestorRecursosView {
 		setNombreTipoRecursoDropDown(null);
 		setCodigoPeriferico(null);
 		setProvRecSeleccionado(null);
-		//setCodigoRecursoPeriferico(null);
+		setCodigoRecursoPeriferico(null);
 	}
 
 }

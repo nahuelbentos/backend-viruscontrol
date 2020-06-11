@@ -63,6 +63,12 @@ public class ProveedorBeanController {
 		return serviceAgentProveedorRecursoRemote.getRecursosProvPeriferico(codigoPeriferico);
 	}
 	
+	public static boolean altaRecursoProveedor(String codigoProveedor, String nombreRecurso) {
+		return proveedorBeanRemote.altaRecursoProveedor(codigoProveedor, nombreRecurso);
+	}
+	
+	
+	
 	private static ProveedorBeanRemote lookupRemoteProveedorBean(){
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");  

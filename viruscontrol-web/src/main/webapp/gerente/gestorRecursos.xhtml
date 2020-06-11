@@ -44,8 +44,8 @@
 				<p:commandButton
 					action="#{GestorRecursosView.agregarNuevoTipoRecurso()}" 
 					value="Alta"
-					update="form1"
-					>
+					update="form1">
+					<p:ajax oncomplete="#{GestorRecursosView.onAltaTipoRecursoAfterSubmit()}" />
 					<p:ajax oncomplete="updateDropDown()" />
 				</p:commandButton>
 			</p:panelGrid>
@@ -106,7 +106,7 @@
 					action="#{GestorRecursosView.agregarNuevoRecurso()}" 
 					value="Alta"
 					update="form2">
-				
+					
 					</p:commandButton>
 			</p:panelGrid>
 		</h:form>
