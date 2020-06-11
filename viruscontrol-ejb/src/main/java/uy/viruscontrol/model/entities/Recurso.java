@@ -106,12 +106,17 @@ public class Recurso implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((codigoPeriferico == null) ? 0 : codigoPeriferico.hashCode());
 		result = prime * result + ((enfermedades == null) ? 0 : enfermedades.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((tipoRecurso == null) ? 0 : tipoRecurso.hashCode());
 		return result;
 	}
+
+	
+
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -122,6 +127,11 @@ public class Recurso implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Recurso other = (Recurso) obj;
+		if (codigoPeriferico == null) {
+			if (other.codigoPeriferico != null)
+				return false;
+		} else if (!codigoPeriferico.equals(other.codigoPeriferico))
+			return false;
 		if (enfermedades == null) {
 			if (other.enfermedades != null)
 				return false;

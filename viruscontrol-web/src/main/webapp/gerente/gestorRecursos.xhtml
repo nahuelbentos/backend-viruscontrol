@@ -15,6 +15,7 @@
 		
 		<h:form id="form1">
 		<p:growl id="msg" />
+		
 			<p:panelGrid columns="1" layout="grid"
 				columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
 				contentStyleClass="p-align-baseline ui-fluid">
@@ -41,7 +42,9 @@
 				</p:selectOneMenu>
 			
 				<p:commandButton
-					action="#{GestorRecursosView.agregarNuevoTipoRecurso()}" value="Alta"
+					action="#{GestorRecursosView.agregarNuevoTipoRecurso()}" 
+					value="Alta"
+					update="form1"
 					>
 					<p:ajax oncomplete="updateDropDown()" />
 				</p:commandButton>
@@ -67,27 +70,44 @@
 				<p:inputText id="NombreRecurso"
 					value="#{GestorRecursosView.nombreRecurso}" required="true"/>
 
-				<p:outputLabel for="@next" value="TipoRecurso" />
+				
+				<p:outputLabel for="TipoRecurso" value="Tipo Recurso" />
 					<p:selectOneMenu id="TipoRecurso"
 						value="#{GestorRecursosView.nombreTipoRecursoDropDown}" style="width:150px"
-						required="true" requiredMessage="Debe seleccionar Tipo">
+						required="true">
 						<f:selectItem itemLabel="Seleccione Tipo" itemValue="" />
 						<f:selectItems value="#{GestorRecursosView.tiposDeRecursos}" />
+					</p:selectOneMenu>	
+				
+				
+				<p:outputLabel for="proveedorrecursos" value="Proveedor de Recursos" />
+					<p:selectOneMenu id="proveedorrecursos"
+						value="#{GestorRecursosView.provRecSeleccionado}" style="width:150px"
+						required="true">
+						<p:ajax listener="#{GestorRecursosView.onProvRecDropDownChange()}" update="PerifericoRecurso1" />
+						<f:selectItem itemLabel="Seleccione Proveedor" itemValue="" />
+						<f:selectItems value="#{GestorRecursosView.proveedoresRecursos}" 
+						var="provRec" itemLabel="#{provRec}" itemValue="#{provRec.codigoPeriferico}"/>
 					</p:selectOneMenu>					
 
-
-				<p:outputLabel for="@next" value="Recurso Externo" />
+				
+				
+				<p:outputLabel for="PerifericoRecurso1" value="Recurso Externo" />
 				<p:selectOneMenu id="PerifericoRecurso1"
-					value="#{GestorRecursosView.codigoPeriferico}"
+					value="#{GestorRecursosView.codigoRecursoPeriferico}"
 					style="width:150px" required="true">
 					<f:selectItem itemLabel="Seleccione Recurso" itemValue="" />
-					<f:selectItems value="#{GestorRecursosView.recursosPeriferico}"
+					<f:selectItems value="#{GestorRecursosView.recursosDisponiblesProvPeriferico}"
 					var="rec" itemLabel="#{rec}" itemValue="#{rec.codigoPeriferico}"/>
 				</p:selectOneMenu>
-					
+				
+				
 				<p:commandButton
-					action="#{GestorRecursosView.agregarNuevoRecurso()}" value="Alta"
-					update="form2"/>
+					action="#{GestorRecursosView.agregarNuevoRecurso()}" 
+					value="Alta"
+					update="form2">
+				
+					</p:commandButton>
 			</p:panelGrid>
 		</h:form>
 	</ui:define>

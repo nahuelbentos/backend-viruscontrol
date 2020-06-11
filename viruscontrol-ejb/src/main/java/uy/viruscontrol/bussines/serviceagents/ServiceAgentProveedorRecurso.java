@@ -125,6 +125,8 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 				tr.setDescripcion(drd.getRecurso().getTipoRecurso().getCodigo());
 				r.setTipoRecurso(tr);
 				
+				r.setCodigoPeriferico(drd.getRecurso().getCodigo());
+				
 				recursos.add(r);
 			}
 			
