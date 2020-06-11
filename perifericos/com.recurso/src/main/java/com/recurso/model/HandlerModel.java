@@ -58,6 +58,7 @@ public class HandlerModel {
     		drd.setCantidadDisponible(pr.getCantidadDisponible());
     		drd.setPrecio(pr.getPrecio());
     		drd.setRecurso(pr.getRecurso());
+    		
     		drrdd.add(drd);
 		}
     	return drrdd;

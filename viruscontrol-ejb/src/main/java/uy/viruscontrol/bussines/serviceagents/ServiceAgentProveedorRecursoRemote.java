@@ -21,4 +21,6 @@ public interface ServiceAgentProveedorRecursoRemote {
 	public List<TipoRecurso> getAllTipoDeRecursosPeriferico();
 
 	public List<Recurso> getAllRecursosPeriferico();
+	
+	public List<Recurso> getRecursosProvPeriferico(String codigoPeriferico);
 }

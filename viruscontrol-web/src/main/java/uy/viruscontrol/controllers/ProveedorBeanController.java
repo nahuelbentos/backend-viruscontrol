@@ -59,6 +59,10 @@ public class ProveedorBeanController {
 		return serviceAgentProveedorRecursoRemote.getAllRecursosPeriferico();
 	}
 	
+	public static List<uy.viruscontrol.model.entities.Recurso> obtenerRecursosDisponiblesProvPeriferico(String codigoPeriferico){
+		return serviceAgentProveedorRecursoRemote.getRecursosProvPeriferico(codigoPeriferico);
+	}
+	
 	private static ProveedorBeanRemote lookupRemoteProveedorBean(){
 		Properties props = new Properties();
 		props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");  
