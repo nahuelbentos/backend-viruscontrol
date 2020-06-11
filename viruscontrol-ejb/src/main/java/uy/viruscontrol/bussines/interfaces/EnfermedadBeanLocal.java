@@ -34,7 +34,7 @@ public interface EnfermedadBeanLocal {
 	
 	public List<Sintoma> obtenerListaSintomas();
 
-	boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso);
+	boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso, String codigoPeriferico);
 
 	List<Recurso> obtenerRecursosPorTipoRecurso(TipoRecurso tipoRecurso);
 

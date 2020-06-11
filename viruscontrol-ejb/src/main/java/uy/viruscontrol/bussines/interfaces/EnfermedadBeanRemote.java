@@ -27,7 +27,7 @@ public interface EnfermedadBeanRemote {
 	
 	int getIdEnfermedadByName(String nombreEnfermedad);
 	
-	boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso);
+	boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso, String codigoPeriferico);
 	
 	List<Recurso> obtenerRecursosPorTipoRecurso(TipoRecurso tipoRecurso);
 	

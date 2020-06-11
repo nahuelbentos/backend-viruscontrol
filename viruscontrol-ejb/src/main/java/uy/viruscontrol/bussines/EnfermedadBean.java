@@ -188,7 +188,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     
     @Override
     //Agregar un Recurso de un determinado tipo
-    public boolean altaRecursoDeUnDeterminadoTipo(String nombre,int idTipoRecurso) {
+    public boolean altaRecursoDeUnDeterminadoTipo(String nombre,int idTipoRecurso, String codigoPeriferico) {
 		
     	
     	
@@ -196,6 +196,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     		Recurso recurso = new Recurso();
         	recurso.setNombre(nombre);
         	recurso.setTipoRecurso(daoTipoRecursoLocal.findById(idTipoRecurso));
+        	recurso.setCodigoPeriferico(codigoPeriferico);
         	daoRecursoLocal.persist(recurso);
         	System.out.println("Recurso creado");
         	
