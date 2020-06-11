@@ -57,5 +57,6 @@ public class ProveedorRest implements IProveedorRest{
 	public List<TipoRecurso> getAllTipoDeRecursos(){
 		return handler.getAllTiposDeRecursos();
 	}
+	
 
 }

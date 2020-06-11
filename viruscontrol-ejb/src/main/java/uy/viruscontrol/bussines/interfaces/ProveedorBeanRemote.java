@@ -24,6 +24,8 @@ public interface ProveedorBeanRemote {
 	boolean eliminarProveedorRecursos(ProveedorRecursos proveedorRecurso);
 
 	boolean eliminarProveedorExamenes(ProveedorExamen proveedorExamen);
+
+	boolean altaRecursoProveedor(String codigoProveedor, String nombreRecurso);
 	
 	
 }

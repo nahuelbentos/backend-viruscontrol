@@ -202,6 +202,7 @@ public class HandlerModel {
     	return allTiposRecursos;
     }
     
+        
     /*************************** AUXILIARES ***************************/
     private void iniciarProveedores() {
     	proveedores = new HashMap<String,Proveedor>();
@@ -389,4 +390,6 @@ public class HandlerModel {
     		} 
     	}
     }
+    
+    
 }
