@@ -34,7 +34,7 @@
 				<p:outputLabel for="@next" value="Tipo Recurso Externo" />
 				<p:selectOneMenu id="PerifericoRecurso"
 					value="#{GestorRecursosView.codigoPeriferico}"
-					style="width:150px" required="false">
+					style="width:150px" required="true">
 					<f:selectItem itemLabel="Seleccione Tipo" itemValue="" />
 					<f:selectItems value="#{GestorRecursosView.tiposRecursosPeriferico}"
 					var="tipoRec" itemLabel="#{tipoRec}" itemValue="#{tipoRec.codigoPeriferico}"/>
@@ -75,6 +75,16 @@
 						<f:selectItems value="#{GestorRecursosView.tiposDeRecursos}" />
 					</p:selectOneMenu>					
 
+
+				<p:outputLabel for="@next" value="Recurso Externo" />
+				<p:selectOneMenu id="PerifericoRecurso1"
+					value="#{GestorRecursosView.codigoPeriferico}"
+					style="width:150px" required="true">
+					<f:selectItem itemLabel="Seleccione Recurso" itemValue="" />
+					<f:selectItems value="#{GestorRecursosView.recursosPeriferico}"
+					var="rec" itemLabel="#{rec}" itemValue="#{rec.codigoPeriferico}"/>
+				</p:selectOneMenu>
+					
 				<p:commandButton
 					action="#{GestorRecursosView.agregarNuevoRecurso()}" value="Alta"
 					update="form2"/>

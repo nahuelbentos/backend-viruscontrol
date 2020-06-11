@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,8 @@ public class Recurso implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String nombre;
+	@Column(name="codigo_periferico")
+	private String codigoPeriferico;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="tipo_recurso")
@@ -87,8 +90,17 @@ public class Recurso implements Serializable {
 	public void setTipoRecurso(TipoRecurso tipoRecurso) {
 		this.tipoRecurso = tipoRecurso;
 	}
-
 	
+	
+	
+
+	public String getCodigoPeriferico() {
+		return codigoPeriferico;
+	}
+
+	public void setCodigoPeriferico(String codigoPeriferico) {
+		this.codigoPeriferico = codigoPeriferico;
+	}
 
 	@Override
 	public int hashCode() {
@@ -137,7 +149,10 @@ public class Recurso implements Serializable {
 		enfermedad.getRecursos().add(recursoEnfermedad);
 	}
 	
-	
+	@Override
+	public String toString() {
+		return nombre;
+	}
 /*
 	public void desasociarEnfermedad(Enfermedad enfermedad) {
 		for (Iterator<RecursoEnfermedad> iterator = enfermedades.iterator();

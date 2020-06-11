@@ -54,9 +54,9 @@ public class EnfermedadBeanController {
 		return iEnfermedadBean.altaTipoRecurso(nombre, descripcion,codigoPeriferico);
 	}
 	
-	public static boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso) {
+	public static boolean altaRecursoDeUnDeterminadoTipo(String nombre, int idTipoRecurso, String codigoPeriferico) {
 		
-		return iEnfermedadBean.altaRecursoDeUnDeterminadoTipo(nombre, idTipoRecurso);
+		return iEnfermedadBean.altaRecursoDeUnDeterminadoTipo(nombre, idTipoRecurso, codigoPeriferico);
 	}
 	
 	public static List<TipoRecurso> obtenerTiposDeRecursos(){
