@@ -206,27 +206,303 @@ public class HandlerModel {
     /*************************** AUXILIARES ***************************/
     private void iniciarProveedores() {
     	proveedores = new HashMap<String,Proveedor>();
+    	//holis
+    	Proveedor p=new Proveedor();
+    	p.setBarrio("Cerrito");
+    	p.setCiudad("Montevideo");
+    	p.setCodigo("1");
+    	p.setDireccion("Jose Batlle y Ordoniez 1154");
+    	p.setHorarioAtencion("lunes a viernes de 08:00 a 18:00");
+    	p.setNombre("Juan Antonio Propio");
+    	p.setTipoProveedor(tiposProveedor.get("COMERCIO"));
     	
-    	readCsvProveedores();
-    	readCsvRecursosDeProveedor();
+    	ProveedorRecurso pr=new ProveedorRecurso();
+    	pr.setRecurso(recursos.get("1"));
+    	pr.setCantidadDisponible(22);
+    	pr.setPrecio(400);
+    	pr.setProveedor(p);
+    	
+    	ProveedorRecurso pr2=new ProveedorRecurso();
+    	pr2.setRecurso(recursos.get("2"));
+    	pr2.setCantidadDisponible(35);
+    	pr2.setPrecio(400);
+    	pr2.setProveedor(p);
+    	
+    	p.addRecursoDisponible(pr);
+    	p.addRecursoDisponible(pr2);
+    	
+    	Proveedor p2=new Proveedor();
+    	p2.setBarrio("Centro");
+    	p2.setCiudad("Montevideo");
+    	p2.setCodigo("2");
+    	p2.setDireccion("18 y andes");
+    	p2.setHorarioAtencion("24 hs");
+    	p2.setNombre("Farmashop");
+    	p2.setTipoProveedor(tiposProveedor.get("FARMACIA"));
+    	
+    	ProveedorRecurso pr3=new ProveedorRecurso();
+    	pr3.setRecurso(recursos.get("3"));
+    	pr3.setCantidadDisponible(35);
+    	pr3.setPrecio(400);
+    	pr3.setProveedor(p2);
+    	
+    	ProveedorRecurso pr4=new ProveedorRecurso();
+    	pr4.setRecurso(recursos.get("4"));
+    	pr4.setCantidadDisponible(22);
+    	pr4.setPrecio(30);
+    	pr4.setProveedor(p2);
+    	
+    	p2.addRecursoDisponible(pr4);
+    	p2.addRecursoDisponible(pr3);
+    	
+    	Proveedor p3=new Proveedor();
+    	p3.setBarrio("Centro");
+    	p3.setCiudad("Montevideo");
+    	p3.setCodigo("3");
+    	p3.setDireccion("mercedes y convencion");
+    	p3.setHorarioAtencion("10 a 18");
+    	p3.setNombre("sanroque");
+    	p3.setTipoProveedor(tiposProveedor.get("FARMACIA"));
+    	
+    	ProveedorRecurso pr5=new ProveedorRecurso();
+    	pr5.setRecurso(recursos.get("4"));
+    	pr5.setCantidadDisponible(60);
+    	pr5.setPrecio(100);
+    	pr5.setProveedor(p3);
+    	
+    	ProveedorRecurso pr6=new ProveedorRecurso();
+    	pr6.setRecurso(recursos.get("5"));
+    	pr6.setCantidadDisponible(55);
+    	pr6.setPrecio(400);
+    	pr6.setProveedor(p3);
+    	
+    	p3.addRecursoDisponible(pr5);
+    	p3.addRecursoDisponible(pr6);
+    	
+    	
+    	Proveedor p4=new Proveedor();
+    	p4.setBarrio("pocitos");
+    	p4.setCiudad("Montevideo");
+    	p4.setCodigo("4");
+    	p4.setDireccion("21 de setiembre y av brasil");
+    	p4.setHorarioAtencion("24 hs");
+    	p4.setNombre("PocitosFarm");
+    	p4.setTipoProveedor(tiposProveedor.get("FARMACIA"));
+    	
+    	ProveedorRecurso pr7=new ProveedorRecurso();
+    	pr7.setRecurso(recursos.get("6"));
+    	pr7.setCantidadDisponible(105);
+    	pr7.setPrecio(800);
+    	pr7.setProveedor(p4);
+    	
+    	ProveedorRecurso pr8=new ProveedorRecurso();
+    	pr8.setRecurso(recursos.get("7"));
+    	pr8.setCantidadDisponible(105);
+    	pr8.setPrecio(10);
+    	pr8.setProveedor(p4);
+    	
+    	p4.addRecursoDisponible(pr8);
+    	p4.addRecursoDisponible(pr7);
+    	
+    	Proveedor p5=new Proveedor();
+    	p5.setBarrio("Aguada");
+    	p5.setCiudad("Montevideo");
+    	p5.setCodigo("5");
+    	p5.setDireccion("av siempreviva 742");
+    	p5.setHorarioAtencion("24 hs");
+    	p5.setNombre("Apu");
+    	p5.setTipoProveedor(tiposProveedor.get("COMERCIO"));
+    	
+    	ProveedorRecurso pr9=new ProveedorRecurso();
+    	pr9.setRecurso(recursos.get("8"));
+    	pr9.setCantidadDisponible(245);
+    	pr9.setPrecio(67);
+    	pr9.setProveedor(p5);
+    	
+    	p5.addRecursoDisponible(pr9);
+    	
+    	
+    	proveedores.put(p.getCodigo(), p);
+    	proveedores.put(p2.getCodigo(), p2);
+    	proveedores.put(p3.getCodigo(), p3);
+    	proveedores.put(p4.getCodigo(), p4);
+    	proveedores.put(p5.getCodigo(), p5);
+    	
+    	//readCsvProveedores();
+    	//readCsvRecursosDeProveedor();
+
     }
     
     private void iniciarTiposProveedor() {
     	tiposProveedor = new HashMap<String, TipoProveedor>();
     	
-    	readCsvTipoProveedores();
+    	TipoProveedor tp= new TipoProveedor();
+    	tp.setCodigo("FARMACIA");
+    	tp.setNombre("Farmacia");
+    	
+    	TipoProveedor tp2= new TipoProveedor();
+    	tp2.setCodigo("DROGUERIA");
+    	tp2.setNombre("Drogueria");
+    	
+    	
+    	TipoProveedor tp3= new TipoProveedor();
+    	tp3.setCodigo("LABORATORIO");
+    	tp3.setNombre("Laboratorio");
+    	
+    	
+    	TipoProveedor tp4= new TipoProveedor();
+    	tp4.setCodigo("COMERCIO");
+    	tp4.setNombre("Comercio");
+    	
+    	TipoProveedor tp5= new TipoProveedor();
+    	tp5.setCodigo("PARTICULAR");
+    	tp5.setNombre("Persona particular");
+    	
+    	TipoProveedor tp6= new TipoProveedor();
+    	tp6.setCodigo("OSC");
+    	tp6.setNombre("Organizacion de la sociedad civil");
+    	
+    	
+    	tiposProveedor.put(tp.getCodigo(), tp);
+    	tiposProveedor.put(tp2.getCodigo(), tp2);
+    	tiposProveedor.put(tp3.getCodigo(), tp3);
+    	tiposProveedor.put(tp4.getCodigo(), tp4);
+    	tiposProveedor.put(tp5.getCodigo(), tp5);
+    	tiposProveedor.put(tp6.getCodigo(), tp6);
+    	
+    	//readCsvTipoProveedores();
+
     }
 
     private void iniciarTiposRecursos() {
-    	tiposRecursos = new HashMap<String,TipoRecurso>();
+tiposRecursos = new HashMap<String,TipoRecurso>();
     	
-    	readCsvTipoRecursos();
+    	TipoRecurso tr=new TipoRecurso();
+    	tr.setCodigo("1");
+    	tr.setNombre("Desinfectante");
+    	tr.setPrecioReferencia(250);
+    	
+    	TipoRecurso tr2=new TipoRecurso();
+    	tr2.setCodigo("2");
+    	tr2.setNombre("Alcohol");
+    	tr2.setPrecioReferencia(450);
+    	
+    	TipoRecurso tr3=new TipoRecurso();
+    	tr3.setCodigo("3");
+    	tr3.setNombre("Repelente");
+    	tr3.setPrecioReferencia(850);
+    	
+    	TipoRecurso tr4=new TipoRecurso();
+    	tr4.setCodigo("4");
+    	tr4.setNombre("Curitas");
+    	tr4.setPrecioReferencia(10);
+    	
+    	TipoRecurso tr5=new TipoRecurso();
+    	tr5.setCodigo("5");
+    	tr5.setNombre("Analgesico");
+    	tr5.setPrecioReferencia(50);
+    	
+    	
+    	tiposRecursos.put(tr.getCodigo(), tr);
+    	tiposRecursos.put(tr2.getCodigo(), tr2);
+    	tiposRecursos.put(tr3.getCodigo(), tr3);
+    	tiposRecursos.put(tr4.getCodigo(), tr4);
+    	tiposRecursos.put(tr5.getCodigo(), tr5);
+    	//readCsvTipoRecursos();
+
     }
     
     private void iniciarRecursos() {
     	recursos = new HashMap<String, Recurso>();
     	
-    	readCsvRecursos();
+    	Recurso r=new Recurso();
+    	r.setCodigo("1");
+    	r.setMarca("alcohol en gel");
+    	r.setTipoRecurso(tiposRecursos.get("2"));
+    	
+    	Recurso r2=new Recurso();
+    	r2.setCodigo("2");
+    	r2.setMarca("alcohol isopropilico ");
+    	r2.setTipoRecurso(tiposRecursos.get("2"));
+    	
+    	Recurso r3=new Recurso();
+    	r3.setCodigo("3");
+    	r3.setMarca("desinfectante lisofornm");
+    	r3.setTipoRecurso(tiposRecursos.get("1"));
+    	
+    	Recurso r4=new Recurso();
+    	r4.setCodigo("4");
+    	r4.setMarca("Lavandina");
+    	r4.setTipoRecurso(tiposRecursos.get("1"));
+    	
+    	Recurso r5=new Recurso();
+    	r5.setCodigo("5");
+    	r5.setMarca("Mr musculo");
+    	r5.setTipoRecurso(tiposRecursos.get("1"));
+    	
+    	Recurso r6=new Recurso();
+    	r6.setCodigo("6");
+    	r6.setMarca("agua hane");
+    	r6.setTipoRecurso(tiposRecursos.get("1"));
+    	
+    	Recurso r7=new Recurso();
+    	r7.setCodigo("7");
+    	r7.setMarca("repelente off");
+    	r7.setTipoRecurso(tiposRecursos.get("3"));
+    	
+    	Recurso r8=new Recurso();
+    	r8.setCodigo("8");
+    	r8.setMarca("fuera mosquitos 3000");
+    	r8.setTipoRecurso(tiposRecursos.get("3"));
+    	
+    	Recurso r9=new Recurso();
+    	r9.setCodigo("9");
+    	r9.setMarca("Livopen");
+    	r9.setTipoRecurso(tiposRecursos.get("3"));
+    	
+    	Recurso r10=new Recurso();
+    	r10.setCodigo("10");
+    	r10.setMarca("Curaflex");
+    	r10.setTipoRecurso(tiposRecursos.get("4"));
+    
+    	Recurso r11=new Recurso();
+    	r11.setCodigo("11");
+    	r11.setMarca("Sanasana");
+    	r11.setTipoRecurso(tiposRecursos.get("4"));
+    	
+    	Recurso r12=new Recurso();
+    	r12.setCodigo("12");
+    	r12.setMarca("Aspirina");
+    	r12.setTipoRecurso(tiposRecursos.get("5"));
+    	
+    	Recurso r13=new Recurso();
+    	r13.setCodigo("13");
+    	r13.setMarca("Ibuprofeno");
+    	r13.setTipoRecurso(tiposRecursos.get("5"));
+    	
+    	Recurso r14=new Recurso();
+    	r14.setCodigo("14");
+    	r14.setMarca("Paracetamol");
+    	r14.setTipoRecurso(tiposRecursos.get("5"));
+    	
+    	
+    	recursos.put(r.getCodigo(), r);
+    	recursos.put(r2.getCodigo(), r2);
+    	recursos.put(r3.getCodigo(), r3);
+    	recursos.put(r4.getCodigo(), r4);
+    	recursos.put(r5.getCodigo(), r5);
+    	recursos.put(r5.getCodigo(), r5);
+    	recursos.put(r6.getCodigo(), r6);
+    	recursos.put(r7.getCodigo(), r7);
+    	recursos.put(r8.getCodigo(), r8);
+    	recursos.put(r9.getCodigo(), r9);
+    	recursos.put(r10.getCodigo(), r10);
+    	recursos.put(r11.getCodigo(), r11);
+    	recursos.put(r12.getCodigo(), r12);
+    	recursos.put(r13.getCodigo(), r13);
+    	recursos.put(r14.getCodigo(), r14);
+    	//readCsvRecursos();
+
     }
     
     
