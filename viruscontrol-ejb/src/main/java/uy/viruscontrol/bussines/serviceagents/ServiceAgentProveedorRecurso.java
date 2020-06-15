@@ -30,7 +30,7 @@ import uy.viruscontrol.utils.DtRecursoDisponibleProveedor;
 @LocalBean
 public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecursoLocal,ServiceAgentProveedorRecursoRemote {
 
-	private static final String urlProvRecRest = "http://localhost:8080/proveedores-recursos/rest/proveedor/";
+	private static final String urlProvRecRest = "http://recursos-app-perifericos-tse-v3.apps.us-east-2.starter.openshift-online.com/com.recurso/rest/proveedor";
 													//http://localhost:8080/com.recurso/rest/proveedor/ -- Naty
 													//http://localhost:8080/proveedores-recursos/rest/proveedor/ --Generica
 	private static ObjectMapper mapper;
