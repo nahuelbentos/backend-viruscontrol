@@ -227,12 +227,11 @@ public class GestorRecursosView {
 		if (ok) {
 			
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Recurso " + this.getNombreRecurso() + " fue dado de alta."));
+			altaRecursoProveedor();
 		} else {
 			
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, no se pudo dar de alta el Recurso, verifique."));
 		}
-		
-		altaRecursoProveedor();
 		
 		this.cleanForm();
 	}
