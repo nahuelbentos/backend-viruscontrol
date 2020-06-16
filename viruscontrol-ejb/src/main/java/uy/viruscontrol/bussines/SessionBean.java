@@ -67,7 +67,8 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 
 	@Override
 	public void validarDatosConRedes(Usuario user) {
-		Usuario uLogueado = getUsuarioLogueado(user.getUsername());
+		
+		Usuario uLogueado = getUsuarioLogueado(getTokenByUsername(user.getUsername()));
 		
 		if (uLogueado != null) {
 			
