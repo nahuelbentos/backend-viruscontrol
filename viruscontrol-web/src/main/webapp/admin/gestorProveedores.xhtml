@@ -34,16 +34,20 @@
 					<f:converter converterId="javax.faces.Integer" />
 				</p:selectOneMenu>
 
-				<p:outputLabel for="NombreProveedor" value="Nombre Proveedor" />
+				<p:outputLabel for="NombreProveedor" value="Nombre" />
 				<p:inputText id="NombreProveedor"
 					value="#{GestorProveedorView.nombreProveedor}" required="true"/>
 				
 
-				<p:outputLabel for="DireccionProveedor" value="Direccion Proveedor" />
+				<p:outputLabel for="DireccionProveedor" value="Direccion" />
 				<p:inputText id="DireccionProveedor"
 					value="#{GestorProveedorView.direccion}" required="true"/>
 
-				<p:outputLabel for="BarrioProveedor" value="Barrio Proveedor" />
+				<p:outputLabel for="CiudadProveedor" value="Ciudad" />
+				<p:inputText id="CiudadProveedor"
+					value="#{GestorProveedorView.ciudad}" required="true"/>
+
+				<p:outputLabel for="BarrioProveedor" value="Barrio" />
 				<p:inputText id="BarrioProveedor"
 					value="#{GestorProveedorView.barrio}" required="true"/>
 
@@ -119,7 +123,22 @@
 					</p:cellEditor>
 				</p:column>
 				
-				<p:column id="column3" headerText="Barrio">
+				<p:column id="column3" headerText="Ciudad">
+
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{p.ciudad}" />
+
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{p.ciudad}"
+								placeholder="#{p.ciudad}">
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column id="column4" headerText="Barrio">
 
 					<p:cellEditor>
 						<f:facet name="output">
@@ -133,7 +152,7 @@
 					</p:cellEditor>
 				</p:column>
 				
-				<p:column id="column4" headerText="Rango Horario">
+				<p:column id="column5" headerText="Rango Horario">
 
 					<p:cellEditor>
 						<f:facet name="output">
@@ -147,7 +166,7 @@
 					</p:cellEditor>
 				</p:column>
 				
-				<p:column id="column5" headerText="Proveedor Externo">
+				<p:column id="column6" headerText="Proveedor Externo">
 						<h:outputText value="#{p.codigoPeriferico}" />
 				</p:column>
 

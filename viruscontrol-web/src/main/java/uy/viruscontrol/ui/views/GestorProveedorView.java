@@ -27,6 +27,7 @@ public class GestorProveedorView  implements Serializable{
 	int tipo;
 	private String nombreProveedor;
 	private String direccion;
+	private String ciudad;
 	private String barrio;
 	private String rangoHorario;
 	private String codigoPeriferico;
@@ -66,6 +67,17 @@ public class GestorProveedorView  implements Serializable{
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+	
+	
+	
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
 	public String getBarrio() {
 		return barrio;
 	}
@@ -140,7 +152,7 @@ public class GestorProveedorView  implements Serializable{
 		
 		
 	///ALTA	
-		boolean ok = ProveedorBeanController.crearProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario, codigoPeriferico);
+		boolean ok = ProveedorBeanController.crearProveedor(tipo, nombreProveedor, direccion, ciudad, barrio, rangoHorario, codigoPeriferico);
 		if (ok) {
 			if (tipo==1) {
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor de Recurso "+this.nombreProveedor+" creado."));
