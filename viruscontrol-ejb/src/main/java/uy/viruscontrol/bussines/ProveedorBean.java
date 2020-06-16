@@ -47,13 +47,14 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     //Funcion adaptada para que tome en cuenta que si el proveedor a dar de alta ya existe en la base, se fije si este esta eliminado o no
     //Si loo está, lo reactiva sino no hace anda dado que el mismo ya existe activo
     @Override
-    public boolean nuevoProveedor(int tipo,String nombre,String direccion,String barrio,String rangoHorario, String codigoPeriferico) {
+    public boolean nuevoProveedor(int tipo,String nombre,String direccion,String ciudad,String barrio,String rangoHorario, String codigoPeriferico) {
     	if(tipo==1) {
     		List<ProveedorRecursos> proveedoresRecurso=daoProveedorRecurso.findAll();
     		for(ProveedorRecursos pr:proveedoresRecurso) {
     			if((pr.getNombre().contentEquals(nombre)) && (pr.isDeleted())) {
     				
     				pr.setDeleted(false);
+    				pr.setCiudad(ciudad);
     				pr.setBarrio(barrio);
     	    		pr.setDireccion(direccion);
     	    		pr.setNombre(nombre);
@@ -72,6 +73,7 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     			}
     		}
     		ProveedorRecursos p=new ProveedorRecursos();
+    		p.setCiudad(ciudad);
     		p.setBarrio(barrio);
     		p.setDireccion(direccion);
     		p.setNombre(nombre);
@@ -88,6 +90,7 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     			if((pe.getNombre().contentEquals(nombre)) && (pe.isDeleted())) {
     				
     				pe.setDeleted(false);
+    				pe.setCiudad(ciudad);
     				pe.setBarrio(barrio);
     				pe.setDireccion(direccion);
     				pe.setNombre(nombre);
@@ -106,6 +109,7 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     			}
     		}
     		ProveedorExamen p=new ProveedorExamen();
+    		p.setCiudad(ciudad);
     		p.setBarrio(barrio);
     		p.setDireccion(direccion);
     		p.setNombre(nombre);
@@ -152,6 +156,7 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
 			
 			pe.setNombre(proveedorExamen.getNombre());
 			pe.setDireccion(proveedorExamen.getDireccion());
+			pe.setCiudad(proveedorExamen.getCiudad());
 			pe.setBarrio(proveedorExamen.getBarrio());
 			pe.setRangoHorario(proveedorExamen.getRangoHorario());
 			
@@ -174,6 +179,7 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
 			
 			pr.setNombre(proveedorRecurso.getNombre());
 			pr.setDireccion(proveedorRecurso.getDireccion());
+			pr.setCiudad(proveedorRecurso.getCiudad());
 			pr.setBarrio(proveedorRecurso.getBarrio());
 			pr.setRangoHorario(proveedorRecurso.getRangoHorario());
 			

@@ -19,8 +19,8 @@ public class ProveedorBeanController {
 	private static ProveedorBeanRemote proveedorBeanRemote = lookupRemoteProveedorBean();
 	private static ServiceAgentProveedorRecursoRemote serviceAgentProveedorRecursoRemote = lookupRemoteServiceAgentProveedorRecursos();
 	
-	public static boolean crearProveedor(int tipo, String nombreProveedor, String direccion, String barrio, String rangoHorario, String codigoPeriferico) {
-		return proveedorBeanRemote.nuevoProveedor(tipo, nombreProveedor, direccion, barrio, rangoHorario, codigoPeriferico);
+	public static boolean crearProveedor(int tipo,String nombreProveedor,String direccion,String ciudad,String barrio,String rangoHorario, String codigoPeriferico) {
+		return proveedorBeanRemote.nuevoProveedor(tipo, nombreProveedor, direccion, ciudad, barrio, rangoHorario, codigoPeriferico);
 	}
 	
 	public static List<ProveedorExamen> obtenerProveedoresExamenes(){

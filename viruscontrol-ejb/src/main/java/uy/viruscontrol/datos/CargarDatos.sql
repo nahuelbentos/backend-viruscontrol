@@ -31,9 +31,9 @@ insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,300);
 --Proveedor
 insert into proveedor(proveedor_tipo, id, nombre,deleted,codigo_periferico) values('RECURSO', 100, 'Roemers',false,'1');
 insert into proveedor(proveedor_tipo, id, nombre,deleted,codigo_periferico) values('RECURSO', 200, 'Quimfa',false,'2');
-insert into proveedor(proveedor_tipo, id, nombre, barrio, direccion, rangohorario, deleted) values('EXAMEN', 300, 'labSA','centro','18 y ejido','24 hs', false);
-insert into proveedor(proveedor_tipo, id, nombre, barrio , direccion, rangohorario,deleted) values('EXAMEN', 400, 'BillGates Foundation','Xanadu','Seattle','24 hs',false);
-insert into proveedor(proveedor_tipo, id, barrio, direccion, nombre, rangohorario,deleted) values ('EXAMEN', 500, 'Centro', 'Canelones 2222', 'Algun prov', '24 hs',false);
+insert into proveedor(proveedor_tipo, id, nombre, ciudad, barrio, direccion, rangohorario, deleted) values('EXAMEN', 300, 'labSA','Montevideo', 'Centro','18 y ejido','24 hs', false);
+insert into proveedor(proveedor_tipo, id, nombre, ciudad,  barrio , direccion, rangohorario,deleted) values('EXAMEN', 400, 'BillGates Foundation','Montevideo', 'Malvin','Amazonas 1456 apto 402','24 hs',false);
+insert into proveedor(proveedor_tipo, id, nombre, ciudad,  barrio, direccion,  rangohorario,deleted) values ('EXAMEN', 500, 'Algun prov', 'Montevideo','Centro', 'Canelones 2222', '24 hs',false);
 
 -- PrestadoraSalud
 insert into prestadora_salud (id, nombre, deleted, id_prestadora_rucaf) values (100, 'Servicio Medico Integral - SMI', false,1);

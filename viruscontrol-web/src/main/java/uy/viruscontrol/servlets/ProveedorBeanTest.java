@@ -34,8 +34,8 @@ public class ProveedorBeanTest extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		proveedorBeanLocal.nuevoProveedor(1, "farmashop", "18 y andes", "centro","24hs",null);
-		proveedorBeanLocal.nuevoProveedor(2, "proveEx", "cochabamba12", "malvin", "15hs",null);
+		proveedorBeanLocal.nuevoProveedor(1, "farmashop", "18 y andes", "Montevideo","centro","24hs",null);
+		proveedorBeanLocal.nuevoProveedor(2, "proveEx", "cochabamba12", "Montevideo", "malvin", "15hs",null);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		
