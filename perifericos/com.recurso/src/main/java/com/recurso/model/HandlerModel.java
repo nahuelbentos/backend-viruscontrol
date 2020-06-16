@@ -38,13 +38,20 @@ public class HandlerModel {
     
     @PostConstruct
     public void init() {
-    	
     	iniciarTiposProveedor();
     	iniciarTiposRecursos();
     	iniciarRecursos();
     	iniciarProveedores();
+    }
+    
+    public List<String> getAllBarrios(){
+    	System.out.println("hola, dame bola.");
+    	List<String> barrios = new ArrayList<String>();
+    	for (Entry<String, Proveedor> it : proveedores.entrySet())
+    		if (!barrios.contains(it.getValue().getBarrio()))
+    			barrios.add(it.getValue().getBarrio());
     	
-    	
+    	return barrios;
     }
     
     public List<DummyRecursoDisponible> getRecursosDisponiblesPorProveedor(String codigoProveedor){

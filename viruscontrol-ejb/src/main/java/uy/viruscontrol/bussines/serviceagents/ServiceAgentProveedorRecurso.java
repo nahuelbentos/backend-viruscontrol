@@ -30,9 +30,10 @@ import uy.viruscontrol.utils.DtRecursoDisponibleProveedor;
 @LocalBean
 public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecursoLocal,ServiceAgentProveedorRecursoRemote {
 
-	private static final String urlProvRecRest = "http://recursos-app-perifericos-tse-v3.apps.us-east-2.starter.openshift-online.com/com.recurso/rest/proveedor/";
+	private static final String urlProvRecRest = "http://recursos-app-perifericos-tse-v3.apps.us-east-2.starter.openshift-online.com/com.recurso/rest/proveedor/"; 
+			//"http://localhost:8080/proveedores-recursos/rest/proveedor/";
 													//http://localhost:8080/com.recurso/rest/proveedor/ -- Naty
-													//http://localhost:8080/proveedores-recursos/rest/proveedor/ --Generica
+													
 	private static ObjectMapper mapper;
 	
 	@EJB private ProveedorRecursoDAOLocal daoProvRec;
@@ -277,9 +278,23 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 			return null;
 	  }
    }
-   
-   
-   
-  
-    
+
+
+	@Override
+	public List<String> getListadoBarrios() {
+		try {
+			HttpClient client = HttpClients.createDefault();
+			HttpGet getRequest = new HttpGet(urlProvRecRest + "all/barrios");
+			
+			HttpResponse res = client.execute(getRequest);
+			return mapper.readValue(res.getEntity().getContent(), mapper.getTypeFactory().constructCollectionType(List.class, String.class));		
+			 	
+		} catch (IOException e) {
+			//e.printStackTrace();
+			this.log("ERROR: "+e.getMessage()+". Para ver mas información, habilitar la traza y replicar el error.");
+			return null;
+		}
+		
+	}
+	
 }
