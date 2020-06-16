@@ -146,5 +146,14 @@ public abstract class Usuario implements Serializable{
 		this.correo = correo;
 		this.username = username;
 	}
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellido=" + apellido + ", direccion="
+				+ direccion + ", fechaNacimiento=" + fechaNacimiento + ", nacionalidad=" + nacionalidad + ", correo="
+				+ correo + ", deleted=" + deleted + ", documento=" + documento + ", nroTelefono=" + nroTelefono
+				+ ", username=" + username + ", password=" + password + ", primerIngreso=" + primerIngreso + "]";
+	}
+	
+	
 	
 }
