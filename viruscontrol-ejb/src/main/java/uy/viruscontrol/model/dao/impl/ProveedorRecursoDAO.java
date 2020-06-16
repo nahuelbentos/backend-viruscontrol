@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import uy.viruscontrol.model.dao.interfaces.ProveedorRecursoDAOLocal;
-
+import uy.viruscontrol.model.entities.Proveedor;
 import uy.viruscontrol.model.entities.ProveedorRecursos;
 
 @Stateless
@@ -61,5 +61,18 @@ public class ProveedorRecursoDAO implements ProveedorRecursoDAOLocal {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public ProveedorRecursos findByExternalId(String codigo) {
+		List<ProveedorRecursos> l = em.createQuery("FROM ProveedorRecursos WHERE codigoPeriferico = :codigo")
+										.setParameter("codigo", codigo)
+										.getResultList();
+		
+		for (Proveedor it : l) {
+			if (it instanceof ProveedorRecursos)
+				return (ProveedorRecursos) it;
+		}
+		return null;
+	}
 
 }

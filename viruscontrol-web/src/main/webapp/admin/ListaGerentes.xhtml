@@ -17,11 +17,33 @@
 			
 			<h4 style="text-align: left">Lista de Gerentes</h4>
 
+			<!-- Se agrega para caso Eliminar -->
+			<div align="right">
+				<p:commandButton value="Eliminar"
+					actionListener="#{GestorUsuariosView.eliminarGerente()}"
+					update="form" icon="ui-icon-trash">
+					<p:confirm message="Seguro que desea eliminar?" header="Aviso"
+						icon="ui-icon-alert" />
+
+				</p:commandButton>
+
+				<p:confirmDialog global="true">
+					<p:commandButton value="Si" type="button" icon="ui-icon-check"
+						styleClass="ui-confirmdialog-yes" />
+					<p:commandButton value="No" type="button" icon="ui-icon-close"
+						styleClass="ui-confirmdialog-no" />
+				</p:confirmDialog>
+			</div>
 
 			<a href="ListaCiudadanos.xhtml">Ciudadanos</a>
 			<a href="ListaMedicos.xhtml">Medicos</a>
 			<a href="ListaGerentes.xhtml">Gerentes</a>
 			<a href="ListaAdministradores.xhtml">Administradores</a>
+			
+			
+			
+		
+			
 			<p:dataTable id="checkboxDT" value="#{GestorUsuariosView.gerentes}"
 				var="p" selection="#{GestorUsuariosView.gerenteSeleccionado}"
 				rowKey="#{p.idUsuario}">
@@ -98,20 +120,7 @@
 				</f:facet>
 			</p:dataTable>
 
-			<!-- Se agrega para caso Eliminar -->
-			<p:commandButton value="Eliminar"
-				actionListener="#{GestorUsuariosView.eliminarGerente()}"
-				update="form" icon="ui-icon-trash">
-				<p:confirm message="Seguro que desea eliminar?" header="Aviso"
-					icon="ui-icon-alert" />
-			</p:commandButton>
-
-			<p:confirmDialog global="true">
-				<p:commandButton value="Si" type="button" icon="ui-icon-check"
-					styleClass="ui-confirmdialog-yes" />
-				<p:commandButton value="No" type="button" icon="ui-icon-close"
-					styleClass="ui-confirmdialog-no" />
-			</p:confirmDialog>
+			
 
 		</h:form>
 	</ui:define>

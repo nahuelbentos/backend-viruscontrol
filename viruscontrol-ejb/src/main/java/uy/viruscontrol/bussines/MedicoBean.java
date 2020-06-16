@@ -3,6 +3,7 @@ package uy.viruscontrol.bussines;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -136,8 +137,10 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
     	 try {
 			DtExamen solEx = saProvEx.altaDeExamen(idPaciente, idExamen, idMedico);
 			
-			System.out.println("soleEx "+solEx.getId());
-			System.out.println("solEx "+solEx.getIdEnfermedad());
+			/*
+			 * System.out.println("soleEx "+solEx.getId());
+			 * System.out.println("solEx "+solEx.getIdEnfermedad());
+			 */
 			
 			
 			System.out.println("idDepartamento: "+idDepartamento);
@@ -153,6 +156,9 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
 		    Medico med=medicoDao.findById(idMedico);
 		    
 		   	Caso c=new Caso();
+		   	
+		   	Calendar fechaSospechoso=Calendar.getInstance();
+		   	
 		   	c.setDepartamento(depa);
 		   	c.setEnfermedad(enf);
 		   	c.setExamen(ex);
@@ -160,6 +166,7 @@ public class MedicoBean implements MedicoBeanRemote, MedicoBeanLocal {
 		   	c.setProveedorExamen(pe);
 		   	c.setCiudadano(ciudadano);
 		   	c.setMedico(med);
+		   	c.setFechaSospechoso(fechaSospechoso);
 		   	casoDao.persist(c);
     	 
     	 } catch (ClientProtocolException e) {

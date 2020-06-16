@@ -1,7 +1,7 @@
 --TipoRecurso
-insert into public.tipo_recurso(id, nombre, descripcion) values (100, 'Antiinflamatorio', 'Antiinflamatorio');
-insert into public.tipo_recurso(id, nombre, descripcion) values (200, 'Alcohol en Gel','Alcohol en Gel');
-insert into public.tipo_recurso(id, nombre, descripcion) values (300, 'Seguridad','Seguridad');
+insert into public.tipo_recurso(id, nombre, descripcion, codigo_periferico) values (100, 'Antiinflamatorio', 'Antiinflamatorio', null);
+insert into public.tipo_recurso(id, nombre, descripcion, codigo_periferico) values (200, 'Alcohol en Gel','Alcohol en Gel', null);
+insert into public.tipo_recurso(id, nombre, descripcion, codigo_periferico) values (300, 'Seguridad','Seguridad', null);
 
 ---Recurso
 insert into public.recurso(id, nombre, tipo_recurso) values (100, 'Ibuprofeno', 100);
@@ -29,8 +29,8 @@ insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,100);
 insert into enfermedad_sintoma(id_enfermedad,id_sintoma) values (100,300);
 
 --Proveedor
-insert into proveedor(proveedor_tipo, id, nombre,deleted) values('RECURSO', 100, 'Roemers',false);
-insert into proveedor(proveedor_tipo, id, nombre,deleted) values('RECURSO', 200, 'Quimfa',false);
+insert into proveedor(proveedor_tipo, id, nombre,deleted,codigo_periferico) values('RECURSO', 100, 'Roemers',false,'1');
+insert into proveedor(proveedor_tipo, id, nombre,deleted,codigo_periferico) values('RECURSO', 200, 'Quimfa',false,'2');
 insert into proveedor(proveedor_tipo, id, nombre, barrio, direccion, rangohorario, deleted) values('EXAMEN', 300, 'labSA','centro','18 y ejido','24 hs', false);
 insert into proveedor(proveedor_tipo, id, nombre, barrio , direccion, rangohorario,deleted) values('EXAMEN', 400, 'BillGates Foundation','Xanadu','Seattle','24 hs',false);
 insert into proveedor(proveedor_tipo, id, barrio, direccion, nombre, rangohorario,deleted) values ('EXAMEN', 500, 'Centro', 'Canelones 2222', 'Algun prov', '24 hs',false);
@@ -65,3 +65,7 @@ insert into usuario (tipo_usuario, id, apellido, correo, direccion, fecha_nacimi
 
 -- Fuentes de datos
 insert into fuente_de_datos (id, codigo, deleted, url) values (100, 'Twitter', false, 'https://twitter.com/');
+
+--Casos
+insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, departamento_id,enfermedad_id, examen_id, medico_id,proveedorexamen_id ) values(100,'2020-6-3 00:00:00','2020-5-26 00:00:00',0,106,200,100, 100,103,300);
+insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, departamento_id,enfermedad_id, examen_id, medico_id,proveedorexamen_id ) values(200,'2020-6-6 00:00:00','2020-5-15 00:00:00',1,106,100,200, 200,104,300);

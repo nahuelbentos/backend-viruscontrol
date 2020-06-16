@@ -1,9 +1,19 @@
 package com.recurso.model.entities;
 
-public class DummyRecursoDisponible {
+import java.io.Serializable;
+
+public class DummyRecursoDisponible  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8302506118436695117L;
 	private Recurso recurso;
 	private double precio;
 	private int cantidadDisponible;
+	
+	
+	
+	
 	public Recurso getRecurso() {
 		return recurso;
 	}
@@ -25,4 +35,6 @@ public class DummyRecursoDisponible {
 	public DummyRecursoDisponible() {
 		super();
 	}
+	
+	
 }

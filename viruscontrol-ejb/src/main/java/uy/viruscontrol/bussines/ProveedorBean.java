@@ -7,12 +7,20 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
 import uy.viruscontrol.bussines.interfaces.ProveedorBeanLocal;
 import uy.viruscontrol.bussines.interfaces.ProveedorBeanRemote;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecursoLocal;
 import uy.viruscontrol.model.dao.interfaces.ProveedorExamenDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ProveedorRecursoDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.RecursoProveedorDAOLocal;
+import uy.viruscontrol.model.entities.IdRecursoProveedor;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.model.entities.ProveedorRecursos;
+import uy.viruscontrol.model.entities.Recurso;
+import uy.viruscontrol.model.entities.RecursoProveedor;
+import uy.viruscontrol.utils.DtRecursoDisponibleProveedor;
 
 /**
  * Session Bean implementation class ProveedorBean
@@ -23,6 +31,11 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
 
 	@EJB ProveedorRecursoDAOLocal daoProveedorRecurso;
 	@EJB ProveedorExamenDAOLocal daoProveedorExamen;
+	@EJB ServiceAgentProveedorRecursoLocal saProvRecLocal;
+	@EJB EnfermedadBeanLocal enfermedadBeanLocal;
+	@EJB RecursoDAOLocal recursoDAOLocal;
+	@EJB RecursoProveedorDAOLocal daoRecProvLocal;
+	
     /**
      * Default constructor. 
      */
@@ -208,5 +221,38 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
 			return false;
 		}
     }
-
+    
+  
+    @Override
+    public boolean altaRecursoProveedor(String codigoProveedor, String nombreRecurso) {
+    	ProveedorRecursos provLocal = daoProveedorRecurso.findByExternalId(codigoProveedor);
+    	//System.out.println("nombre: " + provLocal.getNombre() + " id: "+  provLocal.getId());
+    	
+    	int idRecurso = enfermedadBeanLocal.getIdRecursoByName(nombreRecurso);
+    	Recurso recLocal = recursoDAOLocal.findById(idRecurso);
+    	//System.out.println("nombre: " + recLocal.getNombre() + " id: "+ recLocal.getId());
+    	
+    	DtRecursoDisponibleProveedor dtrd = saProvRecLocal.getRecursoDisponibleProveedor(codigoProveedor, recLocal.getCodigoPeriferico());
+    	
+    	
+    	IdRecursoProveedor idAux = new IdRecursoProveedor(recLocal, provLocal);
+		//RecursoProveedor para verificar si existe
+    	RecursoProveedor recProv =  daoRecProvLocal.findById(idAux);
+		//RecursoProveedor a persisitir / actualizar
+		
+		if(recProv == null) {
+			RecursoProveedor recursoProveedor = new RecursoProveedor(recLocal, provLocal,dtrd.getCantidadDisponible());
+	    	
+			
+	    	System.out.println("El recurso-proveedor a persisitir sería: " + recursoProveedor.getRecurso().getId() +" - "+ recursoProveedor.getProveedor().getId());
+	    	
+	    	daoRecProvLocal.persist(recursoProveedor);
+	    	
+	    	return true;
+    	}else {
+    		System.out.println("Ya existe un record para la dupla Recurso-Proveedor.");
+    		return false;
+    	}
+    	
+    }
 }

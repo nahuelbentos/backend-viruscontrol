@@ -188,7 +188,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     
     @Override
     //Agregar un Recurso de un determinado tipo
-    public boolean altaRecursoDeUnDeterminadoTipo(String nombre,int idTipoRecurso) {
+    public boolean altaRecursoDeUnDeterminadoTipo(String nombre,int idTipoRecurso, String codigoPeriferico) {
 		
     	
     	
@@ -196,6 +196,7 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     		Recurso recurso = new Recurso();
         	recurso.setNombre(nombre);
         	recurso.setTipoRecurso(daoTipoRecursoLocal.findById(idTipoRecurso));
+        	recurso.setCodigoPeriferico(codigoPeriferico);
         	daoRecursoLocal.persist(recurso);
         	System.out.println("Recurso creado");
         	
@@ -208,9 +209,10 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     }
     
     //Agregar Tipo de Recurso
-    public boolean altaTipoRecurso (String nombre, String descripcion) {
+    public boolean altaTipoRecurso (String nombre, String descripcion, String codigoPeriferico) {
     	if(!daoTipoRecursoLocal.exist(nombre)) {
     		TipoRecurso tipoRecurso = new TipoRecurso(nombre, descripcion);
+    		tipoRecurso.setCodigoPeriferico(codigoPeriferico);
     		daoTipoRecursoLocal.persist(tipoRecurso);
     		return true;
     	}else {
@@ -232,6 +234,12 @@ public class EnfermedadBean implements EnfermedadBeanLocal, EnfermedadBeanRemote
     	return daoRecursoLocal.getAllRecursos();
     	
     }
+    
+    @Override
+    public List<Recurso> obtenerRecursoPorEnfermedad(int idEnfermedad){
+    	return daoRecursoLocal.findAllByEnfermedad(idEnfermedad);
+    }
+  
    
     //*/*/*/*/*/*/*/*/*/AUXILIARES*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
     

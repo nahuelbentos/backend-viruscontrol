@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,8 @@ public class Recurso implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String nombre;
+	@Column(name="codigo_periferico")
+	private String codigoPeriferico;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="tipo_recurso")
@@ -87,19 +90,33 @@ public class Recurso implements Serializable {
 	public void setTipoRecurso(TipoRecurso tipoRecurso) {
 		this.tipoRecurso = tipoRecurso;
 	}
-
 	
+	
+	
+
+	public String getCodigoPeriferico() {
+		return codigoPeriferico;
+	}
+
+	public void setCodigoPeriferico(String codigoPeriferico) {
+		this.codigoPeriferico = codigoPeriferico;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((codigoPeriferico == null) ? 0 : codigoPeriferico.hashCode());
 		result = prime * result + ((enfermedades == null) ? 0 : enfermedades.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((tipoRecurso == null) ? 0 : tipoRecurso.hashCode());
 		return result;
 	}
+
+	
+
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -110,6 +127,11 @@ public class Recurso implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Recurso other = (Recurso) obj;
+		if (codigoPeriferico == null) {
+			if (other.codigoPeriferico != null)
+				return false;
+		} else if (!codigoPeriferico.equals(other.codigoPeriferico))
+			return false;
 		if (enfermedades == null) {
 			if (other.enfermedades != null)
 				return false;
@@ -137,7 +159,10 @@ public class Recurso implements Serializable {
 		enfermedad.getRecursos().add(recursoEnfermedad);
 	}
 	
-	
+	@Override
+	public String toString() {
+		return nombre;
+	}
 /*
 	public void desasociarEnfermedad(Enfermedad enfermedad) {
 		for (Iterator<RecursoEnfermedad> iterator = enfermedades.iterator();

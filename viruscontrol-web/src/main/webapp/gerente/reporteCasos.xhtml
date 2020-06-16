@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
+	<ui:define name="title">
+		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<h:outputText value="Reporte de casos: " />
+			<br />
+			<style type="text/css">
+    .ui-chart {
+        margin-bottom: 50px;
+    }
+</style>
+ 
+			<p:dataTable id="checkboxDT" value="#{GraficaSospechososView.reportecasos}"	var="p" rowKey="#{p.id}">
+					<p:column headerText="Departamento" filterBy="#{p.departamento.nombre}" filterMatchMode="contains">
+					<p:outputLabel value="#{p.departamento.nombre}" />
+				</p:column>
+					<p:column headerText="Enfermedad" filterBy="#{p.enfermedad.nombre}" filterMatchMode="contains">
+					<p:outputLabel value="#{p.enfermedad.nombre}" />
+				</p:column>
+				
+				
+					<p:column headerText="Estado" filterBy="#{p.tipoCaso.toString()}" filterMatchMode="contains">
+					<p:outputLabel value="#{p.tipoCaso.toString()}" />
+				</p:column>
+				
+				<p:column headerText="Nombre Ciudadano">
+					<p:outputLabel value="#{p.ciudadano.nombre}" />
+				</p:column>
+			
+				<p:column headerText="Correo Ciudadano">
+					<p:outputLabel value="#{p.ciudadano.correo}" />
+				</p:column>
+				</p:dataTable>
+ 
+
+		</h:form>
+	</ui:define>
+ 
+</ui:composition>
+
+</html>

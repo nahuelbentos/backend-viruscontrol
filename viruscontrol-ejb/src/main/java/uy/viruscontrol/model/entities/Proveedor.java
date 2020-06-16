@@ -33,6 +33,9 @@ public abstract class Proveedor implements Serializable {
 	private String barrio;
 	
 	@Column
+	private String ciudad;
+
+	@Column
 	private String rangoHorario;
 	
 	private boolean deleted;
@@ -54,6 +57,14 @@ public abstract class Proveedor implements Serializable {
 
 	public void setBarrio(String barrio) {
 		this.barrio = barrio;
+	}
+	
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
 	public String getRangoHorario() {
@@ -123,7 +134,7 @@ public abstract class Proveedor implements Serializable {
 
 	@Override
 	public String toString() {
-		return id + " - " + nombre;
+		return nombre;
 	}
 
 	

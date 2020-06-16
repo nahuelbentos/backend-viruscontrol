@@ -1,14 +1,12 @@
 package uy.viruscontrol.model.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -22,6 +20,8 @@ public class TipoRecurso implements Serializable{
 	private int id;
 	private String nombre;
 	private String descripcion;
+	@Column(name="codigo_periferico")
+	private String codigoPeriferico;
 	
 	//bi-directional many-to-one association to Recurso
 	/*
@@ -66,7 +66,15 @@ public class TipoRecurso implements Serializable{
 	}
 
 	
-/*
+	public String getCodigoPeriferico() {
+		return codigoPeriferico;
+	}
+
+	public void setCodigoPeriferico(String codigoPeriferico) {
+		this.codigoPeriferico = codigoPeriferico;
+	}
+
+	/*
 	public List<Recurso> getRecursos() {
 		return recursos;
 	}
@@ -115,6 +123,11 @@ public class TipoRecurso implements Serializable{
 			return false;
 		*/
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return nombre;
 	}
 
 	

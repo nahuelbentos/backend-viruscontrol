@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import uy.viruscontrol.model.entities.Caso;
+import uy.viruscontrol.utils.DtExamenCiudadano;
 
 @Local
 public interface CasoDAOLocal {
@@ -20,4 +21,10 @@ public interface CasoDAOLocal {
 	void delete(Caso caso);
 	
 	List<Caso> findAllOrderByDepartamento();
+
+	List<DtExamenCiudadano> findAllExamenesByCiudadano(int idCiudadano);
+
+	
+	
+	
 }
