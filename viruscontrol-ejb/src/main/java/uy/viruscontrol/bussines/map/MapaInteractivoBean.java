@@ -48,14 +48,15 @@ public class MapaInteractivoBean implements MapaInteractivoBeanLocal {
 		for (Caso caso : casos) {
 			
 			System.out.println("Agrego caso " + caso.getId() + " al mapa.");
-			
+			System.out.println("00 " + caso.getDepartamento().getNombre());
 			if (dptoStr == null || !caso.getDepartamento().getNombre().equals(dptoStr)) {
 				if (dptoStr != null)				/**  Si no es nulo es porque terminó de cargar los casos  **/
 													/**  del primer departamento y de los siguientes menos    **/
 													/**  el último.											  **/
 				
 				dpto = new DepartamentoEnMapa();
-				dpto.setNombre(caso.getDepartamento().getNombre());
+				if (dpto != null)
+					dpto.setNombre(caso.getDepartamento().getNombre());
 			}
 			
 			

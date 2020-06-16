@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DepartamentoEnMapa implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5138444689693397215L;
 	
 	private String nombre;
 	private List<EnfermedadEnMapa> enfermedades;

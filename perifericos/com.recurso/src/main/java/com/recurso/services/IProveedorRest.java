@@ -44,6 +44,11 @@ public interface IProveedorRest {
 											 int cantidad);
 	
 	@GET
+	@Path("/all/barrios")
+	public List<String> getAllBarrios();
+	
+	
+	@GET
 	@Path("/ciudad/{ciudad}/barrio/{barrio}")
 	List<DummyProveedor> getRecursosDisponiblesPorCiudadBarrio(@PathParam("ciudad") String ciudad, 
 																@PathParam("barrio") String barrio);
@@ -55,5 +60,7 @@ public interface IProveedorRest {
 	@GET
 	@Path("/all/tiposrecursos")
 	List<TipoRecurso> getAllTipoDeRecursos();
+	
+
 	
 }

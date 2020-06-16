@@ -26,4 +26,6 @@ public interface ServiceAgentProveedorRecursoLocal {
 	public List<TipoRecurso> getAllTipoDeRecursosPeriferico();
 
 	public DtRecursoDisponibleProveedor getRecursoDisponibleProveedor(String codigoProveedor, String codigoRecurso);
+	
+	public List<String> getListadoBarrios();
 }

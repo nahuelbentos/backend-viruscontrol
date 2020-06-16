@@ -57,6 +57,11 @@ public class ProveedorRest implements IProveedorRest{
 	public List<TipoRecurso> getAllTipoDeRecursos(){
 		return handler.getAllTiposDeRecursos();
 	}
+
+	@Override
+	public List<String> getAllBarrios() {
+		return handler.getAllBarrios();
+	}
 	
 
 }
