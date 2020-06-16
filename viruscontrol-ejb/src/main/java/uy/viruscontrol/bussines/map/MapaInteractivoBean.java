@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.EJB;
@@ -29,15 +28,12 @@ public class MapaInteractivoBean implements MapaInteractivoBeanLocal {
     private List<DepartamentoEnMapa> mapa;
     private MapaInteractivo mapaInteractivo;
     
-    public MapaInteractivoBean() {
-    	System.out.println("construyo singleton de mapa interactivo.");
-    }
+    public MapaInteractivoBean() {}
 
 	@SuppressWarnings("null")
 	@Override
 	@Lock(LockType.WRITE)
 	public void loadCasosOnMapa() {
-		System.out.println("001");
 		List<Caso> casos = casosDao.findAllOrderByDepartamento();
 		
 		// inicializo auxiliares.
@@ -51,21 +47,16 @@ public class MapaInteractivoBean implements MapaInteractivoBeanLocal {
 		this.mapa = new ArrayList<DepartamentoEnMapa>();
 		for (Caso caso : casos) {
 			
-			System.out.println("voy a agregar al mapa el caso " + caso.getId());
-			
-
-			
+			System.out.println("Agrego caso " + caso.getId() + " al mapa.");
+			System.out.println("00 " + caso.getDepartamento().getNombre());
 			if (dptoStr == null || !caso.getDepartamento().getNombre().equals(dptoStr)) {
-				/**
-				 *  si no es nulo es porque termino de cargar los casos 
-				 *  del primer departamento y de los siguientes.
-				 */
-				
-				if (dptoStr != null)
-					mapa.add(dpto);
+				if (dptoStr != null)				/**  Si no es nulo es porque terminó de cargar los casos  **/
+													/**  del primer departamento y de los siguientes menos    **/
+													/**  el último.											  **/
 				
 				dpto = new DepartamentoEnMapa();
-				dpto.setNombre(caso.getDepartamento().getNombre());
+				if (dpto != null)
+					dpto.setNombre(caso.getDepartamento().getNombre());
 			}
 			
 			
@@ -99,10 +90,9 @@ public class MapaInteractivoBean implements MapaInteractivoBeanLocal {
 			enfStr = caso.getEnfermedad().getNombre();
 			dptoStr = caso.getDepartamento().getNombre();
 			cantidad ++;
-			System.out.println(" mapa interactivo bean 002");	
 		}
 		
-		// agrego la ultima iteracion.
+		/**** Agrego la ultima iteración. ****/
 		if (dpto != null && enf != null && casosEnMapa != null) {
 			casosEnMapa.setCantidad(cantidad);
 			enf.addCaso(casosEnMapa);
@@ -111,12 +101,12 @@ public class MapaInteractivoBean implements MapaInteractivoBeanLocal {
 		}
 		
 		if (!this.mapa.isEmpty()) {
-			mapaInteractivo = new MapaInteractivo();
+			this.mapaInteractivo = new MapaInteractivo();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-			mapaInteractivo.setUltimaActualizacion(sdf.format(Calendar.getInstance().getTime()));
-			mapaInteractivo.setMapa(this.mapa);
+			this.mapaInteractivo.setUltimaActualizacion(sdf.format(Calendar.getInstance().getTime()));
+			this.mapaInteractivo.setMapa(this.mapa);
 		} else
-			mapaInteractivo = null;
+			this.mapaInteractivo = null;
 		
 
 	}

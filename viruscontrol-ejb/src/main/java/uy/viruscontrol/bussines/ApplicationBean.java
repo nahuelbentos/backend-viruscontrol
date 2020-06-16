@@ -11,6 +11,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
 import uy.viruscontrol.bussines.enumerated.TipoCaso;
+import uy.viruscontrol.bussines.interfaces.ApplicationBeanLocal;
 import uy.viruscontrol.bussines.map.MapaInteractivoBeanLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
@@ -35,7 +36,7 @@ import uy.viruscontrol.model.entities.EstadoExamen;
 @Startup
 public class ApplicationBean implements ApplicationBeanLocal {
 
-	private static final long horaSearchExamenes = 3600000;
+	private static final long UNA_HORA = 3600000;
 
 	@EJB private CasoDAOLocal casoDAO;
 	@EJB private ServiceAgentProveedorExamenLocal sagProvExamen;
@@ -52,7 +53,7 @@ public class ApplicationBean implements ApplicationBeanLocal {
     				try {
     					updateCasos();
     					actualizarMapaInteractivo(); 
-						Thread.sleep(horaSearchExamenes);
+						Thread.sleep(UNA_HORA);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

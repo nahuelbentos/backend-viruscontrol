@@ -23,7 +23,6 @@ import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Medico;
-import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.model.entities.Usuario;
 
 @Stateless

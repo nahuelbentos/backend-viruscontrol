@@ -30,6 +30,10 @@ public class UserAuthFE {
 	public void setSessionToken(String sessionToken) {
 		this.sessionToken = sessionToken;
 	}
+	@Override
+	public String toString() {
+		return "UserAuthFE [response=" + response + ", usuario=" + usuario + ", sessionToken=" + sessionToken + "]";
+	}
 	
 	
 	

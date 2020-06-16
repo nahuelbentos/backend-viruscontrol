@@ -36,7 +36,6 @@ public class AuthRest implements IAuthRest {
 	public Response validarDatosConRedes(Ciudadano user) {
 		try {
 			sessionEjb.validarDatosConRedes(user);
-			
 			return Response.status(Status.OK).build();
 		} catch (Exception e) { 
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();

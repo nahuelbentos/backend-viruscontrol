@@ -67,7 +67,8 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 
 	@Override
 	public void validarDatosConRedes(Usuario user) {
-		Usuario uLogueado = getUsuarioLogueado(user.getUsername());
+		
+		Usuario uLogueado = getUsuarioLogueado(getTokenByUsername(user.getUsername()));
 		
 		if (uLogueado != null) {
 			
@@ -78,6 +79,8 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 			uLogueado.setDireccion(user.getDireccion());
 			uLogueado.setFechaNacimiento(user.getFechaNacimiento());
 			uLogueado.setNacionalidad(user.getNacionalidad());
+			uLogueado.setDocumento(user.getDocumento());
+			uLogueado.setNroTelefono(user.getNroTelefono());
 		
 			usuEJB.actualizarDatos(uLogueado);
 		}		

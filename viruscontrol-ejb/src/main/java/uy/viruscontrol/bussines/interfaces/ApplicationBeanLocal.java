@@ -1,4 +1,4 @@
-package uy.viruscontrol.bussines;
+package uy.viruscontrol.bussines.interfaces;
 
 import javax.ejb.Local;
 
