@@ -11,4 +11,6 @@ public interface GerenteBeanLocal {
 
 	List<Caso> obtenerCasos();
 
+	void mandarMail(String receptor,String asunto,String mensaje);
+
 }
