@@ -158,7 +158,7 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 			
 			List<DtRecursosProveedor> disponibles = new ArrayList<DtRecursosProveedor>();
 			ProveedorRecursos provRec = null;
-			
+			Recurso recLocal = new Recurso();
 			for (DummyProveedor dp : dummiesProv) {
 				provRec = daoProvRec.findByExternalId(dp.getCodigo());
 				
@@ -172,6 +172,9 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 					dtRP.setProveedor(provRec);
 					
 					for (DummyRecursoDisponible it : dp.getRecursosDisponibles()) {
+						
+						recLocal = daoRecurso.findByExternalId(it.getRecurso().getCodigo());
+						
 						// obtengo el recurso
 						Recurso r = new Recurso();
 						r.setNombre(it.getRecurso().getMarca());
@@ -179,6 +182,9 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 						tr.setNombre(it.getRecurso().getTipoRecurso().getNombre());
 						tr.setDescripcion(it.getRecurso().getTipoRecurso().getCodigo());
 						r.setTipoRecurso(tr);
+						if (recLocal != null) {
+							r.setEnfermedades(recLocal.getEnfermedades());
+						}
 						
 						dtRP.addRecurso(r);
 					}
