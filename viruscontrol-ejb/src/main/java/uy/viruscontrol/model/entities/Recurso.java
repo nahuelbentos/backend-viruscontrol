@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import uy.viruscontrol.utils.DtEnfermedad;
+import uy.viruscontrol.utils.DtRecurso;
+
 
 
 
@@ -162,6 +165,18 @@ public class Recurso implements Serializable {
 	@Override
 	public String toString() {
 		return nombre;
+	}
+	
+	public List<DtEnfermedad> getDtEnfermedades() {
+		List<DtEnfermedad> list = new ArrayList<DtEnfermedad>();
+		for (RecursoEnfermedad it : this.enfermedades) {
+			list.add(new DtEnfermedad(it.getEnfermedad().getId(), it.getEnfermedad().getNombre()));
+		}
+		return list;
+	}
+	
+	public DtRecurso getDt() {
+		return new DtRecurso(this.id, this.nombre, this.tipoRecurso, this.getDtEnfermedades());
 	}
 /*
 	public void desasociarEnfermedad(Enfermedad enfermedad) {

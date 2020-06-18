@@ -13,7 +13,6 @@ import javax.persistence.Query;
 import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
 import uy.viruscontrol.model.entities.Enfermedad;
-import uy.viruscontrol.model.entities.Proveedor;
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.RecursoEnfermedad;
 import uy.viruscontrol.model.entities.TipoRecurso;
