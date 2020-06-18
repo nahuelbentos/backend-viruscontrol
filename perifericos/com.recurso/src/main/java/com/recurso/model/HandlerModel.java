@@ -185,11 +185,36 @@ public class HandlerModel {
 			e.printStackTrace();
 			return false;
 		}
-    	
-    	
-    	
-    	
     }
+    
+	public int aumentarStockRecurso(String codigoProveedor, String codigoRecurso, int cantidad) {
+		Proveedor p = this.proveedores.get(codigoProveedor);
+		
+		try {
+			ProveedorRecurso pr = p.findProveedorRecurso(codigoRecurso);
+			int nuevoStock = pr.getCantidadDisponible() + cantidad;
+			pr.setCantidadDisponible(nuevoStock);
+			
+			return nuevoStock;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public int consultarStockRecurso(String codigoProveedor, String codigoRecurso) {
+		Proveedor p = this.proveedores.get(codigoProveedor);
+		
+		try {
+			ProveedorRecurso pr = p.findProveedorRecurso(codigoRecurso);
+			return pr.getCantidadDisponible();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		
+		
+	}
     
     //Added by Naty
     public List<Recurso> getAllRecursos(){
