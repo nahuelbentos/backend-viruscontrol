@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import uy.viruscontrol.model.entities.Sintoma;
+import uy.viruscontrol.model.entities.Ubicacion;
 import uy.viruscontrol.utils.DtExamenCiudadano;
 import uy.viruscontrol.utils.DtVisita;
 
@@ -19,6 +20,8 @@ public interface CiudadanoBeanLocal {
 	List<String> obtenerBarrios();
 
 	List<String> obtenerCiudades();
+
+	public void reportarUbicacion(Ubicacion ubicacion, int idCiudadano);
 
 	
 }

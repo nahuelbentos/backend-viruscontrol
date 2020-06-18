@@ -4,9 +4,9 @@ insert into public.tipo_recurso(id, nombre, descripcion, codigo_periferico) valu
 insert into public.tipo_recurso(id, nombre, descripcion, codigo_periferico) values (300, 'Seguridad','Seguridad', null);
 
 ---Recurso
-insert into public.recurso(id, nombre, tipo_recurso) values (100, 'Ibuprofeno', 100);
-insert into public.recurso(id, nombre, tipo_recurso) values (200, 'Alcohol en Gel', 200);
-insert into public.recurso(id, nombre, tipo_recurso) values (300, 'Tapabocas', 300);
+insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (100, 'Ibuprofeno', 100, 2);
+insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (200, 'Alcohol en Gel', 200, 1);
+insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (300, 'Tapabocas', 300, 4);
 
 --TipoEnfermedad
 insert into public.tipo_enfermedad(id,nombre) values (100, 'Virus');
