@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -28,7 +29,9 @@ import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
 import uy.viruscontrol.bussines.interfaces.PrestadorBeanLocal;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
+import uy.viruscontrol.model.dao.interfaces.SuscripcionDAOLocal;
 import uy.viruscontrol.model.entities.Sintoma;
+import uy.viruscontrol.model.entities.Suscripcion;
 
 @ApplicationScoped
 @Path("/ciudadano")
@@ -38,6 +41,7 @@ public class ServicesCiudadano {
 	@EJB private CiudadanoBeanLocal beanCiudadano;
 	@EJB private SessionBeanLocal beanSesion;
 	@EJB private ServiceAgentProveedorExamenLocal saProvExamenLocal;
+	@EJB private SuscripcionDAOLocal daoSuscripcion;
 	
 	private static ObjectMapper mapper;
 	
@@ -102,5 +106,37 @@ public class ServicesCiudadano {
 		else
 			return Response.status(Status.UNAUTHORIZED).build();
 	}
-
+	//http://localhost:8080/viruscontrol-web/rest/ciudadano/obtenerBarrios
+	@GET
+	@Path("/obtenerBarrios")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<String> obtenerBarrios(){
+		return beanCiudadano.obtenerBarrios();
+	}
+	//http://localhost:8080/viruscontrol-web/rest/ciudadano/obtenerCiudades
+	@GET
+	@Path("/obtenerCiudades")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<String> obtenerCiudades(){
+		return beanCiudadano.obtenerCiudades();
+	}
+	
+	@POST
+	@Path("/suscribirseARecurso")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public boolean suscribirseARecurso(Suscripcion s) {
+		
+		beanCiudadano.suscribirseARecurso(s.getCiudadano().getIdUsuario(), s.getBarrio(), s.getRecurso());
+		
+		return true;
+	}
+	
+	@GET
+	@Path("/suscripciones")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Suscripcion> obtenerSuscripcion(){
+		return daoSuscripcion.findAll();
+	}
+	
 }

@@ -69,3 +69,8 @@ insert into fuente_de_datos (id, codigo, deleted, url) values (100, 'Twitter', f
 --Casos
 insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, departamento_id,enfermedad_id, examen_id, medico_id,proveedorexamen_id ) values(100,'2020-6-3 00:00:00','2020-5-26 00:00:00',0,106,200,100, 100,103,300);
 insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, departamento_id,enfermedad_id, examen_id, medico_id,proveedorexamen_id ) values(200,'2020-6-6 00:00:00','2020-5-15 00:00:00',1,106,100,200, 200,104,300);
+
+--Suscripciones
+insert into suscripcion(id,ciudadano_id,barrio,recurso) values(100,102,'Centro','alcohol en gel');
+
+
