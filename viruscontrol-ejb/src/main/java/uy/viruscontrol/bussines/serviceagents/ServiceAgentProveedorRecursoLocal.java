@@ -28,4 +28,6 @@ public interface ServiceAgentProveedorRecursoLocal {
 	public DtRecursoDisponibleProveedor getRecursoDisponibleProveedor(String codigoProveedor, String codigoRecurso);
 	
 	public List<String> getListadoBarrios();
+	
+	public int getStockDisponible(String codigoProveedor, String codigoRecurso);
 }
