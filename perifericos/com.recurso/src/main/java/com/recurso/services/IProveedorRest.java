@@ -38,10 +38,22 @@ public interface IProveedorRest {
 	public List<DummyRecursoDisponible> getRecursosDisponibles(@PathParam("codigoProveedor") String codigoProveedor);
 	
 	@PUT
-	@Path("/{codigoProveedor}/adquirir/{codigoRecurso}")
+	@Path("/{codigoProveedor}/{codigoRecurso}/vender")
 	public boolean adquirirRecursoDisponible(@PathParam("codigoProveedor") String codigoProveedor,
 											 @PathParam("codigoRecurso") String codigoRecurso,
 											 int cantidad);
+	
+	@PUT
+	@Path("/{codigoProveedor}/{codigoRecurso}/comprar")
+	public int aumentarStockRecurso(@PathParam("codigoProveedor") String codigoProveedor,
+										@PathParam("codigoRecurso") String codigoRecurso,
+										int cantidad);
+	
+	@GET
+	@Path("/{codigoProveedor}/{codigoRecurso}/stock")
+	public int consultarStockRecurso(@PathParam("codigoProveedor") String codigoProveedor,
+										@PathParam("codigoRecurso") String codigoRecurso);
+	
 	
 	@GET
 	@Path("/all/barrios")

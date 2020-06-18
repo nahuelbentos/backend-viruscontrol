@@ -49,6 +49,16 @@ public class ProveedorRest implements IProveedorRest{
 	}
 	
 	@Override
+	public int aumentarStockRecurso(String codigoProveedor, String codigoRecurso, int cantidad) {
+		return handler.aumentarStockRecurso(codigoProveedor, codigoRecurso, cantidad);
+	}
+
+	@Override
+	public int consultarStockRecurso(String codigoProveedor, String codigoRecurso) {
+		return handler.consultarStockRecurso(codigoProveedor, codigoRecurso);
+	}
+	
+	@Override
 	public List<Recurso> getAllRecursos(){
 		return handler.getAllRecursos();
 	}
