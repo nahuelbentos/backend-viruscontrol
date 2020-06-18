@@ -71,6 +71,6 @@ insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, 
 insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, departamento_id,enfermedad_id, examen_id, medico_id,proveedorexamen_id ) values(200,'2020-6-6 00:00:00','2020-5-15 00:00:00',1,106,100,200, 200,104,300);
 
 --Suscripciones
-insert into suscripcion(id,ciudadano_id,barrio,recurso) values(100,102,'Centro','Lavandina');
+--insert into suscripcion(id,ciudadano_id,barrio,recurso) values(100,102,'Centro','Lavandina');
 
 
