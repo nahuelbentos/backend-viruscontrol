@@ -141,12 +141,7 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 			return null;
 		}
 	}
-
-	@Override
-	public boolean comprarRecursoDisponible(String codigoProveedor, String codigoRecurso) {
-		return false;
-	}
-    
+ 
     @Override
     public List<DtRecursosProveedor> getRecursosDisponiblesPorCiudadBarrio(String ciudad, String barrio) {
     	try {
@@ -301,6 +296,27 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 			return null;
 		}
 		
+	}
+	
+	@Override
+	public boolean comprarRecursoDisponible(String codigoProveedor, String codigoRecurso) {
+		return false;
+	}
+
+	@Override
+	public int getStockDisponible(String codigoProveedor, String codigoRecurso) {
+		try {
+			HttpClient client = HttpClients.createDefault();
+			HttpGet getRequest = new HttpGet(urlProvRecRest + codigoProveedor + "/" + codigoRecurso);
+			
+			HttpResponse res = client.execute(getRequest);
+			return mapper.readValue(res.getEntity().getContent(), Integer.class);		
+			 	
+		} catch (IOException e) {
+			//e.printStackTrace();
+			this.log("ERROR: "+e.getMessage()+". Para ver mas información, habilitar la traza y replicar el error.");
+			return 0;
+		}
 	}
 	
 }

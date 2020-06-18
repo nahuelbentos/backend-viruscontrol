@@ -26,4 +26,7 @@ public interface ServiceAgentProveedorRecursoRemote {
 	public List<Recurso> getRecursosProvPeriferico(String codigoPeriferico);
 	
 	public DtRecursoDisponibleProveedor getRecursoDisponibleProveedor(String codigoProveedor, String codigoRecurso);
+	
+	public int getStockDisponible(String codigoProveedor, String codigoRecurso);
+	
 }
