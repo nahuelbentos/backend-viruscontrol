@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import uy.viruscontrol.utils.DtEnfermedad;
+
 
 
 @Entity
@@ -216,5 +218,9 @@ public class Enfermedad implements Serializable{
 	@Override
 	public String toString() {
 		return this.getId() + " - " + this.getNombre();
+	}
+	
+	public DtEnfermedad getDt() {
+		return new DtEnfermedad(this.id, this.nombre);
 	}
 }

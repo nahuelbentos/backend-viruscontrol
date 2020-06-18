@@ -59,6 +59,9 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 			
 			ret.setUsuario(usuDAO.findByUsername(user.getUsername()));
 			ret.setSessionToken(beanToken.getToken(user));
+			// Jhona- no entiendo por que se guarda user en lugar de ret.getUsuario() que tiene todos los datos. Verificar si hay un motivo y sino cambiarlo
+			user.setIdUsuario(ret.getUsuario().getIdUsuario());
+			user.setDocumento(ret.getUsuario().getDocumento());
 			
 			userConectados.put(beanToken.getToken(user),user);
 		}

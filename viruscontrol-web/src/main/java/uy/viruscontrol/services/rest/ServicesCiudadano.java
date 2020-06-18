@@ -1,16 +1,11 @@
 package uy.viruscontrol.services.rest;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -20,10 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
-import org.apache.http.client.ClientProtocolException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
 import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
@@ -45,7 +36,6 @@ public class ServicesCiudadano {
 	@EJB private ServiceAgentProveedorExamenLocal saProvExamenLocal;
 	@EJB private SuscripcionDAOLocal daoSuscripcion;
 	
-	private static ObjectMapper mapper;
 	
 	@GET
 	@Path("/visita/sintomas")
@@ -71,27 +61,22 @@ public class ServicesCiudadano {
 	@POST
 	@Path("/visita/confirmar")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response confirmarVisita(@HeaderParam("authorization") String token,
-										@FormParam("idCiudadano") int idCiudadano, 
-										@FormParam("idMedico") int idMedico, 
-										@FormParam("fecha") Date fecha, 
-										@FormParam("sintomas") String sintomasJson) {
+										//@FormParam("idCiudadano") int idCiudadano, 
+										//@FormParam("idMedico") int idMedico, 
+										//@FormParam("fecha") Date fecha, 
+										List<Sintoma> sintomas) {
 		if (beanSesion.validateAuthentication(token)) {
-			mapper = new ObjectMapper();
+			int idCiudadano = beanSesion.getUsuarioLogueado(token).getIdUsuario();
 			try {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-				Calendar fec = Calendar.getInstance();
-				System.out.println("Fecha ingresada: "+sdf.format(fecha));
-				fec.setTime(fecha);
-				System.out.println("Listado de sintomas");
-				List<Sintoma> sintomas = mapper.readValue(sintomasJson, mapper.getTypeFactory().constructCollectionType(List.class, Sintoma.class));
-				for (Sintoma sintoma : sintomas) {
-					System.out.println("sintoma: " + sintoma.getNombre());
-				}
-				boolean ok = beanCiudadano.solicitarMedicoADomicilio(idCiudadano, idMedico, fec, sintomas);
-				return Response.status(Status.OK).entity(ok).build();
+//				System.out.println("Listado de sintomas");
+//				for (Sintoma sintoma : sintomas) {
+//					System.out.println("sintoma: " + sintoma.getNombre());
+//				}
+				return Response.status(Status.OK).entity(beanCiudadano.solicitarMedicoADomicilio(idCiudadano, sintomas)).build();
 			} catch (Exception e) {
-				return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+				return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 			}
 		} else
 			return Response.status(Status.UNAUTHORIZED).build();
