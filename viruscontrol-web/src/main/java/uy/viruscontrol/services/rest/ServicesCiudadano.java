@@ -2,12 +2,14 @@ package uy.viruscontrol.services.rest;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -28,7 +30,10 @@ import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
 import uy.viruscontrol.bussines.interfaces.PrestadorBeanLocal;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
+import uy.viruscontrol.model.dao.interfaces.SuscripcionDAOLocal;
 import uy.viruscontrol.model.entities.Sintoma;
+import uy.viruscontrol.model.entities.Suscripcion;
+import uy.viruscontrol.utils.DtSuscripcion;
 
 @ApplicationScoped
 @Path("/ciudadano")
@@ -38,6 +43,7 @@ public class ServicesCiudadano {
 	@EJB private CiudadanoBeanLocal beanCiudadano;
 	@EJB private SessionBeanLocal beanSesion;
 	@EJB private ServiceAgentProveedorExamenLocal saProvExamenLocal;
+	@EJB private SuscripcionDAOLocal daoSuscripcion;
 	
 	private static ObjectMapper mapper;
 	
@@ -102,5 +108,57 @@ public class ServicesCiudadano {
 		else
 			return Response.status(Status.UNAUTHORIZED).build();
 	}
-
+	//http://localhost:8080/viruscontrol-web/rest/ciudadano/obtenerBarrios
+	@GET
+	@Path("/obtenerBarrios")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<String> obtenerBarrios(){
+		return beanCiudadano.obtenerBarrios();
+	}
+	//http://localhost:8080/viruscontrol-web/rest/ciudadano/obtenerCiudades
+	@GET
+	@Path("/obtenerCiudades")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<String> obtenerCiudades(){
+		return beanCiudadano.obtenerCiudades();
+	}
+	
+	@POST
+	@Path("/suscribirseARecurso")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public boolean suscribirseARecurso(DtSuscripcion s) {
+		/*
+   		{
+        "ciudadanoId": 102,
+        "barrio": "Centro",
+        "recurso": "alcohol en gel"
+    	}
+		 */
+		System.out.println("ciudadanoId "+s.getCiudadanoId());
+		System.out.println("barrio "+s.getBarrio());
+		System.out.println("recurso "+s.getRecurso());
+		beanCiudadano.suscribirseARecurso(s.getCiudadanoId(), s.getBarrio(), s.getRecurso());
+		
+		return true;
+	}
+	
+	@GET
+	@Path("/suscripciones")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<DtSuscripcion> obtenerSuscripcion(){
+	List<Suscripcion> suscripciones=daoSuscripcion.findAll();
+	List<DtSuscripcion> listdts=new ArrayList<DtSuscripcion>();
+	
+		for(Suscripcion s:suscripciones) {
+			DtSuscripcion dts=new DtSuscripcion();
+			dts.setBarrio(s.getBarrio());
+			dts.setCiudadanoId(s.getCiudadano().getIdUsuario());
+			dts.setRecurso(s.getRecurso());
+			listdts.add(dts);
+		}
+		return listdts;
+		
+	}
+	
 }

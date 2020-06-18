@@ -1,5 +1,6 @@
 package uy.viruscontrol.bussines;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -11,9 +12,14 @@ import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.SintomaDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.SuscripcionDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
+import uy.viruscontrol.model.entities.Ciudadano;
+import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.Sintoma;
+import uy.viruscontrol.model.entities.Suscripcion;
 import uy.viruscontrol.model.entities.VisitaMedico;
 import uy.viruscontrol.utils.DtExamenCiudadano;
 
@@ -25,6 +31,10 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 	@EJB private SintomaDAOLocal daoSintoma;
 	@EJB private VisitaMedicoDAOLocal daoVisita;
 	@EJB private CasoDAOLocal daoCasoLocal;
+	@EJB private RecursoDAOLocal daoRecurso;
+	@EJB private SuscripcionDAOLocal daoSuscripcion;
+	
+	
 	
 	public CiudadanoBean() {
 		super();
@@ -52,5 +62,45 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 		
 		return daoCasoLocal.findAllExamenesByCiudadano(idCiudadano);
 	}
+	
+	@Override
+	public void suscribirseARecurso(int idCiudadano,String barrio,String recurso) {
+		Ciudadano c=daoCiudadano.findById(idCiudadano);
+		
+		if (c!=null && recurso!=null && barrio!=null) {
+			Suscripcion s=new Suscripcion();
+			s.setBarrio(barrio);
+			s.setCiudadano(c);
+			s.setRecurso(recurso);
+			daoSuscripcion.persist(s);
+		}
+		
+		
+	}
+	@Override
+	public List<String> obtenerBarrios(){
+		List<String> barrios= new ArrayList<String>();
+		barrios.add("Cerrito");
+		barrios.add("Centro");
+		barrios.add("pocitos");
+		barrios.add("Aguada");
+		
+		
+		return barrios;
+		
+	}
+	
+	@Override
+	public List<String> obtenerCiudades(){
+		List<String> ciudades= new ArrayList<String>();
+		ciudades.add("Montevideo");
+
+		
+		
+		return ciudades;
+		
+	}
+	
+	
 
 }
