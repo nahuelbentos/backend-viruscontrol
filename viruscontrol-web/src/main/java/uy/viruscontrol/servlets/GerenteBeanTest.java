@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import uy.viruscontrol.bussines.ProveedorBean;
-import uy.viruscontrol.bussines.interfaces.ProveedorBeanLocal;
+import uy.viruscontrol.bussines.interfaces.GerenteBeanLocal;
 
 /**
- * Servlet implementation class ProveedorBeanTest
+ * Servlet implementation class GerenteBeanTest
  */
-@WebServlet("/ProveedorBeanTest")
-public class ProveedorBeanTest extends HttpServlet {
+@WebServlet("/GerenteBeanTest")
+public class GerenteBeanTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       @EJB ProveedorBeanLocal proveedorBeanLocal;
+	@EJB GerenteBeanLocal gerenteBean;
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProveedorBeanTest() {
+    public GerenteBeanTest() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +31,9 @@ public class ProveedorBeanTest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//http://localhost:8080/viruscontrol-web/GerenteBeanTest
 		
-		
-		proveedorBeanLocal.nuevoProveedor(1, "farmashop", "18 y andes", "Montevideo","centro","24hs",null);
-		proveedorBeanLocal.nuevoProveedor(2, "proveEx", "cochabamba12", "Montevideo", "malvin", "15hs",null);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		gerenteBean.mandarMail("javierms17@gmail.com","java","mensaje enviado desde java");
 		
 		
 	}

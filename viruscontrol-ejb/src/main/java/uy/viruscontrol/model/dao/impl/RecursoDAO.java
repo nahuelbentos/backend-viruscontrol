@@ -13,9 +13,11 @@ import javax.persistence.Query;
 import uy.viruscontrol.model.dao.interfaces.EnfermedadDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
 import uy.viruscontrol.model.entities.Enfermedad;
+import uy.viruscontrol.model.entities.Proveedor;
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.RecursoEnfermedad;
 import uy.viruscontrol.model.entities.TipoRecurso;
+
 
 
 /**
@@ -156,4 +158,17 @@ public class RecursoDAO implements RecursoDAOLocal {
 		return recursos;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override 
+	public Recurso findByExternalId(String codigo) {
+		List<Recurso> l = em.createQuery("FROM Recurso WHERE codigoPeriferico = :codigo")
+										.setParameter("codigo", codigo)
+										.getResultList();
+		
+		for (Recurso it : l) {
+			if (it instanceof Recurso)
+				return (Recurso) it;
+		}
+		return null;
+	}
 }	

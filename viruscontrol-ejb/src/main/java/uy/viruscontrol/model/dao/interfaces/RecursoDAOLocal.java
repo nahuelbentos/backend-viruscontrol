@@ -27,4 +27,6 @@ public interface RecursoDAOLocal {
 	List<Recurso> getAllRecursos();
 
 	List<Recurso> findAllByEnfermedad(int idEnfermedad);
+
+	Recurso findByExternalId(String codigo);
 }
