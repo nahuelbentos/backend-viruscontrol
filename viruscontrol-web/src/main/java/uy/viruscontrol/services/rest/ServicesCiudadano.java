@@ -2,6 +2,7 @@ package uy.viruscontrol.services.rest;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +33,7 @@ import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
 import uy.viruscontrol.model.dao.interfaces.SuscripcionDAOLocal;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.Suscripcion;
+import uy.viruscontrol.utils.DtSuscripcion;
 
 @ApplicationScoped
 @Path("/ciudadano")
@@ -125,9 +127,18 @@ public class ServicesCiudadano {
 	@Path("/suscribirseARecurso")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public boolean suscribirseARecurso(Suscripcion s) {
-		
-		beanCiudadano.suscribirseARecurso(s.getCiudadano().getIdUsuario(), s.getBarrio(), s.getRecurso());
+	public boolean suscribirseARecurso(DtSuscripcion s) {
+		/*
+   		{
+        "ciudadanoId": 102,
+        "barrio": "Centro",
+        "recurso": "alcohol en gel"
+    	}
+		 */
+		System.out.println("ciudadanoId "+s.getCiudadanoId());
+		System.out.println("barrio "+s.getBarrio());
+		System.out.println("recurso "+s.getRecurso());
+		beanCiudadano.suscribirseARecurso(s.getCiudadanoId(), s.getBarrio(), s.getRecurso());
 		
 		return true;
 	}
@@ -135,8 +146,19 @@ public class ServicesCiudadano {
 	@GET
 	@Path("/suscripciones")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Suscripcion> obtenerSuscripcion(){
-		return daoSuscripcion.findAll();
+	public List<DtSuscripcion> obtenerSuscripcion(){
+	List<Suscripcion> suscripciones=daoSuscripcion.findAll();
+	List<DtSuscripcion> listdts=new ArrayList<DtSuscripcion>();
+	
+		for(Suscripcion s:suscripciones) {
+			DtSuscripcion dts=new DtSuscripcion();
+			dts.setBarrio(s.getBarrio());
+			dts.setCiudadanoId(s.getCiudadano().getIdUsuario());
+			dts.setRecurso(s.getRecurso());
+			listdts.add(dts);
+		}
+		return listdts;
+		
 	}
 	
 }

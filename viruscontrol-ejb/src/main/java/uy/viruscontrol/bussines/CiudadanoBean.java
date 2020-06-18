@@ -72,7 +72,7 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 			s.setBarrio(barrio);
 			s.setCiudadano(c);
 			s.setRecurso(recurso);
-	
+			daoSuscripcion.persist(s);
 		}
 		
 		
