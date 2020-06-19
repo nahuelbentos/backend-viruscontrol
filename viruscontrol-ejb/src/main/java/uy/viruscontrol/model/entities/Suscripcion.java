@@ -34,6 +34,10 @@ public class Suscripcion implements Serializable {
 	@Column(name="recurso")
 	private String recurso;
 	
+	@Column(name="notificado")
+	private boolean notificado;
+	
+	
 	public Suscripcion() {
 		super();
 	}
@@ -92,6 +96,14 @@ public class Suscripcion implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public boolean isNotificado() {
+		return notificado;
+	}
+
+	public void setNotificado(boolean notificado) {
+		this.notificado = notificado;
 	}
 	
 	

@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentPrestadoraSaludLocal;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecurso;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
@@ -40,7 +41,9 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 	@EJB private SuscripcionDAOLocal daoSuscripcion;
 	@EJB private UbicacionDAOLocal daoUbicacion;
 	@EJB private ServiceAgentPrestadoraSaludLocal beanPrestador;
+	@EJB private ServiceAgentProveedorRecurso saRec;
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd");
+	
 	
 	public CiudadanoBean() {
 		super();
@@ -93,6 +96,7 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 			s.setBarrio(barrio);
 			s.setCiudadano(c);
 			s.setRecurso(recurso);
+			s.setNotificado(false);
 			daoSuscripcion.persist(s);
 		}
 		
@@ -100,11 +104,8 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 	}
 	@Override
 	public List<String> obtenerBarrios(){
-		List<String> barrios= new ArrayList<String>();
-		barrios.add("Cerrito");
-		barrios.add("Centro");
-		barrios.add("pocitos");
-		barrios.add("Aguada");
+		List<String> barrios= saRec.getListadoBarrios();
+		
 		
 		
 		return barrios;
