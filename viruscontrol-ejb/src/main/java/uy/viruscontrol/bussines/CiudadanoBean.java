@@ -18,10 +18,12 @@ import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.RecursoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.SintomaDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.SuscripcionDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.UbicacionDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.Suscripcion;
+import uy.viruscontrol.model.entities.Ubicacion;
 import uy.viruscontrol.model.entities.VisitaMedico;
 import uy.viruscontrol.utils.DtExamenCiudadano;
 import uy.viruscontrol.utils.DtVisita;
@@ -36,6 +38,7 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 	@EJB private CasoDAOLocal daoCasoLocal;
 	@EJB private RecursoDAOLocal daoRecurso;
 	@EJB private SuscripcionDAOLocal daoSuscripcion;
+	@EJB private UbicacionDAOLocal daoUbicacion;
 	@EJB private ServiceAgentPrestadoraSaludLocal beanPrestador;
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd");
 	
@@ -119,6 +122,11 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 		
 	}
 	
-	
+	@Override
+	public void reportarUbicacion(Ubicacion ubicacion, int idCiudadano) {
+		ubicacion.setFecha(Calendar.getInstance());
+		ubicacion.setCiudadano(daoCiudadano.findById(idCiudadano));
+		daoUbicacion.persist(ubicacion);
+	}
 
 }

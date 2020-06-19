@@ -12,18 +12,20 @@ public class DtRecurso implements Serializable {
 	private int id;
 	private String nombre;
 	private TipoRecurso tipoRecurso;
-	private List<DtEnfermedad> enfermedades = new ArrayList<>();;
+	private List<DtEnfermedad> enfermedades = new ArrayList<>();
+	private int stock;
 	
 	public DtRecurso() {
 		super();
 	}
 
-	public DtRecurso(int id, String nombre, TipoRecurso tipoRecurso, List<DtEnfermedad> enfermedades) {
+	public DtRecurso(int id, String nombre, TipoRecurso tipoRecurso, List<DtEnfermedad> enfermedades, int stock) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.tipoRecurso = tipoRecurso;
 		this.enfermedades = enfermedades;
+		this.setStock(stock);
 	}
 
 	public int getId() {
@@ -56,6 +58,14 @@ public class DtRecurso implements Serializable {
 
 	public void setEnfermedades(List<DtEnfermedad> enfermedades) {
 		this.enfermedades = enfermedades;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 
 }

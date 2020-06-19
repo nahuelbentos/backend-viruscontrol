@@ -176,7 +176,7 @@ public class Recurso implements Serializable {
 	}
 	
 	public DtRecurso getDt() {
-		return new DtRecurso(this.id, this.nombre, this.tipoRecurso, this.getDtEnfermedades());
+		return new DtRecurso(this.id, this.nombre, this.tipoRecurso, this.getDtEnfermedades(), 0);
 	}
 /*
 	public void desasociarEnfermedad(Enfermedad enfermedad) {

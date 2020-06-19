@@ -24,6 +24,7 @@ import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
 import uy.viruscontrol.model.dao.interfaces.SuscripcionDAOLocal;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.Suscripcion;
+import uy.viruscontrol.model.entities.Ubicacion;
 import uy.viruscontrol.utils.DtSuscripcion;
 
 @ApplicationScoped
@@ -146,4 +147,19 @@ public class ServicesCiudadano {
 		
 	}
 	
+	@POST
+	@Path("/ubicacion/reportar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response reportarUbicacion(@HeaderParam("authorization") String token, Ubicacion ubicacion) {
+		if (beanSesion.validateAuthentication(token)) {
+			int idCiudadano = beanSesion.getUsuarioLogueado(token).getIdUsuario();
+			try {
+				beanCiudadano.reportarUbicacion(ubicacion, idCiudadano);
+				return Response.status(Status.OK).build();
+			} catch (Exception e) {
+				return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+			}
+		} else
+			return Response.status(Status.UNAUTHORIZED).build();
+	}
 }

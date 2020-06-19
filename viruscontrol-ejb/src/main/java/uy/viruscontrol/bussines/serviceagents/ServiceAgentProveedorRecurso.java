@@ -175,6 +175,7 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 						if (recLocal != null) {
 							// obtengo el recurso
 							DtRecurso r = recLocal.getDt();
+							r.setStock(it.getCantidadDisponible());
 //							System.out.println("Recurso: "+ r.getNombre()+ " - Enfermedades: "+r.getEnfermedades().size());
 							dtRP.addRecurso(r);
 						}
