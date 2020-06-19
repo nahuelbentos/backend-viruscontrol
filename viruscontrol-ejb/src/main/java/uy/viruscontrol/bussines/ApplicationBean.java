@@ -46,6 +46,10 @@ public class ApplicationBean implements ApplicationBeanLocal {
     
     @PostConstruct
     public void iniciarAplicacion() {
+    	/* Creo en el ldap si no existe el usuario admin y gerente para que sea consistente con la base de datos. */
+    	
+    	
+    	
     	Thread th = new Thread() {
     		public void run() {
     			
