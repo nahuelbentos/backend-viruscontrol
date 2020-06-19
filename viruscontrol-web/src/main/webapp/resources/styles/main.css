@@ -43,3 +43,27 @@
 .ui-widget-content {
 	border: none;
 }
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  margin: 0;
+  margin-bottom: 40px;
+}
+
+div.mdl-layout__container > footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  padding: 16px 0;
+}
+div.mdl-layout__container > footer > div {
+	padding: 16px 40px 0;
+}
+
+form.usuarios > .ui-datatable > .ui-datatable-footer > .ui-panelgrid > .ui-widget-content{
+	background: transparent;
+}
