@@ -64,6 +64,6 @@ div.mdl-layout__container > footer > div {
 	padding: 16px 40px 0;
 }
 
-.ui-widget-content{
+form.usuarios > .ui-datatable > .ui-datatable-footer > .ui-panelgrid > .ui-widget-content{
 	background: transparent;
 }

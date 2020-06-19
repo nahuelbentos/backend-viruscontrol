@@ -36,7 +36,7 @@
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	<ui:define name="content">
-		<h:form id="form">
+		<h:form id="form" class="usuarios">
 	 
 	 
 	 			
@@ -108,10 +108,9 @@
 				</p:column>
 
 				<f:facet name="footer">
-
 					<p:panelGrid columns="4" layout="grid" 
 					columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" 
-					contentStyleClass="p-align-baseline ui-fluid">
+					contentStyleClass="p-align-baseline ui-fluid transparent-bg">
 					
 						<p:outputLabel for="Nombre" value="Nombre" />
 						<p:inputText id="Nombre" value="#{GestorUsuariosView.nombre}"/>
@@ -137,7 +136,6 @@
 						</p:commandButton>
 						
 					</p:panelGrid>
-					
 					
 				</f:facet>
 			</p:dataTable>
