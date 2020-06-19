@@ -298,7 +298,7 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 	 public void editarGerente(int gerenteId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
 		 
 		 Gerente c=gteDAO.findById(gerenteId);
-		 
+		 String usernamePrevio = c.getUsername();
 		 if (c!=null) {
 				
 				
@@ -324,31 +324,33 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 				c.setFechaNacimiento(fecha);
 			 }
 			 if( password!=null   ) {
-					try {
-						String hash=hashPassword(password);
-						c.setPassword(hash);
-					} catch (NoSuchAlgorithmException e) {
-						// TODO Auto-generated catch block
-						System.out.println("error al hashear password");
-						e.printStackTrace();
-					}
-				 }
-			 
-			 
-			 
-			gteDAO.merge(c);
+				try {
+					String hash=hashPassword(password);
+					c.setPassword(hash);
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					System.out.println("error al hashear password");
+					e.printStackTrace();
+				}
 			}
+			 
+			 
+			 
+			LDAPConexion ldap = LDAPConexion.getInstancia();
+			if (ldap.editarUsuario(c, usernamePrevio))
+				gteDAO.merge(c);
+		}
 		 
 
 		 
 	 }
 	 
 	 
-@Override	 
- public void editarAdmin(int adminId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
+	@Override
+	public void editarAdmin(int adminId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
 		 
 		 Administrador c=adminDAO.findById(adminId);
-		 
+		 String usernamePrevio = c.getUsername();
 		 if (c!=null) {
 				
 				
@@ -374,19 +376,18 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 				c.setFechaNacimiento(fecha);
 			 }
 			 if( password!=null   ) {
-					try {
-						String hash=hashPassword(password);
-						c.setPassword(hash);
-					} catch (NoSuchAlgorithmException e) {
-						// TODO Auto-generated catch block
-						System.out.println("error al hashear password");
-						e.printStackTrace();
-					}
-				 }
+				try {
+					String hash=hashPassword(password);
+					c.setPassword(hash);
+				} catch (NoSuchAlgorithmException e) {
+					System.out.println("error al hashear password");
+					e.printStackTrace();
+				}
+			}
+			LDAPConexion ldap = LDAPConexion.getInstancia();
+			if (ldap.editarUsuario(c, usernamePrevio))
+				adminDAO.merge(c);
 			 
-			 
-			 
-		adminDAO.merge(c);
 		}
 	 
     }

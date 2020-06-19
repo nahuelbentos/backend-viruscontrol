@@ -35,11 +35,17 @@
 						styleClass="ui-confirmdialog-no" />
 				</p:confirmDialog>
 			</div>
-
-			<a href="ListaCiudadanos.xhtml">Ciudadanos</a>
-			<a href="ListaMedicos.xhtml">Medicos</a>
-			<a href="ListaGerentes.xhtml">Gerentes</a>
-			<a href="ListaAdministradores.xhtml">Administradores</a>
+			
+			<p:linkButton outcome="ListaCiudadanos" value="Ciudadanos">
+			</p:linkButton>
+			<p:linkButton outcome="ListaMedicos" value="Medicos">
+			</p:linkButton>
+			<p:linkButton outcome="ListaGerentes" value="Gerentes">
+			</p:linkButton>
+			<p:linkButton outcome="ListaAdministradores" value="Administradores">
+			</p:linkButton>
+			<p:linkButton outcome="register" value="Registrar usuarios del core">
+			</p:linkButton>
 			
 			<p:dataTable id="checkboxDT"
 				value="#{GestorUsuariosView.administradores}" var="p"
@@ -76,48 +82,35 @@
 
 				<f:facet name="footer">
 
+<p:panelGrid columns="4" layout="grid" 
+					columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4" 
+					contentStyleClass="p-align-baseline ui-fluid">
+					
+						<p:outputLabel for="Nombre" value="Nombre" />
+						<p:inputText id="Nombre" value="#{GestorUsuariosView.nombre}"/>
+						
+						<p:outputLabel for="Apellido" value="Apellido" />
+						<p:inputText id="Apellido" value="#{GestorUsuariosView.apellido}"/>
+						
+						<p:outputLabel for="Correo" value="Correo" />
+						<p:inputText id="Correo" value="#{GestorUsuariosView.correo}"/>
 
+						<p:outputLabel for="Direccion" value="Dirección" />
+						<p:inputText id="Direccion" value="#{GestorUsuariosView.direccion}"/>
+						
+						<p:outputLabel for="Nacionalidad" value="Nacionalidad" />
+						<p:inputText id="Nacionalidad" value="#{GestorUsuariosView.nacionalidad}"/>
 
+						<p:outputLabel for="FechaNacimiento" value="Fecha de nacimiento" />
+						<p:calendar id="FechaNacimiento" value="#{GestorUsuariosView.fecha}"/>
 
-
-					<p>Nombre</p>
-
-					<p:inputText id="Nombre" value="#{GestorUsuariosView.nombre}" />
-					<br />
-					<br />
-					<p>Apellido</p>
-					<p:inputText id="Apellido" value="#{GestorUsuariosView.apellido}" />
-					<br />
-					<br />
-					<p>Correo</p>
-					<p:inputText id="Correo" value="#{GestorUsuariosView.correo}" />
-					<br />
-					<br />
-					<p>Direccion</p>
-					<p:inputText id="direccion" value="#{GestorUsuariosView.direccion}" />
-					<br />
-					<br />
-					<p>Nacionalidad</p>
-					<p:inputText id="nacionalidad"
-						value="#{GestorUsuariosView.nacionalidad}" />
-					<br />
-					<br />
-					<p>UserName</p>
-					<p:inputText id="username" value="#{GestorUsuariosView.userName}" />
-					<br />
-					<br />
-					<p>fecha</p>
-					<p:calendar id="fecha" value="#{GestorUsuariosView.fecha}" />
-					<br />
-
-					<br />
-					<p>password</p>
-					<p:inputText id="password" value="#{GestorUsuariosView.password}" />
-					<br />
-					<p:commandButton action="#{GestorUsuariosView.editarAdmin()}"
-						value="EDITAR">
-						<p:ajax oncomplete="updateDatatable()" />
-					</p:commandButton>
+						<p:commandButton action="#{GestorUsuariosView.editarAdmin()}"
+							value="EDITAR">
+							<p:ajax oncomplete="updateDatatable()" />
+						</p:commandButton>
+						
+					</p:panelGrid>
+					
 				</f:facet>
 			</p:dataTable>
 

@@ -4,11 +4,13 @@ import java.util.Hashtable;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
+import javax.naming.directory.ModificationItem;
 
 import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Gerente;
@@ -72,7 +74,7 @@ public class LDAPConexion {
 			if (user instanceof Administrador)
 				dc = String.format(dc, "administradores");
 			if (user instanceof Gerente)
-				dc = String.format(dc, "DirContext dctxgerentes");
+				dc = String.format(dc, "gerentes");
 			
 			
 			InitialDirContext iniDirContext = (InitialDirContext) dctx;
@@ -84,6 +86,32 @@ public class LDAPConexion {
 			e.printStackTrace();
 			return false;
 		}    	
+    }
+    
+    public boolean editarUsuario(Usuario user, String previoUsername) {
+    	try {
+    		DirContext ctx = new InitialDirContext(env);
+    		ModificationItem[] mods = new ModificationItem[3];
+    		Attribute mod0 = new BasicAttribute("cn", user.getNombre());
+    		Attribute mod1 = new BasicAttribute("sn", user.getApellido());
+    		mods[0] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, mod0);
+    		mods[1] = new ModificationItem(DirContext.REPLACE_ATTRIBUTE, mod1);
+    		
+    		
+    		String dc = "uid=" + previoUsername + ",ou=%s," + dn;
+			if (user instanceof Administrador)
+				dc = String.format(dc, "administradores");
+			if (user instanceof Gerente)
+				dc = String.format(dc, "gerentes");
+    		
+    		ctx.modifyAttributes(dc, mods);
+    		
+    		System.out.println("success editing on LDAP "+user.getNombre());
+    		return true;
+   		} catch (Exception e) {
+   			System.out.println(e);
+   			return false;
+    	}
     }
     
 	public boolean autenticarUsuario(Usuario user) {
@@ -99,16 +127,36 @@ public class LDAPConexion {
 		localenv.put(Context.PROVIDER_URL, servidor);
 		localenv.put(Context.SECURITY_PRINCIPAL, dc);
 		localenv.put(Context.SECURITY_CREDENTIALS, user.getPassword());
+		localenv.put(Context.SECURITY_AUTHENTICATION, "simple");
 		
 		DirContext localUserCtx = null;
 		try {
-			localUserCtx = new InitialDirContext(this.env);
+			localUserCtx = new InitialDirContext(localenv);
+			System.out.println("El usuario autentico correctamente contra LDAP");
+			return localUserCtx != null;
+			
+			
         } catch (NamingException ex) {
             System.out.println("Error Autenticando mediante LDAP, Error causado por : " + ex.toString());
+            return false;
         }
-		
-		return localUserCtx != null;
-		
 	}
     
+    public Attribute cargarPropiedadConexion(String atributo, DirContext dc) {
+        Attribute propiedad = null;
+ 
+        try {
+            Attributes attrs = dc.getAttributes(dn);
+ 
+            if (attrs == null) {
+                propiedad = null;
+            } else {
+                propiedad = attrs.get(atributo);
+            }
+        } catch (Exception e) {
+            propiedad = null;
+        }
+        return propiedad;
+    }
+	
 }

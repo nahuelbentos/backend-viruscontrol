@@ -10,91 +10,20 @@
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	<ui:define name="content">
-		<h:form>
-				<h4 style="text-align: left">Lista de Usuarios</h4>
-					
+			<h4 style="text-align: left">Gestión de Usuarios</h4>
 				
-				 <a href="ListaCiudadanos.xhtml">Ciudadanos</a>
-				 <a href="ListaMedicos.xhtml">Medicos</a>
-				 <a href="ListaGerentes.xhtml">Gerentes</a>
-				 <a href="ListaAdministradores.xhtml">Administradores</a>
-				 
-				 <a href="register.xhtml">Registrar usuarios del core</a>
-				   
-				   
-				<!-- <p:dataTable id="a" value="#{GestorUsuariosView.mostrarCiudadanos()}" var="p">
 			
-				<p:column headerText="Nombre" >
-					<p:outputLabel value="#{p.nombre}"/>
-				</p:column>
-				<p:column headerText="apellido" >
-					<p:outputLabel value="#{p.apellido}"/>
-				</p:column>
-				<p:column headerText="direccion" >
-					<p:outputLabel value="#{p.direccion}"/>
-				</p:column>
-				<p:column headerText="correo" >
-					<p:outputLabel value="#{p.correo}"/>
-				</p:column>
-				
-				</p:dataTable> -->
-				
-			<!-- 	<h:outputText value="Ciudadanos" />
-				<h:dataTable  value="#{GestorUsuariosView.mostrarCiudadanos()}" var="c"
-        styleClass="order-table" headerClass="order-table-header"
-        rowClasses="order-table-odd-row,order-table-even-row">
-
-        <h:column>
-            <f:facet name="header">Nombre</f:facet>
-            #{c.nombre}
-        </h:column>
-
-        <h:column>
-           <f:facet name="header">Apellido</f:facet>
-           #{c.apellido}
-        </h:column>
-        <h:column>
-           <f:facet name="header">Correo</f:facet>
-           #{c.correo}
-        </h:column>
-        <h:column>
-           <f:facet name="header">Nacionalidad</f:facet>
-           #{c.nacionalidad}
-        </h:column>
-        <h:column>
-           <f:facet name="header">Direccion</f:facet>
-           #{c.direccion}
-        </h:column>
-    </h:dataTable>
-    <h:outputText value="Medicos" />
-			<h:dataTable  value="#{GestorUsuariosView.mostrarMedicos()}" var="m"
-        styleClass="order-table" headerClass="order-table-header"
-        rowClasses="order-table-odd-row,order-table-even-row">
-
-        <h:column>
-            <f:facet name="header">Nombre</f:facet>
-            #{m.nombre}
-        </h:column>
-
-        <h:column>
-           <f:facet name="header">Apellido</f:facet>
-           #{m.apellido}
-        </h:column>
-        <h:column>
-           <f:facet name="header">Correo</f:facet>
-           #{m.correo}
-        </h:column>
-        <h:column>
-           <f:facet name="header">Nacionalidad</f:facet>
-           #{m.nacionalidad}
-        </h:column>
-        <h:column>
-           <f:facet name="header">Direccion</f:facet>
-           #{m.direccion}
-        </h:column>
-    </h:dataTable> -->
+			<p:linkButton outcome="ListaCiudadanos" value="Ciudadanos">
+			</p:linkButton>
+			<p:linkButton outcome="ListaMedicos" value="Medicos">
+			</p:linkButton>
+			<p:linkButton outcome="ListaGerentes" value="Gerentes">
+			</p:linkButton>
+			<p:linkButton outcome="ListaAdministradores" value="Administradores">
+			</p:linkButton>
+			<p:linkButton outcome="register" value="Registrar usuarios del core">
+			</p:linkButton>
 			
-		</h:form>
 	</ui:define>
  
 </ui:composition>

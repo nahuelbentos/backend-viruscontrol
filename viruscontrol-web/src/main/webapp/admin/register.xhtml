@@ -8,6 +8,11 @@
 <ui:composition
 	template="/WEB-INF/facelets/templates/defaultLayout.xhtml">
 	
+	<ui:define name="title-pagina">
+		<h:outputText value="Registrar usuario" />
+	</ui:define>
+	
+	<ui:define name="content">
 	<h:form id="form" class="register-form">
 			<h4 style="text-align: left">Registrar usuarios del sistema</h4>
 			
@@ -20,7 +25,7 @@
 				<p:inputText id="Username" value="#{RegisterView.username}" required="true"/>
 	
 	
-	        	<p:outputText for="Password" value="Contraseña" />
+	        	<p:outputLabel for="Password" value="Contraseña" />
 	        	<p:password id="Password" value="#{RegisterView.password}" feedback="true"
 	                    promptLabel="Ingrese contraseña (minimo: 8 caracteres, 1 símbolo y 1 numero)" weakLabel="Débil"
 	                    goodLabel="Medio" strongLabel="Fuerte" required="true"/>
@@ -63,11 +68,13 @@
 			
 			<p:commandButton action="#{RegisterView.register}" 
 				value="Registrar Usuario" 
-				class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" 
-				update="form"/>
-			<a href="gestorUsuarios.xhtml">Volver</a>
+				update="form">
+			</p:commandButton>
+			<p:linkButton outcome="gestorUsuarios" value="Volver">
+			</p:linkButton>
+			
 		</h:form>
-	
+	</ui:define>
 </ui:composition>
 
 </html>
