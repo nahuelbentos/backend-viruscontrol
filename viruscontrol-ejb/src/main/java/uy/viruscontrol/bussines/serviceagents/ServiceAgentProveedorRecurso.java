@@ -23,6 +23,7 @@ import uy.viruscontrol.model.entities.ProveedorRecursos;
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.TipoRecurso;
 import uy.viruscontrol.utils.CaracteresDeEscapePersonalizados;
+import uy.viruscontrol.utils.DtRecurso;
 import uy.viruscontrol.utils.DtRecursosProveedor;
 import uy.viruscontrol.utils.DtRecursoDisponibleProveedor;
 
@@ -170,18 +171,14 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 						
 						recLocal = daoRecurso.findByExternalId(it.getRecurso().getCodigo());
 						
-						// obtengo el recurso
-						Recurso r = new Recurso();
-						r.setNombre(it.getRecurso().getMarca());
-						TipoRecurso tr = new TipoRecurso();
-						tr.setNombre(it.getRecurso().getTipoRecurso().getNombre());
-						tr.setDescripcion(it.getRecurso().getTipoRecurso().getCodigo());
-						r.setTipoRecurso(tr);
+						// si el recurso existe en mi sistema
 						if (recLocal != null) {
-							r.setEnfermedades(recLocal.getEnfermedades());
+							// obtengo el recurso
+							DtRecurso r = recLocal.getDt();
+							r.setStock(it.getCantidadDisponible());
+//							System.out.println("Recurso: "+ r.getNombre()+ " - Enfermedades: "+r.getEnfermedades().size());
+							dtRP.addRecurso(r);
 						}
-						
-						dtRP.addRecurso(r);
 					}
 					disponibles.add(dtRP);
 				}

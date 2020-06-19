@@ -5,25 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uy.viruscontrol.model.entities.ProveedorRecursos;
-import uy.viruscontrol.model.entities.Recurso;
 
 public class DtRecursosProveedor implements Serializable {
 	private static final long serialVersionUID = -761047223229518962L;
 
 	private ProveedorRecursos proveedor;
-	private List<Recurso> recursos = new ArrayList<Recurso>();
+	private List<DtRecurso> recursos = new ArrayList<DtRecurso>();
 
 	public DtRecursosProveedor() {
 		super();
 	}
 
-	public List<Recurso> getRecurso() {
+	public List<DtRecurso> getRecurso() {
 		return recursos;
 	}
-	public void setRecurso(List<Recurso> recursos) {
+	public void setRecurso(List<DtRecurso> recursos) {
 		this.recursos = recursos;
 	}
-	public void addRecurso(Recurso recurso) {
+	public void addRecurso(DtRecurso recurso) {
 		this.recursos.add(recurso);
 	}
 	public ProveedorRecursos getProveedor() {

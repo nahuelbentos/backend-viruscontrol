@@ -200,7 +200,7 @@
   </wsdl:binding>
   <wsdl:service name="PerifericoPrestadoraSalud">
     <wsdl:port binding="tns:PerifericoPrestadoraSaludSoapBinding" name="WSPerifericoPrestadoraSaludPort">
-      <soap:address location="http://179.27.96.131:8080/prestadoras-salud/PerifericoPrestadoraSalud"/>
+      <soap:address location="https://viruscontroluy.xyz:8443/prestadoras-salud/PerifericoPrestadoraSalud"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
