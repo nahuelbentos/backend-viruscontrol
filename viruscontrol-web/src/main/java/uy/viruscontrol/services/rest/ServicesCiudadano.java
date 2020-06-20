@@ -120,10 +120,11 @@ public class ServicesCiudadano {
         "barrio": "Centro",
         "recurso": "alcohol en gel"
     	}
-		 */
+		 
 		System.out.println("ciudadanoId "+s.getCiudadanoId());
 		System.out.println("barrio "+s.getBarrio());
 		System.out.println("recurso "+s.getRecurso());
+		*/
 		beanCiudadano.suscribirseARecurso(s.getCiudadanoId(), s.getBarrio(), s.getRecurso());
 		
 		return true;
@@ -155,6 +156,22 @@ public class ServicesCiudadano {
 			int idCiudadano = beanSesion.getUsuarioLogueado(token).getIdUsuario();
 			try {
 				beanCiudadano.reportarUbicacion(ubicacion, idCiudadano);
+				return Response.status(Status.OK).build();
+			} catch (Exception e) {
+				return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+			}
+		} else
+			return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
+	@POST
+	@Path("/pushnotif/token")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public Response actualizarTokenPushNotification(@HeaderParam("authorization") String token, String tokenPN) {
+		if (beanSesion.validateAuthentication(token)) {
+			int idCiudadano = beanSesion.getUsuarioLogueado(token).getIdUsuario();
+			try {
+				beanCiudadano.actualizarTokenPushNotifications(idCiudadano, tokenPN);
 				return Response.status(Status.OK).build();
 			} catch (Exception e) {
 				return Response.status(Status.INTERNAL_SERVER_ERROR).build();

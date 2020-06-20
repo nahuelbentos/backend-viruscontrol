@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -15,6 +16,9 @@ public class Ciudadano extends Usuario implements Serializable {
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private PrestadoraSalud prestadoraSalud;
+	
+	@Column(name="token_push_notifications")
+	private String tokenPushNotifications;
 	
 	public Ciudadano() {
 		super();
@@ -33,6 +37,12 @@ public class Ciudadano extends Usuario implements Serializable {
 		this.prestadoraSalud = prestadoraSalud;
 	}
 	
-	
+	public String getTokenPushNotifications() {
+		return tokenPushNotifications;
+	}
+
+	public void setTokenPushNotifications(String tokenPushNotifications) {
+		this.tokenPushNotifications = tokenPushNotifications;
+	}
 	
 }
