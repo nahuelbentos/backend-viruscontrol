@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.ItemSelectEvent;
@@ -48,484 +49,469 @@ import org.primefaces.model.charts.radar.RadarChartDataSet;
 import org.primefaces.model.charts.radar.RadarChartModel;
 import org.primefaces.model.charts.radar.RadarChartOptions;
 
-import uy.viruscontrol.controllers.GerenteBeanController;
+import uy.viruscontrol.bussines.interfaces.GerenteBeanLocal;
 import uy.viruscontrol.model.entities.Caso;
 
 @Named("GraficaSospechososView")
 @RequestScoped
 public class GraficaSospechososView implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2361873481370133006L;
 
+	@Inject 
+	private GerenteBeanLocal gerenteEjb;
 	
-	 private PieChartModel pieModel;
-     
-	    private PolarAreaChartModel polarAreaModel;
-	     
-	    private LineChartModel lineModel;
-	    
-	    private LineChartModel lineModel2;
-	     
-	    private LineChartModel cartesianLinerModel;
-	     
-	    private BarChartModel barModel;
-	     
-	    private BarChartModel barModel2;
-	     
-	    private HorizontalBarChartModel hbarModel;
-	     
-	    private BarChartModel stackedBarModel;
-	     
-	    private BarChartModel stackedGroupBarModel;
-	     
-	    private RadarChartModel radarModel;
-	     
-	    private RadarChartModel radarModel2;
-	     
-	    private BubbleChartModel bubbleModel;
-	     
-	    private BarChartModel mixedModel;
-	     
-	    private DonutChartModel donutModel;
-	    
-	    private List<Caso> reportecasos;
+	private PieChartModel pieModel;
+	private PolarAreaChartModel polarAreaModel;
+	private LineChartModel lineModel;
+	private LineChartModel lineModel2;
+	private LineChartModel cartesianLinerModel;
+	private BarChartModel barModel;
+	private BarChartModel barModel2;
+	private HorizontalBarChartModel hbarModel;
+	private BarChartModel stackedBarModel;
+	private BarChartModel stackedGroupBarModel;
+	private RadarChartModel radarModel;
+	private RadarChartModel radarModel2;
+	private BubbleChartModel bubbleModel;
+	private BarChartModel mixedModel;
+	private DonutChartModel donutModel;
+	private List<Caso> reportecasos;
 	     
 	/* private ScatterChartModel scatterModel; */
-	 
-	    @PostConstruct
-	    public void init() {
-	        createPieModel();
-	        createPolarAreaModel();
-	        createLineModel();
-	        createCartesianLinerModel();
-	        createBarModel();
-	        createBarModel2();
-	        createHorizontalBarModel();
-	        createStackedBarModel();
-	        createStackedGroupBarModel();
-	        createRadarModel();
-	        createRadarModel2();
-	        createBubbleModel();
-	        createMixedModel();
-	        createDonutModel();
-	        createScatterModel();
-	        createLineModel2();
-	        reportecasos=GerenteBeanController.obtenerCasos();
-	    }
+	
+	@PostConstruct
+    public void init() {
+		createPieModel();
+		createPolarAreaModel();
+		createLineModel();
+		createCartesianLinerModel();
+		createBarModel();
+		createBarModel2();
+		createHorizontalBarModel();
+		createStackedBarModel();
+		createStackedGroupBarModel();
+		createRadarModel();
+		createRadarModel2();
+		createBubbleModel();
+		createMixedModel();
+		createDonutModel();
+		createScatterModel();
+		createLineModel2();
+		reportecasos = gerenteEjb.obtenerCasos();
+    }
 	     
-	    private void createPieModel() {
-	        pieModel = new PieChartModel();
-	        ChartData data = new ChartData();
-	         
-	        PieChartDataSet dataSet = new PieChartDataSet();
-	        List<Number> values = new ArrayList<>();
-	        values.add(300);
-	        values.add(50);
-	        values.add(100);
-	        dataSet.setData(values);
-	         
-	        List<String> bgColors = new ArrayList<>();
-	        bgColors.add("rgb(255, 99, 132)");
-	        bgColors.add("rgb(54, 162, 235)");
-	        bgColors.add("rgb(255, 205, 86)");
-	        dataSet.setBackgroundColor(bgColors);
-	         
-	        data.addChartDataSet(dataSet);
-	        List<String> labels = new ArrayList<>();
-	        labels.add("Red");
-	        labels.add("Blue");
-	        labels.add("Yellow");
-	        data.setLabels(labels);
-	         
-	        pieModel.setData(data);
-	    }
-	     private List<Caso> reporteCasos(){
-	    	 return GerenteBeanController.obtenerCasos();
-	    			
-	     }
-	    private void createPolarAreaModel() {
-	        polarAreaModel = new PolarAreaChartModel();
-	        ChartData data = new ChartData();
-	         
-	        PolarAreaChartDataSet dataSet = new PolarAreaChartDataSet();
-	        List<Number> values = new ArrayList<>();
-	        values.add(11);
-	        values.add(16);
-	        values.add(7);
-	        values.add(3);
-	        values.add(14);
-	        dataSet.setData(values);
-	         
-	        List<String> bgColors = new ArrayList<>();
-	        bgColors.add("rgb(255, 99, 132)");
-	        bgColors.add("rgb(75, 192, 192)");
-	        bgColors.add("rgb(255, 205, 86)");
-	        bgColors.add("rgb(201, 203, 207)");
-	        bgColors.add("rgb(54, 162, 235)");
-	        dataSet.setBackgroundColor(bgColors);
-	         
-	        data.addChartDataSet(dataSet);
-	        List<String> labels = new ArrayList<>();
-	        labels.add("Red");
-	        labels.add("Green");
-	        labels.add("Yellow");
-	        labels.add("Grey");
-	        labels.add("Blue");
-	        data.setLabels(labels);
-	         
-	        polarAreaModel.setData(data);
-	    }
-	     ///////////////////////////////ESTA ES LA GRAFICA CASOS SOSPECHOSOS (ABAJO)/////////////////////////////////////////
-	    public void createLineModel() {	
-	    	List<Caso> casos=GerenteBeanController.obtenerCasos();
-	    	int enero=0;
-	    	int febrero=0;
-	    	int marzo=0;
-	    	int abril=0;
-	    	int mayo=0;
-	    	int junio=0;
-	    	int julio=0;
-	    	int agosto=0;
-	    	int setiembre=0;
-	    	int octubre=0;
-	    	int noviembre=0;
-	    	int diciembre=0;
-	    	
-	    	if(casos.isEmpty()) {
-	    		System.out.println("no hay casos");
-	    	}else {
-	    		for(Caso c:casos) {
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==0) {
-	    				enero++;
-	    				//System.out.println("hay un caso en enero");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==1) {
-	    				febrero++;
-	    				//System.out.println("hay un caso en febrero");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==2) {
-	    				marzo++;
-	    				//System.out.println("hay un caso en marzo");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==3) {
-	    				abril++;
-	    				//System.out.println("hay un caso en abril");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==4) {
-	    				mayo++;
-	    				//System.out.println("hay un caso en mayo");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==5) {
-	    				junio++;
-	    				//System.out.println("hay un caso en junio");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==6) {
-	    				julio++;
-	    				//System.out.println("hay un caso en julio");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==7) {
-	    				agosto++;
-	    				//System.out.println("hay un caso en agosto");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==8) {
-	    				setiembre++;
-	    				//System.out.println("hay un caso en setiembre");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==9) {
-	    				octubre++;
-	    				//System.out.println("hay un caso en octubre");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==10) {
-	    				noviembre++;
-	    				//System.out.println("hay un caso en noviembre");
-	    			}
-	    			if(c.getFechaSospechoso().get(Calendar.MONTH)==11) {
-	    				diciembre++;
-	    				//System.out.println("hay un caso en setiembre");
-	    			}
-		    	}
+	private void createPieModel() {
+		pieModel = new PieChartModel();
+		ChartData data = new ChartData();
+		 
+		PieChartDataSet dataSet = new PieChartDataSet();
+		List<Number> values = new ArrayList<>();
+		values.add(300);
+		values.add(50);
+		values.add(100);
+		dataSet.setData(values);
+		 
+		List<String> bgColors = new ArrayList<>();
+		bgColors.add("rgb(255, 99, 132)");
+		bgColors.add("rgb(54, 162, 235)");
+		bgColors.add("rgb(255, 205, 86)");
+		dataSet.setBackgroundColor(bgColors);
+		 
+		data.addChartDataSet(dataSet);
+		List<String> labels = new ArrayList<>();
+		labels.add("Red");
+		labels.add("Blue");
+		labels.add("Yellow");
+		data.setLabels(labels);
+		 
+		pieModel.setData(data);
+	}
+	
+	@SuppressWarnings("unused")
+	private List<Caso> reporteCasos(){
+		return gerenteEjb.obtenerCasos();	    			
+	}
+	
+    private void createPolarAreaModel() {
+		polarAreaModel = new PolarAreaChartModel();
+		ChartData data = new ChartData();
+		 
+		PolarAreaChartDataSet dataSet = new PolarAreaChartDataSet();
+		List<Number> values = new ArrayList<>();
+		values.add(11);
+		values.add(16);
+		values.add(7);
+		values.add(3);
+		values.add(14);
+		dataSet.setData(values);
+		 
+		List<String> bgColors = new ArrayList<>();
+		bgColors.add("rgb(255, 99, 132)");
+		bgColors.add("rgb(75, 192, 192)");
+		bgColors.add("rgb(255, 205, 86)");
+		bgColors.add("rgb(201, 203, 207)");
+		bgColors.add("rgb(54, 162, 235)");
+		dataSet.setBackgroundColor(bgColors);
+		 
+		data.addChartDataSet(dataSet);
+		List<String> labels = new ArrayList<>();
+		labels.add("Red");
+		labels.add("Green");
+		labels.add("Yellow");
+		labels.add("Grey");
+		labels.add("Blue");
+		data.setLabels(labels);
+		 
+		polarAreaModel.setData(data);
+    }
+	
+	///////////////////////////////ESTA ES LA GRAFICA CASOS SOSPECHOSOS (ABAJO)/////////////////////////////////////////
+    public void createLineModel() {	
+    	List<Caso> casos = gerenteEjb.obtenerCasos();
+    	int enero=0;
+    	int febrero=0;
+    	int marzo=0;
+    	int abril=0;
+    	int mayo=0;
+    	int junio=0;
+    	int julio=0;
+    	int agosto=0;
+    	int setiembre=0;
+    	int octubre=0;
+    	int noviembre=0;
+    	int diciembre=0;
+    	
+    	if(casos.isEmpty()) {
+    		System.out.println("no hay casos");
+    	}else {
+    		for(Caso c:casos) {
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==0) {
+    				enero++;
+    				//System.out.println("hay un caso en enero");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==1) {
+    				febrero++;
+    				//System.out.println("hay un caso en febrero");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==2) {
+    				marzo++;
+    				//System.out.println("hay un caso en marzo");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==3) {
+    				abril++;
+    				//System.out.println("hay un caso en abril");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==4) {
+    				mayo++;
+    				//System.out.println("hay un caso en mayo");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==5) {
+    				junio++;
+    				//System.out.println("hay un caso en junio");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==6) {
+    				julio++;
+    				//System.out.println("hay un caso en julio");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==7) {
+    				agosto++;
+    				//System.out.println("hay un caso en agosto");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==8) {
+    				setiembre++;
+    				//System.out.println("hay un caso en setiembre");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==9) {
+    				octubre++;
+    				//System.out.println("hay un caso en octubre");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==10) {
+    				noviembre++;
+    				//System.out.println("hay un caso en noviembre");
+    			}
+    			if(c.getFechaSospechoso().get(Calendar.MONTH)==11) {
+    				diciembre++;
+    				//System.out.println("hay un caso en setiembre");
+    			}
 	    	}
-	    	
-	    	
-	    	
-	    	
-	        lineModel = new LineChartModel();
-	        ChartData data = new ChartData();
-	         
-	        LineChartDataSet dataSet = new LineChartDataSet();
-	        List<Number> values = new ArrayList<>();
-	        values.add(enero);
-	        values.add(febrero);
-	        values.add(marzo);
-	        values.add(abril);
-	        values.add(mayo);
-	        values.add(junio);
-	        values.add(julio);
-	        values.add(agosto);
-	        values.add(setiembre);
-	        values.add(octubre);
-	        values.add(noviembre);
-	        values.add(diciembre);
-	        dataSet.setData(values);
-	        dataSet.setFill(false);
-	        dataSet.setLabel("Casos Sospechosos");
-	        dataSet.setBorderColor("rgb(75, 192, 192)");
-	        dataSet.setLineTension(0.4);
-	        data.addChartDataSet(dataSet);
-	         
-	        List<String> labels = new ArrayList<>();
-	        labels.add("Enero");
-	        labels.add("Febrero");
-	        labels.add("Marzo");
-	        labels.add("Abril");
-	        labels.add("Mayo");
-	        labels.add("Junio");
-	        labels.add("Julio");
-	        labels.add("Agosto");
-	        labels.add("Setiembre");
-	        labels.add("Octubre");
-	        labels.add("Noviembre");
-	        labels.add("Diciembre");
-	        data.setLabels(labels);
-	         
-	        //Options
-	        LineChartOptions options = new LineChartOptions();        
-	        Title title = new Title();
-	        title.setDisplay(true);
-	        title.setText("Grafica de casos sospechosos");
-	        options.setTitle(title);
-	         
-	        lineModel.setOptions(options);
-	        lineModel.setData(data);
-	    }
-	     //////////////////////////////////////////////// GRAFICA CONFIRMADOS ACA ABAJO 
-	    public void createLineModel2() {	
-	    	List<Caso> casos=GerenteBeanController.obtenerCasos();
-	    	int enero=0;
-	    	int febrero=0;
-	    	int marzo=0;
-	    	int abril=0;
-	    	int mayo=0;
-	    	int junio=0;
-	    	int julio=0;
-	    	int agosto=0;
-	    	int setiembre=0;
-	    	int octubre=0;
-	    	int noviembre=0;
-	    	int diciembre=0;
-	    	
-	    	if(casos.isEmpty()) {
-	    		System.out.println("no hay casos");
-	    	}else {
-	    		for(Caso c:casos) {
-	    			if(c.getFechaConfirmado()!=null) {
-	    				
-	    			
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==0) {
-	    				enero++;
-	    				//System.out.println("hay un caso en enero");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==1) {
-	    				febrero++;
-	    				//System.out.println("hay un caso en febrero");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==2) {
-	    				marzo++;
-	    				//System.out.println("hay un caso en marzo");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==3) {
-	    				abril++;
-	    				//System.out.println("hay un caso en abril");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==4) {
-	    				mayo++;
-	    				//System.out.println("hay un caso en mayo");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==5) {
-	    				junio++;
-	    				//System.out.println("hay un caso en junio");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==6) {
-	    				julio++;
-	    				//System.out.println("hay un caso en julio");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==7) {
-	    				agosto++;
-	    				//System.out.println("hay un caso en agosto");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==8) {
-	    				setiembre++;
-	    				//System.out.println("hay un caso en setiembre");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==9) {
-	    				octubre++;
-	    				//System.out.println("hay un caso en octubre");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==10) {
-	    				noviembre++;
-	    				//System.out.println("hay un caso en noviembre");
-	    			}
-	    			if(c.getFechaConfirmado().get(Calendar.MONTH)==11) {
-	    				diciembre++;
-	    				//System.out.println("hay un caso en setiembre");
-	    			}
-	    			
-	    			}
-		    	}
+    	}
+    	
+        lineModel = new LineChartModel();
+        ChartData data = new ChartData();
+         
+        LineChartDataSet dataSet = new LineChartDataSet();
+        List<Number> values = new ArrayList<>();
+        values.add(enero);
+        values.add(febrero);
+        values.add(marzo);
+        values.add(abril);
+        values.add(mayo);
+        values.add(junio);
+        values.add(julio);
+        values.add(agosto);
+        values.add(setiembre);
+        values.add(octubre);
+        values.add(noviembre);
+        values.add(diciembre);
+        dataSet.setData(values);
+        dataSet.setFill(false);
+        dataSet.setLabel("Casos Sospechosos");
+        dataSet.setBorderColor("rgb(75, 192, 192)");
+        dataSet.setLineTension(0.4);
+        data.addChartDataSet(dataSet);
+         
+        List<String> labels = new ArrayList<>();
+        labels.add("Enero");
+        labels.add("Febrero");
+        labels.add("Marzo");
+        labels.add("Abril");
+        labels.add("Mayo");
+        labels.add("Junio");
+        labels.add("Julio");
+        labels.add("Agosto");
+        labels.add("Setiembre");
+        labels.add("Octubre");
+        labels.add("Noviembre");
+        labels.add("Diciembre");
+        data.setLabels(labels);
+         
+        //Options
+        LineChartOptions options = new LineChartOptions();        
+        Title title = new Title();
+        title.setDisplay(true);
+        title.setText("Grafica de casos sospechosos");
+        options.setTitle(title);
+         
+        lineModel.setOptions(options);
+        lineModel.setData(data);
+    }
+	
+    //////////////////////////////////////////////// GRAFICA CONFIRMADOS ACA ABAJO 
+    public void createLineModel2() {	
+    	List<Caso> casos = gerenteEjb.obtenerCasos();
+    	int enero=0;
+    	int febrero=0;
+    	int marzo=0;
+    	int abril=0;
+    	int mayo=0;
+    	int junio=0;
+    	int julio=0;
+    	int agosto=0;
+    	int setiembre=0;
+    	int octubre=0;
+    	int noviembre=0;
+    	int diciembre=0;
+    	
+    	if(casos.isEmpty()) {
+    		System.out.println("no hay casos");
+    	}else {
+    		for(Caso c:casos) {
+    			if(c.getFechaConfirmado()!=null) {
+    				
+    			
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==0) {
+    				enero++;
+    				//System.out.println("hay un caso en enero");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==1) {
+    				febrero++;
+    				//System.out.println("hay un caso en febrero");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==2) {
+    				marzo++;
+    				//System.out.println("hay un caso en marzo");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==3) {
+    				abril++;
+    				//System.out.println("hay un caso en abril");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==4) {
+    				mayo++;
+    				//System.out.println("hay un caso en mayo");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==5) {
+    				junio++;
+    				//System.out.println("hay un caso en junio");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==6) {
+    				julio++;
+    				//System.out.println("hay un caso en julio");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==7) {
+    				agosto++;
+    				//System.out.println("hay un caso en agosto");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==8) {
+    				setiembre++;
+    				//System.out.println("hay un caso en setiembre");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==9) {
+    				octubre++;
+    				//System.out.println("hay un caso en octubre");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==10) {
+    				noviembre++;
+    				//System.out.println("hay un caso en noviembre");
+    			}
+    			if(c.getFechaConfirmado().get(Calendar.MONTH)==11) {
+    				diciembre++;
+    				//System.out.println("hay un caso en setiembre");
+    			}
+    			
+    			}
 	    	}
-	    	
-	    	
-	    	
-	    	
-	        lineModel2 = new LineChartModel();
-	        ChartData data = new ChartData();
-	         
-	        LineChartDataSet dataSet = new LineChartDataSet();
-	        List<Number> values = new ArrayList<>();
-	        values.add(enero);
-	        values.add(febrero);
-	        values.add(marzo);
-	        values.add(abril);
-	        values.add(mayo);
-	        values.add(junio);
-	        values.add(julio);
-	        values.add(agosto);
-	        values.add(setiembre);
-	        values.add(octubre);
-	        values.add(noviembre);
-	        values.add(diciembre);
-	        dataSet.setData(values);
-	        dataSet.setFill(false);
-	        dataSet.setLabel("Casos Confirmados");
-	        dataSet.setBorderColor("rgb(255, 55, 81)");
-	        dataSet.setLineTension(0.4);
-	        data.addChartDataSet(dataSet);
-	         
-	        List<String> labels = new ArrayList<>();
-	        labels.add("Enero");
-	        labels.add("Febrero");
-	        labels.add("Marzo");
-	        labels.add("Abril");
-	        labels.add("Mayo");
-	        labels.add("Junio");
-	        labels.add("Julio");
-	        labels.add("Agosto");
-	        labels.add("Setiembre");
-	        labels.add("Octubre");
-	        labels.add("Noviembre");
-	        labels.add("Diciembre");
-	        data.setLabels(labels);
-	         
-	        //Options
-	        LineChartOptions options = new LineChartOptions();        
-	        Title title = new Title();
-	        title.setDisplay(true);
-	        title.setText("Grafica de casos Confirmados");
-	        options.setTitle(title);
-	         
-	        lineModel2.setOptions(options);
-	        lineModel2.setData(data);
-	    }
+    	}
+    	
+    	
+    	
+    	
+        lineModel2 = new LineChartModel();
+        ChartData data = new ChartData();
+         
+        LineChartDataSet dataSet = new LineChartDataSet();
+        List<Number> values = new ArrayList<>();
+        values.add(enero);
+        values.add(febrero);
+        values.add(marzo);
+        values.add(abril);
+        values.add(mayo);
+        values.add(junio);
+        values.add(julio);
+        values.add(agosto);
+        values.add(setiembre);
+        values.add(octubre);
+        values.add(noviembre);
+        values.add(diciembre);
+        dataSet.setData(values);
+        dataSet.setFill(false);
+        dataSet.setLabel("Casos Confirmados");
+        dataSet.setBorderColor("rgb(255, 55, 81)");
+        dataSet.setLineTension(0.4);
+        data.addChartDataSet(dataSet);
+         
+        List<String> labels = new ArrayList<>();
+        labels.add("Enero");
+        labels.add("Febrero");
+        labels.add("Marzo");
+        labels.add("Abril");
+        labels.add("Mayo");
+        labels.add("Junio");
+        labels.add("Julio");
+        labels.add("Agosto");
+        labels.add("Setiembre");
+        labels.add("Octubre");
+        labels.add("Noviembre");
+        labels.add("Diciembre");
+        data.setLabels(labels);
+         
+        //Options
+        LineChartOptions options = new LineChartOptions();        
+        Title title = new Title();
+        title.setDisplay(true);
+        title.setText("Grafica de casos Confirmados");
+        options.setTitle(title);
+         
+        lineModel2.setOptions(options);
+        lineModel2.setData(data);
+    }
 	    
 	    
 	    
 	    
 	    ///////////////////////////////////////////GRAFICA CONFIRMADOS ACA ARRIBA///////////////////////////
-	    public void createScatterModel() {
-	   //     scatterModel = new ScatterChartModel();
-	        ChartData data = new ChartData();
-	         
-	        LineChartDataSet dataSet = new LineChartDataSet();
-	        List<Object> values = new ArrayList<>();
-		/*
-		 * values.add(new NumericPoint(-10, 0)); values.add(new NumericPoint(0,10));
-		 * values.add(new NumericPoint(10, 5)); values.add(new NumericPoint(8, 14));
-		 * values.add(new NumericPoint(12, 2)); values.add(new NumericPoint(13, 7));
-		 * values.add(new NumericPoint(6, 9)); dataSet.setData(values);
-		 */
-	        dataSet.setLabel("Red Dataset");
-	        dataSet.setBorderColor("rgb(249, 24, 24)");
-	        dataSet.setShowLine(false);
-	        data.addChartDataSet(dataSet);
-	         
-	        //Options
-	        LineChartOptions options = new LineChartOptions();        
-	        Title title = new Title();
-	        title.setDisplay(true);
-	        title.setText("Scatter Chart");
-	        options.setShowLines(false);
-	        options.setTitle(title);
-	         
-		/*
-		 * scatterModel.setOptions(options); scatterModel.setData(data);
-		 */
-	    }
-	     
-	    public void createCartesianLinerModel() {
-	        cartesianLinerModel = new LineChartModel();
-	        ChartData data = new ChartData();
-	         
-	        LineChartDataSet dataSet = new LineChartDataSet();
-	        List<Number> values = new ArrayList<>();
-	        values.add(20);
-	        values.add(50);
-	        values.add(100);
-	        values.add(75);
-	        values.add(25);
-	        values.add(0);
-	        dataSet.setData(values);
-	        dataSet.setLabel("Left Dataset");
-	        dataSet.setYaxisID("left-y-axis");
-	         
-	        LineChartDataSet dataSet2 = new LineChartDataSet();
-	        List<Number> values2 = new ArrayList<>();
-	        values2.add(0.1);
-	        values2.add(0.5);
-	        values2.add(1.0);
-	        values2.add(2.0);
-	        values2.add(1.5);
-	        values2.add(0);
-	        dataSet2.setData(values2);
-	        dataSet2.setLabel("Right Dataset");
-	        dataSet2.setYaxisID("right-y-axis");
-	         
-	        data.addChartDataSet(dataSet);
-	        data.addChartDataSet(dataSet2);
-	         
-	        List<String> labels = new ArrayList<>();
-	        labels.add("Jan");
-	        labels.add("Feb");
-	        labels.add("Mar");
-	        labels.add("Apr");
-	        labels.add("May");
-	        labels.add("Jun");
-	        data.setLabels(labels);
-	        cartesianLinerModel.setData(data);
-	         
-	        //Options
-	        LineChartOptions options = new LineChartOptions();
-	        CartesianScales cScales = new CartesianScales();
-	        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
-	        linearAxes.setId("left-y-axis");
-	        linearAxes.setPosition("left");
-	        CartesianLinearAxes linearAxes2 = new CartesianLinearAxes();
-	        linearAxes2.setId("right-y-axis");
-	        linearAxes2.setPosition("right");
-	         
-	        cScales.addYAxesData(linearAxes);
-	        cScales.addYAxesData(linearAxes2);
-	        options.setScales(cScales);    
-	         
-	        Title title = new Title();
-	        title.setDisplay(true);
-	        title.setText("Cartesian Linear Chart");
-	        options.setTitle(title);
-	         
-	        cartesianLinerModel.setOptions(options);
-	    }
+    public void createScatterModel() {
+   //     scatterModel = new ScatterChartModel();
+        ChartData data = new ChartData();
+         
+        LineChartDataSet dataSet = new LineChartDataSet();
+        List<Object> values = new ArrayList<>();
+	/*
+	 * values.add(new NumericPoint(-10, 0)); values.add(new NumericPoint(0,10));
+	 * values.add(new NumericPoint(10, 5)); values.add(new NumericPoint(8, 14));
+	 * values.add(new NumericPoint(12, 2)); values.add(new NumericPoint(13, 7));
+	 * values.add(new NumericPoint(6, 9)); dataSet.setData(values);
+	 */
+        dataSet.setLabel("Red Dataset");
+        dataSet.setBorderColor("rgb(249, 24, 24)");
+        dataSet.setShowLine(false);
+        data.addChartDataSet(dataSet);
+         
+        //Options
+        LineChartOptions options = new LineChartOptions();        
+        Title title = new Title();
+        title.setDisplay(true);
+        title.setText("Scatter Chart");
+        options.setShowLines(false);
+        options.setTitle(title);
+         
+	/*
+	 * scatterModel.setOptions(options); scatterModel.setData(data);
+	 */
+    }
+     
+    public void createCartesianLinerModel() {
+        cartesianLinerModel = new LineChartModel();
+        ChartData data = new ChartData();
+         
+        LineChartDataSet dataSet = new LineChartDataSet();
+        List<Number> values = new ArrayList<>();
+        values.add(20);
+        values.add(50);
+        values.add(100);
+        values.add(75);
+        values.add(25);
+        values.add(0);
+        dataSet.setData(values);
+        dataSet.setLabel("Left Dataset");
+        dataSet.setYaxisID("left-y-axis");
+         
+        LineChartDataSet dataSet2 = new LineChartDataSet();
+        List<Number> values2 = new ArrayList<>();
+        values2.add(0.1);
+        values2.add(0.5);
+        values2.add(1.0);
+        values2.add(2.0);
+        values2.add(1.5);
+        values2.add(0);
+        dataSet2.setData(values2);
+        dataSet2.setLabel("Right Dataset");
+        dataSet2.setYaxisID("right-y-axis");
+         
+        data.addChartDataSet(dataSet);
+        data.addChartDataSet(dataSet2);
+         
+        List<String> labels = new ArrayList<>();
+        labels.add("Jan");
+        labels.add("Feb");
+        labels.add("Mar");
+        labels.add("Apr");
+        labels.add("May");
+        labels.add("Jun");
+        data.setLabels(labels);
+        cartesianLinerModel.setData(data);
+         
+        //Options
+        LineChartOptions options = new LineChartOptions();
+        CartesianScales cScales = new CartesianScales();
+        CartesianLinearAxes linearAxes = new CartesianLinearAxes();
+        linearAxes.setId("left-y-axis");
+        linearAxes.setPosition("left");
+        CartesianLinearAxes linearAxes2 = new CartesianLinearAxes();
+        linearAxes2.setId("right-y-axis");
+        linearAxes2.setPosition("right");
+         
+        cScales.addYAxesData(linearAxes);
+        cScales.addYAxesData(linearAxes2);
+        options.setScales(cScales);    
+         
+        Title title = new Title();
+        title.setDisplay(true);
+        title.setText("Cartesian Linear Chart");
+        options.setTitle(title);
+         
+        cartesianLinerModel.setOptions(options);
+    }
 	     
 	    public void createBarModel() {
 	        barModel = new BarChartModel();

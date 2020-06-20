@@ -7,10 +7,12 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import uy.viruscontrol.controllers.EnfermedadBeanController;
-import uy.viruscontrol.controllers.ProveedorBeanController;
+import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
+import uy.viruscontrol.bussines.interfaces.ProveedorBeanLocal;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecursoLocal;
 import uy.viruscontrol.model.entities.ProveedorRecursos;
 import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.model.entities.TipoRecurso;
@@ -19,7 +21,10 @@ import uy.viruscontrol.model.entities.TipoRecurso;
 @ApplicationScoped 
 public class GestorRecursosView {
 
-
+	@Inject private EnfermedadBeanLocal enfermedadEjb;
+	@Inject private ProveedorBeanLocal proveedorEjb;
+	@Inject private ServiceAgentProveedorRecursoLocal sagRecursos;
+	
 	
 	// Datos negocio
 	private String nombreTipoRecurso;
@@ -33,7 +38,7 @@ public class GestorRecursosView {
 	
 	private List<TipoRecurso> tiposRecursosPeriferico;
 	private List<Recurso> recursosPeriferico;
-	private List <ProveedorRecursos> proveedoresRecursos;
+	private List<ProveedorRecursos> proveedoresRecursos;
 	private List<Recurso> recursosDisponiblesProvPeriferico;
 	
 	public GestorRecursosView() {
@@ -45,18 +50,18 @@ public class GestorRecursosView {
 	public void init() {
 
 		tiposDeRecursos = new ArrayList<String>();
-		for (TipoRecurso tipo : EnfermedadBeanController.obtenerTiposDeRecursos()) {
+		for (TipoRecurso tipo : enfermedadEjb.obtenerTiposDeRecursos()) {
 			tiposDeRecursos.add(tipo.getNombre());
 		}
 
 		tiposRecursosPeriferico = new ArrayList<TipoRecurso>();
-		tiposRecursosPeriferico = ProveedorBeanController.obtenerTiposRecursosPeriferico();
+		tiposRecursosPeriferico = sagRecursos.getAllTipoDeRecursosPeriferico();
 		/*
 		recursosPeriferico = new ArrayList<Recurso>();
 		recursosPeriferico = ProveedorBeanController.obtenerRecursosPeriferico();
 		*/
 		proveedoresRecursos = new ArrayList<ProveedorRecursos>();
-		proveedoresRecursos = ProveedorBeanController.obtenerProveedoresRecursos();
+		proveedoresRecursos = proveedorEjb.obtenerProveedoresRecursos();
 		
 		recursosDisponiblesProvPeriferico = new ArrayList<Recurso>();
 	}
@@ -175,7 +180,7 @@ public class GestorRecursosView {
 	
 	public void onProvRecDropDownChange() {
 		if(this.provRecSeleccionado != null) {
-			recursosDisponiblesProvPeriferico = ProveedorBeanController.obtenerRecursosDisponiblesProvPeriferico(provRecSeleccionado);
+			recursosDisponiblesProvPeriferico = sagRecursos.getRecursosProvPeriferico(provRecSeleccionado);
 			//System.out.println("aca llega 1"+	codigoRecursoPeriferico);
 		}else {
 			//System.out.println("aca llega 2"+	codigoRecursoPeriferico);
@@ -185,19 +190,17 @@ public class GestorRecursosView {
 	
 	public void onAltaTipoRecursoAfterSubmit() {
 		tiposDeRecursos = new ArrayList<String>();
-		for (TipoRecurso tipo : EnfermedadBeanController.obtenerTiposDeRecursos()) {
+		for (TipoRecurso tipo : enfermedadEjb.obtenerTiposDeRecursos()) {
 			tiposDeRecursos.add(tipo.getNombre());
 		}
 	}
 	
 	public void altaRecursoProveedor() {
-		boolean ok1 = ProveedorBeanController.altaRecursoProveedor(provRecSeleccionado, nombreRecurso);
+		boolean ok1 = proveedorEjb.altaRecursoProveedor(provRecSeleccionado, nombreRecurso);
 		
 		if (ok1) {
-			
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Recurso mapeado a Proveedor."));
 		} else {
-			
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Recurso NO mapeado a Proveedor, record ya existente."));
 		}
 		
@@ -205,7 +208,7 @@ public class GestorRecursosView {
 	}
 
 	public void agregarNuevoTipoRecurso() {
-		boolean ok = EnfermedadBeanController.altaTipoRecurso(nombreTipoRecurso, descripcionTipoRecurso, codigoPeriferico);
+		boolean ok = enfermedadEjb.altaTipoRecurso(nombreTipoRecurso, descripcionTipoRecurso, codigoPeriferico);
 
 		if (ok) {
 			
@@ -221,9 +224,9 @@ public class GestorRecursosView {
 
 	public void agregarNuevoRecurso() {
 		
-		int idAux = EnfermedadBeanController.getIdTipoRecursoByName(nombreTipoRecursoDropDown);
+		int idAux = enfermedadEjb.getIdTipoRecursoByName(nombreTipoRecursoDropDown);
 
-		boolean ok = EnfermedadBeanController.altaRecursoDeUnDeterminadoTipo(nombreRecurso, idAux, codigoRecursoPeriferico);
+		boolean ok = enfermedadEjb.altaRecursoDeUnDeterminadoTipo(nombreRecurso, idAux, codigoRecursoPeriferico);
 		if (ok) {
 			
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Recurso " + this.getNombreRecurso() + " fue dado de alta."));

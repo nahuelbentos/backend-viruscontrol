@@ -21,6 +21,8 @@ public interface UsuarioBeanLocal {
 	
 	public boolean registrarPrimerIngreso(Usuario user, TipoUsuario tipoUser);
 	
+	public boolean registrarUsuario(Usuario user);
+	
 	public void actualizarDatos(Usuario user);
 
 	List<Ciudadano> mostrarCiudadanos();
@@ -42,4 +44,6 @@ public interface UsuarioBeanLocal {
 	
 	void editarAdmin(int adminId, String nombre, String apellido, String correo, String direccion, String nacionalidad,
 			String userName, Calendar fecha, String password);
+
+	boolean eliminarUsuario(Usuario user);
 }

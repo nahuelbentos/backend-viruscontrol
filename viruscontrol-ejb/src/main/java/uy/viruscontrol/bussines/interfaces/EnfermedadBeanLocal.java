@@ -42,6 +42,16 @@ public interface EnfermedadBeanLocal {
 
 	List<Recurso> obtenerRecursoPorEnfermedad(int idEnfermedad);
 
+	List<TipoRecurso> obtenerTiposDeRecursos();
 	
+	boolean altaTipoRecurso (String nombre, String descripcion, String codigoPeriferico);
+	
+	List<Enfermedad> obtenerEnfermedades();
+	
+	List<Recurso> obtenerRecursos();
+	
+	List<Enfermedad> obtenerListaEnfermedadesNoAprobadas();
+	
+	boolean rechazarEnfermedadInfecciosa(int idEnfermedad);
 	
 }

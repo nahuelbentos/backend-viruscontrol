@@ -8,20 +8,24 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
 
-import uy.viruscontrol.controllers.ProveedorBeanController;
+import uy.viruscontrol.bussines.interfaces.ProveedorBeanLocal;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecursoLocal;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.model.entities.ProveedorRecursos;
 
 @Named("GestorProveedorView")
 @RequestScoped
 public class GestorProveedorView  implements Serializable{
-
 	
 	private static final long serialVersionUID = 1429289222086985379L;
+
+	@Inject private ProveedorBeanLocal proveedorEjb; 
+	@Inject private ServiceAgentProveedorRecursoLocal sagProvRecursoEjb;
 	
 	//Datos Alta
 	int tipo;
@@ -46,13 +50,13 @@ public class GestorProveedorView  implements Serializable{
 	@PostConstruct
 	public void init() {
 		proveedoresRecursos = new ArrayList<ProveedorRecursos>();
-		proveedoresRecursos = ProveedorBeanController.obtenerProveedoresRecursos();
+		proveedoresRecursos = proveedorEjb.obtenerProveedoresRecursos();
 		
 		proveedoresExamenes = new ArrayList<ProveedorExamen>();
-		proveedoresExamenes = ProveedorBeanController.obtenerProveedoresExamenes();
+		proveedoresExamenes = proveedorEjb.obtenerProveedoresExamenes();
 		
 		proveedoresRecursosPeriferico = new ArrayList<ProveedorRecursos>();
-		proveedoresRecursosPeriferico = ProveedorBeanController.obtenerProveedoresPeriferico();
+		proveedoresRecursosPeriferico = sagProvRecursoEjb.getProveedoresPeriferico();
 	}
 	
 	public String getNombreProveedor() {
@@ -152,7 +156,7 @@ public class GestorProveedorView  implements Serializable{
 		
 		
 	///ALTA	
-		boolean ok = ProveedorBeanController.crearProveedor(tipo, nombreProveedor, direccion, ciudad, barrio, rangoHorario, codigoPeriferico);
+		boolean ok = proveedorEjb.nuevoProveedor(tipo, nombreProveedor, direccion, ciudad, barrio, rangoHorario, codigoPeriferico);
 		if (ok) {
 			if (tipo==1) {
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor de Recurso "+this.nombreProveedor+" creado."));
@@ -172,7 +176,7 @@ public class GestorProveedorView  implements Serializable{
 		public void actualizarPR(RowEditEvent event) {
 			
 			proveedorRecurso = (ProveedorRecursos) event.getObject();
-			boolean ok = ProveedorBeanController.actualizarProveedorRecurso(proveedorRecurso);
+			boolean ok = proveedorEjb.actualizarProveedorRecursos(proveedorRecurso);
 			
 			if (ok) {
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor de Recursos actualizado"));
@@ -193,7 +197,7 @@ public class GestorProveedorView  implements Serializable{
 		public void actualizarPE(RowEditEvent event) {
 					
 			proveedorExamen = (ProveedorExamen) event.getObject();
-			boolean ok = ProveedorBeanController.actualizarProveedorExamen(proveedorExamen);
+			boolean ok = proveedorEjb.actualizarProveedorExamen(proveedorExamen);
 			
 			if (ok) {
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor de Examenes actualizado"));
@@ -215,7 +219,7 @@ public class GestorProveedorView  implements Serializable{
 			if(!proveedoresRecursosEliminados.isEmpty()) {
 				proveedoresRecursos.removeAll(proveedoresRecursosEliminados);
 				for(ProveedorRecursos pre : proveedoresRecursosEliminados) {
-					ProveedorBeanController.eliminarProveedorRecursos(pre);
+					proveedorEjb.eliminarProveedorRecursos(pre);
 				}
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor Eliminado."));
 			}
@@ -235,7 +239,7 @@ public class GestorProveedorView  implements Serializable{
 					if(!proveedoresExamenesEliminados.isEmpty()) {
 						proveedoresExamenes.removeAll(proveedoresExamenesEliminados);
 						for(ProveedorExamen pre : proveedoresExamenesEliminados) {
-							ProveedorBeanController.eliminarProveedorExamenes(pre);
+							proveedorEjb.eliminarProveedorExamenes(pre);
 						}
 						FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor Eliminado."));
 					}

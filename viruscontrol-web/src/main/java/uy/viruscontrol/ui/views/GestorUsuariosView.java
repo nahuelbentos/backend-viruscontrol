@@ -10,9 +10,10 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import uy.viruscontrol.controllers.UsuarioBeanController;
+import uy.viruscontrol.bussines.interfaces.UsuarioBeanLocal;
 
 import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Ciudadano;
@@ -26,8 +27,9 @@ import uy.viruscontrol.model.entities.Usuario;
 @RequestScoped
 public class GestorUsuariosView implements Serializable {
 
-
 	private static final long serialVersionUID = -9187425136651928924L;
+	
+	@Inject private UsuarioBeanLocal usuarioEjb;
 	
 	private List<Ciudadano> ciudadanos;
 	private List<Medico> medicos;
@@ -52,21 +54,21 @@ public class GestorUsuariosView implements Serializable {
 	
 	@PostConstruct
 	public void init(){
-		administradores = UsuarioBeanController.mostrarAdministradores();
-		ciudadanos = UsuarioBeanController.mostrarCiudadanos();
-		gerentes = UsuarioBeanController.mostrarGerentes();
-		medicos = UsuarioBeanController.mostrarMedicos();
+		administradores = usuarioEjb.mostrarAdministradores();
+		ciudadanos = usuarioEjb.mostrarCiudadanos();
+		gerentes = usuarioEjb.mostrarGerentes();
+		medicos = usuarioEjb.mostrarMedicos();
 	}
 	
 	public List<Gerente> mostrarGerentes(){
 	
 		
-		return UsuarioBeanController.mostrarGerentes();
+		return usuarioEjb.mostrarGerentes();
 	
 	}
 	
 	public List<Administrador> mostrarAdministradores(){
-		return UsuarioBeanController.mostrarAdministradores();
+		return usuarioEjb.mostrarAdministradores();
 	}
 	
 	/**
@@ -80,33 +82,31 @@ public class GestorUsuariosView implements Serializable {
 		 * listaCiudadanos.add(c.getNombre()); }
 		 */
 	
-			return UsuarioBeanController.mostrarCiudadanos();
-		}
+		return usuarioEjb.mostrarCiudadanos();
+	}
 	public List<Medico> mostrarMedicos(){
 	
-			return UsuarioBeanController.mostrarMedicos();
-		}
+		return usuarioEjb.mostrarMedicos();
+	}
 
 	public void editarCiudadano() {
 		if(ciudadanoSeleccionado!=null) {
 			System.out.println("usuario seleccionado "+ciudadanoSeleccionado.getNombre());
 		
+			if(nombre!=null) {
+				System.out.println("nombre que escribio es "+nombre);
+			}
+			if(fecha!=null) {
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(fecha);
+				System.out.println(calendar.getTime());
+				usuarioEjb.editarCiudadano(ciudadanoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar);
+				
+			}else {
+				usuarioEjb.editarCiudadano(ciudadanoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null);
+			}
 		
-		if(nombre!=null) {
-			System.out.println("nombre que escribio es "+nombre);
 		}
-		if(fecha!=null) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(fecha);
-			System.out.println(calendar.getTime());
-			UsuarioBeanController.editarCiudadano(ciudadanoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar);
-			
-		}else {
-			UsuarioBeanController.editarCiudadano(ciudadanoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null);
-		}
-		
-		}
-		
 		
 	}
 	
@@ -118,10 +118,10 @@ public class GestorUsuariosView implements Serializable {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fecha);
 			System.out.println(calendar.getTime());
-			UsuarioBeanController.editarMedico(medicoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar);
+			usuarioEjb.editarMedico(medicoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar);
 			
 		}else {
-			UsuarioBeanController.editarMedico(medicoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null);
+			usuarioEjb.editarMedico(medicoSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null);
 		}
 		}
 	}
@@ -135,10 +135,10 @@ public class GestorUsuariosView implements Serializable {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fecha);
 			System.out.println(calendar.getTime());
-			UsuarioBeanController.editarGerente(gerenteSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar,password);
+			usuarioEjb.editarGerente(gerenteSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar,password);
 			
 		}else {
-			UsuarioBeanController.editarGerente(gerenteSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null,password);
+			usuarioEjb.editarGerente(gerenteSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null,password);
 		}
 		}
 	}
@@ -151,10 +151,10 @@ public class GestorUsuariosView implements Serializable {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fecha);
 			System.out.println(calendar.getTime());
-			UsuarioBeanController.editarAdmin(adminSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar,password);
+			usuarioEjb.editarAdmin(adminSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,calendar,password);
 			
 		}else {
-			UsuarioBeanController.editarAdmin(adminSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null,password);
+			usuarioEjb.editarAdmin(adminSeleccionado.getIdUsuario(), nombre, apellido, correo, direccion, nacionalidad, userName,null,password);
 		}
 		}
 	}
@@ -295,7 +295,7 @@ public class GestorUsuariosView implements Serializable {
 			administradores.removeAll(usuariosEliminados);
 			for(Usuario u : usuariosEliminados) {
 				
-				UsuarioBeanController.eliminarUsuario((Administrador)u);
+				usuarioEjb.eliminarUsuario((Administrador)u);
 				
 			}
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Administrador Eliminado."));
@@ -318,7 +318,7 @@ public class GestorUsuariosView implements Serializable {
 				ciudadanos.removeAll(usuariosEliminados);
 				for(Usuario u : usuariosEliminados) {
 					
-					UsuarioBeanController.eliminarUsuario((Ciudadano)u);
+					usuarioEjb.eliminarUsuario((Ciudadano)u);
 					
 				}
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Ciudadano Eliminado."));
@@ -339,7 +339,7 @@ public class GestorUsuariosView implements Serializable {
 				gerentes.removeAll(usuariosEliminados);
 				for(Usuario u : usuariosEliminados) {
 					
-					UsuarioBeanController.eliminarUsuario((Gerente)u);
+					usuarioEjb.eliminarUsuario((Gerente)u);
 					
 				}
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Gerente Eliminado."));
@@ -360,7 +360,7 @@ public class GestorUsuariosView implements Serializable {
 				medicos.removeAll(usuariosEliminados);
 				for(Usuario u : usuariosEliminados) {
 					
-					UsuarioBeanController.eliminarUsuario((Medico)u);
+					usuarioEjb.eliminarUsuario((Medico)u);
 					
 				}
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Medico Eliminado."));

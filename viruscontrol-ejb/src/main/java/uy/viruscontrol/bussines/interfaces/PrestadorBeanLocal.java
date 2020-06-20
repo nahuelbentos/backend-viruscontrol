@@ -19,4 +19,6 @@ public interface PrestadorBeanLocal {
 
 	List<PrestadoraSalud> obtenerPrestadorasSalud();
 
+	boolean eliminarPrestadoraSalud(PrestadoraSalud prestadoraSalud);
+	
 }
