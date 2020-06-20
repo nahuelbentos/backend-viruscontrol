@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import uy.viruscontrol.controllers.EnfermedadBeanController;
+import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
 import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Gerente;
@@ -23,13 +23,13 @@ import uy.viruscontrol.model.entities.Sintoma;
 @Named("GestorEnfermedadView")
 @RequestScoped
 public class GestorEnfermedadView implements Serializable{
+	
 	private static final long serialVersionUID = -1546397945313372054L;
 
-	@Inject
-	private UserManager userManager;
+	@Inject private EnfermedadBeanLocal enfermedadEjb;
+	
+	@Inject	private UserManager userManager;
 	// Datos para la vista
-	
-	
 	
 	// Datos del negocio para alta enfermedad
 	private String nombreEnfermedad;
@@ -55,13 +55,13 @@ public class GestorEnfermedadView implements Serializable{
 	
 	@PostConstruct
 	public void init() {
-			enfermedadesNoAprobadas=new ArrayList<String>();
-			for(Enfermedad enfermedad :EnfermedadBeanController.obtenerEnfermedadesNoAprobadas()) {
-				enfermedadesNoAprobadas.add(enfermedad.getNombre());
-			}
-			
-			enfermedades=new ArrayList<Enfermedad>();
-			enfermedades = EnfermedadBeanController.obtenerEnfermedades();
+		enfermedadesNoAprobadas=new ArrayList<String>();
+		for(Enfermedad enfermedad : enfermedadEjb.obtenerListaEnfermedadesNoAprobadas()) {
+			enfermedadesNoAprobadas.add(enfermedad.getNombre());
+		}
+		
+		enfermedades = new ArrayList<Enfermedad>();
+		enfermedades = enfermedadEjb.obtenerEnfermedades();
 	
 	}
 	
@@ -149,7 +149,7 @@ public class GestorEnfermedadView implements Serializable{
 			this.sintomas.add(s);
 		}
 		
-		boolean ok = EnfermedadBeanController.crearEnfermedadInfecciosa(this.nombreEnfermedad, this.nombreTipoEnfermedad, this.nombreAgente, this.sintomas, this.distanciaContagio);
+		boolean ok = enfermedadEjb.crearEnfermedadInfecciosa(this.nombreEnfermedad, this.nombreTipoEnfermedad, this.nombreAgente, this.sintomas, false, this.distanciaContagio);
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Se agrego la solicitud de alta de la enfermedad " + this.nombreEnfermedad + ". Un administrador debe aprobarla para que quede dada de alta."));
 		
@@ -162,9 +162,9 @@ public class GestorEnfermedadView implements Serializable{
 	
 	//CU Aprobar Enfermedad
 	public void aprobarEnfermedad() {
-		int idAux = EnfermedadBeanController.getIdEnfermedadByName(nombreEnfermedadNoAprobada);
+		int idAux = enfermedadEjb.getIdEnfermedadByName(nombreEnfermedadNoAprobada);
 		
-		boolean ok = EnfermedadBeanController.aprobarEnfermedad(idAux);
+		boolean ok = enfermedadEjb.aprobarEnfermedadInfecciosa(idAux);
 		
 		if(ok) {
 			
@@ -179,9 +179,9 @@ public class GestorEnfermedadView implements Serializable{
 	
 	//Rechazar Enfermedad
 		public void rechazarEnfermedad() {
-			int idAux = EnfermedadBeanController.getIdEnfermedadByName(nombreEnfermedadNoAprobada);
+			int idAux = enfermedadEjb.getIdEnfermedadByName(nombreEnfermedadNoAprobada);
 			
-			boolean ok = EnfermedadBeanController.rechazarEnfermedad(idAux);
+			boolean ok = enfermedadEjb.rechazarEnfermedadInfecciosa(idAux);
 			
 			if(ok) {
 				

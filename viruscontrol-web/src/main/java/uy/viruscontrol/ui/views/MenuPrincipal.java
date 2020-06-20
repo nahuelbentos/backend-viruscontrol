@@ -15,9 +15,6 @@ public class MenuPrincipal implements Serializable {
 	@Inject
 	private UserManager userManage;
 	
-	
-	
-
 	public UserManager getUserManage() {
 		return userManage;
 	}

@@ -7,12 +7,13 @@ import java.util.TreeMap;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import uy.viruscontrol.bussines.enumerated.AuthResponse;
-import uy.viruscontrol.controllers.SessionBeanController;
+import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
 import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Usuario;
@@ -28,6 +29,9 @@ public class UserManager implements Serializable {
 	private String mensaje;
 	
 	private Usuario currentUser;
+	
+	@Inject private SessionBeanLocal sessionEjb;
+	
 	
 	// Acceso a la sesión desde el facelet
 	private static HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
@@ -56,10 +60,10 @@ public class UserManager implements Serializable {
 	}
 	
 	public String login() {
-		AuthResponse res = SessionBeanController.iniciarSesion(username, password);
+		AuthResponse res = sessionEjb.iniciarSesion(username, password);
 		if (res.equals(AuthResponse.OK)) {
-			this.sessionToken = SessionBeanController.getTokenByUsername(username);
-			currentUser = SessionBeanController.getUsuarioLogeado(sessionToken);
+			this.sessionToken = sessionEjb.getTokenByUsername(username);
+			currentUser = sessionEjb.getUsuarioLogueado(sessionToken);
 			  if(session.getAttribute("currentUser")==null) {
 				  System.out.println("current user es null");
 				  
@@ -80,7 +84,7 @@ public class UserManager implements Serializable {
 	}
 	
 	public String logout() {
-		SessionBeanController.cerrarSesion(this.sessionToken);
+		sessionEjb.cerrarSesion(this.sessionToken);
 		currentUser = null;
 		session.removeAttribute("currentUser");
 		

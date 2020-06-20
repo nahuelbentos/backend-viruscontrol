@@ -4,10 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import uy.viruscontrol.bussines.enumerated.TipoUsuario;
-import uy.viruscontrol.controllers.UsuarioBeanController;
+import uy.viruscontrol.bussines.interfaces.UsuarioBeanLocal;
 import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Usuario;
@@ -28,6 +29,8 @@ public class RegisterView {
 
 	private TipoUsuario tipoUsuario;
 
+	@Inject private UsuarioBeanLocal usuarioEjb; 
+	
 	public RegisterView() {
 		super();
 	}
@@ -52,7 +55,7 @@ public class RegisterView {
 		
 		
 		if (user != null)
-			ok = UsuarioBeanController.registrarUsuario(user);
+			ok = usuarioEjb.registrarUsuario(user);
 		
 		System.out.println("registro usuario? " + ok);
 	}
