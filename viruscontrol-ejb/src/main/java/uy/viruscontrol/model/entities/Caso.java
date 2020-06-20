@@ -17,8 +17,6 @@ import uy.viruscontrol.bussines.enumerated.TipoCaso;
 @Entity
 @Table(name = "caso")
 public class Caso implements Serializable  {
-	
-	
 	private static final long serialVersionUID = 3053641279148705403L;
 
 	@Id
@@ -49,23 +47,26 @@ public class Caso implements Serializable  {
 
 	@Column(name="fecha_sospechoso")
 	private Calendar fechaSospechoso;
-	
+
 	@Column(name="fecha_confirmado")
 	private Calendar fechaConfirmado;
 	
+	@Column(name="notificacion_enviada", columnDefinition="boolean default false", nullable=false)
+	private boolean notificacionEnviada;
+	
 	public Caso() {
+		super();
 	}
 
-	public Caso(int id, TipoCaso tipoCaso, Departamento departamento, Examen examen, Enfermedad enfermedad) {
+	public Caso(int id, TipoCaso tipoCaso, Departamento departamento, Examen examen, Enfermedad enfermedad, boolean notificacionEnviada) {
 		super();
 		this.id = id;
 		this.tipoCaso = tipoCaso;
 		this.departamento = departamento;
 		this.examen = examen;
 		this.enfermedad = enfermedad;
+		this.notificacionEnviada = notificacionEnviada;
 	}
-
-	
 	
 	public Calendar getFechaConfirmado() {
 		return fechaConfirmado;
@@ -146,7 +147,13 @@ public class Caso implements Serializable  {
 	public void setEnfermedad(Enfermedad enfermedad) {
 		this.enfermedad = enfermedad;
 	}
-
 	
+	public boolean isNotificacionEnviada() {
+		return notificacionEnviada;
+	}
+
+	public void setNotificacionEnviada(boolean notificacionEnviada) {
+		this.notificacionEnviada = notificacionEnviada;
+	}
 	
 }

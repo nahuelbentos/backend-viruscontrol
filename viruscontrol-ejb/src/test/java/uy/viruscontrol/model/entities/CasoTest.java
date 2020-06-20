@@ -32,7 +32,7 @@ public class CasoTest {
          departamento = new Departamento("Montevideo");
          examen = new Examen(enfermedad);
          enfermedad = new Enfermedad("Enfermedad Test", false, null, null, null,false, Float.valueOf(0));
-         caso = new Caso(1, TipoCaso.CONFIRMADO, departamento, examen, enfermedad);
+         caso = new Caso(1, TipoCaso.CONFIRMADO, departamento, examen, enfermedad, false);
          
     }
 	
@@ -45,7 +45,7 @@ public class CasoTest {
 
 	@Test
 	public void testCasoIntTipoCasoDepartamentoExamenEnfermedad() {
-		Caso actual = new Caso(1, TipoCaso.CONFIRMADO, departamento, examen, enfermedad);
+		Caso actual = new Caso(1, TipoCaso.CONFIRMADO, departamento, examen, enfermedad, false);
 		assertEquals(caso.getClass(), actual.getClass());
 	}
 
