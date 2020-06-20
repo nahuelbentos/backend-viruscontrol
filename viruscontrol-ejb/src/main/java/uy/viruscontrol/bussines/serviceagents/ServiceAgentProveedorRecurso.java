@@ -304,7 +304,7 @@ public class ServiceAgentProveedorRecurso implements ServiceAgentProveedorRecurs
 	public int getStockDisponible(String codigoProveedor, String codigoRecurso) {
 		try {
 			HttpClient client = HttpClients.createDefault();
-			HttpGet getRequest = new HttpGet(urlProvRecRest + codigoProveedor + "/" + codigoRecurso);
+			HttpGet getRequest = new HttpGet(urlProvRecRest + codigoProveedor + "/" + codigoRecurso+"/stock");
 			
 			HttpResponse res = client.execute(getRequest);
 			return mapper.readValue(res.getEntity().getContent(), Integer.class);		

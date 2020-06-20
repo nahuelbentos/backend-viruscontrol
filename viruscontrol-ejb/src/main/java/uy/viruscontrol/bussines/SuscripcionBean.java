@@ -10,6 +10,7 @@ import javax.ejb.Startup;
 
 import com.recurso.model.entities.ProveedorRecurso;
 
+import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
 import uy.viruscontrol.bussines.interfaces.GerenteBeanLocal;
 import uy.viruscontrol.bussines.interfaces.SuscripcionBeanLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecurso;
@@ -29,6 +30,7 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
 	@EJB private SuscripcionDAOLocal daoSuscripcion;
 	@EJB private ServiceAgentProveedorRecurso sa;
 	@EJB private GerenteBeanLocal gerenteBean;
+	@EJB private SuscripcionDAOLocal suscripcionDao;
     public SuscripcionBean() {
         // TODO Auto-generated constructor stub
     }
@@ -40,13 +42,17 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
     			
     			while (true) {
     				try {
-    					List<Suscripcion> suscripciones=daoSuscripcion.findAll();
     					
+    					List<Suscripcion> suscripciones=daoSuscripcion.findAll();
+    					if(suscripciones.isEmpty()) {
+    						System.out.println("suscripciones esta vacia");
+    					}
     					for(Suscripcion s:suscripciones) {		//recorro suscripciones
     						
-    						System.out.println("barrio s : "+s.getBarrio());
-    						System.out.println("Recurso s : "+s.getRecurso());
-    					
+    						
+    					if(s.isNotificado()==false) {
+    						
+    						boolean notifique=false;
     						List<ProveedorRecursos> prs=sa.getProveedoresPeriferico(); //traigo los proveedores del periferico
     						for(ProveedorRecursos provR:prs) {//recorro los proveedores del periferico
     							
@@ -59,13 +65,14 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
     									
     									//System.out.println("stock del recurso "+sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico()));
     									if(r.getNombre().contentEquals(s.getRecurso())) {
-    										System.out.println("el recurso de la suscripcion esta en el proveedor del barrio");
-    										System.out.println("se mandara mail a "+s.getCiudadano().getCorreo());
-    										gerenteBean.mandarMail(s.getCiudadano().getCorreo(), "Disponibilidad de Recurso", "Somos de VirusControlUY le comunicamos que hay disponibilidad del recurso: "+r.getNombre()+" en el proveedor: "+provR.getNombre());
+    										//System.out.println("el recurso de la suscripcion esta en el proveedor del barrio");
+    										//System.out.println("se mandara mail a "+s.getCiudadano().getCorreo());
+    										
     										//System.out.println("stock del recurso "+sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico()));
     										if(sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico())>0) {//me fijo que haya stock del recurso
-        										//System.out.println("el recurso esta disponible en el barrio de la suscripcion");
-        									
+        										System.out.println("el recurso esta disponible en el barrio de la suscripcion");
+    											gerenteBean.mandarMail(s.getCiudadano().getCorreo(), "Disponibilidad de Recurso", "Somos de VirusControlUY le comunicamos que hay disponibilidad del recurso: "+r.getNombre()+" en el proveedor: "+provR.getNombre()+" Stock:"+sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico()));
+    											notifique=true;
         									}
     									}
     									
@@ -77,11 +84,15 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
     								
     							}
     						}
-    					
-    						
+    					//aca
+    						if(notifique==true) {
+    							s.setNotificado(true);
+    							daoSuscripcion.merge(s);
+    						}
+    					}
     					}
     					
-    					System.out.println("el hilo esta corriendo");
+    					System.out.println("el hilo de suscripcion esta corriendo");
 						Thread.sleep(1000000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();

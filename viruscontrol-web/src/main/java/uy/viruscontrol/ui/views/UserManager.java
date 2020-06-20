@@ -64,6 +64,15 @@ public class UserManager implements Serializable {
 		if (res.equals(AuthResponse.OK)) {
 			this.sessionToken = sessionEjb.getTokenByUsername(username);
 			currentUser = sessionEjb.getUsuarioLogueado(sessionToken);
+			  if(session.getAttribute("currentUser")==null) {
+				  System.out.println("current user es null");
+				  
+				  }else { 
+					  System.out.println("current user no es null");
+				  
+				  session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+				  }
+
 			// guardo el usuario logueado en sesión
 			session.setAttribute("currentUser", currentUser);
 			return "exito";
