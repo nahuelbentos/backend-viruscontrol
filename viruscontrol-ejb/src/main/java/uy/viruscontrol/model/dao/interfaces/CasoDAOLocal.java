@@ -24,6 +24,8 @@ public interface CasoDAOLocal {
 
 	List<DtExamenCiudadano> findAllExamenesByCiudadano(int idCiudadano);
 
+	List<Caso> findAllNotNotificated();
+
 	
 	
 	

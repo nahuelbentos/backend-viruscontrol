@@ -1,6 +1,7 @@
 package uy.viruscontrol.bussines;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -15,6 +16,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.ws.rs.core.MediaType;
 
 import uy.viruscontrol.bussines.interfaces.GerenteBeanLocal;
 import uy.viruscontrol.bussines.interfaces.GerenteBeanRemote;
@@ -39,6 +41,17 @@ public class GerenteBean implements GerenteBeanRemote, GerenteBeanLocal {
     
     @Override
     public void mandarMail(String receptor,String asunto,String mensaje) {
+    	List<String> receptores = new ArrayList<String>();
+    	receptores.add(receptor);
+    	this.sendMail(receptores, asunto, mensaje);
+    }
+    
+    @Override
+    public void mandarMail(List<String> receptores,String asunto,String mensaje) {
+    	this.sendMail(receptores, asunto, mensaje);
+    }
+    
+    private void sendMail(List<String> receptores,String asunto,String mensaje) {
     	//gmail tiene una opcion para dar acceso a apps para poder mandar mail:
     	//https://myaccount.google.com/lesssecureapps
         Properties propiedad = new Properties();
@@ -60,9 +73,15 @@ public class GerenteBean implements GerenteBeanRemote, GerenteBeanLocal {
         MimeMessage mail = new MimeMessage(sesion);
         try {
             mail.setFrom(new InternetAddress (correoEnvia));
-            mail.addRecipient(Message.RecipientType.TO, new InternetAddress (receptor));
             mail.setSubject(asunto);
-            mail.setText(mensaje);
+            //mail.setText(mensaje);
+            String htmlMessage = this.htmlFormatMessage(mensaje);
+            
+            for (String receptor : receptores)
+            	mail.addRecipient(Message.RecipientType.TO, new InternetAddress (receptor));
+            
+            
+            mail.setContent(htmlMessage, MediaType.TEXT_HTML);
             
             Transport transportar = sesion.getTransport("smtp");
             transportar.connect(correoEnvia,contrasena);
@@ -77,9 +96,18 @@ public class GerenteBean implements GerenteBeanRemote, GerenteBeanLocal {
         } catch (MessagingException ex) {
            System.out.println("error al mandar mail");
         }
-        
     }
     
+    private String htmlFormatMessage(String mensaje) {
+    	return "<html>"+
+    			"	<head>"+
+    			"		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=no\">"+
+    			"	</head>"+
+    			"	<body>"+
+    					mensaje+
+    			"	</body>"+
+    			"</html>";
+    }
    
     @Override
     public List<Caso> obtenerCasos(){
