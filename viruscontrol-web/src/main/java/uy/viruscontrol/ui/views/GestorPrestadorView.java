@@ -15,7 +15,8 @@ import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
 
-import uy.viruscontrol.controllers.PrestadorBeanController;
+import uy.viruscontrol.bussines.interfaces.PrestadorBeanLocal;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentPrestadoraSaludLocal;
 import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.PrestadoraSalud;
@@ -23,8 +24,11 @@ import uy.viruscontrol.model.entities.PrestadoraSalud;
 @Named("GestorPrestadorView")
 @RequestScoped
 public class GestorPrestadorView implements Serializable{
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = -5225955974733127158L;
+	
+	@Inject private PrestadorBeanLocal prestadorEjb;
+	@Inject private ServiceAgentPrestadoraSaludLocal sagRucaf;
 	
 	@Inject
 	private UserManager userManager;
@@ -42,10 +46,10 @@ public class GestorPrestadorView implements Serializable{
 	@PostConstruct
 	public void init() {
 		prestadorasSalud = new ArrayList<PrestadoraSalud>();
-		prestadorasSalud = PrestadorBeanController.obtenerPrestadorasSalud();
+		prestadorasSalud = prestadorEjb.obtenerPrestadorasSalud();
 		
 		prestadorasRucaf = new ArrayList<PrestadoraSalud>();
-		prestadorasRucaf = PrestadorBeanController.obtenerPrestadorasRucaf();
+		prestadorasRucaf = sagRucaf.obtenerPrestadorasRucaf();
 		
 	}
 	
@@ -109,7 +113,7 @@ public class GestorPrestadorView implements Serializable{
 
 	public void agregarPrestador() {
 		
-		boolean ok = PrestadorBeanController.crearPrestadorSalud(this.nombrePrestador, this.idRucaf);
+		boolean ok = prestadorEjb.nuevoPrestador(this.nombrePrestador, this.idRucaf);
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Prestadora de nombre "+ this.nombrePrestador +" creada."));
 		}
@@ -126,7 +130,7 @@ public class GestorPrestadorView implements Serializable{
 		
 		prestadora = (PrestadoraSalud) event.getObject();
 		
-		boolean ok = PrestadorBeanController.actualizarPrestador(prestadora);
+		boolean ok = prestadorEjb.actualizarPrestador(prestadora);
 		
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("El Prestador fue actualizado"));
@@ -174,7 +178,7 @@ public class GestorPrestadorView implements Serializable{
 		if(!prestadorasEliminadas.isEmpty()) {
 			prestadorasSalud.removeAll(prestadorasEliminadas);
 			for(PrestadoraSalud pre : prestadorasEliminadas) {
-				PrestadorBeanController.eliminarPrestadoraSalud(pre);
+				prestadorEjb.eliminarPrestadoraSalud(pre);
 			}
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Proveedor Eliminado."));
 		}

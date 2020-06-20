@@ -19,10 +19,13 @@ import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ConfiguracionNotificacionesDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.GerenteDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
+import uy.viruscontrol.model.entities.Administrador;
 import uy.viruscontrol.model.entities.Caso;
 import uy.viruscontrol.model.entities.ConfiguracionNotificaciones;
 import uy.viruscontrol.model.entities.EstadoExamen;
 import uy.viruscontrol.model.entities.Gerente;
+import uy.viruscontrol.model.ldap.LDAPConexion;
 
 /**
  *
@@ -51,11 +54,14 @@ public class ApplicationBean implements ApplicationBeanLocal {
 	@EJB private GerenteBeanLocal gerenteBean;
 	@EJB private ConfiguracionNotificacionesDAOLocal configNotifDAO;
 	@EJB private GerenteDAOLocal gerenteDAO;
+	@EJB private UsuarioDAOLocal usuDAO;
 	
     public ApplicationBean() {}
     
     @PostConstruct
     public void iniciarAplicacion() {
+    	insertMissingToLDAP();
+    	
     	initThreadProcesamientoCasos();
     	initThreadNotificacionesCambioCaso();
     }
@@ -183,4 +189,19 @@ public class ApplicationBean implements ApplicationBeanLocal {
     			"<p>Atentamente,<p>"+
     			"<p>Equipo de VirusControlUY</p>";
     }
+
+    private void insertMissingToLDAP() {
+    	/* Creo en el ldap si no existe el usuario admin y gerente para que sea consistente con la base de datos. */
+    	
+    	Administrador admin = (Administrador) usuDAO.findByUsername("admin");
+    	Gerente gerente = (Gerente) usuDAO.findByUsername("gerente");
+    	
+    	LDAPConexion ldap = LDAPConexion.getInstancia();
+    	
+    	if (!ldap.autenticarUsuario(admin))
+    		ldap.insertarUsuario(admin);
+    	if (!ldap.autenticarUsuario(gerente))
+    		ldap.insertarUsuario(gerente);
+    }
+
 }

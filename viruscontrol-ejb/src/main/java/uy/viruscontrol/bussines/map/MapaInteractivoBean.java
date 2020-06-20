@@ -50,9 +50,17 @@ public class MapaInteractivoBean implements MapaInteractivoBeanLocal {
 			System.out.println("Agrego caso " + caso.getId() + " al mapa.");
 			System.out.println("00 " + caso.getDepartamento().getNombre());
 			if (dptoStr == null || !caso.getDepartamento().getNombre().equals(dptoStr)) {
-				if (dptoStr != null)				/**  Si no es nulo es porque terminó de cargar los casos  **/
-													/**  del primer departamento y de los siguientes menos    **/
-													/**  el último.											  **/
+				if (dptoStr != null) {				/**  Si no es nulo es porque terminó de cargar los casos  **/
+					casosEnMapa.setCantidad(cantidad);
+					enf.addCaso(casosEnMapa);
+					dpto.addEnfermedad(enf);
+					this.mapa.add(dpto);			/**  del primer departamento y de los siguientes menos    **/
+					dptoStr = null;
+					enfStr = null;
+					tipoCasos = null;
+					cantidad = 0;
+					
+				}									/**  el último.											  **/
 				
 				dpto = new DepartamentoEnMapa();
 				if (dpto != null)
@@ -61,22 +69,23 @@ public class MapaInteractivoBean implements MapaInteractivoBeanLocal {
 			
 			
 			if (enfStr == null || !caso.getEnfermedad().getNombre().equals(enfStr)) {
-				if (enfStr != null)
-					dpto.addEnfermedad(enf);
+				//if (enfStr != null)
+				//	dpto.addEnfermedad(enf);
 			
 				enf = new EnfermedadEnMapa();
 				enf.setNombreEnfermedad(caso.getEnfermedad().getNombre());
+				
 			}
 			
 			
 			if (tipoCasos == null || !caso.getTipoCaso().equals(tipoCasos)) {
-				if (tipoCasos != null) {
-					casosEnMapa.setCantidad(cantidad);
-					enf.addCaso(casosEnMapa);
-					
-					System.out.println("Agregue el los casos: "+casosEnMapa.getCantidad()+ ' ' +casosEnMapa.getCasoTipo());
-					
-				}
+				//if (tipoCasos != null) {
+				//	casosEnMapa.setCantidad(cantidad);
+				//	enf.addCaso(casosEnMapa);
+				//	
+				//	System.out.println("Agregue el los casos: "+casosEnMapa.getCantidad()+ ' ' +casosEnMapa.getCasoTipo());
+				//	
+				//}
 					
 					
 				casosEnMapa = new CasoEnMapa();

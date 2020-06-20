@@ -24,6 +24,7 @@ import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.Usuario;
+import uy.viruscontrol.model.ldap.LDAPConexion;
 
 @Stateless
 @LocalBean
@@ -46,12 +47,17 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 	public boolean autenticarUsuario(String username, String password) {
 		Usuario user = usuarioDAO.findByUsername(username);
 		if (user == null)
-			return false; // El usuario no existe en la base de datos.
+			return false; /* El usuario no existe en la base de datos */
 		
 		try {
-			return (user.getPassword().equals(hashPassword(password)));
+			/* valido el password desde nuestra base */
+			if (user.getPassword().equals(hashPassword(password))) {
+				LDAPConexion ldap = LDAPConexion.getInstancia(); /* Verifico que el usuario este dado de alta en el LDAP */
+				return ldap.autenticarUsuario(user);
+			} else
+				return false;
+				
 		} catch (NoSuchAlgorithmException e) {
-//			e.printStackTrace();
 			System.out.println("ERROR ["+UsuarioBean.class.getName()+"]: No se pudo obtener el hash MD5 para la password.");
 			return false;
 		}
@@ -120,7 +126,9 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 					return false;
 				}
 			}
-			return true;
+			
+			LDAPConexion ldap = LDAPConexion.getInstancia();
+			return ldap.insertarUsuario(user);
 		}else {
 			return false;
 		}
@@ -290,7 +298,7 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 	 public void editarGerente(int gerenteId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
 		 
 		 Gerente c=gteDAO.findById(gerenteId);
-		 
+		 String usernamePrevio = c.getUsername();
 		 if (c!=null) {
 				
 				
@@ -316,31 +324,33 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 				c.setFechaNacimiento(fecha);
 			 }
 			 if( password!=null   ) {
-					try {
-						String hash=hashPassword(password);
-						c.setPassword(hash);
-					} catch (NoSuchAlgorithmException e) {
-						// TODO Auto-generated catch block
-						System.out.println("error al hashear password");
-						e.printStackTrace();
-					}
-				 }
-			 
-			 
-			 
-			gteDAO.merge(c);
+				try {
+					String hash=hashPassword(password);
+					c.setPassword(hash);
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					System.out.println("error al hashear password");
+					e.printStackTrace();
+				}
 			}
+			 
+			 
+			 
+			LDAPConexion ldap = LDAPConexion.getInstancia();
+			if (ldap.editarUsuario(c, usernamePrevio))
+				gteDAO.merge(c);
+		}
 		 
 
 		 
 	 }
 	 
 	 
-@Override	 
- public void editarAdmin(int adminId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
+	@Override
+	public void editarAdmin(int adminId,String nombre,String apellido, String correo,String direccion,String nacionalidad,String userName,Calendar fecha,String password) {
 		 
 		 Administrador c=adminDAO.findById(adminId);
-		 
+		 String usernamePrevio = c.getUsername();
 		 if (c!=null) {
 				
 				
@@ -366,19 +376,18 @@ public class UsuarioBean implements UsuarioBeanRemote, UsuarioBeanLocal {
 				c.setFechaNacimiento(fecha);
 			 }
 			 if( password!=null   ) {
-					try {
-						String hash=hashPassword(password);
-						c.setPassword(hash);
-					} catch (NoSuchAlgorithmException e) {
-						// TODO Auto-generated catch block
-						System.out.println("error al hashear password");
-						e.printStackTrace();
-					}
-				 }
+				try {
+					String hash=hashPassword(password);
+					c.setPassword(hash);
+				} catch (NoSuchAlgorithmException e) {
+					System.out.println("error al hashear password");
+					e.printStackTrace();
+				}
+			}
+			LDAPConexion ldap = LDAPConexion.getInstancia();
+			if (ldap.editarUsuario(c, usernamePrevio))
+				adminDAO.merge(c);
 			 
-			 
-			 
-		adminDAO.merge(c);
 		}
 	 
     }

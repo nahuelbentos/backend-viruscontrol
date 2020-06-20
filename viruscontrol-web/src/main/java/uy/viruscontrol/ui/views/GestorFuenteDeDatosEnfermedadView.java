@@ -10,8 +10,8 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import uy.viruscontrol.controllers.EnfermedadBeanController;
-import uy.viruscontrol.controllers.FuenteDatosBeanController;
+import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
+import uy.viruscontrol.bussines.interfaces.FuenteDatosBeanLocal;
 import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.FuenteDeDatos;
 import uy.viruscontrol.model.entities.FuenteDeDatosEnfermedad;
@@ -21,8 +21,10 @@ import uy.viruscontrol.model.entities.FuenteDeDatosEnfermedad;
 public class GestorFuenteDeDatosEnfermedadView implements Serializable{
 	private static final long serialVersionUID = 3638166672750539462L;
 
-	@Inject
-	private UserManager userManager;
+	@Inject private EnfermedadBeanLocal enfermedadEjb;
+	@Inject private FuenteDatosBeanLocal fuenteDatosEjb;
+	
+	@Inject private UserManager userManager;
 	// Datos para la vista
 	
 	private List<Enfermedad> enfermedades;
@@ -96,9 +98,9 @@ public class GestorFuenteDeDatosEnfermedadView implements Serializable{
 	@PostConstruct
 	public void init() {
 			enfermedades = new ArrayList<Enfermedad>();
-			enfermedades = EnfermedadBeanController.obtenerEnfermedades();
-			fuentes = FuenteDatosBeanController.obtenerFuenteDeDatos();
-			fuentesEnfermedad = FuenteDatosBeanController.obtenerTodosFuenteDeDatosEnfermedad();
+			enfermedades = enfermedadEjb.obtenerEnfermedades();
+			fuentes = fuenteDatosEjb.obtenerFuenteDeDatos();
+			fuentesEnfermedad = fuenteDatosEjb.obtenerTodosFuenteDeDatosEnfermedad();
 	}
 	
 	public List<Enfermedad> getEnfermedades() {
@@ -123,14 +125,14 @@ public class GestorFuenteDeDatosEnfermedadView implements Serializable{
 			f.setUrl(fuente.getUrl());
 		else
 			f.setUrl(url);
-		FuenteDatosBeanController.crearFuenteDeDatosEnfermedad(f);
+		fuenteDatosEjb.crearFuenteParaEnfermedad(f);
 		this.cleanForm();
 	}
 
 	public void refrescarFuentesPorEnfermedad() {
 		Enfermedad enf = getEnfermedadFromList(enfSeleccionada);
 		try {
-			fuentesEnfermedad = FuenteDatosBeanController.obtenerFuentesDeDatosEnfermedad(enf);
+			fuentesEnfermedad = fuenteDatosEjb.obtenerFuentesPorEnfermedad(enf);
 //			for (FuenteDeDatosEnfermedad it : fuentesEnfermedad)
 //				System.out.println("resultado: "+it.getId() + " " + it.getUrl());
 		} catch (Exception e) {
@@ -141,7 +143,7 @@ public class GestorFuenteDeDatosEnfermedadView implements Serializable{
 	
 	public void deleteListener(ActionEvent event) {
 		int idEliminar = (Integer)event.getComponent().getAttributes().get("idEliminar");
-		FuenteDatosBeanController.eliminarFuenteDeDatosEnfermedad(idEliminar);
+		fuenteDatosEjb.eliminarFuenteDeDatosEnfermedad(idEliminar);
 	}
 	
 	// FUNCIONES AUXILIARES

@@ -19,4 +19,10 @@ public interface ProveedorBeanLocal {
 	boolean actualizarProveedorExamen(ProveedorExamen proveedorExamen);
 	
 	boolean actualizarProveedorRecursos(ProveedorRecursos proveedorRecurso);
+	
+	boolean altaRecursoProveedor(String codigoProveedor, String nombreRecurso);
+	
+	boolean eliminarProveedorRecursos(ProveedorRecursos proveedorRecurso);
+	
+	boolean eliminarProveedorExamenes(ProveedorExamen proveedorExamen);
 }

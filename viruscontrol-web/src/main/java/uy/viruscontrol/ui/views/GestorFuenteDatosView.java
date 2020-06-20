@@ -8,20 +8,22 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
 
-import uy.viruscontrol.controllers.FuenteDatosBeanController;
+import uy.viruscontrol.bussines.interfaces.FuenteDatosBeanLocal;
 import uy.viruscontrol.model.entities.FuenteDeDatos;
 
 @Named("GestorFuenteDatosView")
 @RequestScoped
 public class GestorFuenteDatosView implements Serializable{
-
 	
 	private static final long serialVersionUID = 4495934608841731944L;
 
+	@Inject private FuenteDatosBeanLocal fuenteDatosEjb;
+	
 	//Datos alta
 	private String codigo;
 	private String url;
@@ -35,7 +37,7 @@ public class GestorFuenteDatosView implements Serializable{
 	@PostConstruct
 	public void init() {
 		fuentesDeDatos = new ArrayList<FuenteDeDatos>();
-		fuentesDeDatos = FuenteDatosBeanController.obtenerFuenteDeDatos();
+		fuentesDeDatos = fuenteDatosEjb.obtenerFuenteDeDatos();
 		
 		
 	}
@@ -71,7 +73,7 @@ public class GestorFuenteDatosView implements Serializable{
 
 	public void agregarFuenteDatos() {
 		
-		boolean ok = FuenteDatosBeanController.crearFuenteDatos(codigo, url);
+		boolean ok = fuenteDatosEjb.crearFuenteDatos(codigo, url);
 		if (ok) {
 			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Fuente de Datos con codigo "+ this.codigo +" creada."));
 		}
@@ -86,7 +88,7 @@ public class GestorFuenteDatosView implements Serializable{
 			
 			fuente = (FuenteDeDatos) event.getObject();
 			
-			boolean ok = FuenteDatosBeanController.actualizarFuenteDatos(fuente);
+			boolean ok = fuenteDatosEjb.actualizarFuenteDatos(fuente);
 			
 			if (ok) {
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("La Fuente de Datos fue actualizada"));
@@ -113,11 +115,10 @@ public class GestorFuenteDatosView implements Serializable{
 			if(!fuentesDeDatosEliminadas.isEmpty()) {
 				fuentesDeDatos.removeAll(fuentesDeDatosEliminadas);
 				for(FuenteDeDatos fd : fuentesDeDatosEliminadas) {
-					FuenteDatosBeanController.eliminarFuenteDeDatos(fd);
+					fuenteDatosEjb.eliminarFuenteDeDatos(fd);
 				}
 				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Fuente de Datos Eliminado."));
 			}
-			
 			
 			return "gestorFuenteDatos";
 		}

@@ -1,5 +1,6 @@
 package uy.viruscontrol.ui.views;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,16 +8,23 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import uy.viruscontrol.controllers.EnfermedadBeanController;
+import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
 import uy.viruscontrol.model.entities.Enfermedad;
 import uy.viruscontrol.model.entities.Recurso;
 
 @Named("GestorRecursoRecomendadoView")
 @RequestScoped
-public class GestorRecursoRecomendadoView {
+public class GestorRecursoRecomendadoView implements Serializable{
 
+	private static final long serialVersionUID = 644369552012190591L;
+
+
+	@Inject private EnfermedadBeanLocal enfermedadEjb;
+	
+	
 	//Datos del negocio para el alta de recurso recomendado
 		
 	
@@ -32,7 +40,6 @@ public class GestorRecursoRecomendadoView {
 		
 		public GestorRecursoRecomendadoView() {
 			super();
-			// TODO Auto-generated constructor stub
 		}
 		
 		
@@ -41,11 +48,11 @@ public class GestorRecursoRecomendadoView {
 			enfermedades=new ArrayList<String>();
 			recursos=new ArrayList<String>();
 				
-			for(Enfermedad enfermedad : EnfermedadBeanController.obtenerEnfermedades()) {
+			for(Enfermedad enfermedad : enfermedadEjb.obtenerEnfermedades()) {
 					enfermedades.add(enfermedad.getNombre());
 			}
 			
-			for(Recurso recurso : EnfermedadBeanController.obtenerRecursos()) {
+			for(Recurso recurso : enfermedadEjb.obtenerRecursos()) {
 				recursos.add(recurso.getNombre());
 			}
 		
@@ -102,7 +109,7 @@ public class GestorRecursoRecomendadoView {
 
 		public void asociarRecursoRecomendadoEnfermedad() {
 			
-			boolean ok = EnfermedadBeanController.asociarRecursoRecomendado(nombreEnfermedad, nombreRecurso, recursoTrata, recursoPreviene);
+			boolean ok = enfermedadEjb.asociarRecursoRecomendado(nombreEnfermedad, nombreRecurso, recursoTrata, recursoPreviene);
 			
 			if (ok) {
 				
