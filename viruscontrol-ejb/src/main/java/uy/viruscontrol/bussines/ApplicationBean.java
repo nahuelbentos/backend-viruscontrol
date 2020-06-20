@@ -15,6 +15,7 @@ import uy.viruscontrol.bussines.enumerated.TipoNotificacion;
 import uy.viruscontrol.bussines.interfaces.ApplicationBeanLocal;
 import uy.viruscontrol.bussines.interfaces.GerenteBeanLocal;
 import uy.viruscontrol.bussines.map.MapaInteractivoBeanLocal;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentFirebaseLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ConfiguracionNotificacionesDAOLocal;
@@ -26,6 +27,9 @@ import uy.viruscontrol.model.entities.ConfiguracionNotificaciones;
 import uy.viruscontrol.model.entities.EstadoExamen;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.ldap.LDAPConexion;
+import uy.viruscontrol.utils.firebase.NotificationInfo;
+import uy.viruscontrol.utils.firebase.NotificationInfoData;
+import uy.viruscontrol.utils.firebase.NotificationPriority;
 
 /**
  *
@@ -47,6 +51,7 @@ import uy.viruscontrol.model.ldap.LDAPConexion;
 public class ApplicationBean implements ApplicationBeanLocal {
 
 	private static final long UNA_HORA = 3600000;
+	private static final long CINCO_MIN = 300000;
 
 	@EJB private CasoDAOLocal casoDAO;
 	@EJB private ServiceAgentProveedorExamenLocal sagProvExamen;
@@ -55,6 +60,7 @@ public class ApplicationBean implements ApplicationBeanLocal {
 	@EJB private ConfiguracionNotificacionesDAOLocal configNotifDAO;
 	@EJB private GerenteDAOLocal gerenteDAO;
 	@EJB private UsuarioDAOLocal usuDAO;
+	@EJB private ServiceAgentFirebaseLocal saFirebase;
 	
     public ApplicationBean() {}
     
@@ -74,7 +80,6 @@ public class ApplicationBean implements ApplicationBeanLocal {
     				try {
     					updateCasos();
     					actualizarMapaInteractivo();
-    					notificarCasos();
 						Thread.sleep(UNA_HORA);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -92,8 +97,8 @@ public class ApplicationBean implements ApplicationBeanLocal {
     		public void run() {
     			while (true) {
     				try {
-    					notificarCasos();
-						Thread.sleep(UNA_HORA);
+    					notificarCambiosEnCasos();
+						Thread.sleep(CINCO_MIN);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -135,6 +140,7 @@ public class ApplicationBean implements ApplicationBeanLocal {
 					if (update) {
 						caso.setNotificacionEnviada(false);
 						casoDAO.merge(caso);
+						notificarResultadoExamenDisponible(caso.getCiudadano().getTokenPushNotifications(), caso.getId(), estado);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -148,7 +154,7 @@ public class ApplicationBean implements ApplicationBeanLocal {
     	mapaBean.loadCasosOnMapa();
     }
     
-    private void notificarCasos() {
+    private void notificarCambiosEnCasos() {
 		List<Caso> aNotificar = casoDAO.findAllNotNotificated();
 		ConfiguracionNotificaciones configuracion = configNotifDAO.findById(TipoNotificacion.CAMBIOESTADOCASO);
 		if (configuracion != null) {
@@ -202,6 +208,14 @@ public class ApplicationBean implements ApplicationBeanLocal {
     		ldap.insertarUsuario(admin);
     	if (!ldap.autenticarUsuario(gerente))
     		ldap.insertarUsuario(gerente);
+    }
+    
+    private void notificarResultadoExamenDisponible(String receiverToken, int idCaso, EstadoExamen estado) {
+		// envío notificación push al componente móvil
+    	NotificationInfo notificacion = new NotificationInfo(receiverToken, NotificationPriority.normal,
+											new NotificationInfoData("Resultado de examen disponible", 
+																	"El resultado del examen "+idCaso+" es "+estado));
+		saFirebase.sendPushNotification(notificacion);
     }
 
 }
