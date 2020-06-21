@@ -25,7 +25,7 @@ import org.apache.http.HttpEntity;
 @Local(ServiceAgentFirebaseLocal.class)
 public class ServiceAgentFirebase implements ServiceAgentFirebaseLocal {
 	private static final String firebaseUrl = "https://fcm.googleapis.com/";
-	private static final Header authorization = new BasicHeader("Authorization", "key=AAAAfpO-Mt0:APA91bHHPJ8mU-CBQO2-7P2LDat6RgtE-zIrkyOsCl5g6hPwSpi2HKYH0hCcyRiQlRQEzSg2tKtNTQmsnl80lu0JuyCrLzZry825artpsyRRIoa6eCT4SZbQzEUetvLQB5ThTgzQlIyB");
+	private static final Header authorization = new BasicHeader("Authorization", "key=AAAATyVClxk:APA91bFFAyXmG_EqhLR9HsQhNmZI5gzC4XUfU136rfEVlWWRjNIH_XIzIf3DRTSY7I7y5ZlSY_DKlV6sZcD93nDlmyhsvknIMIXdPp-APfZ7xBRJOW7xiLpWgPy0l9A7bZsRv6S5xV8R");
 	private static final Header contenttype = new BasicHeader("Content-Type", MediaType.APPLICATION_JSON);
 	private static final ObjectMapper mapper = new ObjectMapper();
 	

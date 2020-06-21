@@ -101,7 +101,7 @@ public class PerifericoProveedorExamen implements PerifericoProveedorExamenLocal
 		return ret;
 	}
 	
-	private static final String pathPdfExamen = "/home/maxi/Escritorio/";
+	private static final String pathPdfExamen = "/tmp/reportes/";
 	private static final Font chapterFont = FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLDITALIC);
 	private static final Font paragraphFont = FontFactory.getFont(FontFactory.HELVETICA, 12, Font.NORMAL);
 	private String generarReporte(Caso caso, EstadoExamen resultado ) {

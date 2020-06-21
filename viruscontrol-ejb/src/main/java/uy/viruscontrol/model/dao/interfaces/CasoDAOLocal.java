@@ -9,24 +9,15 @@ import uy.viruscontrol.utils.DtExamenCiudadano;
 
 @Local
 public interface CasoDAOLocal {
-	
 	void persist(Caso caso);
-
 	void merge(Caso caso);
-
 	List<Caso> findAll();
-
 	Caso findById(Integer id);
-
 	void delete(Caso caso);
-	
 	List<Caso> findAllOrderByDepartamento();
-
 	List<DtExamenCiudadano> findAllExamenesByCiudadano(int idCiudadano);
-
+	List<Caso> findAllConfirmadosByCiudadano(int idCiudadano);
 	List<Caso> findAllNotNotificated();
-
-	
-	
-	
+	List<Caso> findAllConfirmados();
+	List<Caso> findAllByCiudadano(int idCiudadano);
 }

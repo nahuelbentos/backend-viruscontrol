@@ -3,6 +3,7 @@ package uy.viruscontrol.bussines;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -22,6 +23,7 @@ import uy.viruscontrol.model.dao.interfaces.SintomaDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.SuscripcionDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.UbicacionDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.VisitaMedicoDAOLocal;
+import uy.viruscontrol.model.entities.Caso;
 import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.Suscripcion;
@@ -152,6 +154,17 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 											new NotificationInfoData(titulo, texto));
 			saFirebase.sendPushNotification(notificacion);
 		}
+	}
+
+	@Override
+	public HashMap<Integer, Ciudadano> obtenerCiudadanosEnfermos() {
+		List<Caso> casos = daoCasoLocal.findAllConfirmados();
+		HashMap<Integer, Ciudadano> enfermos = new HashMap<Integer, Ciudadano>();
+		for (Caso c : casos) {
+			if (!enfermos.containsKey(c.getCiudadano().getIdUsuario()))
+				enfermos.put(c.getCiudadano().getIdUsuario(), c.getCiudadano());
+		}
+		return enfermos;
 	}
 
 }

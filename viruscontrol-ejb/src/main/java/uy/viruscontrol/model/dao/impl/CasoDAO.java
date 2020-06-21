@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import uy.viruscontrol.bussines.enumerated.TipoCaso;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.entities.Caso;
@@ -74,8 +75,10 @@ public class CasoDAO implements CasoDAOLocal {
 	@Override
 	public List<Caso> findAllOrderByDepartamento() {
 		
-		Query q = em.createQuery("SELECT c FROM Caso c ORDER BY c.departamento,c.enfermedad,c.tipoCaso");
-		return q.getResultList();
+		return em.createQuery("SELECT c FROM Caso c WHERE tipoCaso <> :tipoCaso "
+				+ "ORDER BY c.departamento,c.enfermedad,c.tipoCaso")
+				.setParameter("tipoCaso", TipoCaso.EXPOSICION)
+				.getResultList();
 	}
 
 	@Override
@@ -101,9 +104,40 @@ public class CasoDAO implements CasoDAOLocal {
 		return examenesCiudadano;
 	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Caso> findAllByCiudadano(int idCiudadano){
+		Ciudadano ciudadano = daoCiudadanoLocal.findById(idCiudadano);
+		if(ciudadano != null) {
+			return em.createQuery("SELECT c FROM Caso c WHERE ciudadano = :ciudadano")
+				.setParameter("ciudadano", ciudadano)
+				.getResultList();
+		} else
+			return new ArrayList<Caso>();
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Caso> findAllConfirmadosByCiudadano(int idCiudadano){
+		Ciudadano ciudadano = daoCiudadanoLocal.findById(idCiudadano);
+		if(ciudadano != null) {
+			return em.createQuery("SELECT c FROM Caso c WHERE ciudadano = :ciudadano AND tipoCaso = :tipoCaso")
+				.setParameter("ciudadano", ciudadano)
+				.setParameter("tipoCaso", TipoCaso.CONFIRMADO)
+				.getResultList();
+		} else
+			return new ArrayList<Caso>();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Caso> findAllNotNotificated() {
 		return em.createQuery("FROM Caso WHERE notificacionEnviada = false").getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Caso> findAllConfirmados() {
+		return em.createQuery("FROM Caso WHERE tipoCaso = :tipoCaso").setParameter("tipoCaso", TipoCaso.CONFIRMADO).getResultList();
 	}
 }
