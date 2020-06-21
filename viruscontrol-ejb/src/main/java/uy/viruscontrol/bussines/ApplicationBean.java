@@ -36,6 +36,7 @@ import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.entities.Notificacion;
 import uy.viruscontrol.model.entities.Ubicacion;
 import uy.viruscontrol.model.ldap.LDAPConexion;
+import uy.viruscontrol.utils.ResultadoExamen;
 import uy.viruscontrol.utils.firebase.NotificationInfo;
 import uy.viruscontrol.utils.firebase.NotificationInfoData;
 import uy.viruscontrol.utils.firebase.NotificationPriority;
@@ -157,7 +158,8 @@ public class ApplicationBean implements ApplicationBeanLocal {
     	if(!casosSospechosos.isEmpty()) 
     		for (Caso caso : casosSospechosos) {
     			try {
-					EstadoExamen estado = sagProvExamen.obtenerResultadoExamen(caso.getId());
+    				ResultadoExamen resultado = sagProvExamen.obtenerResultadoExamen(caso.getId()); 
+					EstadoExamen estado = resultado.getResultado(); 
 					System.out.println("El examen esta: " + estado);
 					boolean update;
 					switch(estado) {
@@ -166,6 +168,7 @@ public class ApplicationBean implements ApplicationBeanLocal {
 							caso.setTipoCaso(TipoCaso.DESCARTADO);
 							break;
 						case POSITIVO:
+							caso.setFechaConfirmado(Calendar.getInstance());
 							caso.setTipoCaso(TipoCaso.CONFIRMADO);
 							update = true;
 							break;
@@ -174,6 +177,7 @@ public class ApplicationBean implements ApplicationBeanLocal {
 							break;
 					}
 					if (update) {
+						caso.setPathPdfResultadoExamen(resultado.getPathPdf());
 						caso.setNotificacionEnviada(false);
 						casoDAO.merge(caso);
 						notificarResultadoExamenDisponible(caso.getCiudadano().getTokenPushNotifications(), caso.getId(), estado);
