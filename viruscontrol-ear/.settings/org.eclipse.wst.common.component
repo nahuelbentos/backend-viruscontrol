@@ -14,9 +14,6 @@
         <dependent-module archiveName="viruscontrol-ejb.jar" deploy-path="/" handle="module:/resource/viruscontrol-ejb/viruscontrol-ejb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="javax.mail-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/mail/javax.mail-api/1.6.0/javax.mail-api-1.6.0.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="restfb.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/restfb/restfb/3.6.0/restfb-3.6.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
