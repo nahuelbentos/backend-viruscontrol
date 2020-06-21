@@ -19,7 +19,9 @@ public interface RecursoProveedorDAOLocal {
 
 	RecursoProveedor findById(IdRecursoProveedor id);
 
-	void delete(IdRecursoProveedor id);
+	void delete(RecursoProveedor recProv);
 	
 	public List<RecursoProveedor> findAllByRecurso(Recurso recurso);
+	
+	
 }
