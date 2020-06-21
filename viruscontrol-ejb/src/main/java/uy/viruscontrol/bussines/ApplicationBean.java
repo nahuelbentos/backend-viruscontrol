@@ -21,6 +21,7 @@ import uy.viruscontrol.model.entities.Caso;
 import uy.viruscontrol.model.entities.EstadoExamen;
 import uy.viruscontrol.model.entities.Gerente;
 import uy.viruscontrol.model.ldap.LDAPConexion;
+import uy.viruscontrol.utils.ResultadoExamen;
 
 /**
  *
@@ -84,7 +85,8 @@ public class ApplicationBean implements ApplicationBeanLocal {
     	if(!casosSospechosos.isEmpty()) 
     		for (Caso caso : casosSospechosos) {
     			try {
-					EstadoExamen estado = sagProvExamen.obtenerResultadoExamen(caso.getId());
+    				ResultadoExamen resultado = sagProvExamen.obtenerResultadoExamen(caso.getId()); 
+					EstadoExamen estado = resultado.getResultado(); 
 					System.out.println("El examen esta: " + estado);
 					boolean update;
 					switch(estado) {

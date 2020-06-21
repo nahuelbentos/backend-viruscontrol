@@ -20,10 +20,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import uy.viruscontrol.model.entities.EstadoExamen;
 import uy.viruscontrol.model.entities.ProveedorExamen;
 import uy.viruscontrol.utils.CaracteresDeEscapePersonalizados;
 import uy.viruscontrol.utils.DtExamen;
+import uy.viruscontrol.utils.ResultadoExamen;
 
 @Stateless
 @Local(ServiceAgentProveedorExamenLocal.class)
@@ -31,7 +31,7 @@ public class ServiceAgentProveedorExamen implements ServiceAgentProveedorExamenL
 	// localhost - solo para probar cuando se hacen cambios locales al periférico
 //	private static final String urlProvExRest = "http://localhost:8080/proveedores-examenes/rest/perifprovex/";
 	// MiNube - para mantenerlo siempre en ejecución consultando el servicio remoto
-	private static final String urlProvExRest = "https://viruscontroluy:8443/proveedores-examenes/rest/perifprovex/";//"http://179.27.96.131:8080/proveedores-examenes/rest/perifprovex/";
+	private static final String urlProvExRest = "https://viruscontroluy.xyz:8443/proveedores-examenes/rest/perifprovex/";//"http://179.27.96.131:8080/proveedores-examenes/rest/perifprovex/";
 	private static ObjectMapper mapper;
 	
 	public ServiceAgentProveedorExamen() {
@@ -92,14 +92,14 @@ public class ServiceAgentProveedorExamen implements ServiceAgentProveedorExamenL
 	}
 
 	@Override
-	public EstadoExamen obtenerResultadoExamen(int idCaso) throws ClientProtocolException, IOException {
+	public ResultadoExamen obtenerResultadoExamen(int idCaso) throws ClientProtocolException, IOException {
 		// TESTEADO
 		// Método @GET - Uso HttpGet - Devuelve JSON
 		HttpClient client = HttpClients.createDefault();
 		HttpGet getRequest = new HttpGet(urlProvExRest + "resultados/" + idCaso);
 		HttpResponse res = client.execute(getRequest);
 		
-		return mapper.readValue(res.getEntity().getContent(), EstadoExamen.class);
+		return mapper.readValue(res.getEntity().getContent(), ResultadoExamen.class);
 	}
 
 }
