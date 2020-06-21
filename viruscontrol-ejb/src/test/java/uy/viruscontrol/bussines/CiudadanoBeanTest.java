@@ -20,6 +20,7 @@ import uy.viruscontrol.utils.firebase.NotificationPriority;
 
 public class CiudadanoBeanTest {
 	
+	
 	@Mock
 	CiudadanoBeanLocal mockedBeanLocalCiudadano;
 	@Mock 

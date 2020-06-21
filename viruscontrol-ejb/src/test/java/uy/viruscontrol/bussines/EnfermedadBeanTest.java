@@ -17,6 +17,7 @@ import uy.viruscontrol.model.entities.TipoRecurso;
 
 public class EnfermedadBeanTest {
 
+	
 	@Mock
 	EnfermedadBeanLocal mockedBeanLocalEnfermedad;
 	@Mock 
