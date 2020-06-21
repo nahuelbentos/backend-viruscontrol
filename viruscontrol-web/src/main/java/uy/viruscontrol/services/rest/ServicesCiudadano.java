@@ -102,6 +102,7 @@ public class ServicesCiudadano {
 		return beanCiudadano.obtenerBarrios();
 	}
 	//http://localhost:8080/viruscontrol-web/rest/ciudadano/obtenerCiudades
+	//esta no se usa por ahora
 	@GET
 	@Path("/obtenerCiudades")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -113,10 +114,10 @@ public class ServicesCiudadano {
 	@Path("/suscribirseARecurso")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public boolean suscribirseARecurso(DtSuscripcion s) {
+	public Response suscribirseARecurso(DtSuscripcion s,@HeaderParam("authorization") String token) {
 		/*
    		{
-        "ciudadanoId": 102,
+       
         "barrio": "Centro",
         "recurso": "alcohol en gel"
     	}
@@ -125,9 +126,19 @@ public class ServicesCiudadano {
 		System.out.println("barrio "+s.getBarrio());
 		System.out.println("recurso "+s.getRecurso());
 		*/
-		beanCiudadano.suscribirseARecurso(s.getCiudadanoId(), s.getBarrio(), s.getRecurso());
 		
-		return true;
+		if (beanSesion.validateAuthentication(token)) {
+			int idCiudadano = beanSesion.getUsuarioLogueado(token).getIdUsuario();
+			try {
+				beanCiudadano.suscribirseARecurso(idCiudadano, s.getBarrio(), s.getRecurso());
+				return Response.status(Status.OK).build();
+		
+			} catch (Exception e) {
+				return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+			}
+		}else {
+			return Response.status(Status.UNAUTHORIZED).build();
+		}
 	}
 	
 	@GET
@@ -140,7 +151,7 @@ public class ServicesCiudadano {
 		for(Suscripcion s:suscripciones) {
 			DtSuscripcion dts=new DtSuscripcion();
 			dts.setBarrio(s.getBarrio());
-			dts.setCiudadanoId(s.getCiudadano().getIdUsuario());
+		
 			dts.setRecurso(s.getRecurso());
 			listdts.add(dts);
 		}
