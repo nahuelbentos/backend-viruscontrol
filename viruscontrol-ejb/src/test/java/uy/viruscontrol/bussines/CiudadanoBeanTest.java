@@ -1,14 +1,10 @@
 package uy.viruscontrol.bussines;
 
-import static org.junit.Assert.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import org.hamcrest.core.IsAnything;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
