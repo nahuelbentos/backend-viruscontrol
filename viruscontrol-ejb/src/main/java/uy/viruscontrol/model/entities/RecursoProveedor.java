@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,11 +17,13 @@ public class RecursoProveedor implements Serializable {
 	private static final long serialVersionUID = -2614777330637747425L;
 	
 	@Id
-	@Column(name = "id_recurso")
+	@ManyToOne
+	@JoinColumn(name = "id_recurso")
 	private Recurso recurso;
 	
 	@Id
-	@Column(name = "id_proveedor")
+	@ManyToOne
+	@JoinColumn(name = "id_proveedor")
 	private ProveedorRecursos proveedor;
 	
 	@Column

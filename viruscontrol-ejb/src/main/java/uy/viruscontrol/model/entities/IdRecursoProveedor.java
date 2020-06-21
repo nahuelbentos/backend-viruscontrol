@@ -6,13 +6,13 @@ public class IdRecursoProveedor implements Serializable {
 	private static final long serialVersionUID = 1731036511727260425L;
 	
 	private Recurso recurso;
-	private Proveedor proveedor;
+	private ProveedorRecursos proveedor;
 	
 	public IdRecursoProveedor() {
 		super();	
 	}
 
-	public IdRecursoProveedor(Recurso recurso, Proveedor proveedor) {
+	public IdRecursoProveedor(Recurso recurso, ProveedorRecursos proveedor) {
 		super();
 		this.recurso = recurso;
 		this.proveedor = proveedor;
@@ -26,11 +26,11 @@ public class IdRecursoProveedor implements Serializable {
 		this.recurso = recurso;
 	}
 
-	public Proveedor getProveedor() {
+	public ProveedorRecursos getProveedor() {
 		return proveedor;
 	}
 
-	public void setProveedor(Proveedor proveedor) {
+	public void setProveedor(ProveedorRecursos proveedor) {
 		this.proveedor = proveedor;
 	}
 

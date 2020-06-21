@@ -14,10 +14,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.examen.beans.PerifericoProveedorExamenLocal;
-import com.examen.entities.EstadoExamen;
 import com.examen.entities.Examen;
 import com.examen.entities.ProveedorExamen;
 import com.examen.utils.DtExamen;
+import com.examen.utils.ResultadoExamen;
 
 @ApplicationScoped
 @Path("/perifprovex")
@@ -70,7 +70,7 @@ public class WSPerifericoProveedorExamenREST {
 	@GET
 	@Path("/resultados/{idCaso}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public EstadoExamen obtenerResultadoExamen(@PathParam("idCaso") int idCaso) {
+	public ResultadoExamen obtenerResultadoExamen(@PathParam("idCaso") int idCaso) {
 		return provEx.resultadoExamen(idCaso);
 	}
 }

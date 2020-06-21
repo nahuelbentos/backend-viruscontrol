@@ -1,5 +1,6 @@
 package uy.viruscontrol.model.dao.impl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -24,37 +25,37 @@ public class UbicacionDAO implements UbicacionDAOLocal {
 	
 	@Override
 	public void persist(Ubicacion ubicacion) {
-	
 		em.persist(ubicacion);
-		
 	}
 	
 	@Override
 	public void merge(Ubicacion ubicacion) {
-		
 		em.merge(ubicacion);
-		
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Ubicacion> findAll() {
-
 		Query q = em.createQuery("SELECT r FROM Ubicacion r");
 		return q.getResultList();
 	}
 	
 	@Override
 	public Ubicacion findById(Integer id) {
-		
 		return em.find(Ubicacion.class, id);
 	}
 	
 	@Override
 	public void delete(Ubicacion ubicacion) {
-		
 		em.remove(em.contains(ubicacion) ? ubicacion : em.merge(ubicacion));
-		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Ubicacion> findAllDateFiltered(Calendar fechaDesde) {
+		return em.createQuery("FROM Ubicacion WHERE fecha >= :fechaDesde")
+				.setParameter("fechaDesde", fechaDesde)
+				.getResultList();
 	}
 	
 }

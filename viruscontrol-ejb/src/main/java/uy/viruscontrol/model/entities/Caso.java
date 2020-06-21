@@ -54,6 +54,17 @@ public class Caso implements Serializable  {
 	@Column(name="notificacion_enviada", columnDefinition="boolean default false", nullable=false)
 	private boolean notificacionEnviada;
 	
+	@Column(name="pdf_examen")
+	private String pathPdfResultadoExamen;
+	
+	public String getPathPdfResultadoExamen() {
+		return pathPdfResultadoExamen;
+	}
+
+	public void setPathPdfResultadoExamen(String pathPdfResultadoExamen) {
+		this.pathPdfResultadoExamen = pathPdfResultadoExamen;
+	}
+
 	public Caso() {
 		super();
 	}

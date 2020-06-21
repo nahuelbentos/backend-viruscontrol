@@ -46,8 +46,8 @@ public class RecursoProveedorDAO implements RecursoProveedorDAOLocal {
 	}
 
 	@Override
-	public void delete(IdRecursoProveedor id) {
-		em.remove(em.contains(id) ? id : em.merge(id));
+	public void delete(RecursoProveedor recProv) {
+		em.remove(em.contains(recProv) ? recProv : em.merge(recProv));
 	}
 
 	@Override

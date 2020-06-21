@@ -11,7 +11,7 @@ public class IdRecursoProveedorTest {
 
 	
 	@Mock 
-	IdRecursoProveedor actual, expected;
+	RecursoProveedor actual, expected;
 	@Mock
 	Recurso recurso;
 	@Mock
@@ -24,14 +24,15 @@ public class IdRecursoProveedorTest {
 		MockitoAnnotations.initMocks(this);
 		proveedor.setId(100);
 		recurso.setId(200);
-		expected = new IdRecursoProveedor (recurso , proveedor);
+		expected = new RecursoProveedor();
 		
 	}
 	
 	
 	@Test
-	public void testIdRecursoProveedor() {
-		actual = new IdRecursoProveedor(recurso, proveedor);
+	public void testRecursoProveedor() {
+		
+		actual = new RecursoProveedor();
 		
 		assertEquals(expected.getProveedor(), actual.getProveedor());
 		assertEquals(expected.getRecurso(), actual.getRecurso());
