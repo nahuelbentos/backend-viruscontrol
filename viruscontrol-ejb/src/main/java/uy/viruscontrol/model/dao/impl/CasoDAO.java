@@ -101,5 +101,9 @@ public class CasoDAO implements CasoDAOLocal {
 		return examenesCiudadano;
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Caso> findAllNotNotificated() {
+		return em.createQuery("FROM Caso WHERE notificacionEnviada = false").getResultList();
+	}
 }

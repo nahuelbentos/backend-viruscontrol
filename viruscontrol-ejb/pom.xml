@@ -108,12 +108,12 @@
 			<artifactId>jboss-annotations-api_1.3_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- Consumir servicios de Facebook [https://restfb.com/] -->
+		
+		<!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
 		<dependency>
-			<groupId>com.restfb</groupId>
-			<artifactId>restfb</artifactId>
-			<version>3.6.0</version>
+		    <groupId>javax.ws.rs</groupId>
+		    <artifactId>javax.ws.rs-api</artifactId>
+		    <version>2.1.1</version>
 		</dependency>
 		
 		<!-- Importar dependencias para componentes HTTP (para consumir servicios REST) -->

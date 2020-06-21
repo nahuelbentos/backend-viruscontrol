@@ -11,8 +11,9 @@ import javax.ejb.Stateless;
 
 import uy.viruscontrol.model.entities.PrestadoraSalud;
 import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentFirebaseLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentPrestadoraSaludLocal;
-import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecurso;
+import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecursoLocal;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.MedicoDAOLocal;
@@ -28,6 +29,9 @@ import uy.viruscontrol.model.entities.Ubicacion;
 import uy.viruscontrol.model.entities.VisitaMedico;
 import uy.viruscontrol.utils.DtExamenCiudadano;
 import uy.viruscontrol.utils.DtVisita;
+import uy.viruscontrol.utils.firebase.NotificationInfo;
+import uy.viruscontrol.utils.firebase.NotificationInfoData;
+import uy.viruscontrol.utils.firebase.NotificationPriority;
 
 @Stateless
 @Local(CiudadanoBeanLocal.class)
@@ -41,7 +45,8 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 	@EJB private SuscripcionDAOLocal daoSuscripcion;
 	@EJB private UbicacionDAOLocal daoUbicacion;
 	@EJB private ServiceAgentPrestadoraSaludLocal beanPrestador;
-	@EJB private ServiceAgentProveedorRecurso saRec;
+	@EJB private ServiceAgentProveedorRecursoLocal saRec;
+	@EJB private ServiceAgentFirebaseLocal saFirebase;
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd");
 	
 	
@@ -128,6 +133,25 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 		ubicacion.setFecha(Calendar.getInstance());
 		ubicacion.setCiudadano(daoCiudadano.findById(idCiudadano));
 		daoUbicacion.persist(ubicacion);
+	}
+	
+	@Override
+	public void actualizarTokenPushNotifications(int idCiudadano, String tokenPushNotifications) {
+		Ciudadano c = daoCiudadano.findById(idCiudadano);
+		if (c != null) {
+			c.setTokenPushNotifications(tokenPushNotifications);
+			daoCiudadano.merge(c);
+		}
+	}
+	
+	@Override
+	public void sendPushNotification(int idCiudadano, String titulo, String texto, NotificationPriority prioridad) {
+		Ciudadano c = daoCiudadano.findById(idCiudadano);
+		if (c != null) {
+			NotificationInfo notificacion = new NotificationInfo(c.getTokenPushNotifications(), prioridad,
+											new NotificationInfoData(titulo, texto));
+			saFirebase.sendPushNotification(notificacion);
+		}
 	}
 
 }
