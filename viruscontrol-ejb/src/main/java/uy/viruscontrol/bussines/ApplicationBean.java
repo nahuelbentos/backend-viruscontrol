@@ -52,7 +52,8 @@ import uy.viruscontrol.utils.firebase.NotificationPriority;
   			- Hilo que verifica los examenes pendientes en viruscontrol y consulta con el periferico de examenes si 
   			los examenes tienen resultado.
   			- Actualizacion del mapa cada una hora.
-  			- Notifica sobre nuevos casos, según configuración precargada por el gerente
+  			- Notifica sobre nuevos casos, según configuración precargada por el gerente.
+  			- Notifica sobre posibles contagios.
  * 
  **/
 @Startup
