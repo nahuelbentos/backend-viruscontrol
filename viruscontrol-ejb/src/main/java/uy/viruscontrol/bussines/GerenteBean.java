@@ -18,10 +18,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.ws.rs.core.MediaType;
 
+import uy.viruscontrol.bussines.enumerated.TipoNotificacion;
 import uy.viruscontrol.bussines.interfaces.GerenteBeanLocal;
 import uy.viruscontrol.bussines.interfaces.GerenteBeanRemote;
+import uy.viruscontrol.model.dao.impl.ConfiguracionNotificacionesDAO;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
+import uy.viruscontrol.model.dao.interfaces.ConfiguracionNotificacionesDAOLocal;
 import uy.viruscontrol.model.entities.Caso;
+import uy.viruscontrol.model.entities.ConfiguracionNotificaciones;
 
 /**
  * Session Bean implementation class GerenteBean
@@ -31,6 +35,7 @@ import uy.viruscontrol.model.entities.Caso;
 public class GerenteBean implements GerenteBeanRemote, GerenteBeanLocal {
 
 	@EJB private CasoDAOLocal casoDao;
+	@EJB private ConfiguracionNotificacionesDAOLocal confDao;
 	
     /**
      * Default constructor. 
@@ -114,5 +119,31 @@ public class GerenteBean implements GerenteBeanRemote, GerenteBeanLocal {
     	return casoDao.findAll();
     }
     
+    @Override
+    public void configurarNotificacion(boolean notificarCiudadano,boolean notificarMedico,boolean notificarGerentes,TipoNotificacion tipo) {
+    	
+    	ConfiguracionNotificaciones confNot=confDao.findById(tipo);
+    	if(confNot!=null) {
+    		
+    		confNot.setNotificarCiudadano(notificarCiudadano);
 
+    		confNot.setNotificarGerentes(notificarGerentes);
+
+    		confNot.setNotificarMedico(notificarMedico);
+    		
+    		confDao.merge(confNot);
+    		
+    	}
+    		
+    	
+    }
+    
+    @Override
+    public List<ConfiguracionNotificaciones> obtenerConfuracionNotificacion() {
+    	
+    	return confDao.findAll();
+    	
+    	
+    }
+    
 }

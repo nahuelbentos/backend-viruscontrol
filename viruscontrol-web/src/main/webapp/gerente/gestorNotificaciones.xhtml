@@ -11,7 +11,37 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<h:outputText value="ESTAS EN EL HOME CON LA ESTRUCTURA DEFINIDA" />
+			
+		<p:dataTable id="config" tableStyle="width:auto" var="p"
+				value="#{GestorNotificacionView.confNotificaciones}" editable="true">
+				
+				<p:ajax event="rowEdit" listener="#{GestorNotificacionView.actualizar()}"
+					 />
+				<p:ajax event="rowEditCancel"
+					listener="#{GestorNotificacionView.cancelar()}" />
+				
+				
+					<p:column headerText="NotificarCiudadano">
+					<p:selectBooleanCheckbox id="chkCiudadano" value="#{p.notificarCiudadano}" ></p:selectBooleanCheckbox>
+					<p:outputLabel value="#{p.notificarCiudadano}" />
+				</p:column>
+					
+					<p:column headerText="NotificarGerentes">
+					<p:selectBooleanCheckbox id="chkGerente" value="#{p.notificarGerentes}" ></p:selectBooleanCheckbox>
+					<p:outputLabel value="#{p.notificarGerentes}" />	
+				</p:column>
+				
+					<p:column headerText="NotificarMedico">
+					<p:selectBooleanCheckbox id="chkMedico" value="#{p.notificarMedico}" ></p:selectBooleanCheckbox>
+					<p:outputLabel value="#{p.notificarMedico}" />
+				</p:column>
+				
+				
+			</p:dataTable>
+			<p:commandButton action="#{GestorNotificacionView.actualizar()}"
+							value="EDITAR" update="config">
+						
+						</p:commandButton>
 		</h:form>
 	</ui:define>
  

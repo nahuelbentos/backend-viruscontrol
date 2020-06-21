@@ -6,6 +6,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import uy.viruscontrol.bussines.enumerated.TipoNotificacion;
 import uy.viruscontrol.model.dao.interfaces.ConfiguracionNotificacionesDAOLocal;
@@ -35,7 +36,10 @@ public class ConfiguracionNotificacionesDAO implements ConfiguracionNotificacion
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ConfiguracionNotificaciones> findAll() {
-		return em.createQuery("FROM Caso").getResultList();
+	//	return em.createQuery("FROM Caso").getResultList();
+		Query q = em.createQuery("SELECT m FROM ConfiguracionNotificaciones m");
+		return q.getResultList();
+		
 	}
 
 	@Override
