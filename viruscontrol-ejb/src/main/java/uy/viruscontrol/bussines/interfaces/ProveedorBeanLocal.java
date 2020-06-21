@@ -22,6 +22,8 @@ public interface ProveedorBeanLocal {
 	
 	boolean altaRecursoProveedor(String codigoProveedor, String nombreRecurso);
 	
+	boolean eliminarRecursoProveedor(String codigoProveedor, String nombreRecurso);
+	
 	boolean eliminarProveedorRecursos(ProveedorRecursos proveedorRecurso);
 	
 	boolean eliminarProveedorExamenes(ProveedorExamen proveedorExamen);

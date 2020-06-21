@@ -261,4 +261,23 @@ public class ProveedorBean implements ProveedorBeanRemote, ProveedorBeanLocal {
     	}
     	
     }
+
+	@Override
+	public boolean eliminarRecursoProveedor(String codigoProveedor, String nombreRecurso) {
+		
+		ProveedorRecursos provLocal = daoProveedorRecurso.findByExternalId(codigoProveedor);
+    	int idRecurso = enfermedadBeanLocal.getIdRecursoByName(nombreRecurso);
+    	Recurso recLocal = recursoDAOLocal.findById(idRecurso);
+		
+		IdRecursoProveedor idRecPrv = new IdRecursoProveedor(recLocal, provLocal);
+		RecursoProveedor recPrv = daoRecProvLocal.findById(idRecPrv);
+		try  {
+			daoRecProvLocal.delete(recPrv);
+			return true;
+		} catch (Exception e) {
+			System.out.println("ERROR ["+this.getClass().getName()+"]: " + e.getMessage());
+			return false;
+		}
+		
+	}
 }
