@@ -53,7 +53,7 @@ public class RecursoProveedorDAOTest {
 
 	@Test
 	public void testDelete() {
-		IdRecursoProveedor obj = new IdRecursoProveedor();
+		RecursoProveedor obj = new RecursoProveedor();
 		dao.delete(obj);
 		Mockito.verify(dao).delete(obj);
 	}
