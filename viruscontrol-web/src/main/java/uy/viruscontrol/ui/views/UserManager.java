@@ -9,6 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -64,14 +65,13 @@ public class UserManager implements Serializable {
 		if (res.equals(AuthResponse.OK)) {
 			this.sessionToken = sessionEjb.getTokenByUsername(username);
 			currentUser = sessionEjb.getUsuarioLogueado(sessionToken);
-			  if(session.getAttribute("currentUser")==null) {
-				  System.out.println("current user es null");
+			if(session.getAttribute("currentUser")==null) {
+				System.out.println("current user es null");
 				  
-				  }else { 
-					  System.out.println("current user no es null");
-				  
-				  session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-				  }
+			} else { 
+				System.out.println("current user no es null");
+				session = (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+			}
 
 			// guardo el usuario logueado en sesión
 			session.setAttribute("currentUser", currentUser);
@@ -124,7 +124,6 @@ public class UserManager implements Serializable {
 				if (currentUser instanceof Gerente) {
 					opciones.put("Gestión de enfermedades",getDirVirtual(currentUser)+"gestorEnfermedad.xhtml");
 					opciones.put("Fuente de datos",getDirVirtual(currentUser)+"gestorFuenteDatos.xhtml");
-					opciones.put("Generador de casos",getDirVirtual(currentUser)+"gestorCasos.xhtml");
 					opciones.put("Gestión de notificaciones",getDirVirtual(currentUser)+"gestorNotificaciones.xhtml");
 					opciones.put("Gráficas",getDirVirtual(currentUser)+"charts.xhtml");
 				}
@@ -153,5 +152,14 @@ public class UserManager implements Serializable {
 		
 	}
 	
+	public String getHome() {
+		ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance() 
+			      .getExternalContext().getContext(); 
+			String realPath = ctx.getContextPath()+"/home.xhtml";
+		return realPath;
+	}
 	
+	public String getTipoUsuario() {
+		return currentUser.getClass().getName().substring(currentUser.getClass().getName().lastIndexOf(".")+1, currentUser.getClass().getName().length());
+	}
 }

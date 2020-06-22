@@ -14,6 +14,8 @@ import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
 import uy.viruscontrol.bussines.interfaces.SessionBeanRemote;
 import uy.viruscontrol.bussines.interfaces.UsuarioBeanLocal;
 import uy.viruscontrol.model.dao.interfaces.UsuarioDAOLocal;
+import uy.viruscontrol.model.entities.Ciudadano;
+import uy.viruscontrol.model.entities.Medico;
 import uy.viruscontrol.model.entities.Usuario;
 import uy.viruscontrol.proxies.ProxyRedesSocialesLocal;
 import uy.viruscontrol.security.TokensBeanLocal;
@@ -49,21 +51,31 @@ public class SessionBean implements SessionBeanRemote, SessionBeanLocal {
 		
 		if (!socialMediaClient.authUsuario(user.getUsername())) {
 			ret.setResponse(AuthResponse.FAILED);
-			ret.setUsuario(null);
-			ret.setSessionToken("");
 		} else {
 			if (usuEJB.registrarPrimerIngreso(user, tipoUser))
 				ret.setResponse(AuthResponse.PRIMERINGRESO);
-			else
-				ret.setResponse(AuthResponse.OK);
-			
-			ret.setUsuario(usuDAO.findByUsername(user.getUsername()));
-			ret.setSessionToken(beanToken.getToken(user));
-			// Jhona- no entiendo por que se guarda user en lugar de ret.getUsuario() que tiene todos los datos. Verificar si hay un motivo y sino cambiarlo
-			user.setIdUsuario(ret.getUsuario().getIdUsuario());
-			user.setDocumento(ret.getUsuario().getDocumento());
-			
-			userConectados.put(beanToken.getToken(user),user);
+			else {
+				Usuario u = usuDAO.findByUsername(user.getUsername());
+				if ((tipoUser == TipoUsuario.CIUDADANO && u instanceof Ciudadano) || 
+						(tipoUser == TipoUsuario.MEDICO && u instanceof Medico))
+					ret.setResponse(AuthResponse.OK);
+				else
+					ret.setResponse(AuthResponse.FAILED);
+			}
+				
+			if (ret.getResponse() != AuthResponse.FAILED) {
+				ret.setUsuario(usuDAO.findByUsername(user.getUsername()));
+				ret.setSessionToken(beanToken.getToken(user));
+				// Jhona- no entiendo por que se guarda user en lugar de ret.getUsuario() que tiene todos los datos. Verificar si hay un motivo y sino cambiarlo
+				user.setIdUsuario(ret.getUsuario().getIdUsuario());
+				user.setDocumento(ret.getUsuario().getDocumento());
+				
+				userConectados.put(beanToken.getToken(user),user);
+			} else {
+				ret.setUsuario(null);
+				ret.setSessionToken("");
+			}
+				
 		}
 		return ret;
 	}
