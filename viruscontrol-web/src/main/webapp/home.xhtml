@@ -11,7 +11,24 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<h:outputText value="ESTAS EN EL HOME CON LA ESTRUCTURA DEFINIDA" />
+			<h4>Bienvenido #{UserManager.currentUser.nombre} #{UserManager.currentUser.apellido}</h4>
+			<h5>#{UserManager.tipoUsuario}</h5>
+			<div class="p-grid p-align-stretch vertical-container">
+				<ui:repeat var="widget" value="#{MenuPrincipal.widget}">
+					<div class="p-col">
+						<div class="box box-home">
+		 					<h5>#{widget.get(0)}</h5>
+		 					<p>#{widget.get(1)}</p>
+		 				
+							<h:outputLink value="#{widget.get(2).split('@',2)[0]}">
+								#{widget.get(2).split("@",2)[1]}
+			 				</h:outputLink>
+		 				</div>
+					</div>
+				</ui:repeat>
+			</div>
+			
+			
 		</h:form>
 	</ui:define>
  

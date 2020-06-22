@@ -16,12 +16,12 @@ import javax.ws.rs.core.Response;
 public interface IPerifericoRecursosRest {
 	
 	@POST
-	@Path("{codigoProveedor}/recursos/{codigoRecurso}")
+	@Path("/{codigoProveedor}/recursos/{codigoRecurso}")
 	public Response addRecurso(@PathParam("codigoProveedor") String codigoPrvPeriferico,
 							@PathParam("codigoRecurso") String codigoRecPeriferico);
 	
 	@DELETE
-	@Path("{codigoProveedor}/recursos/{codigoRecurso}")
+	@Path("/{codigoProveedor}/recursos/{codigoRecurso}")
 	public Response deleteRecurso(@PathParam("codigoProveedor") String codigoPrvPeriferico, 
 								@PathParam("codigoRecurso") String codigoRecPeriferico);
 	
