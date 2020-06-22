@@ -19,7 +19,7 @@ import uy.viruscontrol.bussines.interfaces.FirmaDigitalLocal;
 @Stateless
 @Local(FirmaDigitalLocal.class)
 public class FirmaDigital implements FirmaDigitalLocal {
-	private static final String PFX_PATH = "/home/jhonatan/vcuy-certs/certificado.pfx";
+	private static final String PFX_PATH = "/srv/crt/certificado.pfx";//"/home/jhonatan/vcuy-certs/certificado.pfx";
 	private static final char[] KEYSTORE_PASSWORD = "".toCharArray();
 	
 	public FirmaDigital() {

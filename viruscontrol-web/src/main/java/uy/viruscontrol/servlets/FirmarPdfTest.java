@@ -1,6 +1,10 @@
 package uy.viruscontrol.servlets;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -22,8 +26,9 @@ public class FirmarPdfTest extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		beanFirma.firmarPdf("/home/jhonatan/reportes/resultado_100.pdf");
-		
+		beanFirma.firmarPdf("/tmp/reportes/resultado_100.pdf");
+//		response.setContentType("application/pdf");
+//		response.setHeader("Content-Disposition", "attachment; filename=%2Fhome%2Fjhonatan%2Freportes%2Ffirmados%2Fresultado_100.pdf");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
