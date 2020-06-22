@@ -11,13 +11,13 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<h:outputText value="Reporte de casos: " />
+			<h4>Reportes de casos</h4>
 			<br />
 			<style type="text/css">
-    .ui-chart {
-        margin-bottom: 50px;
-    }
-</style>
+    			.ui-chart {
+        			margin-bottom: 50px;
+    			}
+			</style>
  
 			<p:dataTable id="checkboxDT" value="#{GraficaSospechososView.reportecasos}"	var="p" rowKey="#{p.id}">
 					<p:column headerText="Departamento" filterBy="#{p.departamento.nombre}" filterMatchMode="contains">
@@ -43,6 +43,9 @@
  
 
 		</h:form>
+		<div style ="margin-top: 15px;">
+			<p:linkButton outcome="charts" value="Volver"></p:linkButton>
+		</div>
 	</ui:define>
  
 </ui:composition>

@@ -9,8 +9,13 @@
 
 	<ui:composition>
 		<ul>
-			<ui:repeat var="opcion" value="#{MenuPrincipal.userManage.opciones}">
-				<li>
+			<li>
+				<h:outputLink value="#{MenuPrincipal.userManage.home}">
+					Inicio
+	 			</h:outputLink>
+	 		</li>
+	 		<ui:repeat var="opcion" value="#{MenuPrincipal.userManage.opciones}">
+	 			<li>
 					<h:outputLink value="#{opcion.value}">
 						#{opcion.key}
 	 				</h:outputLink>

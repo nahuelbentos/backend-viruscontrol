@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -54,8 +56,16 @@ public class RegisterView {
 		user = setData(user);
 		
 		
-		if (user != null)
-			ok = usuarioEjb.registrarUsuario(user);
+		if (user != null) {
+			if (usuarioEjb.registrarUsuario(user))
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Usuario :  "+ this.username +" creado."));
+			else
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, Usuario no creado, verifique."));
+		} else
+			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Error, Usuario no creado, verifique."));
+		
+		this.cleanForm();
+			
 		
 		System.out.println("registro usuario? " + ok);
 	}
@@ -131,5 +141,15 @@ public class RegisterView {
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
-	
+	public void cleanForm() {
+		setUsername(null);
+		setPassword(null);
+		setCorreo(null);
+		setNacionalidad(null);
+		setNombre(null);
+		setApellido(null);
+		setFechaNacimiento(null);
+		setDireccion(null);
+		setTipoUsuario(null);
+	}
 }
