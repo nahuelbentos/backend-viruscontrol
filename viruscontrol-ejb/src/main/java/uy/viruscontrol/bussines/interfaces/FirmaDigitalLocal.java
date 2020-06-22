@@ -4,5 +4,5 @@ import javax.ejb.Local;
 
 @Local
 public interface FirmaDigitalLocal {
-	public void firmar(String pdfPath);
+	public void firmarPdf(String pdfPath);
 }
