@@ -10,15 +10,20 @@
 		<h:outputText value="#{msg.edit_of} #{msg.menu_items}" />
 	</ui:define>
 	<ui:define name="content">
-		<ul>
+		<div class="p-grid p-align-stretch vertical-container">
 			<ui:repeat var="opcion" value="#{GestorPrestadorView.opciones}">
-				<li>
-					<h:outputLink value="#{opcion.value}">
-						#{opcion.key}
-	 				</h:outputLink>
-				</li>
+				<div class="p-col">
+					<div class="box box-home">
+	 					<h5>#{opcion.key}</h5>
+	 					
+	 				
+						<h:outputLink value="#{opcion.value}">
+							Ir
+	 					</h:outputLink>
+	 				</div>
+				</div>
 			</ui:repeat>
-		</ul>
+		</div>
 	</ui:define>
  
 </ui:composition>

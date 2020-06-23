@@ -11,18 +11,21 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<h:outputText value="ESTAS EN EL HOME CON LA ESTRUCTURA DEFINIDA" />
-			<br />
 			<style type="text/css">
-    .ui-chart {
-        margin-bottom: 50px;
-    }
-</style>
+				.ui-chart {
+	    			margin-bottom: 50px;
+				}
+			</style>
+	
+	
+			<h4>Casos sospechosos</h4>
+			
+			<p:lineChart model="#{GraficaSospechososView.lineModel}" style="width: 100%; height: 500px;"/>
  
-<p:lineChart model="#{GraficaSospechososView.lineModel}" style="width: 100%; height: 500px;"/>
- 
-
 		</h:form>
+		<div style ="margin-top: 15px;">
+			<p:linkButton outcome="charts" value="Volver"></p:linkButton>
+		</div>
 	</ui:define>
  
 </ui:composition>

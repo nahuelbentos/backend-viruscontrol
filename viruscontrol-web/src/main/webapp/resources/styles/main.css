@@ -67,3 +67,29 @@ div.mdl-layout__container > footer > div {
 form.usuarios > .ui-datatable > .ui-datatable-footer > .ui-panelgrid > .ui-widget-content{
 	background: transparent;
 }
+
+.box-home{
+	width: 30%;
+	float: left;
+	padding: 10px;
+	border: 1px solid #cac3c3;
+	margin:	2px 2px;
+}
+
+#slide-menu > ul{
+	padding: 0;
+	list-style-type: none;
+}
+#slide-menu > ul > li {
+	height: 38px;
+    border-bottom: 1px solid #b3b3b3;
+}
+#slide-menu > ul > li > a {
+	text-decoration: none;
+	line-height: 38px;
+	display: block;
+	color: #2e3436;
+}
+#slide-menu > ul > li > a:hover {
+	color: rgb(83,109,254);
+}
