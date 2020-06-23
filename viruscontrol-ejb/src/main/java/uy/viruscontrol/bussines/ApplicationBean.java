@@ -160,7 +160,7 @@ public class ApplicationBean implements ApplicationBeanLocal {
     			try {
     				ResultadoExamen resultado = sagProvExamen.obtenerResultadoExamen(caso.getId()); 
 					EstadoExamen estado = resultado.getResultado(); 
-					System.out.println("El examen esta: " + estado);
+					System.out.println("El examen "+caso.getId()+" esta: " + estado);
 					boolean update;
 					switch(estado) {
 						case NEGATIVO:
