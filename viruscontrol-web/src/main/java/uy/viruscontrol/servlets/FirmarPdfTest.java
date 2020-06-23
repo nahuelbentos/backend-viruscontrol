@@ -26,9 +26,12 @@ public class FirmarPdfTest extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		beanFirma.firmarPdf("/tmp/reportes/resultado_100.pdf");
+//		beanFirma.firmarPdf("/home/jhonatan/reportes/resultado_100.pdf");
+//		File f = new File("/home/jhonatan/reportes/firmados/resultado_100.pdf");
+//		FileInputStream fis = new FileInputStream(f);
+//		
 //		response.setContentType("application/pdf");
-//		response.setHeader("Content-Disposition", "attachment; filename=%2Fhome%2Fjhonatan%2Freportes%2Ffirmados%2Fresultado_100.pdf");
+//		response.setHeader("Content-Disposition", "attachment; filename="+f.getName()+"\"");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
