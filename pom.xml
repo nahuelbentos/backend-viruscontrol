@@ -94,7 +94,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <build>
+	<build>
         <plugins>
             <!--Configuration of the maven-compiler-plugin -->
             <plugin>
