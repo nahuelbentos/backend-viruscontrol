@@ -91,12 +91,12 @@ public class CasoDAO implements CasoDAOLocal {
 		
 		
 		if(ciudadano != null) {
-		casosCiudadano = em.createQuery("SELECT c FROM Caso c WHERE ciudadano = :ciudadano")
-				.setParameter("ciudadano", ciudadano)
-				.getResultList();
+			casosCiudadano = em.createQuery("SELECT c FROM Caso c WHERE ciudadano = :ciudadano")
+								.setParameter("ciudadano", ciudadano)
+								.getResultList();
 		}
 		for(Caso c : casosCiudadano) {
-			DtExamenCiudadano dtExamCiudadano = new DtExamenCiudadano(c.getExamen().getId(), c.getExamen().getNombre(),c.getTipoCaso());
+			DtExamenCiudadano dtExamCiudadano = new DtExamenCiudadano(c.getId(), c.getExamen().getNombre(),c.getTipoCaso());
 			examenesCiudadano.add(dtExamCiudadano);
 		}
 		
