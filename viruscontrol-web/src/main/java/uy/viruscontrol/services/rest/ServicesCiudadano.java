@@ -213,6 +213,7 @@ public class ServicesCiudadano {
 	@Consumes(MediaType.TEXT_PLAIN)
 	public Response actualizarTokenPushNotification(@HeaderParam("authorization") String token, String tokenPN) {
 		if (beanSesion.validateAuthentication(token)) {
+			tokenPN = tokenPN.replace("\"", "");
 			int idCiudadano = beanSesion.getUsuarioLogueado(token).getIdUsuario();
 			try {
 				beanCiudadano.actualizarTokenPushNotifications(idCiudadano, tokenPN);
