@@ -50,6 +50,16 @@ public class AuthRest implements IAuthRest {
 		} catch (Exception e) {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
+	}
+
+	@Override
+	public Response validoLogueo(String username) {
+		try {
+			String token = sessionEjb.getTokenByUsername(username);
+			return Response.status(Status.OK).entity(sessionEjb.validateAuthentication(token)).build();
+		} catch (Exception e) {
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
 	}	
 
 }
