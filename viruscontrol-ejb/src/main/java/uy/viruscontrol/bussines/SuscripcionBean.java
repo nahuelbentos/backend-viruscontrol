@@ -14,9 +14,11 @@ import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
 import uy.viruscontrol.bussines.interfaces.GerenteBeanLocal;
 import uy.viruscontrol.bussines.interfaces.SuscripcionBeanLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorRecurso;
+import uy.viruscontrol.model.dao.interfaces.RecursoProveedorDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.SuscripcionDAOLocal;
 import uy.viruscontrol.model.entities.ProveedorRecursos;
 import uy.viruscontrol.model.entities.Recurso;
+import uy.viruscontrol.model.entities.RecursoProveedor;
 import uy.viruscontrol.model.entities.Suscripcion;
 
 /**
@@ -31,6 +33,10 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
 	@EJB private ServiceAgentProveedorRecurso sa;
 	@EJB private GerenteBeanLocal gerenteBean;
 	@EJB private SuscripcionDAOLocal suscripcionDao;
+	@EJB private RecursoProveedorDAOLocal rpDao;
+	
+	
+	
     public SuscripcionBean() {
         // TODO Auto-generated constructor stub
     }
@@ -49,26 +55,34 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
     					}
     					for(Suscripcion s:suscripciones) {		//recorro suscripciones
     						
-    						
+    						System.out.println("s mail: "+s.getCiudadano().getCorreo());
+    						System.out.println("s barrio: "+s.getBarrio());
     					if(s.isNotificado()==false) {
     						
     						boolean notifique=false;
     						List<ProveedorRecursos> prs=sa.getProveedoresPeriferico(); //traigo los proveedores del periferico
+    						if (prs.isEmpty()) {
+    							//System.out.println("lista prov vacia");
+    						}
+    					//System.out.println("cantidad de proveedores"+prs.size());
+    						
     						for(ProveedorRecursos provR:prs) {//recorro los proveedores del periferico
+    						//	System.out.println("proveedor nombre: "+provR.getNombre());
+    							//System.out.println("prov codigo periferico "+provR.getCodigoPeriferico());
     							
-    							//System.out.println("barrio Proveedor: "+provR.getBarrio());
     							if(provR.getBarrio().contentEquals(s.getBarrio())) {	//me fijo si barrio del periferico es el barrio de la suscripcion
     								//System.out.println("el proveedor "+provR.getNombre() +"es del barrio de la suscripcion");
     								List<Recurso> recProv=sa.getRecursosProvPeriferico(provR.getCodigoPeriferico());//traigo los recursos del proveedor
     								for(Recurso r:recProv) {//recorro los recursos del proveedor
-    								//	System.out.println("nombre recurso del proveedor "+r.getNombre());
+    									
+    									//System.out.println("nombre recurso del proveedor "+r.getNombre());
     									
     									//System.out.println("stock del recurso "+sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico()));
-    									if(r.getNombre().contentEquals(s.getRecurso())) {
+    									if(r.getId()==s.getRecurso().getId()) {
     										//System.out.println("el recurso de la suscripcion esta en el proveedor del barrio");
     										//System.out.println("se mandara mail a "+s.getCiudadano().getCorreo());
     										
-    										//System.out.println("stock del recurso "+sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico()));
+    										System.out.println("stock del recurso "+sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico()));
     										if(sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico())>0) {//me fijo que haya stock del recurso
         										System.out.println("el recurso esta disponible en el barrio de la suscripcion");
     											gerenteBean.mandarMail(s.getCiudadano().getCorreo(), "Disponibilidad de Recurso", "Somos de VirusControlUY le comunicamos que hay disponibilidad del recurso: "+r.getNombre()+" en el proveedor: "+provR.getNombre()+" Stock:"+sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico()));
@@ -88,12 +102,40 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
     						if(notifique==true) {
     							s.setNotificado(true);
     							daoSuscripcion.merge(s);
+    						}else {
+    							System.out.println("Verificando base local");
+    							List<RecursoProveedor> rps=rpDao.findAll();
+    							for(RecursoProveedor rp:rps) {
+    								if(rp.getProveedor().getBarrio().contentEquals(s.getBarrio())) {
+    								/*	System.out.println("el barrio es el mismo");
+    									System.out.println("s.getrecurso "+s.getRecurso());
+    									System.out.println("rp.getRecurso.getnombre "+rp.getRecurso().getNombre());
+    								*/	
+    									if(rp.getRecurso().getId()==s.getRecurso().getId()) {
+    									//	System.out.println("el recurso es el mismo");
+    										if(rp.getCantidad()>0) {
+    											System.out.println("el recurso esta disponible en el proveedor del barrio");
+    											System.out.println("se procedera a mandar el mail");
+    											gerenteBean.mandarMail(s.getCiudadano().getCorreo(), "Disponibilidad de Recurso", "Somos de VirusControlUY le comunicamos que hay disponibilidad del recurso: "+rp.getRecurso().getNombre()+" en el proveedor: "+rp.getProveedor().getNombre()+" Stock: "+rp.getCantidad());
+    											s.setNotificado(true);
+    											daoSuscripcion.merge(s);
+    										}
+    									}
+    								}
+    							}
+    							
+    							
+    							
     						}
+    						
     					}
+    					
+    					
+    					
     					}
     					
     					System.out.println("el hilo de suscripcion esta corriendo");
-						Thread.sleep(1000000);
+						Thread.sleep(600000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

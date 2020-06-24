@@ -11,6 +11,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 import uy.viruscontrol.model.entities.PrestadoraSalud;
+import uy.viruscontrol.model.entities.Recurso;
 import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentFirebaseLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentPrestadoraSaludLocal;
@@ -95,14 +96,17 @@ public class CiudadanoBean implements CiudadanoBeanLocal {
 	}
 	
 	@Override
-	public void suscribirseARecurso(int idCiudadano,String barrio,String recurso) {
+	public void suscribirseARecurso(int idCiudadano,String barrio,int idRecurso) {
 		Ciudadano c=daoCiudadano.findById(idCiudadano);
+		Recurso r=daoRecurso.findById(idRecurso);
+				
 		
-		if (c!=null && recurso!=null && barrio!=null) {
+		
+		if (c!=null && r!=null && barrio!=null) {
 			Suscripcion s=new Suscripcion();
 			s.setBarrio(barrio);
 			s.setCiudadano(c);
-			s.setRecurso(recurso);
+			s.setRecurso(r);
 			s.setNotificado(false);
 			daoSuscripcion.persist(s);
 		}

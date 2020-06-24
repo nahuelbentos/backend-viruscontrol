@@ -73,6 +73,7 @@ public class CiudadanoBeanTest {
 		Mockito.doNothing().when(mockedBeanLocalCiudadano).suscribirseARecurso(Mockito.isA(Integer.class), Mockito.isA(String.class),Mockito.isA(String.class));
 		mockedBeanLocalCiudadano.suscribirseARecurso(0, "", "");
 		Mockito.verify(mockedBeanLocalCiudadano, Mockito.times(1)).suscribirseARecurso(0,"","");
+		
 	}
 
 	@Test
