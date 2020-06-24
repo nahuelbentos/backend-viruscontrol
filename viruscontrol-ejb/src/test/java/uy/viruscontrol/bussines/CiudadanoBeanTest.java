@@ -70,9 +70,9 @@ public class CiudadanoBeanTest {
 	public void testSuscribirseARecurso() {
 		//Stubbing de void methods
 		//Mockito.doThrow(new RuntimeException()).when(mockedBeanLocalCiudadano).suscribirseARecurso(105, "Centro", "Recurso 1");
-		Mockito.doNothing().when(mockedBeanLocalCiudadano).suscribirseARecurso(Mockito.isA(Integer.class), Mockito.isA(String.class),Mockito.isA(String.class));
-		mockedBeanLocalCiudadano.suscribirseARecurso(0, "", "");
-		Mockito.verify(mockedBeanLocalCiudadano, Mockito.times(1)).suscribirseARecurso(0,"","");
+		Mockito.doNothing().when(mockedBeanLocalCiudadano).suscribirseARecurso(Mockito.isA(Integer.class), Mockito.isA(String.class),Mockito.isA(Integer.class));
+		mockedBeanLocalCiudadano.suscribirseARecurso(0, "", 0);
+		Mockito.verify(mockedBeanLocalCiudadano, Mockito.times(1)).suscribirseARecurso(0,"",0);
 		
 	}
 
