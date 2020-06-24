@@ -13,7 +13,7 @@ insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (
 --insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (300, 'Tapabocas', 300, null);
 insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (400, 'Aspirina', 400, 12);
 insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (500, 'Livopen', 500, 9);
-insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (600, 'Alcohol isopropilico', 400, 1);
+insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (600, 'Alcohol isopropilico', 400, 2);
 insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (700, 'Lisoform', 600, 3);
 insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (800, 'Lavandina', 600, 4);
 insert into public.recurso(id, nombre, tipo_recurso, codigo_periferico) values (900, 'Mr Musculo', 600, 5);
@@ -88,6 +88,16 @@ insert into proveedor(proveedor_tipo, id, nombre, ciudad, barrio, direccion, ran
 insert into proveedor(proveedor_tipo, id, nombre, ciudad,  barrio , direccion, rangohorario,deleted) values('EXAMEN', 400, 'BillGates Foundation','Montevideo', 'Malvin','Amazonas 1456 apto 402','24 hs',false);
 insert into proveedor(proveedor_tipo, id, nombre, ciudad,  barrio, direccion,  rangohorario,deleted) values ('EXAMEN', 500, 'Algun prov', 'Montevideo','Centro', 'Canelones 2222', '24 hs',false);
 
+--RecursoProveedor
+insert into public.recurso_proveedor(cantidad,id_proveedor,id_recurso) values(22,100,200);
+insert into public.recurso_proveedor(cantidad,id_proveedor,id_recurso) values(35,100,600);
+insert into public.recurso_proveedor(cantidad,id_proveedor,id_recurso) values(35,200,700);
+insert into public.recurso_proveedor(cantidad,id_proveedor,id_recurso) values(22,200,800);
+insert into public.recurso_proveedor(cantidad,id_proveedor,id_recurso) values(60,600,800);
+insert into public.recurso_proveedor(cantidad,id_proveedor,id_recurso) values(55,600,900);
+insert into public.recurso_proveedor(cantidad,id_proveedor,id_recurso) values(105,700,1000);
+insert into public.recurso_proveedor(cantidad,id_proveedor,id_recurso) values(105,700,1100);
+insert into public.recurso_proveedor(cantidad,id_proveedor,id_recurso) values(245,800,1200);
 -- PrestadoraSalud
 insert into prestadora_salud (id, nombre, deleted, id_prestadora_rucaf) values (100, 'Servicio Medico Integral - SMI', false,1);
 insert into prestadora_salud (id, nombre, deleted, id_prestadora_rucaf) values (101, 'Medica Uruguaya', false,2);
@@ -156,7 +166,7 @@ insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, 
 insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, departamento_id,enfermedad_id, examen_id, medico_id,proveedorexamen_id, notificacion_enviada ) values(1100,'2020-5-5 00:00:00','2020-6-15 00:00:00',1,110,300,600, 600,103,300,false);
 
 --Suscripciones
---insert into suscripcion(id,ciudadano_id,barrio,recurso) values(100,102,'Centro','Lavandina');
+insert into suscripcion(id,ciudadano_id,barrio,recurso,notificado) values(100,102,'Cerrito','Repelente off',false);
 
 --Configuracion de notificaciones
 INSERT INTO configuracion_notificaciones(tipo, notificarciudadano, notificargerentes, notificarmedico) VALUES ('CAMBIOESTADOCASO', true, false, true);
