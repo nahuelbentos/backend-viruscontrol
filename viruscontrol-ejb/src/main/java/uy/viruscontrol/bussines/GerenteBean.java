@@ -13,7 +13,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.ws.rs.core.MediaType;
@@ -21,7 +20,6 @@ import javax.ws.rs.core.MediaType;
 import uy.viruscontrol.bussines.enumerated.TipoNotificacion;
 import uy.viruscontrol.bussines.interfaces.GerenteBeanLocal;
 import uy.viruscontrol.bussines.interfaces.GerenteBeanRemote;
-import uy.viruscontrol.model.dao.impl.ConfiguracionNotificacionesDAO;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
 import uy.viruscontrol.model.dao.interfaces.ConfiguracionNotificacionesDAOLocal;
 import uy.viruscontrol.model.entities.Caso;
@@ -65,8 +63,6 @@ public class GerenteBean implements GerenteBeanRemote, GerenteBeanLocal {
         propiedad.setProperty("mail.smtp.port", "587");
         propiedad.setProperty("mail.smtp.auth","true");
         
-
-        
         Session sesion = Session.getDefaultInstance(propiedad);
         String correoEnvia = "javierms17dos@gmail.com";
         String contrasena = "12548175309271";
@@ -85,21 +81,15 @@ public class GerenteBean implements GerenteBeanRemote, GerenteBeanLocal {
             for (String receptor : receptores)
             	mail.addRecipient(Message.RecipientType.TO, new InternetAddress (receptor));
             
-            
             mail.setContent(htmlMessage, MediaType.TEXT_HTML);
             
             Transport transportar = sesion.getTransport("smtp");
             transportar.connect(correoEnvia,contrasena);
             transportar.sendMessage(mail, mail.getRecipients(Message.RecipientType.TO));          
             transportar.close();
-            
-           
-            
-            
-        } catch (AddressException ex) {
-            System.out.println("error al mandar mail");
         } catch (MessagingException ex) {
-           System.out.println("error al mandar mail");
+            System.out.println("["+getClass().getCanonicalName()+"] ERROR: No se pudo enviar el mail. "+ex.getMessage());
+//            ex.printStackTrace();
         }
     }
     
@@ -121,29 +111,18 @@ public class GerenteBean implements GerenteBeanRemote, GerenteBeanLocal {
     
     @Override
     public void configurarNotificacion(boolean notificarCiudadano,boolean notificarMedico,boolean notificarGerentes,TipoNotificacion tipo) {
-    	
     	ConfiguracionNotificaciones confNot=confDao.findById(tipo);
     	if(confNot!=null) {
-    		
     		confNot.setNotificarCiudadano(notificarCiudadano);
-
     		confNot.setNotificarGerentes(notificarGerentes);
-
     		confNot.setNotificarMedico(notificarMedico);
-    		
     		confDao.merge(confNot);
-    		
     	}
-    		
-    	
     }
     
     @Override
     public List<ConfiguracionNotificaciones> obtenerConfuracionNotificacion() {
-    	
     	return confDao.findAll();
-    	
-    	
     }
     
 }

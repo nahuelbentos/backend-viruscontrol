@@ -41,7 +41,7 @@
             <artifactId>viruscontrol-web</artifactId>
             <type>war</type>
         </dependency>
-    </dependencies>
+     </dependencies>
 
     <build>
         <finalName>${project.parent.artifactId}</finalName>

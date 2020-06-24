@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentFirebaseLocal;
 import uy.viruscontrol.model.dao.interfaces.CasoDAOLocal;
-import uy.viruscontrol.model.entities.Caso;
+import uy.viruscontrol.model.dao.interfaces.CiudadanoDAOLocal;
+import uy.viruscontrol.model.entities.Ciudadano;
 import uy.viruscontrol.utils.firebase.NotificationInfo;
 import uy.viruscontrol.utils.firebase.NotificationInfoData;
 import uy.viruscontrol.utils.firebase.NotificationPriority;
@@ -23,17 +24,21 @@ public class ServiceAgentFirebaseTest extends HttpServlet {
 	
 	@EJB private CasoDAOLocal daoCaso;
     @EJB private ServiceAgentFirebaseLocal saFirebase;
+    @EJB private CiudadanoDAOLocal daoCiudadano;
     
     public ServiceAgentFirebaseTest() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Caso c = daoCaso.findById(100);
-		NotificationInfo notificacion = new NotificationInfo(c.getCiudadano().getTokenPushNotifications(), NotificationPriority.normal,
-						new NotificationInfoData("Resultado de examen disponible", 
-												"El resultado del examen "+c.getId()+" es PRUEBA"));
-		saFirebase.sendPushNotification(notificacion);
+		int idC = Integer.parseInt(request.getParameter("idC"));
+		Ciudadano c = daoCiudadano.findById(idC);
+		if (c != null && c.getTokenPushNotifications() != null && !c.getTokenPushNotifications().equals("")) {
+			NotificationInfo notificacion = new NotificationInfo(c.getTokenPushNotifications(), NotificationPriority.normal,
+							new NotificationInfoData("Te notifico desde el Servlet", 
+													"Sabelo que funcan las notif papei"));
+			saFirebase.sendPushNotification(notificacion);
+		}
 		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}

@@ -160,7 +160,7 @@ public class ApplicationBean implements ApplicationBeanLocal {
     			try {
     				ResultadoExamen resultado = sagProvExamen.obtenerResultadoExamen(caso.getId()); 
 					EstadoExamen estado = resultado.getResultado(); 
-					System.out.println("El examen esta: " + estado);
+					System.out.println("El examen "+caso.getId()+" esta: " + estado);
 					boolean update;
 					switch(estado) {
 						case NEGATIVO:
@@ -215,10 +215,10 @@ public class ApplicationBean implements ApplicationBeanLocal {
 					gerenteBean.mandarMail(it.getCiudadano().getCorreo(), asunto, notifCasoMensajeHtml(it.getCiudadano().getNombre()+" "+it.getCiudadano().getApellido(), it.getId(), it.getEnfermedad().getNombre(), it.getTipoCaso().toString()));
 				
 				if (configuracion.isNotificarMedico() && it.getMedico() != null && it.getMedico().getCorreo() != null)
-					gerenteBean.mandarMail(it.getMedico().getCorreo(), asunto, notifCasoMensajeHtml(it.getCiudadano().getNombre()+" "+it.getCiudadano().getApellido(), it.getId(), it.getEnfermedad().getNombre(), it.getTipoCaso().toString()));
+					gerenteBean.mandarMail(it.getMedico().getCorreo(), asunto, notifCasoMensajeHtml("Dr/a "+it.getMedico().getNombre()+" "+it.getMedico().getApellido(), it.getId(), it.getEnfermedad().getNombre(), it.getTipoCaso().toString()));
 				
 				if (configuracion.isNotificarGerentes())
-					gerenteBean.mandarMail(correosGerentes, asunto, notifCasoMensajeHtml(it.getCiudadano().getNombre()+" "+it.getCiudadano().getApellido(), it.getId(), it.getEnfermedad().getNombre(), it.getTipoCaso().toString()));
+					gerenteBean.mandarMail(correosGerentes, asunto, notifCasoMensajeHtml("Gte/a ", it.getId(), it.getEnfermedad().getNombre(), it.getTipoCaso().toString()));
 				
 				it.setNotificacionEnviada(true);
 				casoDAO.merge(it);
@@ -228,7 +228,7 @@ public class ApplicationBean implements ApplicationBeanLocal {
 	}
     
     private String notifCasoMensajeHtml(String nombre, int idCaso, String enfermedad, String estado) {
-    	return "<p>Estimado "+nombre+",</p>"+
+    	return "<p>Estimado/a "+nombre+",</p>"+
     			"<p>Notificamos mediante este correo que se ha presentado un cambio en el caso número "+idCaso+".</p>"+
     			"<p>Enfermedad: "+enfermedad+"</p>"+
     			"<p>Nuevo estado: "+estado+"</p>"+

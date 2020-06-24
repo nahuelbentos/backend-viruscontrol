@@ -1,5 +1,8 @@
 package uy.viruscontrol.services.rest;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +21,7 @@ import javax.ws.rs.core.Response.Status;
 
 import uy.viruscontrol.bussines.interfaces.CiudadanoBeanLocal;
 import uy.viruscontrol.bussines.interfaces.EnfermedadBeanLocal;
+import uy.viruscontrol.bussines.interfaces.FirmaDigitalLocal;
 import uy.viruscontrol.bussines.interfaces.PrestadorBeanLocal;
 import uy.viruscontrol.bussines.interfaces.SessionBeanLocal;
 import uy.viruscontrol.bussines.serviceagents.ServiceAgentProveedorExamenLocal;
@@ -26,6 +30,7 @@ import uy.viruscontrol.model.entities.Sintoma;
 import uy.viruscontrol.model.entities.Suscripcion;
 import uy.viruscontrol.model.entities.Ubicacion;
 import uy.viruscontrol.utils.DtSuscripcion;
+import uy.viruscontrol.utils.ResultadoExamen;
 
 @ApplicationScoped
 @Path("/ciudadano")
@@ -36,7 +41,7 @@ public class ServicesCiudadano {
 	@EJB private SessionBeanLocal beanSesion;
 	@EJB private ServiceAgentProveedorExamenLocal saProvExamenLocal;
 	@EJB private SuscripcionDAOLocal daoSuscripcion;
-	
+	@EJB private FirmaDigitalLocal beanFirma;
 	
 	@GET
 	@Path("/visita/sintomas")
@@ -94,6 +99,34 @@ public class ServicesCiudadano {
 		else
 			return Response.status(Status.UNAUTHORIZED).build();
 	}
+	
+	@GET
+	@Path("/resultado/pdf/{idcaso}")
+	@Produces("application/pdf")
+	public Response obtenerResultadoDeExamenEnPdf(@HeaderParam("authorization") String token, @PathParam("idcaso") int idCaso) {
+		if (beanSesion.validateAuthentication(token)) {
+			ResultadoExamen resEx;
+			try {
+				resEx = saProvExamenLocal.obtenerResultadoExamen(idCaso);
+				String signed = beanFirma.firmarPdf(resEx.getPathPdf());
+				if (!signed.isEmpty()) {
+					File f = new File(signed);
+					FileInputStream fis = new FileInputStream(f);
+					
+					return Response.status(Status.OK).entity((Object) fis)
+							.type("application/pdf")
+							.header("Content-Disposition", "filename="+f.getName())
+							.build();
+				} else
+					return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+			} catch (IOException e) {
+				//e.printStackTrace();
+				return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+			}
+		} else
+			return Response.status(Status.UNAUTHORIZED).build();
+	}
+	
 	//http://localhost:8080/viruscontrol-web/rest/ciudadano/obtenerBarrios
 	@GET
 	@Path("/obtenerBarrios")
@@ -180,6 +213,7 @@ public class ServicesCiudadano {
 	@Consumes(MediaType.TEXT_PLAIN)
 	public Response actualizarTokenPushNotification(@HeaderParam("authorization") String token, String tokenPN) {
 		if (beanSesion.validateAuthentication(token)) {
+			tokenPN = tokenPN.replace("\"", "");
 			int idCiudadano = beanSesion.getUsuarioLogueado(token).getIdUsuario();
 			try {
 				beanCiudadano.actualizarTokenPushNotifications(idCiudadano, tokenPN);

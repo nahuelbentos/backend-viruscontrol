@@ -27,7 +27,7 @@ public class FirmaDigital implements FirmaDigitalLocal {
 	}
 
 	@Override
-	public void firmarPdf(String pdfPath) {
+	public String firmarPdf(String pdfPath) {
 		if (pdfPath != null && !pdfPath.equals("")) {
 			File f = new File(pdfPath);
 			String signedPdfName = f.getParent()+"/firmados/"+f.getName();
@@ -58,10 +58,13 @@ public class FirmaDigital implements FirmaDigitalLocal {
 				
 				pdDocument.close();
 				System.out.println("PDF firmado y guardado como: "+signedPdfName);
+				return signedPdfName;
 	 		} catch (Exception e) {
-				 e.printStackTrace();
-//				System.out.println("["+getClass().getCanonicalName()+"] ERROR: No se pudo completar la firma del archivo. Para ver mas información habilitar la traza y replicar el error.");
+//				 e.printStackTrace();
+				System.out.println("["+getClass().getCanonicalName()+"] ERROR: No se pudo completar la firma del archivo. Para ver mas información habilitar la traza y replicar el error.");
+				return "";
 			}
-		}
+		} else
+			return "";
 	}	
 }
