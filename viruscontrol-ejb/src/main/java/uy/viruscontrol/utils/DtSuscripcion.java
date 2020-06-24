@@ -9,30 +9,34 @@ public class DtSuscripcion implements Serializable {
 	private static final long serialVersionUID = -9173713752775926331L;
 	
 	private String barrio;
-	private String recurso;
+	private int idRecurso;
 	
 	public DtSuscripcion() {
 		super();
 	}
-	
-	public DtSuscripcion(int ciudadanoId, String barrio, String recurso) {
+
+	public DtSuscripcion(String barrio, int idRecurso) {
 		super();
 		this.barrio = barrio;
-		this.recurso = recurso;
+		this.idRecurso = idRecurso;
 	}
-	
+
 	public String getBarrio() {
 		return barrio;
 	}
+
 	public void setBarrio(String barrio) {
 		this.barrio = barrio;
 	}
-	public String getRecurso() {
-		return recurso;
+
+	public int getIdRecurso() {
+		return idRecurso;
 	}
-	public void setRecurso(String recurso) {
-		this.recurso = recurso;
+
+	public void setIdRecurso(int idRecurso) {
+		this.idRecurso = idRecurso;
 	}
+	
 	
 	
 	

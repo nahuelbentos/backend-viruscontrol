@@ -31,8 +31,8 @@ public class Suscripcion implements Serializable {
 	@Column(name="barrio")
 	private String	barrio;
 	
-	@Column(name="recurso")
-	private String recurso;
+	@ManyToOne
+	private Recurso recurso;
 	
 	@Column(name="notificado")
 	private boolean notificado;
@@ -42,19 +42,25 @@ public class Suscripcion implements Serializable {
 		super();
 	}
 	
-	public Suscripcion(int id, Ciudadano ciudadano, String barrio, String recurso) {
+	
+
+
+	public Suscripcion(int id, Ciudadano ciudadano, String barrio, Recurso recurso, boolean notificado) {
 		super();
 		this.id = id;
 		this.ciudadano = ciudadano;
 		this.barrio = barrio;
 		this.recurso = recurso;
+		this.notificado = notificado;
 	}
 
-	
+
+
 
 	public Ciudadano getCiudadano() {
 		return ciudadano;
 	}
+
 
 
 
@@ -64,9 +70,11 @@ public class Suscripcion implements Serializable {
 
 
 
+
 	public String getBarrio() {
 		return barrio;
 	}
+
 
 
 
@@ -76,15 +84,18 @@ public class Suscripcion implements Serializable {
 
 
 
-	public String getRecurso() {
+
+	public Recurso getRecurso() {
 		return recurso;
 	}
 
 
 
-	public void setRecurso(String recurso) {
+
+	public void setRecurso(Recurso recurso) {
 		this.recurso = recurso;
 	}
+
 
 
 

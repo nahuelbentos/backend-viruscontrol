@@ -78,7 +78,7 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
     									//System.out.println("nombre recurso del proveedor "+r.getNombre());
     									
     									//System.out.println("stock del recurso "+sa.getStockDisponible(provR.getCodigoPeriferico(),r.getCodigoPeriferico()));
-    									if(r.getNombre().contentEquals(s.getRecurso())) {
+    									if(r.getId()==s.getRecurso().getId()) {
     										//System.out.println("el recurso de la suscripcion esta en el proveedor del barrio");
     										//System.out.println("se mandara mail a "+s.getCiudadano().getCorreo());
     										
@@ -103,11 +103,16 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
     							s.setNotificado(true);
     							daoSuscripcion.merge(s);
     						}else {
-    							System.out.println("Verificando baselocal");
+    							System.out.println("Verificando base local");
     							List<RecursoProveedor> rps=rpDao.findAll();
     							for(RecursoProveedor rp:rps) {
     								if(rp.getProveedor().getBarrio().contentEquals(s.getBarrio())) {
-    									if(rp.getRecurso().getNombre().contentEquals(s.getRecurso())) {
+    								/*	System.out.println("el barrio es el mismo");
+    									System.out.println("s.getrecurso "+s.getRecurso());
+    									System.out.println("rp.getRecurso.getnombre "+rp.getRecurso().getNombre());
+    								*/	
+    									if(rp.getRecurso().getId()==s.getRecurso().getId()) {
+    									//	System.out.println("el recurso es el mismo");
     										if(rp.getCantidad()>0) {
     											System.out.println("el recurso esta disponible en el proveedor del barrio");
     											System.out.println("se procedera a mandar el mail");
@@ -130,7 +135,7 @@ public class SuscripcionBean implements SuscripcionBeanLocal {
     					}
     					
     					System.out.println("el hilo de suscripcion esta corriendo");
-						Thread.sleep(300000);
+						Thread.sleep(600000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

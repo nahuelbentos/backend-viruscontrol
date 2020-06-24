@@ -109,6 +109,7 @@ insert into examen(id,nombre,enfermedad_id) values(300,'Detectar Bacillus anthra
 insert into examen(id,nombre,enfermedad_id) values(400,'MAC ELISA ',300);
 insert into examen(id,nombre,enfermedad_id) values(500,'Hisopado N2 ',500);
 insert into examen(id,nombre,enfermedad_id) values(600,'Hisopado N3 ',600);
+insert into examen(id,nombre,enfermedad_id) values(700,'HBsAg',700);
 
 --proveedorexamen-examen
 insert into proveedorexamen_examen(id_proveedor, id_examen) values (300,100);
@@ -166,7 +167,7 @@ insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, 
 insert into caso (id,fecha_confirmado, fecha_sospechoso, tipocaso,ciudadano_id, departamento_id,enfermedad_id, examen_id, medico_id,proveedorexamen_id, notificacion_enviada ) values(1100,'2020-5-5 00:00:00','2020-6-15 00:00:00',1,110,300,600, 600,103,300,false);
 
 --Suscripciones
-insert into suscripcion(id,ciudadano_id,barrio,recurso,notificado) values(100,102,'Cerrito','Repelente off',false);
+--insert into suscripcion(id,ciudadano_id,barrio,recurso_id,notificado) values(100,102,'Aguada',1200,false);
 
 --Configuracion de notificaciones
 INSERT INTO configuracion_notificaciones(tipo, notificarciudadano, notificargerentes, notificarmedico) VALUES ('CAMBIOESTADOCASO', true, false, true);

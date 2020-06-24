@@ -150,9 +150,8 @@ public class ServicesCiudadano {
 	public Response suscribirseARecurso(DtSuscripcion s,@HeaderParam("authorization") String token) {
 		/*
    		{
-       
         "barrio": "Centro",
-        "recurso": "alcohol en gel"
+        "idRecurso": "100"
     	}
 		 
 		System.out.println("ciudadanoId "+s.getCiudadanoId());
@@ -163,7 +162,7 @@ public class ServicesCiudadano {
 		if (beanSesion.validateAuthentication(token)) {
 			int idCiudadano = beanSesion.getUsuarioLogueado(token).getIdUsuario();
 			try {
-				beanCiudadano.suscribirseARecurso(idCiudadano, s.getBarrio(), s.getRecurso());
+				beanCiudadano.suscribirseARecurso(idCiudadano, s.getBarrio(), s.getIdRecurso());
 				return Response.status(Status.OK).build();
 		
 			} catch (Exception e) {
@@ -185,7 +184,7 @@ public class ServicesCiudadano {
 			DtSuscripcion dts=new DtSuscripcion();
 			dts.setBarrio(s.getBarrio());
 		
-			dts.setRecurso(s.getRecurso());
+		//	dts.setRecurso(s.getRecurso());
 			listdts.add(dts);
 		}
 		return listdts;

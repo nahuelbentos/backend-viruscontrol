@@ -16,11 +16,12 @@ import uy.viruscontrol.utils.firebase.NotificationPriority;
 public interface CiudadanoBeanLocal {
 	public DtVisita solicitarMedicoADomicilio(int idCiudadano, List<Sintoma> sintomas);
 	List<DtExamenCiudadano> obtenerExamenesCiudadano(int idCiudadano);
-	void suscribirseARecurso(int idCiudadano, String barrio,String recurso);
+	void suscribirseARecurso(int idCiudadano, String barrio,int idRecurso);
 	List<String> obtenerBarrios();
 	List<String> obtenerCiudades();
 	public void reportarUbicacion(Ubicacion ubicacion, int idCiudadano);
 	public void actualizarTokenPushNotifications(int idCiudadano, String token);
 	public void sendPushNotification(int idCiudadano, String titulo, String texto, NotificationPriority prioridad);
 	public HashMap<Integer, Ciudadano> obtenerCiudadanosEnfermos();
+	
 }
