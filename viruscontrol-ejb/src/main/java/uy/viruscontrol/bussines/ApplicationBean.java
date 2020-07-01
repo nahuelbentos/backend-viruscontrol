@@ -61,9 +61,9 @@ import uy.viruscontrol.utils.firebase.NotificationPriority;
 @Local(ApplicationBeanLocal.class)
 public class ApplicationBean implements ApplicationBeanLocal {
 
-	private static final long UNA_HORA = 3600000;
-	private static final int NCC_SLEEP = 300000;
-	private static final int NPC_SLEEP = 900000;
+	private static final long UNA_HORA = 180000;//3600000;
+	private static final int NCC_SLEEP = 60000;//300000;
+	private static final int NPC_SLEEP = 120000;//900000;
 	private static final int MINUTES_TO_FILTER = (NPC_SLEEP + 120000) / 1000 / 60; //siempre serán dos minutos mas que lo que se setea para dormir al thread
 	private static final double RADIO_DE_LA_TIERRA = 6371; //radio de la tierra en km
 	private static final double COEFICIENTE = 1000; //coeficiente para obtener la distancia en metros

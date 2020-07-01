@@ -35,8 +35,8 @@ public class ServiceAgentFirebaseTest extends HttpServlet {
 		Ciudadano c = daoCiudadano.findById(idC);
 		if (c != null && c.getTokenPushNotifications() != null && !c.getTokenPushNotifications().equals("")) {
 			NotificationInfo notificacion = new NotificationInfo(c.getTokenPushNotifications(), NotificationPriority.normal,
-							new NotificationInfoData("Te notifico desde el Servlet", 
-													"Sabelo que funcan las notif papei"));
+							new NotificationInfoData("VirusControlUY", 
+													"Prueba de Notificaciones Push mediante Firebase"));
 			saFirebase.sendPushNotification(notificacion);
 		}
 		
