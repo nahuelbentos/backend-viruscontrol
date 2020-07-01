@@ -69,9 +69,14 @@ public class MapaInteractivoBean implements MapaInteractivoBeanLocal {
 			
 			
 			if (enfStr == null || !caso.getEnfermedad().getNombre().equals(enfStr)) {
-				//if (enfStr != null)
-				//	dpto.addEnfermedad(enf);
-			
+				if (enfStr != null) {
+					casosEnMapa.setCantidad(cantidad);
+					enf.addCaso(casosEnMapa);
+					dpto.addEnfermedad(enf);
+					enfStr = null;
+					tipoCasos = null;
+					cantidad = 0;
+				}
 				enf = new EnfermedadEnMapa();
 				enf.setNombreEnfermedad(caso.getEnfermedad().getNombre());
 				
@@ -79,13 +84,16 @@ public class MapaInteractivoBean implements MapaInteractivoBeanLocal {
 			
 			
 			if (tipoCasos == null || !caso.getTipoCaso().equals(tipoCasos)) {
-				//if (tipoCasos != null) {
-				//	casosEnMapa.setCantidad(cantidad);
-				//	enf.addCaso(casosEnMapa);
+				if (tipoCasos != null) {
+					
+					casosEnMapa.setCantidad(cantidad);
+					enf.addCaso(casosEnMapa);
+					cantidad = 0;
+					tipoCasos = null;
 				//	
 				//	System.out.println("Agregue el los casos: "+casosEnMapa.getCantidad()+ ' ' +casosEnMapa.getCasoTipo());
 				//	
-				//}
+				}
 					
 					
 				casosEnMapa = new CasoEnMapa();
